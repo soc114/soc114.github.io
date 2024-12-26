@@ -1,0 +1,14 @@
+---
+title: "Forms"
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+If you are missing class, here is a form where you can tell us!
+
+- [Assignment extension form](https://docs.google.com/forms/d/e/1FAIpQLScQQ2m1aO_QY8SjjIB0mdiNHOEvl29t84jLMQzMXc3mnBAH4A/viewform?usp=sf_link) to request an assignment extension that does not count against flex days under exceptional circumstances
+- [Regrade request form](https://docs.google.com/forms/d/e/1FAIpQLSczv-ThreXgjcBJP3kedlX8bJW_OHpDCEsyfJG87-E5N8NCVg/viewform?usp=sf_link) to be submitted within 72 hours of grade post if you think we have graded something wrong
+- [Excused absence form](https://docs.google.com/forms/d/e/1FAIpQLSc0-bu6tZjii3VAzJdL9JiayywoWC14U4xXrWgwjIqwA7Maxg/viewform). To request an excused absence from lecture or discussion
+- [Lecture make-up form](https://forms.gle/1gh7irUBoDRgmTNW9). This will be almost never used! This is for lectures that are missed which we haven't excused. Talk to a TA before doing this form

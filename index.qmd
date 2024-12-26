@@ -1,0 +1,21 @@
+---
+title: "Studying Social Inequality with Data Science"
+subtitle: Cornell INFO [3370](https://classes.cornell.edu/browse/roster/SP24/class/INFO/3370) / [5371](https://classes.cornell.edu/browse/roster/SP24/class/INFO/5371) (Spring '24)
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+Together, we will generate new knowledge about social inequality using the tools of data science
+
+## Learning goals
+
+As a result of participating in this course, students will be able to
+
+- visualize economic inequality with graphs that summarize survey data
+- connect theories about inequality to quantitative empirical evidence
+- evaluate the effects of hypothetical interventions to reduce inequality
+- conduct data analysis using the R programming language
+
+{{< video https://www.youtube.com/embed/h6wocn6LT9g >}}

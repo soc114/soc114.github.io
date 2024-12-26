@@ -1,0 +1,22 @@
+---
+title: "Office Hours"
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+Check the post pinned on [Ed Discussion](https://edstem.org/us/courses/54550/) to see any week-specific changes to the schedule.
+
+| Person | Time | Location |
+|---|---|---|
+| Stacy | M 12--1pm | Rhodes 402 |
+| Joanne | M 1--2pm (canceled 2/19) | Rhodes 408 | 
+| Chang | M 3--4pm | Rhodes 408 |
+| Ian | T 10--11am | Gates 223 |
+| Liz | W 12:30--1:30pm | Rhodes 402 |
+| Daniel | W 1--2pm | Rhodes 406 |
+| Fede | W 2--3pm | Rhodes 406 |
+| Olaf | W 3--4pm | Rhodes 406 |
+| Jonathan | Th 1--2pm | Uris G44 |
+| Akira | Th 3:30--4:30pm | Zoom |
