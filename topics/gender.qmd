@@ -1,0 +1,16 @@
+---
+title: "Gender"
+---
+
+We focused on gender inequality in the process of learning data transformation for [Problem Set 2](../assignments/pset2.qmd). We will not have an additional module focused solely on gender.
+
+In [Problem Set 2](../assignments/pset2.qmd), we saw that men's and women's labor market outcomes converged rapidly in the mid-20th century, but convergence has slowed in recent decades. One explanation for the slowed gender convergence is that change has been asymmetric: while women have moved into roles historically reserved for men (e.g., engineer), men have not made as many moves into roles historically reserved for women (e.g., preschool teacher).
+
+We also discussed how gender is a social construct. While there are many gender identities, surveys often record only the responses "men" and "women." We have proceeded to use these responses, categorizing people as those who identify as men and those who identify as women. In decades to come, we expect that survey research will change to measure a broader spectrum of gender identities.
+
+If you want to work on gender inequality in your final project, a good starting point is the paper we discussed in [Problem Set 2](../assignments/pset2.qmd).
+
+> England, Paula, Andrew Levine, and Emma Mishel. 2020. [Progress toward
+> gender equality in the United States has slowed or
+> stalled,](https://www.pnas.org/doi/full/10.1073/pnas.1918891117) PNAS
+> 117(13):6990–6997.

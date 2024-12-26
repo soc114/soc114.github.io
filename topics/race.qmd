@@ -1,0 +1,77 @@
+---
+title: "Race"
+---
+
+This section of the course discusses racial residential segregation, its political origins, and the implications for racial wealth inequality today.
+
+::: {.callout-tip}
+# Talking about race
+Race is a social construct, with a meaning that differs across time and place. It may feel personal. The labels we use (e.g., "Black") are themselves the result of contentious political processes that created government surveys. As we use survey data, it is often helpful to refer to the categories with phrases such as "people who identify as Black" to recognize that these are categories that people chose among a set of options. Our class brings many identities and experiences to this task, all of which are valuable and can help us learn.
+:::
+
+## Mapping racial segregation
+
+In discussion, we will use [Social Explorer](http://resolver.library.cornell.edu/misc/6268440) to map racial residential segregation across neighborhoods.
+
+- work in sets of 2 or 3 students
+- create one or more maps that tell a story
+- present to another group at the end of discussion
+
+Logistically, here are some guidelines
+
+- Visit [Social Explorer](http://resolver.library.cornell.edu/misc/6268440)
+- Click "Explore" under United States
+- Click "Change Data" in the top left
+- Choose "Race" -> "Black or African American Alone"
+- Zoom in on a place of your choosing. What do you see about segregation?
+     - You may have to the geography level from "by County" to "by Tract"
+- If you finish, look at other time periods, places, or data categories. Try to tell a story using your map
+- At the end of discussion, you will present what you found 
+
+{{< video https://www.youtube.com/embed/NRGLFRLFCOQ >}}
+
+## Political origins of segregation
+
+[[slides]](../slides/lec7/lec7.pdf)
+
+In lecture on 3/12, we will cover the political origins of racial residential segregation. We will see how explicit policies at both the federal and local level created the segregation that you observed in discussion.
+
+{{< video https://www.youtube.com/embed/PMhKhfhgaP4 >}}
+
+## Wealth implications of residential segregation
+
+After discussing residential segregation, we will discuss its implications for the racial wealth gap. Below is the code used during lecture to estimate the gap using data from the Survey of Consumer Finances, which we accessed via the [Berkeley Survey Documentation and Analysis](https://sda.berkeley.edu/sdaweb/analysis/?dataset=scfcomb2022) website.
+
+```{r, echo = F, message = F, comment = F, warning = F}
+library(tidyverse)
+data <- read_csv("../data/scf.csv")
+```
+
+```{r, eval = F}
+data <- read_csv("https://info3370.github.io/data/scf.csv")
+```
+
+We recode and rename some variables.
+```{r}
+data_prepared <- data |>
+  mutate(race = case_when(RACE == 1 ~ "White",
+                          RACE == 2 ~ "Black",
+                          RACE == 3 ~ "Hispanic",
+                          RACE == 4 ~ "Asian",
+                          RACE == 5 ~ "Other"),
+         wealth = NETWORTH) %>%
+  rename(weight = WGT) %>%
+  select(race, wealth, weight)
+```
+
+Then we calculate median wealth in each racial category and report a ratio.
+```{r}
+results <- data_prepared |>
+  group_by(race) |>
+  summarize(wealth = Hmisc::wtd.quantile(wealth, weights = weight, probs = .5)) |>
+  pivot_wider(names_from = "race", values_from = "wealth") |>
+  mutate(ratio = White / Black) |>
+  print()
+```
+
+Thus we estimate that the median white household has `r scales::label_dollar()(results$ratio)` for each \$1 held by the median Black household.

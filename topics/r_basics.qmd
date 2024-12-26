@@ -1,0 +1,13 @@
+---
+title: "R and RStudio"
+---
+
+This course uses R, RStudio, and Quarto
+
+- R is statistical software
+- RStudio is a user interface
+- Quarto is an authoring framework for reproducible documents
+
+All are free and open source. To set the software up on your computer, follow the steps in the [Prerequisites](https://r4ds.hadley.nz/intro#prerequisites) section of R4DS. To learn about RStudio, visit the [User Guide](https://docs.posit.co/ide/user).
+
+{{< video https://www.youtube.com/embed/YmYcw2aTqKE >}}

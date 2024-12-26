@@ -1,0 +1,77 @@
+---
+title: "Learning Exercise"
+---
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(scales)
+library(haven)
+```
+
+Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women^[Each married pair need not be of different sex. The data include same-sex couples.] with a 1-year-old child at home. Our data include those with at least one child age 0--18.
+
+## Synthetic data
+
+To speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010--2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated **synthetic data**: we created a new dataset for you to use with simulated people using these known probabilities.
+
+Synthetic data is good in our setting for two reasons
+
+1) we know the answer
+2) you can download the synthetic data right from this website
+
+For transparency, here is the [code](../code/synthetic_parents.R) with which we created the synthetic data. The line below will load the [synthetic data](../data/parents.csv).
+
+```{r, eval = F}
+parents <- read_csv("https://info3370.github.io/data/parents.csv")
+```
+```{r, echo = F, message = F, warning = F}
+parents <- read_csv("../data/parents.csv")
+```
+
+Your synthetic data intentionally omits any parents with child age 1! Here is a graph showing the averages in your data, grouped by child age and sex.
+
+```{r, echo = F, fig.height = 2.5, message = F, warning = F}
+parents |>
+  group_by(sex, child_age) |>
+  summarize(at_work = mean(at_work)) |>
+  ggplot(aes(x = child_age, y = at_work, color = sex)) +
+  geom_point() +
+  annotate(geom = "rect", xmin = .5, xmax = 1.5, ymin = -Inf, ymax = Inf, fill = "gray") +
+  annotate(geom = "text", x = 1, y = .7, label = "?", color = "white", fontface = "bold", size = 10) +
+  theme_classic() +
+  ylab("Proportion At Work Last Week") +
+  xlab("Age of Youngest Child") +
+  scale_color_discrete(name = "Sex", labels = str_to_title)
+```
+
+## Your task: Predict at child age 1
+
+Your task is to answer the question: what proportion are employed among female respondents whose youngest child is 1 year old?
+
+- you can use a model with the other ages
+- you can use strategies from the [statistical learning](statistical_learning.qmd) page
+- you can use the male respondents if you think they are helpful
+
+Near the end of discussion, we will ask every table to make one estimate. Then we will reveal the truth and see who is closest!
+
+{{< video https://www.youtube.com/embed/PL5V5HtuW1c >}}
+
+## One approach to the task
+
+One approach is to estimate a linear regression model with `child_age` interacted with `sex`. We would first create a fitted model object,
+
+```{r}
+model <- lm(at_work ~ sex * child_age, data = parents)
+```
+
+then define the target population to predict
+
+```{r}
+target_population <- tibble(sex = "female", child_age = 0)
+```
+
+and report a predicted value for the employment rate of female respondents with a 1-year-old youngest child.
+
+```{r}
+predict(model, newdata = target_population)
+```
