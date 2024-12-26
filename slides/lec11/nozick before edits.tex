@@ -1,0 +1,270 @@
+
+\documentclass{beamer}
+\usecolortheme{dove}
+\setbeamertemplate{navigation symbols}{}
+\usepackage{amsmath,amssymb,amsfonts,amsthm, multicol, subfigure, color}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\definecolor{seagreen}{RGB}{46, 139, 87}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\log{\text{log}}
+\newcommand\logit{\text{logit}}
+\newcommand\iid{\stackrel{\text{iid}}{\sim}}
+\newcommand\E{\text{E}}
+\newcommand\V{\text{V}}
+\renewcommand\P{\text{P}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\Cor}{\text{Cor}}
+\newcommand\doop{\texttt{do}}
+\usepackage{stackrel}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
+\newcommand\slideref[1]{\vskip .1cm \tiny \textcolor{gray}{{#1}}}
+\newcommand\red[1]{\color{red}#1}
+\newcommand\blue[1]{\color{blue}#1}
+\newcommand\gray[1]{\color{gray}#1}
+\newcommand\seagreen[1]{\color{seagreen}#1}
+\newcommand\purple[1]{\color{purple}#1}
+\newcommand\orange[1]{\color{orange}#1}
+\newcommand\black[1]{\color{black}#1}
+\newcommand\white[1]{\color{white}#1}
+\newcommand\teal[1]{\color{teal}#1}
+\newcommand\magenta[1]{\color{magenta}#1}
+\newcommand\Fuchsia[1]{\color{Fuchsia}#1}
+\newcommand\BlueGreen[1]{\color{BlueGreen}#1}
+\newcommand\bblue[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand\bred[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand\bgray[1]{\textcolor{gray}{\textbf{#1}}}
+\newcommand\bgreen[1]{\textcolor{seagreen}{\textbf{#1}}}
+\newcommand\bref[2]{\href{#1}{\color{blue}{#2}}}
+\colorlet{lightgray}{gray!40}
+\pgfdeclarelayer{bg}    % declare background layer for tikz
+\pgfsetlayers{bg,main} % order layers for tikz
+\newcommand\mycite[1]{\begin{scriptsize}\textcolor{darkgray}{(#1)}\end{scriptsize}}
+\newcommand{\tcframe}{\frame{
+%\small{
+\only<1|handout:0>{\tableofcontents}
+\only<2|handout:1>{\tableofcontents[currentsubsection]}}
+%}
+}
+
+\newcommand{\goalsframe}{\begin{frame}{Learning goals for today} \pause
+By the end of class, you will be able to \vskip .1in
+\begin{itemize}
+    \item justify a minimal state \hfill (per Nozick) \vskip .1in \pause
+    \item critique any more extensive state\\on the grounds of individual rights \hfill (per Nozick) \vskip .1in \pause
+    \item draw contrasts between
+    \begin{itemize}
+    \item historical principles of justice \hfill Nozick
+    \item end-state principles of justice \hfill Rawls
+    \end{itemize} \vskip .1in \pause
+    \item recognize how these different logics could\\both lead to redistribution today
+    \begin{itemize}
+    \item Example: Correcting past injustice
+    \end{itemize}
+\end{itemize} \vskip .2in
+\end{frame}}
+
+\usepackage[round]{natbib}
+\bibliographystyle{humannat-mod}
+\setbeamertemplate{enumerate items}[default]
+\usepackage{mathtools}
+
+\title{Studying Social Inequality with Data Science}
+\author{Ian Lundberg}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\begin{tikzpicture}[x = \textwidth, y = \textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node[anchor = north west, align = left, font = \huge] at (0,.9) {Studying\\Social Inequality\\with Data Science};
+\node[anchor = north east, align = right] (number) at (1,.9) {INFO 3370 / 5371\\Spring 2024};
+\node[anchor = north, font = \Large, align = right] at (.5,.5) {\bblue{Nozick and the Entitlement Theory of Justice}};
+\node[anchor = south east, font = \footnotesize, align = right] at (1,.1) {All page numbers refer to\\Nozick, Robert. 1974.\\\textit{Anarchy, State, and Utopia}.\\Basic Books.};
+\end{tikzpicture}
+\end{frame}
+
+%\goalsframe
+
+\begin{frame}{Why Nozick at all?} \pause
+
+``intellectual honesty demands that, occasionally at least, we go out of our way to confront strong arguments opposed to our views. How else are we to protect ourselves from continuing in error?''\\(p. x--xi)
+
+\end{frame}
+
+\begin{frame}{Wilt Chamberlain}{Nozick p.~161} \pause
+
+\begin{itemize}
+\item ``Wilt Chamberlain is greatly in demand by basketball teams'' \pause
+\item ``twenty-five cents...of each ticket of admission goes to him'' \pause
+\item ``people cheerfully attend his team's games...\\each time dropping a separate twenty-five cents...into a special box with Chamberlain's name on it'' \pause
+\item ``Wilt Chamberlain winds up with \$250,00...larger than anyone else''
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Should there be a state at all? \pause
+\begin{enumerate}
+\item a minimal state is justified \pause
+\item a more extensive state is not
+\end{enumerate} \vskip .1in \pause
+\hfill \begin{footnotesize} (at least, according to Nozick)\end{footnotesize}
+
+\end{frame}
+
+\begin{frame}{1. A minimal state is justified}{p.~52}
+
+Suppose there were no state. How would you protect yourself? \pause
+\begin{itemize}
+\item Protective associations by voluntary subscription
+\end{itemize} \vskip .15in \pause
+What if associations with different clients conflict? \pause
+\begin{itemize}
+\item Most powerful association would monopolize \pause
+\item Forbids others from operating
+\end{itemize} \vskip .15in \pause
+Can the monopoly leave non-subscribers uprotected? \pause
+\begin{itemize}
+\item No. Moral obligation to protect everyone
+\end{itemize} \vskip .2in \pause
+At this point, we have a \bblue{minimal state} \pause
+\begin{itemize}
+\item Monopolizes force \pause
+\item Protects everyone
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+Concern: Is the minimal state redistributive? \pause
+\begin{itemize}
+\item Some pay \pause
+\item Others call for protection \pause
+\end{itemize} \vskip .2in
+Nozick: No. 
+\begin{itemize}
+\item ``the term `redistributive' applies to types of reasons for an arrangement, rather than to an arrangement itself'' (p.~27)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+Should there be a state at all?
+\begin{enumerate}
+\item a minimal state is justified \hfill $\checkmark$
+\item a more extensive state is not
+\end{enumerate} \vskip .1in
+\hfill \begin{footnotesize} (at least, according to Nozick)\end{footnotesize}
+
+\end{frame}
+
+\begin{frame}{2. A more extensive state is not justified}{(At least, according to Nozick)}
+
+\begin{tikzpicture}[x = \textwidth, y = .7\textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node[anchor = north west] (wilt) at (0,1) {\includegraphics[width = .27\textwidth]{figures/wilt_chamberlain_1967}};
+\node[anchor = north west, font = \scriptsize] at (wilt.south west) {\href{https://commons.wikimedia.org/wiki/File:Wilt_Chamberlain_1967.jpeg}{Philadelphia 76ers press photo}, Public domain, via Wikimedia Commons}; \pause
+\node[anchor = north west] at (.3,.8) {People voluntarily pay Chamberlain}; \pause
+\node[anchor = north west] at (.3,.7) {He gets lots of money}; \pause
+\node[anchor = north west, align = left] at (.3, .6) {Could a morally justified law\\redistribute Chamberlain's income?}; \pause
+\node[anchor = north west, align = left] (nozick) at (.3,.4) {Nozick:};
+\node[anchor = north west, align = left] at (nozick.north east) {That law requires ``continuous\\interference with people's lives''\\which is morally unjustified};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Entitlement theory of justice}{p. 151}
+
+``Whatever arises from a just situation by just steps is itself just.'' \vskip .1in
+\begin{enumerate}
+\item original acquisition of holdings
+\item transfer of holdings
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node[anchor = north west] (nozick) at (0,.9) {\bgray{Nozick:}};
+\node[anchor = north west, align = left, text width = .8\textwidth] at (.2,.9) {If people acquire things justly,\\then whatever distribution results is just};
+\node[anchor = north west] (rawls) at (0,.75) {\bgray{Rawls:}};
+\node[anchor = north west, align = left, text width = .8\textwidth] at (.2,.75) {A just distribution is the one that\\we would choose in the original position}; \pause
+\node[anchor = north west] at (0,.55) {What is fundamentally different in the logic of the arguments?}; \pause
+\node[anchor = north west] at (.05,.47) {--- historical principles}; \pause
+\node[anchor = north west] at (.05,.39) {--- end-state principles};
+\node[anchor = north east] at (1,.39) {Nozick p.~153}; \pause
+\node[anchor = north west] at (0,.23) {Could they ever lead to the same conclusion about redistribution?};
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}{Past injustice}{Nozick p.~152} \pause
+
+``Not all actual situations are generated in accordance with the two principles of justice in holdings...some people steal from others, or defraud them, or enslave them'' \vskip .2in \pause
+``If past injustice has shaped present holdings...what...ought to be done to rectify these injustices?''
+
+\end{frame}
+
+\begin{frame}{Past injustice}{Nozick p.~231}
+
+``past injustices might be so great as to make necessary in the short run a more extensive state in order to rectify them''
+
+\end{frame}
+
+\goalsframe
+
+\begin{frame}{Extra: Nozick critiquing Rawls}{p.~214}
+
+``Notice that there is no mention at all of how persons have chosen to develop their own natural assets. Why is that simply left out? Perhaps because such choices also are viewed as being the products of factors outside the person's control, and thus `arbitrary from a moral point of view.''' \vskip .1in
+
+``This line of argument can succeed in blocking the introduction of a person's autonomous choices and actions (and their results) only by attributing everything noteworthy about the person completely to certain sorts of `external' factors. So denigrating a person's autonomy and prime responsibility for his actions is a risky line to take for a theory that otherwise wishes to buttress the dignity and self-respect of autonomous beings; especially for a theory that founds so much (including a theory of the good) upon persons' choices.''
+
+\end{frame}
+
+\end{document}
+
+
+\begin{frame}
+
+``The general point illustrated by the Wilt Chamberlain example...is that no end-state principle or distributional patterned principle of justice can be continuously realized without continuous interference with people's lives.''
+
+(p. 163)
+
+\end{frame}
+
+\begin{frame}
+
+What about redistribution (p. 149)?
+\begin{itemize}
+\item ``There is no central distribution''
+\item ``What each person gets, he gets from others''
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}%{Should there be a state at all?}
+
+``How much room do individual rights leave for the state?'' \vskip .15in \pause
+\begin{itemize}
+\item ``a minimal state, limited to the narrow functions of protection against force, theft, fraud, enforcement of contracts, and so on is justified'' \vskip .15in \pause
+\item ``any more extensive state will violate persons' rights'' \vskip .15in
+\end{itemize}
+\hfill (p.~ix)
+
+%``The minimal state is the most extensive state that can be justified.'' (p. 149)
+
+\end{frame}
