@@ -31,103 +31,24 @@ Working with data to understand inequality brings me joy and meaning, as I first
 :::
 
 ::: {.g-col-2}
-<img src="assets/profiles/fede.png" style="width:100%;">
+<img src="assets/profiles/christina.png" style="width:100%;">
 :::
 
 ::: {.g-col-10}
-[**Federica Bologna**](https://federicabologna.github.io/)  
-[**fb265@cornell.edu**](mailto:fb265@cornell.edu)  
-(_she / her_)
+[**Christina Wilmot**](https://soc.ucla.edu/person/christina-wilmot/)  
+[**cwilmot@ucla.edu**](mailto:cwilmot@ucla.edu)  
 
-I am passionate about using data to support patient-centered care and study gender inequality in fiction readership. I love binge-watching shows, hiking, and making food with friends. Excited to meet you in class!
+Christina is a PhD student in sociology at UCLA.
 :::
 
 ::: {.g-col-2}
-<img src="assets/profiles/daniel.png" style="width:100%;">
+<img src="assets/profiles/nathan.png" style="width:100%;">
 :::
 
 ::: {.g-col-10}
-[**Daniel Molitor**](https://dmolitor.com)  
-[**dmolitor@infosci.cornell.edu**](mailto:dmolitor@infosci.cornell.edu)
+[**Nathan Hoffman**](https://nathanhoffmann.com/)  
+[**nathanihoff@g.ucla.edu**](mailto:nathanihoff@g.ucla.edu)
 
-My research interests primarily focus on applying computational methods to important policy questions. Developing software and building tools is also something I love to do! In my free time I enjoy doing pretty much anything that’s active and outdoors and I particularly enjoy playing tennis, kayaking, and fishing.
+Nathan is a PhD student in sociology at UCLA.
 :::
 
-::: {.g-col-12}
-## Undergraduate TAs
-:::
-
-::: {.g-col-2}
-<img src="assets/profiles/stacy.png" style="width:100%;">
-:::
-
-::: {.g-col-10}
-**Stacy Boey**  
-(_she / her_)
-
-Hi everyone! I am an information science major concentrating in data science and UX. Some hobbies of mine include crocheting, thrifting, and cooking. I look forward to a great semester with you guys!
-:::
-
-::: {.g-col-2}
-<img src="assets/profiles/chang.png" style="width:100%;">
-:::
-
-::: {.g-col-10}
-**Chang Chen**  
-
-Hi everyone! I study biometry and information science, concentrating on data science. I enjoy playing badminton and cooking. I look forward to working with all of you!
-:::
-
-::: {.g-col-2}
-<img src="assets/profiles/olaf.png" style="width:100%;">
-:::
-
-::: {.g-col-10}
-**Olaf de Rohan Willner**
-
-Hello everyone! I study Information Science and Government and am fascinated by understanding the world and how policies shape it through data. Outside of class I love watching 1950’s French movies, running, and cooking. Looking forward to meeting you all this semester!
-:::
-
-::: {.g-col-2}
-<img src="assets/profiles/akira.png" style="width:100%;">
-:::
-
-::: {.g-col-10}
-**Akira Goh**
-
-Hi everyone, I am a Dyson and Infoscience double major. I love scubadiving, snowboarding, and working out. Excited to be working with all of you.
-:::
-
-::: {.g-col-2}
-<img src="assets/profiles/jonathan.png" style="width:100%;">
-:::
-
-::: {.g-col-10}
-**Jonathan Gotian**  
-(_he / him_)
-
-Hi all, I am a Dyson major and pursuing an Information Science minor studying business analytics and data science. In my free time, I love playing squash and chess. Excited to work with you all this semester!
-:::
-
-::: {.g-col-2}
-<img src="assets/profiles/joanne.png" style="width:100%;">
-:::
-
-::: {.g-col-10}
-**Joanne/Xinyu Hu**  
-(_she / they_)
-
-Hey all! I am an Information Science and Communication double major. Thinking about socioeconomic inequalities is always an important framework for me to see the world, and looking forward to working with you all in the class! Outside schoolwork, I enjoy biking, exploring storytelling, and visiting museums (LA The Broad is my favorite in the US so far but always open to recommendations)
-:::
-
-::: {.g-col-2}
-<img src="assets/profiles/liz.png" style="width:100%;">
-:::
-
-::: {.g-col-10}
-**Liz Moon**
-
-Hi there! I study Information and Computer Science with a focus on Data Science. I am passionate about using data-driven solutions to solve social science challenges. My other hobbies include experimenting with fusion cooking and film analysis. Looking forward to another great semester with everyone!
-:::
-
-:::

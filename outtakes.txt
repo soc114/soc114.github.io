@@ -1,0 +1,9 @@
+
+      - section: "No longer used"
+        contents:
+          - topics/prediction.qmd
+          - topics/race.qmd
+          - topics/gender.qmd
+          - topics/class.qmd
+          - topics/asking_questions.qmd
+          - topics/moral_arguments.qmd

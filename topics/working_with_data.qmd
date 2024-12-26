@@ -1,0 +1,22 @@
+---
+title: "What data can tell us"
+---
+
+[[Slides]](../slides/lec1/lec1.pdf)
+
+America is more unequal by many measures than other industrialized nations. Should we be concerned? In today's reading, Jencks discusses how quantitative empirical evidence on inequality relates to arguments about the amount of inequality that is desirable.
+
+After our discussion in class, read p. 49--53 of this paper:
+
+> Jencks, C. (2002). [Does inequality matter?](https://www.jstor.org/stable/20027737) Daedalus, 131(1).
+
+The paper's engagement with both normative arguments and quantitative evidence is an example we will follow this semester.
+
+- we will use data to summarize inequality
+- we will connect those summaries to moral arguments
+
+Ultimately, this class is creative: you will produce new evidence about a question of your choosing. To get there, we first need to learn a bit about population data and how to work with those data.
+
+## Summary video: What we covered today
+
+{{< video https://www.youtube.com/embed/sN35dvXeNv0 >}}

@@ -1,5 +1,5 @@
 ---
-title: "R and RStudio"
+title: "Setting up your computer"
 ---
 
 This course uses R, RStudio, and Quarto

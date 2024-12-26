@@ -9,7 +9,7 @@ execute:
   freeze: auto
 
 website:
-  title: "Studying Social Inequality with Data Science"
+  title: "Social Data Science"
   description: "Generate new knowledge about social inequality using the tools of data science."
   navbar:
     pinned: true
@@ -24,8 +24,8 @@ website:
         text: Schedule
       - href: office_hours.qmd
         text: Office Hours
-      - href: "https://edstem.org/us/courses/54550/"
-        text: Ed Discussion
+      - href: "https://piazza.com/class/m3q7dpj6kqd2fn"
+        text: Piazza
       - href: forms.qmd
         text: Forms
         
@@ -36,30 +36,33 @@ website:
     contents:
       - href: index.qmd
         text: Home
-      - section: "Topics"
+      - href: topics/working_with_data.qmd
+        text: "Working with Data"
         contents:
-          - topics/welcome.qmd
-          - topics/sampling.qmd
-          - section: "Working with Data"
+          - topics/r_basics.qmd
+          - topics/visualization.qmd
+          - topics/data_transformation.qmd
+      - section: "Inference Without Models"
+        contents:
+          - section: "Probability samples"
             contents:
-              - topics/r_basics.qmd
-              - topics/visualization.qmd
-              - topics/data_transformation.qmd
+              - topics/sampling.qmd
               - topics/weights.qmd
+          - section: "Randomized experiments"
+            contents:
+              - topics/interventions.qmd
+          - section: "Observational studies"
+            contents:
+      - section: "Inference with Models"
+        contents:
+          - section: "Models for description"
+            contents:
               - topics/statistical_learning.qmd
               - topics/learning_exercise.qmd
               - topics/sample_splitting.qmd
-          - section: "Describing Inequality"
+          - section: "Models for causal inference"
+          - section: "Machine learning"
             contents:
-              - topics/prediction.qmd
-              - topics/race.qmd
-              - topics/gender.qmd
-              - topics/class.qmd
-          - topics/asking_questions.qmd
-          - section: "Reducing Inequality"
-            contents:
-              - topics/moral_arguments.qmd
-              - topics/interventions.qmd
       - section: "Assignments"
         contents:
           - section: "Problem Sets"
@@ -78,10 +81,7 @@ website:
                 text: "Problem Set 5"
           - href: assignments/project.qmd
             text: "Project"
-            contents:
-              - href: assignments/project1.qmd
-                text: "Discussion 3-21"
-              
+
   back-to-top-navigation: true
 
 format:

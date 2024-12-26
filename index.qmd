@@ -1,13 +1,13 @@
 ---
-title: "Studying Social Inequality with Data Science"
-subtitle: Cornell INFO [3370](https://classes.cornell.edu/browse/roster/SP24/class/INFO/3370) / [5371](https://classes.cornell.edu/browse/roster/SP24/class/INFO/5371) (Spring '24)
+title: "Social Data Science"
+subtitle: UCLA SOCIOL [114](https://catalog.registrar.ucla.edu/course/2023/sociol114) (Winter '25)
 page-layout: full
 format:
   html:
     toc: false
 ---
 
-Together, we will generate new knowledge about social inequality using the tools of data science
+Together, we will use tools from data science to answer social science questions about inequality.
 
 ## Learning goals
 
@@ -18,4 +18,4 @@ As a result of participating in this course, students will be able to
 - evaluate the effects of hypothetical interventions to reduce inequality
 - conduct data analysis using the R programming language
 
-{{< video https://www.youtube.com/embed/h6wocn6LT9g >}}
+{{< video https://www.youtube.com/embed/h6wocn6LT9g>}}

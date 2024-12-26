@@ -14,9 +14,9 @@ Some assignments have associated readings, which are listed in the reading colum
 
 | Due date | Assignment | Reading |
 |---|---|---|
-| Wed Jan 24 at 5pm | [Problem Set 0](assignments/pset0.qmd) |
-| Wed Jan 31 at 5pm | [Problem Set 1](assignments/pset1.qmd) | [Cheng 2021](https://doi.org/10.1093/sf/soab003) |
-| Wed Feb 7 at 5pm | Peer Review 1 |
+| Fri Jan 10 at 5pm | [Problem Set 0](assignments/pset0.qmd) |
+| Fri Jan 17 at 5pm | [Problem Set 1](assignments/pset1.qmd) | [Cheng 2021](https://doi.org/10.1093/sf/soab003) |
+| TBD | Peer Review 1 |
 | Wed Feb 14 at 5pm | Problem Set 2 | [England et al. 2020](https://doi.org/10.1073/pnas.1918891117)
 | Wed Feb 21 at 5pm | Peer Review 2 |
 | **February break** | |
