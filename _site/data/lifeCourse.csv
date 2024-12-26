@@ -1,0 +1,385 @@
+"","quantity","education","cohort","age","income"
+"1","10th percentile","College Degree",1940,30,37668.5582493027
+"2","10th percentile","Less than College",1940,30,23053.1576485733
+"3","10th percentile","College Degree",1940,31,35627.8327027583
+"4","10th percentile","Less than College",1940,31,22552.0060930424
+"5","10th percentile","College Degree",1940,32,45494.3382499502
+"6","10th percentile","Less than College",1940,32,22397.2126768985
+"7","10th percentile","College Degree",1940,33,48742.8741324329
+"8","10th percentile","Less than College",1940,33,23054.0620896642
+"9","10th percentile","College Degree",1940,34,49841.6512335248
+"10","10th percentile","Less than College",1940,34,23734.1196350118
+"11","10th percentile","College Degree",1940,35,43492.3424678743
+"12","10th percentile","Less than College",1940,35,19027.899829695
+"13","10th percentile","College Degree",1940,36,33408.2399004684
+"14","10th percentile","Less than College",1940,36,21381.2735362998
+"15","10th percentile","College Degree",1940,37,47564.5379969755
+"16","10th percentile","Less than College",1940,37,21834.406308771
+"17","10th percentile","College Degree",1940,38,48274.2065001916
+"18","10th percentile","Less than College",1940,38,22381.1474901009
+"19","10th percentile","College Degree",1940,39,24189.1825487945
+"20","10th percentile","Less than College",1940,39,20157.6521239954
+"21","10th percentile","College Degree",1940,40,35519.5529030953
+"22","10th percentile","Less than College",1940,40,19251.5976734776
+"23","10th percentile","College Degree",1940,41,28961.8465909091
+"24","10th percentile","Less than College",1940,41,19307.8977272727
+"25","10th percentile","College Degree",1940,42,34860.0004316298
+"26","10th percentile","Less than College",1940,42,19218.4698031768
+"27","10th percentile","College Degree",1940,43,38200.0158995816
+"28","10th percentile","Less than College",1940,43,17630.7765690377
+"29","10th percentile","College Degree",1940,44,39416.6789608724
+"30","10th percentile","Less than College",1940,44,18582.1486529827
+"31","10th percentile","College Degree",1940,45,42424.7388475836
+"32","10th percentile","Less than College",1940,45,19036.7417905824
+"33","10th percentile","College Degree",1950,30,34809.1618450334
+"34","10th percentile","Less than College",1950,30,21311.7317418572
+"35","10th percentile","College Degree",1950,31,32179.8295454545
+"36","10th percentile","Less than College",1950,31,19307.8977272727
+"37","10th percentile","College Degree",1950,32,33241.2838898481
+"38","10th percentile","Less than College",1950,32,17278.434996547
+"39","10th percentile","College Degree",1950,33,29384.6276150628
+"40","10th percentile","Less than College",1950,33,21392.0089037657
+"41","10th percentile","College Degree",1950,34,30970.2477549711
+"42","10th percentile","Less than College",1950,34,19989.8871872996
+"43","10th percentile","College Degree",1950,35,35353.949039653
+"44","10th percentile","Less than College",1950,35,17676.9745198265
+"45","10th percentile","College Degree",1950,36,33345.9602674162
+"46","10th percentile","Less than College",1950,36,20807.8792068677
+"47","10th percentile","College Degree",1950,37,37345.0297051489
+"48","10th percentile","Less than College",1950,37,19573.946604078
+"49","10th percentile","College Degree",1950,38,32163.0515042627
+"50","10th percentile","Less than College",1950,38,20584.3529627281
+"51","10th percentile","College Degree",1950,39,30692.5428629059
+"52","10th percentile","Less than College",1950,39,22098.6308612923
+"53","10th percentile","College Degree",1950,40,40122.3672715097
+"54","10th percentile","Less than College",1950,40,20156.3664774539
+"55","10th percentile","College Degree",1950,41,38681.9669522644
+"56","10th percentile","Less than College",1950,41,17191.9853121175
+"57","10th percentile","College Degree",1950,42,37540.1401674883
+"58","10th percentile","Less than College",1950,42,20855.6334263824
+"59","10th percentile","College Degree",1950,43,32001.5662456019
+"60","10th percentile","Less than College",1950,43,20254.1558516468
+"61","10th percentile","College Degree",1950,44,39483.4766964637
+"62","10th percentile","Less than College",1950,44,18122.9158036768
+"63","10th percentile","College Degree",1950,45,36485.7251449196
+"64","10th percentile","Less than College",1950,45,21123.314557585
+"65","10th percentile","College Degree",1960,30,33593.9441290899
+"66","10th percentile","Less than College",1960,30,19320.9970667772
+"67","10th percentile","College Degree",1960,31,34192.7097876377
+"68","10th percentile","Less than College",1960,31,18266.4843941248
+"69","10th percentile","College Degree",1960,32,31283.4501395736
+"70","10th percentile","Less than College",1960,32,20021.4080893271
+"71","10th percentile","College Degree",1960,33,33794.0590384726
+"72","10th percentile","Less than College",1960,33,18431.2818249986
+"73","10th percentile","College Degree",1960,34,31784.1987406533
+"74","10th percentile","Less than College",1960,34,19741.7383482319
+"75","10th percentile","College Degree",1960,35,34565.4238215028
+"76","10th percentile","Less than College",1960,35,19203.0132341682
+"77","10th percentile","College Degree",1960,36,33803.1714179461
+"78","10th percentile","Less than College",1960,36,17461.2408648993
+"79","10th percentile","College Degree",1960,37,32812.3002647563
+"80","10th percentile","Less than College",1960,37,18520.7205938846
+"81","10th percentile","College Degree",1960,38,35902.6941362916
+"82","10th percentile","Less than College",1960,38,18669.4009508716
+"83","10th percentile","College Degree",1960,39,32300.5410925463
+"84","10th percentile","Less than College",1960,39,21096.8837568784
+"85","10th percentile","College Degree",1960,40,30589.1371049702
+"86","10th percentile","Less than College",1960,40,20392.7580699802
+"87","10th percentile","College Degree",1960,41,38015.3678512591
+"88","10th percentile","Less than College",1960,41,19834.1049658743
+"89","10th percentile","College Degree",1960,42,39045.1779095626
+"90","10th percentile","Less than College",1960,42,20702.0787041327
+"91","10th percentile","College Degree",1960,43,30938.4063414855
+"92","10th percentile","Less than College",1960,43,20674.3745471015
+"93","10th percentile","College Degree",1960,44,37176.3694913759
+"94","10th percentile","Less than College",1960,44,20137.2001411619
+"95","10th percentile","College Degree",1960,45,32968.669341072
+"96","10th percentile","Less than College",1960,45,19781.2016046432
+"97","10th percentile","College Degree",1970,30,32288.5336108019
+"98","10th percentile","Less than College",1970,30,18693.3615641485
+"99","10th percentile","College Degree",1970,31,39668.2099317486
+"100","10th percentile","Less than College",1970,31,19834.1049658743
+"101","10th percentile","College Degree",1970,32,32537.6482579689
+"102","10th percentile","Less than College",1970,32,19522.5889547813
+"103","10th percentile","College Degree",1970,33,39440.3452898551
+"104","10th percentile","Less than College",1970,33,19084.0380434783
+"105","10th percentile","College Degree",1970,34,37176.3694913759
+"106","10th percentile","Less than College",1970,34,19344.1042586793
+"107","10th percentile","College Degree",1970,35,35965.8210993513
+"108","10th percentile","Less than College",1970,35,19481.4864288153
+"109","10th percentile","College Degree",1970,36,34843.1438375987
+"110","10th percentile","Less than College",1970,36,18873.3695786993
+"111","10th percentile","College Degree",1970,37,35282.1496465217
+"112","10th percentile","Less than College",1970,37,19758.0038020521
+"113","10th percentile","College Degree",1970,38,36704.4634426498
+"114","10th percentile","Less than College",1970,38,20394.0874283938
+"115","10th percentile","College Degree",1970,39,38407.1550325155
+"116","10th percentile","Less than College",1970,39,17729.3166473511
+"117","10th percentile","College Degree",1970,40,40255.0064694522
+"118","10th percentile","Less than College",1970,40,18785.6696857444
+"119","10th percentile","College Degree",1970,41,35961.884825029
+"120","10th percentile","Less than College",1970,41,18864.3126388438
+"121","10th percentile","College Degree",1970,42,34413.199769295
+"122","10th percentile","Less than College",1970,42,19118.444316275
+"123","10th percentile","College Degree",1970,43,40094.9937404777
+"124","10th percentile","Less than College",1970,43,19279.3622584934
+"125","10th percentile","College Degree",1970,44,33376.810721754
+"126","10th percentile","Less than College",1970,44,18542.6726231967
+"127","10th percentile","College Degree",1970,45,37040.4754395273
+"128","10th percentile","Less than College",1970,45,19754.9202344146
+"129","50th percentile","College Degree",1940,30,74583.7453336194
+"130","50th percentile","Less than College",1940,30,54242.7238789959
+"131","50th percentile","College Degree",1940,31,76618.9950596953
+"132","50th percentile","Less than College",1940,31,50843.2086084809
+"133","50th percentile","College Degree",1940,32,78390.2443691449
+"134","50th percentile","Less than College",1940,32,53242.3740103648
+"135","50th percentile","College Degree",1940,33,88922.8109172763
+"136","50th percentile","Less than College",1940,33,57964.4989682986
+"137","50th percentile","College Degree",1940,34,86036.1836769179
+"138","50th percentile","Less than College",1940,34,53401.7691787766
+"139","50th percentile","College Degree",1940,35,80460.8335655674
+"140","50th percentile","Less than College",1940,35,50886.0406874129
+"141","50th percentile","College Degree",1940,36,77095.9382318501
+"142","50th percentile","Less than College",1940,36,51397.2921545667
+"143","50th percentile","College Degree",1940,37,83509.483691229
+"144","50th percentile","Less than College",1940,37,52136.1017321969
+"145","50th percentile","College Degree",1940,38,89703.9979563162
+"146","50th percentile","Less than College",1940,38,55522.2895350619
+"147","50th percentile","College Degree",1940,39,76599.0780711826
+"148","50th percentile","Less than College",1940,39,48378.365097589
+"149","50th percentile","College Degree",1940,40,71039.1058061906
+"150","50th percentile","Less than College",1940,40,46175.4187740239
+"151","50th percentile","College Degree",1940,41,70795.625
+"152","50th percentile","Less than College",1940,41,48269.7443181818
+"153","50th percentile","College Degree",1940,42,75782.6096339779
+"154","50th percentile","Less than College",1940,42,47288.3484116022
+"155","50th percentile","College Degree",1940,43,79338.4945606695
+"156","50th percentile","Less than College",1940,43,49953.8669456067
+"157","50th percentile","College Degree",1940,44,84464.3120590122
+"158","50th percentile","Less than College",1940,44,47863.1101667736
+"159","50th percentile","College Degree",1940,45,92464.1744114003
+"160","50th percentile","Less than College",1940,45,44872.3199349442
+"161","50th percentile","College Degree",1950,30,57896.8712320453
+"162","50th percentile","Less than College",1950,30,46175.4187740239
+"163","50th percentile","College Degree",1950,31,57923.6931818182
+"164","50th percentile","Less than College",1950,31,43442.7698863636
+"165","50th percentile","College Degree",1950,32,66049.0912525898
+"166","50th percentile","Less than College",1950,32,42438.2613950276
+"167","50th percentile","College Degree",1950,33,70523.1062761506
+"168","50th percentile","Less than College",1950,33,47015.4041841004
+"169","50th percentile","College Degree",1950,34,64755.972578576
+"170","50th percentile","Less than College",1950,34,47863.1101667736
+"171","50th percentile","College Degree",1950,35,70707.8980793061
+"172","50th percentile","Less than College",1950,35,46232.0872057001
+"173","50th percentile","College Degree",1950,36,69359.5973562258
+"174","50th percentile","Less than College",1950,36,50419.0919243334
+"175","50th percentile","College Degree",1950,37,77265.578700308
+"176","50th percentile","Less than College",1950,37,51510.3858002054
+"177","50th percentile","College Degree",1950,38,74717.2427252871
+"178","50th percentile","Less than College",1950,38,49481.6176988656
+"179","50th percentile","College Degree",1950,39,77196.4672298797
+"180","50th percentile","Less than College",1950,39,49580.2615477711
+"181","50th percentile","College Degree",1950,40,85104.658460361
+"182","50th percentile","Less than College",1950,40,49271.1180559985
+"183","50th percentile","College Degree",1950,41,81565.2253151775
+"184","50th percentile","Less than College",1950,41,47277.9596083231
+"185","50th percentile","College Degree",1950,42,83422.5337055295
+"186","50th percentile","Less than College",1950,42,49010.7385519986
+"187","50th percentile","College Degree",1950,43,81016.6234065871
+"188","50th percentile","Less than College",1950,43,48609.9740439522
+"189","50th percentile","College Degree",1950,44,78769.5360094451
+"190","50th percentile","Less than College",1950,44,49354.3458705796
+"191","50th percentile","College Degree",1950,45,76812.0529366729
+"192","50th percentile","Less than College",1950,45,50763.1654845237
+"193","50th percentile","College Degree",1960,30,67187.8882581797
+"194","50th percentile","Less than College",1960,30,43000.248485235
+"195","50th percentile","College Degree",1960,31,68767.94124847
+"196","50th percentile","Less than College",1960,31,42979.9632802938
+"197","50th percentile","College Degree",1960,32,70909.1536497001
+"198","50th percentile","Less than College",1960,32,43796.830195403
+"199","50th percentile","College Degree",1960,33,70889.5454807637
+"200","50th percentile","Less than College",1960,33,44559.1428736229
+"201","50th percentile","College Degree",1960,34,75018.605723281
+"202","50th percentile","Less than College",1960,34,43431.8243661101
+"203","50th percentile","College Degree",1960,35,80652.6555835065
+"204","50th percentile","Less than College",1960,35,48007.5330854205
+"205","50th percentile","College Degree",1960,36,78351.7218296765
+"206","50th percentile","Less than College",1960,36,44772.4124741008
+"207","50th percentile","College Degree",1960,37,82030.7506618907
+"208","50th percentile","Less than College",1960,37,45572.6392566059
+"209","50th percentile","College Degree",1960,38,87961.6006339144
+"210","50th percentile","Less than College",1960,38,46673.5023771791
+"211","50th percentile","College Degree",1960,39,87830.4902451225
+"212","50th percentile","Less than College",1960,39,49185.0745372686
+"213","50th percentile","College Degree",1960,40,84969.825291584
+"214","50th percentile","Less than College",1960,40,47583.102163287
+"215","50th percentile","College Degree",1960,41,85947.7881854554
+"216","50th percentile","Less than College",1960,41,49585.2624146858
+"217","50th percentile","College Degree",1960,42,84597.885470719
+"218","50th percentile","Less than College",1960,42,48806.4723869533
+"219","50th percentile","College Degree",1960,43,84287.834692029
+"220","50th percentile","Less than College",1960,43,47710.0951086957
+"221","50th percentile","College Degree",1960,44,92940.9237284397
+"222","50th percentile","Less than College",1960,44,46470.4618642199
+"223","50th percentile","College Degree",1960,45,83920.2492318197
+"224","50th percentile","Less than College",1960,45,47954.4281324684
+"225","50th percentile","College Degree",1970,30,67975.8602332672
+"226","50th percentile","Less than College",1970,30,40785.5161399603
+"227","50th percentile","College Degree",1970,31,67766.5253000706
+"228","50th percentile","Less than College",1970,31,44362.2814403389
+"229","50th percentile","College Degree",1970,32,73209.7085804299
+"230","50th percentile","Less than College",1970,32,44739.2663547072
+"231","50th percentile","College Degree",1970,33,77272.8603745471
+"232","50th percentile","Less than College",1970,33,44529.4221014493
+"233","50th percentile","College Degree",1970,34,77450.7697736998
+"234","50th percentile","Less than College",1970,34,43372.4310732719
+"235","50th percentile","College Degree",1970,35,74928.7939569819
+"236","50th percentile","Less than College",1970,35,44957.2763741891
+"237","50th percentile","College Degree",1970,36,79848.871294497
+"238","50th percentile","Less than College",1970,36,43553.9297969984
+"239","50th percentile","College Degree",1970,37,84677.159151652
+"240","50th percentile","Less than College",1970,37,46572.4375334086
+"241","50th percentile","College Degree",1970,38,81565.4743169995
+"242","50th percentile","Less than College",1970,38,46220.4354462997
+"243","50th percentile","College Degree",1970,39,88646.5832367554
+"244","50th percentile","Less than College",1970,39,47732.7755890221
+"245","50th percentile","College Degree",1970,40,80510.0129389044
+"246","50th percentile","Less than College",1970,40,46964.1742143609
+"247","50th percentile","College Degree",1970,41,81962.18594808
+"248","50th percentile","Less than College",1970,41,45534.5477489333
+"249","50th percentile","College Degree",1970,42,82846.5920371916
+"250","50th percentile","Less than College",1970,42,44609.7034046416
+"251","50th percentile","College Degree",1970,43,85418.0762039063
+"252","50th percentile","Less than College",1970,43,47733.63081983
+"253","50th percentile","College Degree",1970,44,86532.4722415845
+"254","50th percentile","Less than College",1970,44,43266.2361207922
+"255","50th percentile","College Degree",1970,45,88897.1410548656
+"256","50th percentile","Less than College",1970,45,44448.5705274328
+"257","90th percentile","College Degree",1940,30,113005.674747908
+"258","90th percentile","Less than College",1940,30,85884.3128084102
+"259","90th percentile","College Degree",1940,31,122879.520378757
+"260","90th percentile","Less than College",1940,31,88906.947097571
+"261","90th percentile","College Degree",1940,32,132983.450269085
+"262","90th percentile","Less than College",1940,32,90988.6764999003
+"263","90th percentile","College Degree",1940,33,144911.247420747
+"264","90th percentile","Less than College",1940,33,94192.3108234853
+"265","90th percentile","College Degree",1940,34,148338.247718824
+"266","90th percentile","Less than College",1940,34,94343.125549172
+"267","90th percentile","College Degree",1940,35,133195.298807865
+"268","90th percentile","Less than College",1940,35,92421.2277442328
+"269","90th percentile","College Degree",1940,36,149052.147248244
+"270","90th percentile","Less than College",1940,36,92515.1258782201
+"271","90th percentile","College Degree",1940,37,152063.630052241
+"272","90th percentile","Less than College",1940,37,96548.3365411053
+"273","90th percentile","College Degree",1940,38,161467.196321369
+"274","90th percentile","Less than College",1940,38,101634.629684506
+"275","90th percentile","College Degree",1940,39,137072.034443169
+"276","90th percentile","Less than College",1940,39,96756.730195178
+"277","90th percentile","College Degree",1940,40,138526.256322072
+"278","90th percentile","Less than College",1940,40,88798.8822577382
+"279","90th percentile","College Degree",1940,41,138373.267045455
+"280","90th percentile","Less than College",1940,41,84484.9244886364
+"281","90th percentile","College Degree",1940,42,145502.610497238
+"282","90th percentile","Less than College",1940,42,90939.1315607735
+"283","90th percentile","College Degree",1940,43,161615.451882845
+"284","90th percentile","Less than College",1940,43,96969.2711297071
+"285","90th percentile","College Degree",1940,44,154851.238774856
+"286","90th percentile","Less than College",1940,44,98541.6974021809
+"287","90th percentile","College Degree",1940,45,195806.486988848
+"288","90th percentile","Less than College",1940,45,100622.778035936
+"289","90th percentile","College Degree",1950,30,104782.681064131
+"290","90th percentile","Less than College",1950,30,81694.9716771192
+"291","90th percentile","College Degree",1950,31,98148.4801136364
+"292","90th percentile","Less than College",1950,31,77231.5909090909
+"293","90th percentile","College Degree",1950,32,112158.262258287
+"294","90th percentile","Less than College",1950,32,75782.6096339779
+"295","90th percentile","College Degree",1950,33,135169.287029289
+"296","90th percentile","Less than College",1950,33,88153.8828451883
+"297","90th percentile","College Degree",1950,34,121065.513951251
+"298","90th percentile","Less than College",1950,34,84464.3120590122
+"299","90th percentile","College Degree",1950,35,130537.657992565
+"300","90th percentile","Less than College",1950,35,87025.1053283767
+"301","90th percentile","College Degree",1950,36,138719.194712452
+"302","90th percentile","Less than College",1950,36,96036.3655701588
+"303","90th percentile","College Degree",1950,37,141653.560950565
+"304","90th percentile","Less than College",1950,37,92718.6944403697
+"305","90th percentile","College Degree",1950,38,155213.938397802
+"306","90th percentile","Less than College",1950,38,94015.0736278447
+"307","90th percentile","College Degree",1950,39,141657.890136489
+"308","90th percentile","Less than College",1950,39,94438.593424326
+"309","90th percentile","College Degree",1950,40,163490.528094904
+"310","90th percentile","Less than College",1950,40,89583.8510109063
+"311","90th percentile","College Degree",1950,41,167621.856793146
+"312","90th percentile","Less than College",1950,41,92406.9210526316
+"313","90th percentile","College Degree",1950,42,181444.010809527
+"314","90th percentile","Less than College",1950,42,93850.3504187207
+"315","90th percentile","College Degree",1950,43,172160.324738998
+"316","90th percentile","Less than College",1950,43,93169.1169175751
+"317","90th percentile","College Degree",1950,44,163856.428290324
+"318","90th percentile","Less than College",1950,44,98708.6917411593
+"319","90th percentile","College Degree",1950,45,153624.105873346
+"320","90th percentile","Less than College",1950,45,103696.271464508
+"321","90th percentile","College Degree",1960,30,111979.813763633
+"322","90th percentile","Less than College",1960,30,78385.869634543
+"323","90th percentile","College Degree",1960,31,118194.899020808
+"324","90th percentile","Less than College",1960,31,77363.9339045288
+"325","90th percentile","College Degree",1960,32,135561.617271485
+"326","90th percentile","Less than College",1960,32,79251.407020253
+"327","90th percentile","College Degree",1960,33,141779.090961527
+"328","90th percentile","Less than College",1960,33,78991.2078214224
+"329","90th percentile","College Degree",1960,34,148063.037611739
+"330","90th percentile","Less than College",1960,34,80941.1272277506
+"331","90th percentile","College Degree",1960,35,172827.119107514
+"332","90th percentile","Less than College",1960,35,90254.1622005906
+"333","90th percentile","College Degree",1960,36,154837.926472932
+"334","90th percentile","Less than College",1960,36,88612.0663549912
+"335","90th percentile","College Degree",1960,37,156769.879042724
+"336","90th percentile","Less than College",1960,37,87499.4673726834
+"337","90th percentile","College Degree",1960,38,179513.470681458
+"338","90th percentile","Less than College",1960,38,89756.735340729
+"339","90th percentile","College Degree",1960,39,184444.029514757
+"340","90th percentile","Less than College",1960,39,93100.3196598299
+"341","90th percentile","College Degree",1960,40,161442.66805401
+"342","90th percentile","Less than College",1960,40,96525.7215312394
+"343","90th percentile","College Degree",1960,41,201646.733819722
+"344","90th percentile","Less than College",1960,41,99170.5248293716
+"345","90th percentile","College Degree",1960,42,180583.947831727
+"346","90th percentile","Less than College",1960,42,99239.827186805
+"347","90th percentile","College Degree",1960,43,206743.745471014
+"348","90th percentile","Less than College",1960,43,95420.1902173913
+"349","90th percentile","College Degree",1960,44,213764.124575411
+"350","90th percentile","Less than College",1960,44,92940.9237284397
+"351","90th percentile","College Degree",1960,45,179829.105496757
+"352","90th percentile","Less than College",1960,45,103401.735660635
+"353","90th percentile","College Degree",1970,30,124055.944925713
+"354","90th percentile","Less than College",1970,30,79871.635774089
+"355","90th percentile","College Degree",1970,31,132227.366439162
+"356","90th percentile","Less than College",1970,31,82642.1040244763
+"357","90th percentile","College Degree",1970,32,143165.652335063
+"358","90th percentile","Less than College",1970,32,86224.7678836175
+"359","90th percentile","College Degree",1970,33,159033.650362319
+"360","90th percentile","Less than College",1970,33,84287.834692029
+"361","90th percentile","College Degree",1970,34,159548.585733822
+"362","90th percentile","Less than College",1970,34,92940.9237284397
+"363","90th percentile","College Degree",1970,35,187321.984892455
+"364","90th percentile","Less than College",1970,35,89914.5527483783
+"365","90th percentile","College Degree",1970,36,162601.337908794
+"366","90th percentile","Less than College",1970,36,90706.8659928887
+"367","90th percentile","College Degree",1970,37,200402.609992243
+"368","90th percentile","Less than College",1970,37,91733.5890809564
+"369","90th percentile","College Degree",1970,38,179444.043497399
+"370","90th percentile","Less than College",1970,38,95159.7200364995
+"371","90th percentile","College Degree",1970,39,197750.070297377
+"372","90th percentile","Less than College",1970,39,92737.9640015287
+"373","90th percentile","College Degree",1970,40,187856.696857444
+"374","90th percentile","Less than College",1970,40,93928.3484287218
+"375","90th percentile","College Degree",1970,41,182138.190995733
+"376","90th percentile","Less than College",1970,41,91069.0954978667
+"377","90th percentile","College Degree",1970,42,191184.44316275
+"378","90th percentile","Less than College",1970,42,91768.5327181199
+"379","90th percentile","College Degree",1970,43,194702.967817728
+"380","90th percentile","Less than College",1970,43,97979.5579985984
+"381","90th percentile","College Degree",1970,44,222512.07147836
+"382","90th percentile","Less than College",1970,44,93207.8343859353
+"383","90th percentile","College Degree",1970,45,197549.202344146
+"384","90th percentile","Less than College",1970,45,98774.6011720729

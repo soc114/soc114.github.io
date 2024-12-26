@@ -1,0 +1,17 @@
+---
+title: "Problem Set 0: Setting up R, RStudio, and Quarto"
+subtitle: "**Info 3370. Studying Social Inequality with Data Science. Spring 2024**"
+format: pdf
+---
+
+**Due: 5pm on Wednesday, January 24.**
+
+Welcome to the first problem set; this should not require any extra input from
+you. Just follow the instructions on the website to render this document, and
+you are done! Upload the PDF to Canvas.
+
+# 1. Computing environment (10 points)
+
+```{r}
+sessionInfo()
+```

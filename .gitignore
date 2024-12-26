@@ -3,7 +3,6 @@
 .Rproj.user
 .Rprofile
 .Rhistory
-_site
 .quarto
 /.quarto/
 data_raw/

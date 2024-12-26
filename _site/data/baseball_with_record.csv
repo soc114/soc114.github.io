@@ -1,0 +1,945 @@
+player,team,salary,record,target_subgroup
+"Bumgarner, Madison",Arizona,21882892,0.457,FALSE
+"Marte, Ketel",Arizona,11600000,0.457,FALSE
+"Ahmed, Nick",Arizona,10375000,0.457,FALSE
+"Kelly, Merrill",Arizona,8500000,0.457,FALSE
+"Walker, Christian",Arizona,6500000,0.457,FALSE
+"Melancon, Mark*",Arizona,6000000,0.457,FALSE
+"Gallen, Zac",Arizona,5600000,0.457,FALSE
+"Chafin, Andrew",Arizona,5500000,0.457,FALSE
+"Gurriel, Lourdes",Arizona,5400000,0.457,FALSE
+"Davies, Zac",Arizona,4700000,0.457,FALSE
+"Kelly, Carson*",Arizona,4275000,0.457,FALSE
+"Longoria, Evan",Arizona,4000000,0.457,FALSE
+"Castro, Miguel",Arizona,3500000,0.457,FALSE
+"Rojas, Josh",Arizona,2575000,0.457,FALSE
+"McGough, Scott",Arizona,2500000,0.457,FALSE
+"Carroll, Corbin",Arizona,1625000,0.457,FALSE
+"Lewis, Kyle",Arizona,1610000,0.457,FALSE
+"Sulser, Cole",Arizona,825000,0.457,FALSE
+"Mantiply, Joe*",Arizona,756000,0.457,FALSE
+"Ginkel, Kevin",Arizona,746600,0.457,FALSE
+"Perdomo, Geraldo",Arizona,738600,0.457,FALSE
+"McCarthy, Jake",Arizona,735600,0.457,FALSE
+"Thomas, Alek",Arizona,735200,0.457,FALSE
+"Nelson, Kyle",Arizona,728900,0.457,FALSE
+"Martin, Corbin*",Arizona,728400,0.457,FALSE
+"Herrera, Jose",Arizona,724300,0.457,FALSE
+"Jameson, Drey",Arizona,723600,0.457,FALSE
+"Nelson, Ryne",Arizona,722700,0.457,FALSE
+"Moreno, Gabriel",Arizona,722500,0.457,FALSE
+"Vargas, Carlos",Arizona,721000,0.457,FALSE
+"Robinson, Kristian**",Arizona,720000,0.457,FALSE
+"Olson, Matt",Atlanta,21000000,0.623,FALSE
+"Morton, Charlie",Atlanta,20000000,0.623,FALSE
+"Ozuna, Marcell",Atlanta,18000000,0.623,FALSE
+"Acuna, Ronald",Atlanta,17000000,0.623,FALSE
+"Iglesias, Raisel*",Atlanta,16000000,0.623,FALSE
+"Riley, Austin",Atlanta,15000000,0.623,FALSE
+"Fried, Max",Atlanta,13500000,0.623,FALSE
+"Rosario, Eddie",Atlanta,9000000,0.623,FALSE
+"D'Arnaud, Travis",Atlanta,8000000,0.623,FALSE
+"Albies, Ozzie",Atlanta,7000000,0.623,FALSE
+"Yates, Kirby",Atlanta,6000000,0.623,FALSE
+"Harris, Michael",Atlanta,5000000,0.623,FALSE
+"McHugh, Collin",Atlanta,5000000,0.623,FALSE
+"Minter, A.J.",Atlanta,4287500,0.623,FALSE
+"Murphy, Sean",Atlanta,4000000,0.623,FALSE
+"Pillar, Kevin",Atlanta,3000000,0.623,FALSE
+"Jimenez, Joe",Atlanta,2765000,0.623,FALSE
+"Arcia, Orlando",Atlanta,2300000,0.623,FALSE
+"Luetge, Lucas",Atlanta,1550000,0.623,FALSE
+"Chavez, Jesse",Atlanta,1200000,0.623,FALSE
+"Matzek, Tyler*",Atlanta,1200000,0.623,FALSE
+"Adrianza, Ehire",Atlanta,1000000,0.623,FALSE
+"Strider, Spencer",Atlanta,1000000,0.623,FALSE
+"Anderson, Nick",Atlanta,875000,0.623,FALSE
+"Allard, Kolby*",Atlanta,750000,0.623,FALSE
+"Hilliard, Sam",Atlanta,750000,0.623,FALSE
+"Tonkin, Michael",Atlanta,750000,0.623,FALSE
+"Wright, Kyle*",Atlanta,750000,0.623,FALSE
+"Ynoa, Huascar*",Atlanta,750000,0.623,FALSE
+"Lee, Dylan",Atlanta,730000,0.623,FALSE
+"Shuster, Jared",Atlanta,720000,0.623,FALSE
+"McCann, James*",Baltimore,12000000,0.512,FALSE
+"Gibson, Kyle",Baltimore,10000000,0.512,FALSE
+"Frazier, Adam",Baltimore,8000000,0.512,FALSE
+"Santander, Anthony",Baltimore,7400000,0.512,FALSE
+"Mullins II, Cedric",Baltimore,4100000,0.512,FALSE
+"Hays, Austin",Baltimore,3200000,0.512,FALSE
+"Givens, Mychal*",Baltimore,3000000,0.512,FALSE
+"Means, John*",Baltimore,2975000,0.512,FALSE
+"Mateo, Jorge",Baltimore,2000000,0.512,FALSE
+"Voth, Austin",Baltimore,1850000,0.512,FALSE
+"Tate, Dillon*",Baltimore,1500000,0.512,FALSE
+"Coulombe, Daniel",Baltimore,1000000,0.512,FALSE
+"Bemboom, Anthony",Baltimore,900000,0.512,FALSE
+"Mountcastle, Ryan",Baltimore,738400,0.512,FALSE
+"Irvin, Cole",Baltimore,737600,0.512,FALSE
+"Urias, Ramon",Baltimore,734700,0.512,FALSE
+"Rutschman, Adley",Baltimore,733900,0.512,FALSE
+"Wells, Tyler",Baltimore,732400,0.512,FALSE
+"Perez, Cionel",Baltimore,732300,0.512,FALSE
+"Bautista, Felix",Baltimore,731800,0.512,FALSE
+"Kremer, Dean",Baltimore,731200,0.512,FALSE
+"Akin, Keegan",Baltimore,731100,0.512,FALSE
+"Baker, Bryan",Baltimore,729000,0.512,FALSE
+"Bradish, Kyle",Baltimore,728100,0.512,FALSE
+"McKenna, Ryan",Baltimore,725800,0.512,FALSE
+"Henderson, Gunnar",Baltimore,723200,0.512,FALSE
+"Baumann, Michael",Baltimore,722300,0.512,FALSE
+"Stowers, Kyle",Baltimore,722200,0.512,FALSE
+"Vavra, Terrin",Baltimore,722100,0.512,FALSE
+"Gillaspie, Logan",Baltimore,721200,0.512,FALSE
+"Sale, Chris",Boston,21672484,0.481,FALSE
+"Story, Trevor*",Boston,20000000,0.481,FALSE
+"Devers, Rafael",Boston,17500000,0.481,FALSE
+"Jansen, Kenley",Boston,16000000,0.481,FALSE
+"Yoshida, Masataka",Boston,15600000,0.481,FALSE
+"Hernandez, Enrique",Boston,10000000,0.481,FALSE
+"Kluber, Corey",Boston,10000000,0.481,FALSE
+"Turner, Justin",Boston,8300000,0.481,FALSE
+"Martin, Chris",Boston,8000000,0.481,FALSE
+"Duvall, Adam",Boston,7000000,0.481,FALSE
+"Verdugo, Alex",Boston,6300000,0.481,FALSE
+"Pivetta, Nick",Boston,5350000,0.481,FALSE
+"Paxton, James*",Boston,4000000,0.481,FALSE
+"Bleier, Richard",Boston,3500000,0.481,FALSE
+"Mondesi, Adalberto*",Boston,3045000,0.481,FALSE
+"Arroyo, Christian",Boston,2000000,0.481,FALSE
+"Brasier, Ryan",Boston,2000000,0.481,FALSE
+"Tapia, Raimel",Boston,2000000,0.481,FALSE
+"Rodriguez, Joely*",Boston,1500000,0.481,FALSE
+"Whitlock, Garrett*",Boston,1250000,0.481,FALSE
+"McGuire, Reese",Boston,1225000,0.481,FALSE
+"Refsnyder, Rob",Boston,1200000,0.481,FALSE
+"Chang, Yu-Cheng",Boston,850000,0.481,FALSE
+"Schreiber, John",Boston,750000,0.481,FALSE
+"Houck, Tanner",Boston,740000,0.481,FALSE
+"Crawford, Kutter",Boston,730000,0.481,FALSE
+"Bello, Brayan*",Boston,729500,0.481,FALSE
+"Mills, Wyatt*",Boston,727500,0.481,FALSE
+"Casas, Triston",Boston,723500,0.481,FALSE
+"Kelly, Zack",Boston,723500,0.481,FALSE
+"Ort, Kaleb",Boston,722000,0.481,FALSE
+"Winckowski, Josh",Boston,722000,0.481,FALSE
+"Wong, Connor",Boston,722000,0.481,FALSE
+"Stroman, Marcus",Chicago Cubs,25000000,0.457,FALSE
+"Suzuki, Seiya*",Chicago Cubs,18000000,0.457,FALSE
+"Hendricks, Kyle*",Chicago Cubs,14500000,0.457,FALSE
+"Swanson, Dansby",Chicago Cubs,14000000,0.457,FALSE
+"Taillon, Jameson",Chicago Cubs,14000000,0.457,FALSE
+"Hosmer, Eric",Chicago Cubs,13000000,0.457,FALSE
+"Bellinger, Cody",Chicago Cubs,12500000,0.457,FALSE
+"Happ, Ian",Chicago Cubs,10850000,0.457,FALSE
+"Smyly, Drew",Chicago Cubs,8000000,0.457,FALSE
+"Mancini, Trey",Chicago Cubs,7000000,0.457,FALSE
+"Gomes, Yan",Chicago Cubs,6000000,0.457,FALSE
+"Fulmer, Michael",Chicago Cubs,4000000,0.457,FALSE
+"Barnhart, Tucker",Chicago Cubs,3250000,0.457,FALSE
+"Hoerner, Nico",Chicago Cubs,2525000,0.457,FALSE
+"Boxberger, Brad",Chicago Cubs,2000000,0.457,FALSE
+"Madrigal, Nick",Chicago Cubs,1225000,0.457,FALSE
+"Torrens, Luis",Chicago Cubs,1200000,0.457,FALSE
+"Rios, Edwin",Chicago Cubs,1000000,0.457,FALSE
+"Leiter Jr., Mark",Chicago Cubs,850000,0.457,FALSE
+"Heuer, Codi*",Chicago Cubs,785000,0.457,FALSE
+"Wisdom, Patrick",Chicago Cubs,763000,0.457,FALSE
+"Alzolay, Adbert",Chicago Cubs,744750,0.457,FALSE
+"Steele, Justin",Chicago Cubs,740000,0.457,FALSE
+"Thompson, Keegan",Chicago Cubs,740000,0.457,FALSE
+"Merryweather, Julian",Chicago Cubs,737000,0.457,FALSE
+"Rucker, Michael",Chicago Cubs,737000,0.457,FALSE
+"Hughes, Brandon*",Chicago Cubs,728000,0.457,FALSE
+"Assad, Javier",Chicago Cubs,721500,0.457,FALSE
+"Wesneski, Hayden",Chicago Cubs,721500,0.457,FALSE
+"Roberts, Ethan*",Chicago Cubs,721000,0.457,FALSE
+"Mastrobuoni, Miles",Chicago Cubs,720500,0.457,FALSE
+"Lynn, Lance",Chicago White Sox,18500000,0.5,FALSE
+"Grandal, Yasmani",Chicago White Sox,18250000,0.5,FALSE
+"Moncada, Yoan",Chicago White Sox,17800000,0.5,FALSE
+"Hendriks, Liam*",Chicago White Sox,14333333,0.5,FALSE
+"Anderson, Tim",Chicago White Sox,12500000,0.5,FALSE
+"Giolito, Lucas",Chicago White Sox,10400000,0.5,FALSE
+"Jimenez, Eloy",Chicago White Sox,10333333,0.5,FALSE
+"Robert, Luis",Chicago White Sox,9500000,0.5,FALSE
+"Kelly, Joe",Chicago White Sox,9000000,0.5,FALSE
+"Benintendi, Andrew",Chicago White Sox,8600000,0.5,FALSE
+"Clevinger, Michael",Chicago White Sox,8000000,0.5,FALSE
+"Graveman, Kendall",Chicago White Sox,8000000,0.5,FALSE
+"Cease, Dylan",Chicago White Sox,5700000,0.5,FALSE
+"Bummer, Aaron",Chicago White Sox,3750000,0.5,FALSE
+"Lopez, Reynaldo",Chicago White Sox,3625000,0.5,FALSE
+"Diekman, Jake",Chicago White Sox,3500000,0.5,FALSE
+"Andrus, Elvis",Chicago White Sox,3000000,0.5,FALSE
+"Kopech, Michael",Chicago White Sox,2050000,0.5,FALSE
+"Alberto, Hanser",Chicago White Sox,1300000,0.5,FALSE
+"Ruiz, Jose",Chicago White Sox,925000,0.5,FALSE
+"Vaughn, Andrew",Chicago White Sox,760000,0.5,FALSE
+"Lambert, James",Chicago White Sox,735000,0.5,FALSE
+"Sheets, Gavin",Chicago White Sox,735000,0.5,FALSE
+"Foster, Matt*",Chicago White Sox,734000,0.5,FALSE
+"Crochet, Garrett*",Chicago White Sox,733000,0.5,FALSE
+"Zavala, Seby",Chicago White Sox,732000,0.5,FALSE
+"Gonzalez, Roman",Chicago White Sox,723000,0.5,FALSE
+"Colas, Oscar",Chicago White Sox,720000,0.5,FALSE
+"Santos, Gregory",Chicago White Sox,720000,0.5,FALSE
+"Votto, Joey*",Cincinnati,25000000,0.383,FALSE
+"Myers, Wil",Cincinnati,6000000,0.383,FALSE
+"Newman, Kevin",Cincinnati,2662500,0.383,FALSE
+"Cessa, Luis",Cincinnati,2650000,0.383,FALSE
+"Casali, Curt",Cincinnati,2500000,0.383,FALSE
+"Weaver, Luke*",Cincinnati,2000000,0.383,FALSE
+"Senzel, Nick*",Cincinnati,1950000,0.383,FALSE
+"Farmer, Buck",Cincinnati,1725000,0.383,FALSE
+"Sims, Lucas*",Cincinnati,1267500,0.383,FALSE
+"Maile, Luke",Cincinnati,1175000,0.383,FALSE
+"Young, Alex",Cincinnati,1150000,0.383,FALSE
+"Law, Derek",Cincinnati,1000000,0.383,FALSE
+"Vosler, Jason",Cincinnati,1000000,0.383,FALSE
+"Dunn, Justin*",Cincinnati,900000,0.383,FALSE
+"Antone, Tejay*",Cincinnati,770000,0.383,FALSE
+"India, Jonathan",Cincinnati,760000,0.383,FALSE
+"Fraley, Jake",Cincinnati,740000,0.383,FALSE
+"Stephenson, Tyler",Cincinnati,740000,0.383,FALSE
+"Diaz, Alexis",Cincinnati,730000,0.383,FALSE
+"Garcia, Jose",Cincinnati,730000,0.383,FALSE
+"Gibaut, Ian",Cincinnati,730000,0.383,FALSE
+"Greene, Hunter",Cincinnati,730000,0.383,FALSE
+"Gutierrez, Vladimir*",Cincinnati,730000,0.383,FALSE
+"Kuhnel, Joel",Cincinnati,730000,0.383,FALSE
+"Lodolo, Nick",Cincinnati,730000,0.383,FALSE
+"Overton, Connor",Cincinnati,730000,0.383,FALSE
+"Santillan, Antonio*",Cincinnati,730000,0.383,FALSE
+"Ashcraft, Graham",Cincinnati,722500,0.383,FALSE
+"Fairchild, Stuart",Cincinnati,722500,0.383,FALSE
+"Friedl, Jr, Terry",Cincinnati,722500,0.383,FALSE
+"Sanmartin, Reiver",Cincinnati,722500,0.383,FALSE
+"Benson, Will",Cincinnati,720000,0.383,FALSE
+"Cruz, Fernando",Cincinnati,720000,0.383,FALSE
+"Steer, Spencer",Cincinnati,720000,0.383,FALSE
+"Bell, Josh",Cleveland,16500000,0.568,FALSE
+"Ramirez, Jose",Cleveland,14000000,0.568,FALSE
+"Bieber, Shane",Cleveland,10010000,0.568,FALSE
+"Rosario, Amed",Cleveland,7800000,0.568,FALSE
+"Zunino, Mike",Cleveland,6000000,0.568,FALSE
+"Quantrill, Cal",Cleveland,5550000,0.568,FALSE
+"Naylor, Josh",Cleveland,3350000,0.568,FALSE
+"Plesac, Zach",Cleveland,2950000,0.568,FALSE
+"Straw, Myles",Cleveland,2900000,0.568,FALSE
+"Civale, Aaron",Cleveland,2600000,0.568,FALSE
+"Clase, Emmanuel",Cleveland,1900000,0.568,FALSE
+"Gimenez, Andres",Cleveland,1571429,0.568,FALSE
+"Karinchak, James",Cleveland,1500000,0.568,FALSE
+"Stephan, Trevor",Cleveland,1350000,0.568,FALSE
+"Gallagher, Cam",Cleveland,1250000,0.568,FALSE
+"Viloria, Meibrys",Cleveland,750000,0.568,FALSE
+"De Los Santos, Enyel",Cleveland,750000,0.568,FALSE
+"McKenzie, Triston*",Cleveland,739500,0.568,FALSE
+"Hentges, Sam*",Cleveland,730200,0.568,FALSE
+"Kwan, Steven",Cleveland,727300,0.568,FALSE
+"Morgan, Eli",Cleveland,727000,0.568,FALSE
+"Sandlin, Nick",Cleveland,726000,0.568,FALSE
+"Gonzalez, Oscar",Cleveland,722600,0.568,FALSE
+"Morris, Cody*",Cleveland,720200,0.568,FALSE
+"Arias, Gabriel",Cleveland,720100,0.568,FALSE
+"Brennan, Will",Cleveland,720100,0.568,FALSE
+"Curry, Xzavion",Cleveland,720100,0.568,FALSE
+"Gaddis, Hunter",Cleveland,720100,0.568,FALSE
+"Herrin, Tim",Cleveland,720000,0.568,FALSE
+"Bryant, Kris",Colorado,28000000,0.42,FALSE
+"Moustakas, Mike",Colorado,18000000,0.42,FALSE
+"Marquez, German",Colorado,15300000,0.42,FALSE
+"Blackmon, Charlie",Colorado,15000000,0.42,FALSE
+"Freeland, Kyle",Colorado,10500000,0.42,FALSE
+"Bard, Daniel*",Colorado,9500000,0.42,FALSE
+"Grichuk, Randal*",Colorado,9333333,0.42,FALSE
+"McMahon, Ryan",Colorado,9000000,0.42,FALSE
+"Profar, Jurickson",Colorado,7710778,0.42,FALSE
+"Cron, C.J.",Colorado,7500000,0.42,FALSE
+"Senzatela, Antonio*",Colorado,7250000,0.42,FALSE
+"Diaz, Elias",Colorado,5500000,0.42,FALSE
+"Johnson, Pierce",Colorado,5000000,0.42,FALSE
+"Lamet, Dinelson",Colorado,5000000,0.42,FALSE
+"Urena, Jose",Colorado,3000000,0.42,FALSE
+"Suter, Brent",Colorado,3000000,0.42,FALSE
+"Rodgers, Brendan*",Colorado,2700000,0.42,FALSE
+"Gomber, Austin",Colorado,1650000,0.42,FALSE
+"Hand, Brad",Colorado,1500000,0.42,FALSE
+"Castro, Harold",Colorado,1300000,0.42,FALSE
+"Kinley, Tyler*",Colorado,1200000,0.42,FALSE
+"Blach, Ty",Colorado,1100000,0.42,FALSE
+"Daza, Yonathan",Colorado,730000,0.42,FALSE
+"Gilbreath, Lucas*",Colorado,725000,0.42,FALSE
+"Rolison, Ryan*",Colorado,725000,0.42,FALSE
+"Bird, Jacob",Colorado,722000,0.42,FALSE
+"Bouchard, Sean*",Colorado,722000,0.42,FALSE
+"Feltner, Ryan",Colorado,722000,0.42,FALSE
+"Lawrence, Justin",Colorado,722000,0.42,FALSE
+"Montero, Elehuris",Colorado,722000,0.42,FALSE
+"Seabold, Connor",Colorado,722000,0.42,FALSE
+"Serven, Brian",Colorado,722000,0.42,FALSE
+"Tovar, Ezequiel",Colorado,722000,0.42,FALSE
+"Trejo, Alan",Colorado,722000,0.42,FALSE
+"Cabrera, Miguel",Detroit,32000000,0.407,FALSE
+"Baez, Javier",Detroit,22000000,0.407,FALSE
+"Rodriguez, Eduardo",Detroit,14000000,0.407,FALSE
+"Boyd, Matt",Detroit,10000000,0.407,FALSE
+"Lorenzen, Michael*",Detroit,8500000,0.407,FALSE
+"Schoop, Jonathan",Detroit,7500000,0.407,FALSE
+"Meadows, Austin",Detroit,4300000,0.407,FALSE
+"Cisnero, Jose",Detroit,2287500,0.407,FALSE
+"Turnbull, Spencer",Detroit,2150000,0.407,FALSE
+"Alexander, Tyler",Detroit,1875000,0.407,FALSE
+"Shreve, Chasen",Detroit,1250000,0.407,FALSE
+"Wingenter, Trey",Detroit,1000000,0.407,FALSE
+"Skubal, Tarik*",Detroit,743700,0.407,FALSE
+"Haase, Eric",Detroit,740100,0.407,FALSE
+"McKinstry, Zach",Detroit,734500,0.407,FALSE
+"Mize, Casey*",Detroit,734200,0.407,FALSE
+"Manning, Matt",Detroit,729200,0.407,FALSE
+"Greene, Riley",Detroit,727800,0.407,FALSE
+"Vierling, Matt",Detroit,727100,0.407,FALSE
+"Maton, Nick",Detroit,726600,0.407,FALSE
+"Foley, Jason",Detroit,726200,0.407,FALSE
+"Lange, Alex",Detroit,726000,0.407,FALSE
+"Rogers, Jake",Detroit,726000,0.407,FALSE
+"Brieske, Beau*",Detroit,724400,0.407,FALSE
+"Carpenter, Kerry",Detroit,723700,0.407,FALSE
+"Wentz, Joey",Detroit,723500,0.407,FALSE
+"Torkelson, Spencer",Detroit,723100,0.407,FALSE
+"Nevin, Tyler*",Detroit,723000,0.407,FALSE
+"Hill, Garrett",Detroit,722300,0.407,FALSE
+"Kreidler, Ryan",Detroit,721600,0.407,FALSE
+"Englert, Mason",Detroit,720000,0.407,FALSE
+"Pacheco, Freddy*",Detroit,720000,0.407,FALSE
+"Bregman, Alex",Houston,30500000,0.654,FALSE
+"Altuve, Jose*",Houston,29000000,0.654,FALSE
+"Abreu, Jose",Houston,19500000,0.654,FALSE
+"McCullers, Lance*",Houston,15950000,0.654,FALSE
+"Pressly, Ryan",Houston,14000000,0.654,FALSE
+"Brantley, Michael*",Houston,12000000,0.654,FALSE
+"Montero, Rafael",Houston,11500000,0.654,FALSE
+"Neris, Hector",Houston,8000000,0.654,FALSE
+"Alvarez, Yordan",Houston,7833333,0.654,FALSE
+"Valdez, Framber",Houston,6800000,0.654,FALSE
+"Maldonado, Martin",Houston,5000000,0.654,FALSE
+"Tucker, Kyle",Houston,5000000,0.654,FALSE
+"Stanek, Ryne",Houston,3600000,0.654,FALSE
+"Javier, Cristian",Houston,3400000,0.654,FALSE
+"Hernandez, Jose",Houston,3025000,0.654,FALSE
+"Maton, Phil",Houston,2550000,0.654,FALSE
+"Dubon, Mauricio",Houston,1400000,0.654,FALSE
+"Taylor, Blake*",Houston,830000,0.654,FALSE
+"Garcia, Luis",Houston,763200,0.654,FALSE
+"Pena, Jeremy",Houston,754900,0.654,FALSE
+"McCormick, Chas",Houston,752500,0.654,FALSE
+"Abreu, Bryan",Houston,745200,0.654,FALSE
+"Meyers, Jake",Houston,732000,0.654,FALSE
+"Martinez, Seth",Houston,730200,0.654,FALSE
+"Brown, Hunter",Houston,725000,0.654,FALSE
+"Hensley, David",Houston,722600,0.654,FALSE
+"Mushinski, Parker*",Houston,721800,0.654,FALSE
+"Blanco, Ronel",Houston,721200,0.654,FALSE
+"Diaz, Yainer",Houston,720300,0.654,FALSE
+"Julks, Corey",Houston,720000,0.654,FALSE
+"Salazar, Cesar",Houston,720000,0.654,FALSE
+"Perez, Salvador",Kansas City,20000000,0.401,FALSE
+"Greinke, Zack",Kansas City,8500000,0.401,FALSE
+"Lyles, Jordan",Kansas City,8500000,0.401,FALSE
+"Dozier, Hunter",Kansas City,7500000,0.401,FALSE
+"Keller, Brad",Kansas City,5775000,0.401,FALSE
+"Barlow, Scott",Kansas City,5300000,0.401,FALSE
+"Chapman, Aroldis",Kansas City,3750000,0.401,FALSE
+"Lopez, Nicky",Kansas City,3700000,0.401,FALSE
+"Yarbrough, Ryan",Kansas City,3000000,0.401,FALSE
+"Singer, Brady",Kansas City,2950000,0.401,FALSE
+"Garrett, Amir",Kansas City,2650000,0.401,FALSE
+"Bubic, Kris",Kansas City,2200000,0.401,FALSE
+"Reyes, Franmil",Kansas City,2000000,0.401,FALSE
+"Duffy, Matt",Kansas City,1500000,0.401,FALSE
+"Clarke, Taylor",Kansas City,1150000,0.401,FALSE
+"Bradley, Jackie",Kansas City,900000,0.401,FALSE
+"Brentz, Jake*",Kansas City,850000,0.401,FALSE
+"Witt Jr, Bobby",Kansas City,745750,0.401,FALSE
+"Olivares, Edward",Kansas City,740750,0.401,FALSE
+"Coleman, Dylan",Kansas City,731750,0.401,FALSE
+"Hernandez, Carlos",Kansas City,730250,0.401,FALSE
+"Lynch, Daniel*",Kansas City,730250,0.401,FALSE
+"Isbel, Kyle",Kansas City,727500,0.401,FALSE
+"Melendez, MJ",Kansas City,726500,0.401,FALSE
+"Cuas, Jose",Kansas City,726000,0.401,FALSE
+"Pasquantino, Vinnie",Kansas City,725500,0.401,FALSE
+"Massey, Michael",Kansas City,722850,0.401,FALSE
+"Waters, Drew*",Kansas City,722400,0.401,FALSE
+"Eaton, Nathan",Kansas City,722200,0.401,FALSE
+"Zerpa, Angel*",Kansas City,721400,0.401,FALSE
+"Hernandez, Diego*",Kansas City,720000,0.401,FALSE
+"Rendon, Anthony",L.A. Angels,38571429,0.451,FALSE
+"Trout, Mike",L.A. Angels,37116667,0.451,FALSE
+"Ohtani, Shohei",L.A. Angels,30000000,0.451,FALSE
+"Anderson, Tyler",L.A. Angels,13000000,0.451,FALSE
+"Renfroe, Hunter",L.A. Angels,11900000,0.451,FALSE
+"Drury, Brandon",L.A. Angels,8500000,0.451,FALSE
+"Urshela, Gio",L.A. Angels,8400000,0.451,FALSE
+"Moore, Matthew",L.A. Angels,7550000,0.451,FALSE
+"Loup, Aaron",L.A. Angels,7500000,0.451,FALSE
+"Stassi, Max*",L.A. Angels,7000000,0.451,FALSE
+"Tepera, Ryan",L.A. Angels,7000000,0.451,FALSE
+"Estevez, Carlos",L.A. Angels,6750000,0.451,FALSE
+"Fletcher, David",L.A. Angels,6000000,0.451,FALSE
+"Sandoval, Patrick",L.A. Angels,2750000,0.451,FALSE
+"Ward, Taylor",L.A. Angels,2750000,0.451,FALSE
+"Walsh, Jared*",L.A. Angels,2650000,0.451,FALSE
+"Rengifo, Luis",L.A. Angels,2300000,0.451,FALSE
+"Lamb, Jake",L.A. Angels,1250000,0.451,FALSE
+"Phillips, Brett",L.A. Angels,1200000,0.451,FALSE
+"Barria, Jaime",L.A. Angels,1050000,0.451,FALSE
+"Canning, Griffin*",L.A. Angels,850000,0.451,FALSE
+"Herget, Jimmy",L.A. Angels,750000,0.451,FALSE
+"Quijada, Jose",L.A. Angels,750000,0.451,FALSE
+"Suarez, Jose",L.A. Angels,750000,0.451,FALSE
+"Davidson, Tucker",L.A. Angels,740000,0.451,FALSE
+"Detmers, Reid",L.A. Angels,740000,0.451,FALSE
+"Rodriguez, Christopher*",L.A. Angels,740000,0.451,FALSE
+"Thaiss, Matt",L.A. Angels,740000,0.451,FALSE
+"Wantz, Andrew",L.A. Angels,740000,0.451,FALSE
+"Daniel, Davis*",L.A. Angels,730000,0.451,FALSE
+"Marte, Jose*",L.A. Angels,730000,0.451,FALSE
+"O'Hoppe, Logan",L.A. Angels,730000,0.451,FALSE
+"Freeman, Freddie",L.A. Dodgers,25290674,0.685,TRUE
+"Heyward, Jason",L.A. Dodgers,22000000,0.685,TRUE
+"Betts, Mookie",L.A. Dodgers,21158692,0.685,TRUE
+"Kershaw, Clayton",L.A. Dodgers,20000000,0.685,TRUE
+"Taylor, Chris",L.A. Dodgers,15000000,0.685,TRUE
+"Urias, Julio",L.A. Dodgers,14250000,0.685,TRUE
+"Muncy, Max",L.A. Dodgers,13500000,0.685,TRUE
+"Syndergaard, Noah",L.A. Dodgers,13000000,0.685,TRUE
+"Martinez, JD",L.A. Dodgers,10000000,0.685,TRUE
+"Buehler, Walker*",L.A. Dodgers,8025000,0.685,TRUE
+"Treinen, Blake*",L.A. Dodgers,8000000,0.685,TRUE
+"Hudson, Daniel*",L.A. Dodgers,6500000,0.685,TRUE
+"Peralta, David",L.A. Dodgers,6500000,0.685,TRUE
+"Smith, Will",L.A. Dodgers,5250000,0.685,TRUE
+"Rojas, Miguel",L.A. Dodgers,4250000,0.685,TRUE
+"Barnes, Austin",L.A. Dodgers,3500000,0.685,TRUE
+"Gonsolin, Anthony*",L.A. Dodgers,3250000,0.685,TRUE
+"May, Dustin",L.A. Dodgers,1675000,0.685,TRUE
+"Almonte, Yency",L.A. Dodgers,1500000,0.685,TRUE
+"Miller, Shelby",L.A. Dodgers,1500000,0.685,TRUE
+"Thompson, Trayce",L.A. Dodgers,1450000,0.685,TRUE
+"Phillips, Evan",L.A. Dodgers,1300000,0.685,TRUE
+"Graterol, Brusdar",L.A. Dodgers,1225000,0.685,TRUE
+"Nelson, Jimmy*",L.A. Dodgers,1200000,0.685,TRUE
+"Ferguson, Caleb",L.A. Dodgers,1100000,0.685,TRUE
+"Reyes, Alex*",L.A. Dodgers,1100000,0.685,TRUE
+"Feyereisen, J.P.*",L.A. Dodgers,750000,0.685,TRUE
+"Lux, Gavin*",L.A. Dodgers,750000,0.685,TRUE
+"Vesia, Alex",L.A. Dodgers,750000,0.685,TRUE
+"Bickford, Phil",L.A. Dodgers,740000,0.685,TRUE
+"Grove, Michael",L.A. Dodgers,722500,0.685,TRUE
+"Jackson, Andre",L.A. Dodgers,722500,0.685,TRUE
+"Outman, James",L.A. Dodgers,722500,0.685,TRUE
+"Pepiot, Ryan*",L.A. Dodgers,722500,0.685,TRUE
+"Vargas, Miguel",L.A. Dodgers,722500,0.685,TRUE
+"Soler, Jorge",Miami,15000000,0.426,FALSE
+"Garcia, Avisail",Miami,12000000,0.426,FALSE
+"Barnes, Matt",Miami,7500000,0.426,FALSE
+"Segura, Jean",Miami,6500000,0.426,FALSE
+"Alcantara, Sandy",Miami,6300000,0.426,FALSE
+"Arraez, Luis",Miami,6100000,0.426,FALSE
+"Cueto, Johnny",Miami,6000000,0.426,FALSE
+"Wendle, Joey",Miami,6000000,0.426,FALSE
+"Cooper, Garrett",Miami,4200000,0.426,FALSE
+"Floro, Dylan",Miami,3900000,0.426,FALSE
+"Stallings, Jacob",Miami,3350000,0.426,FALSE
+"Scott, Tanner",Miami,2825000,0.426,FALSE
+"Luzardo, Jesus",Miami,2450000,0.426,FALSE
+"Berti, Jonathon",Miami,2100000,0.426,FALSE
+"Gurriel, Yuri",Miami,1250000,0.426,FALSE
+"Chargois, J.T.",Miami,850000,0.426,FALSE
+"Rogers, Trevor",Miami,752000,0.426,FALSE
+"Chisholm, Jazz",Miami,749500,0.426,FALSE
+"Okert, Steven*",Miami,739000,0.426,FALSE
+"Bender, Anthony*",Miami,738500,0.426,FALSE
+"Sanchez, Jesus",Miami,738000,0.426,FALSE
+"De La Cruz, Bryan",Miami,736000,0.426,FALSE
+"Puk, A.J.",Miami,736000,0.426,FALSE
+"Garrett, Braxton",Miami,732000,0.426,FALSE
+"Cabrera, Edward",Miami,731000,0.426,FALSE
+"Fortes, Nick",Miami,730000,0.426,FALSE
+"Nance, Tommy*",Miami,729500,0.426,FALSE
+"Brazoban, Huascar",Miami,724000,0.426,FALSE
+"Nardi, Andrew",Miami,723000,0.426,FALSE
+"Meyer, Max*",Miami,721500,0.426,FALSE
+"Enright, Nic*",Miami,720000,0.426,FALSE
+"Yelich, Christian",Milwaukee,24250727,0.531,FALSE
+"Woodruff, Brandon",Milwaukee,10800000,0.531,FALSE
+"Burnes, Corbin",Milwaukee,10010000,0.531,FALSE
+"Adames, Willy",Milwaukee,8700000,0.531,FALSE
+"Winker, Jesse",Milwaukee,8250000,0.531,FALSE
+"Lauer, Eric",Milwaukee,5075000,0.531,FALSE
+"Tellez, Rowdy",Milwaukee,4950000,0.531,FALSE
+"Urias, Luis",Milwaukee,4700000,0.531,FALSE
+"Peralta, Freddy",Milwaukee,3734960,0.531,FALSE
+"Houser, Adrian*",Milwaukee,3600000,0.531,FALSE
+"Miley, Wade",Milwaukee,3500000,0.531,FALSE
+"Anderson, Brian",Milwaukee,3500000,0.531,FALSE
+"Williams, Devin",Milwaukee,3350000,0.531,FALSE
+"Caratini, Victor",Milwaukee,2800000,0.531,FALSE
+"Voit, Luke",Milwaukee,2000000,0.531,FALSE
+"Bush, Matt",Milwaukee,1850000,0.531,FALSE
+"Brosseau, Michael",Milwaukee,1400000,0.531,FALSE
+"Ashby, Aaron*",Milwaukee,1200000,0.531,FALSE
+"Milner, Hoby",Milwaukee,1025000,0.531,FALSE
+"Wilson, Justin*",Milwaukee,850000,0.531,FALSE
+"Contreras, William",Milwaukee,739000,0.531,FALSE
+"Taylor, Tyrone*",Milwaukee,735400,0.531,FALSE
+"Wilson, Bryse",Milwaukee,732600,0.531,FALSE
+"Alexander, Jason*",Milwaukee,732500,0.531,FALSE
+"Miller, Owen",Milwaukee,731100,0.531,FALSE
+"Payamps, Joel",Milwaukee,730500,0.531,FALSE
+"Strzelecki, Peter",Milwaukee,726400,0.531,FALSE
+"Guerra, Javier",Milwaukee,724500,0.531,FALSE
+"Mitchell, Garrett",Milwaukee,724300,0.531,FALSE
+"Turang, Brice",Milwaukee,720000,0.531,FALSE
+"Varland, Gus",Milwaukee,720000,0.531,FALSE
+"Correa, Carlos",Minnesota,33333333,0.481,FALSE
+"Buxton, Byron",Minnesota,15142857,0.481,FALSE
+"Gray, Sonny",Minnesota,13100000,0.481,FALSE
+"Gallo, Joey",Minnesota,11000000,0.481,FALSE
+"Vazquez, Christian",Minnesota,10000000,0.481,FALSE
+"Kepler, Max",Minnesota,8500000,0.481,FALSE
+"Mahle, Tyler",Minnesota,7500000,0.481,FALSE
+"Polanco, Jorge*",Minnesota,7500000,0.481,FALSE
+"Farmer, Kyle",Minnesota,5585000,0.481,FALSE
+"Lopez, Pablo",Minnesota,5450000,0.481,FALSE
+"Taylor, Michael",Minnesota,4500000,0.481,FALSE
+"Lopez, Jorge",Minnesota,3525000,0.481,FALSE
+"Pagan, Emilio",Minnesota,3500000,0.481,FALSE
+"Maeda, Kenta",Minnesota,3000000,0.481,FALSE
+"Paddack, Chris*",Minnesota,2500000,0.481,FALSE
+"Thielbar, Caleb",Minnesota,2400000,0.481,FALSE
+"Solano, Donovan",Minnesota,2000000,0.481,FALSE
+"Castro, Willi",Minnesota,1800000,0.481,FALSE
+"Alcala, Jorge",Minnesota,790000,0.481,FALSE
+"Jeffers, Ryan",Minnesota,741650,0.481,FALSE
+"Kirilloff, Alex*",Minnesota,735650,0.481,FALSE
+"Gordon, Nick",Minnesota,735400,0.481,FALSE
+"Larnach, Trevor",Minnesota,733650,0.481,FALSE
+"Jax, Griffin",Minnesota,733150,0.481,FALSE
+"Celestino, Gilberto*",Minnesota,731450,0.481,FALSE
+"Ryan, Joe",Minnesota,730250,0.481,FALSE
+"Miranda, Jose",Minnesota,727850,0.481,FALSE
+"Lewis, Royce*",Minnesota,727100,0.481,FALSE
+"Moran, Jovani",Minnesota,726200,0.481,FALSE
+"Winder, Josh*",Minnesota,725650,0.481,FALSE
+"Sands, Cole",Minnesota,723650,0.481,FALSE
+"Henriquez, Ronny*",Minnesota,720900,0.481,FALSE
+"Duran, Jhoan",Minnesota,720000,0.481,FALSE
+"Scherzer, Max",N.Y. Mets,43333333,0.623,FALSE
+"Verlander, Justin",N.Y. Mets,43333333,0.623,FALSE
+"Lindor, Francisco",N.Y. Mets,32477277,0.623,FALSE
+"Marte, Starling",N.Y. Mets,20750000,0.623,FALSE
+"Nimmo, Brandon",N.Y. Mets,18500000,0.623,FALSE
+"Diaz, Edwin*",N.Y. Mets,18444242,0.623,FALSE
+"Senga, Kodai",N.Y. Mets,15666667,0.623,FALSE
+"Alonso, Pete",N.Y. Mets,14500000,0.623,FALSE
+"Carrasco, Carlos",N.Y. Mets,14000000,0.623,FALSE
+"Quintana, Jose*",N.Y. Mets,13000000,0.623,FALSE
+"Canha, Mark",N.Y. Mets,11500000,0.623,FALSE
+"Robertson, David",N.Y. Mets,10000000,0.623,FALSE
+"Escobar, Eduardo",N.Y. Mets,9500000,0.623,FALSE
+"Narvaez, Omar",N.Y. Mets,8000000,0.623,FALSE
+"Ottavino, Adam",N.Y. Mets,6647002,0.623,FALSE
+"McNeil, Jeff",N.Y. Mets,6250000,0.623,FALSE
+"Pham, Tommy",N.Y. Mets,6000000,0.623,FALSE
+"Raley, Brooks",N.Y. Mets,4500000,0.623,FALSE
+"Hunter, Tommy",N.Y. Mets,1750000,0.623,FALSE
+"Guillorme, Luis",N.Y. Mets,1600000,0.623,FALSE
+"Hernandez, Elieser*",N.Y. Mets,1600000,0.623,FALSE
+"Nido, Tomas",N.Y. Mets,1600000,0.623,FALSE
+"Vogelbach, Daniel",N.Y. Mets,1500000,0.623,FALSE
+"Locastro, Tim",N.Y. Mets,1400000,0.623,FALSE
+"Smith, Drew",N.Y. Mets,1300000,0.623,FALSE
+"Santana, Dennis",N.Y. Mets,1000000,0.623,FALSE
+"Coonrod, Samuel*",N.Y. Mets,775000,0.623,FALSE
+"Curtiss, John",N.Y. Mets,775000,0.623,FALSE
+"Peterson, David",N.Y. Mets,750000,0.623,FALSE
+"Ridings, Stephen*",N.Y. Mets,732500,0.623,FALSE
+"Nogosek, Steve",N.Y. Mets,730000,0.623,FALSE
+"Montes de Oca, Bryce*",N.Y. Mets,722500,0.623,FALSE
+"Judge, Aaron",N.Y. Yankees,40000000,0.611,FALSE
+"Cole, Gerrit",N.Y. Yankees,36000000,0.611,FALSE
+"Stanton, Giancarlo",N.Y. Yankees,32000000,0.611,FALSE
+"Rodon, Carlos*",N.Y. Yankees,22833333,0.611,FALSE
+"Donaldson, Josh",N.Y. Yankees,21000000,0.611,FALSE
+"Rizzo, Anthony",N.Y. Yankees,17000000,0.611,FALSE
+"LeMahieu, DJ",N.Y. Yankees,15000000,0.611,FALSE
+"Severino, Luis*",N.Y. Yankees,15000000,0.611,FALSE
+"Hicks, Aaron",N.Y. Yankees,10785714,0.611,FALSE
+"Torres, Gleyber",N.Y. Yankees,9950000,0.611,FALSE
+"Montas, Frankie*",N.Y. Yankees,7500000,0.611,FALSE
+"Kiner-Falefa, Isiah",N.Y. Yankees,6000000,0.611,FALSE
+"Kahnle, Tommy*",N.Y. Yankees,5750000,0.611,FALSE
+"Bader, Harrison*",N.Y. Yankees,5200000,0.611,FALSE
+"Trivino, Lou*",N.Y. Yankees,4100000,0.611,FALSE
+"Peralta, Wandy",N.Y. Yankees,3350000,0.611,FALSE
+"Holmes, Clay",N.Y. Yankees,3300000,0.611,FALSE
+"Cortes, Nestor",N.Y. Yankees,3200000,0.611,FALSE
+"German, Domingo",N.Y. Yankees,2600000,0.611,FALSE
+"Trevino, Jose",N.Y. Yankees,2360000,0.611,FALSE
+"Loaisiga, Jonathan",N.Y. Yankees,2262500,0.611,FALSE
+"Higashioka, Kyle",N.Y. Yankees,1462500,0.611,FALSE
+"King, Michael",N.Y. Yankees,1300000,0.611,FALSE
+"Cordero, Franchy",N.Y. Yankees,1000000,0.611,FALSE
+"Effross, Scott*",N.Y. Yankees,742750,0.611,FALSE
+"Cabrera, Oswaldo",N.Y. Yankees,742100,0.611,FALSE
+"Schmidt, Clarke",N.Y. Yankees,740475,0.611,FALSE
+"Marinaccio, Ron",N.Y. Yankees,739900,0.611,FALSE
+"Abreu, Albert",N.Y. Yankees,738700,0.611,FALSE
+"Rortvedt, Ben*",N.Y. Yankees,730000,0.611,FALSE
+"Florial, Estevan",N.Y. Yankees,728500,0.611,FALSE
+"Gil, Luis*",N.Y. Yankees,723400,0.611,FALSE
+"Brito, Jhony",N.Y. Yankees,720000,0.611,FALSE
+"Cordero, Jimmy",N.Y. Yankees,720000,0.611,FALSE
+"Volpe, Anthony",N.Y. Yankees,720000,0.611,FALSE
+"May, Trevor",Oakland,7000000,0.37,FALSE
+"Diaz, Aledmys",Oakland,6500000,0.37,FALSE
+"Peterson, Jace",Oakland,4500000,0.37,FALSE
+"Pina, Manny*",Oakland,4500000,0.37,FALSE
+"Kemp, Anthony",Oakland,3725000,0.37,FALSE
+"Laureano, Ramon",Oakland,3550000,0.37,FALSE
+"Fujinami, Shintaro",Oakland,3250000,0.37,FALSE
+"Aguilar, Jesus",Oakland,3000000,0.37,FALSE
+"Rucinski, Drew*",Oakland,3000000,0.37,FALSE
+"Blackburn, Paul*",Oakland,1900000,0.37,FALSE
+"Familia, Jeurys",Oakland,1500000,0.37,FALSE
+"Perez, Carlos",Oakland,740000,0.37,FALSE
+"Brown, Seth",Oakland,730000,0.37,FALSE
+"Kaprielian, James",Oakland,730000,0.37,FALSE
+"Acevedo, Domingo",Oakland,725000,0.37,FALSE
+"Jackson, Zach",Oakland,725000,0.37,FALSE
+"Jimenez, Dany",Oakland,725000,0.37,FALSE
+"Moll, Sam",Oakland,725000,0.37,FALSE
+"Rooker, Brent",Oakland,725000,0.37,FALSE
+"Snead, Kirby*",Oakland,725000,0.37,FALSE
+"Allen, Nick",Oakland,720000,0.37,FALSE
+"Capel, Conner",Oakland,720000,0.37,FALSE
+"Langeliers, Shea",Oakland,720000,0.37,FALSE
+"Martinez, Adrian",Oakland,720000,0.37,FALSE
+"Muller, Kyle",Oakland,720000,0.37,FALSE
+"Noda, Ryan",Oakland,720000,0.37,FALSE
+"Oller, Adam",Oakland,720000,0.37,FALSE
+"Ruiz, Esteury",Oakland,720000,0.37,FALSE
+"Sears, J.P.",Oakland,720000,0.37,FALSE
+"Tarnok, Freddy*",Oakland,720000,0.37,FALSE
+"Waldichuk, Ken",Oakland,720000,0.37,FALSE
+"Harper, Bryce*",Philadelphia,27538462,0.537,FALSE
+"Turner, Trea",Philadelphia,27272727,0.537,FALSE
+"Wheeler, Zack",Philadelphia,24500000,0.537,FALSE
+"Realmuto, JT",Philadelphia,23875000,0.537,FALSE
+"Castellanos, Nick",Philadelphia,20000000,0.537,FALSE
+"Schwarber, Kyle",Philadelphia,20000000,0.537,FALSE
+"Walker, Taijuan",Philadelphia,18000000,0.537,FALSE
+"Nola, Aaron",Philadelphia,16250000,0.537,FALSE
+"Hoskins, Rhys*",Philadelphia,12000000,0.537,FALSE
+"Kimbrel, Craig",Philadelphia,10000000,0.537,FALSE
+"Strahm, Matt",Philadelphia,7500000,0.537,FALSE
+"Soto, Gregory",Philadelphia,3925000,0.537,FALSE
+"Alvarado, Jose",Philadelphia,3450000,0.537,FALSE
+"Suarez, Ranger*",Philadelphia,2950000,0.537,FALSE
+"Dominguez, Seranthony",Philadelphia,2500000,0.537,FALSE
+"Harrison, Josh",Philadelphia,2000000,0.537,FALSE
+"Cave, Jake",Philadelphia,950000,0.537,FALSE
+"Sosa, Edmundo",Philadelphia,950000,0.537,FALSE
+"Bellatti, Andrew",Philadelphia,859000,0.537,FALSE
+"Bohm, Alec",Philadelphia,748000,0.537,FALSE
+"Nelson, Nick*",Philadelphia,745000,0.537,FALSE
+"Stubbs, Garrett",Philadelphia,741000,0.537,FALSE
+"Brogdon, Connor",Philadelphia,738750,0.537,FALSE
+"Marsh, Brandon",Philadelphia,734500,0.537,FALSE
+"Stott, Bryson",Philadelphia,734500,0.537,FALSE
+"Falter, Bailey",Philadelphia,733000,0.537,FALSE
+"Marte, Yunior",Philadelphia,725500,0.537,FALSE
+"Sanchez, Cristopher*",Philadelphia,725000,0.537,FALSE
+"Hall, Darick",Philadelphia,724500,0.537,FALSE
+"Marchan, Rafael*",Philadelphia,723500,0.537,FALSE
+"Vasquez, Andrew",Philadelphia,723500,0.537,FALSE
+"Guthrie, Dalton",Philadelphia,722500,0.537,FALSE
+"Song, Noah*",Philadelphia,720000,0.537,FALSE
+"Hayes, Ke'Bryan",Pittsburgh,10000000,0.383,FALSE
+"Hill, Rich",Pittsburgh,8000000,0.383,FALSE
+"Reynolds, Bryan",Pittsburgh,6750000,0.383,FALSE
+"Santana, Carlos",Pittsburgh,6725000,0.383,FALSE
+"Hedges, Austin",Pittsburgh,5000000,0.383,FALSE
+"McCutchen, Andrew",Pittsburgh,5000000,0.383,FALSE
+"Choi, Ji-Man",Pittsburgh,4650000,0.383,FALSE
+"Velasquez, Vincent",Pittsburgh,3150000,0.383,FALSE
+"Garcia, Jarlin*",Pittsburgh,2500000,0.383,FALSE
+"Keller, Mitch",Pittsburgh,2437500,0.383,FALSE
+"Brubaker, Jonathan*",Pittsburgh,2275000,0.383,FALSE
+"Stephenson, Robert*",Pittsburgh,1750000,0.383,FALSE
+"Underwood Jr., Duane",Pittsburgh,1025000,0.383,FALSE
+"De Jong, Chase",Pittsburgh,820000,0.383,FALSE
+"Zastryzny, Rob",Pittsburgh,750000,0.383,FALSE
+"Bednar, David",Pittsburgh,745000,0.383,FALSE
+"Crowe, Wil",Pittsburgh,745000,0.383,FALSE
+"Joe, Connor",Pittsburgh,735000,0.383,FALSE
+"Oviedo, Johan",Pittsburgh,735000,0.383,FALSE
+"Bae, Ji-hwan",Pittsburgh,725000,0.383,FALSE
+"Castro, Rodolfo",Pittsburgh,725000,0.383,FALSE
+"Contreras, Roansy",Pittsburgh,725000,0.383,FALSE
+"Holderman, Colin",Pittsburgh,725000,0.383,FALSE
+"Kranick, Max*",Pittsburgh,725000,0.383,FALSE
+"Moreta, Dauri",Pittsburgh,725000,0.383,FALSE
+"Smith, Canaan",Pittsburgh,725000,0.383,FALSE
+"Suwinski, Jack",Pittsburgh,725000,0.383,FALSE
+"Delay, Jason",Pittsburgh,720000,0.383,FALSE
+"Cruz, Oneil",Pittsburgh,720000,0.383,FALSE
+"Hernandez, Jose",Pittsburgh,720000,0.383,FALSE
+"Bogaerts, Xander",San Diego,25454545,0.549,FALSE
+"Darvish, Yu",San Diego,25000000,0.549,FALSE
+"Soto, Juan",San Diego,23000000,0.549,FALSE
+"Machado, Manny",San Diego,21090909,0.549,FALSE
+"Musgrove, Joe*",San Diego,20000000,0.549,FALSE
+"Snell, Blake",San Diego,16600000,0.549,FALSE
+"Hader, Josh",San Diego,14100000,0.549,FALSE
+"Martinez, Nick",San Diego,10000000,0.549,FALSE
+"Pomeranz, Drew*",San Diego,10000000,0.549,FALSE
+"Suarez, Robert*",San Diego,10000000,0.549,FALSE
+"Lugo, Seth",San Diego,7500000,0.549,FALSE
+"Wacha, Michael",San Diego,7500000,0.549,FALSE
+"Tatis, Fernando**",San Diego,7000000,0.549,FALSE
+"Kim, Ha-Seong",San Diego,7000000,0.549,FALSE
+"Carpenter, Matt",San Diego,6500000,0.549,FALSE
+"Cronenworth, Jake",San Diego,4225000,0.549,FALSE
+"Garcia, Luis (Amado)",San Diego,3750000,0.549,FALSE
+"Grisham, Trent",San Diego,3175000,0.549,FALSE
+"Nola, Austin",San Diego,2350000,0.549,FALSE
+"Hill, Tim",San Diego,1850000,0.549,FALSE
+"Dahl, David",San Diego,1250000,0.549,FALSE
+"Cruz, Nelson",San Diego,1000000,0.549,FALSE
+"Engel, Adam*",San Diego,1000000,0.549,FALSE
+"Morejon, Adrian*",San Diego,800000,0.549,FALSE
+"Odor, Rougned",San Diego,800000,0.549,FALSE
+"Crismatt, Nabil",San Diego,750000,0.549,FALSE
+"Tapia, Domingo",San Diego,735000,0.549,FALSE
+"Castillo, Jose*",San Diego,730000,0.549,FALSE
+"Weathers, Ryan",San Diego,727600,0.549,FALSE
+"Wilson, Steven",San Diego,726400,0.549,FALSE
+"Honeywell Jr, Brent",San Diego,725000,0.549,FALSE
+"Azocar, Jose",San Diego,723700,0.549,FALSE
+"Campusano, Luis",San Diego,722700,0.549,FALSE
+"Rosario, Eguy*",San Diego,720400,0.549,FALSE
+"Pederson, Joc",San Francisco,19650000,0.5,FALSE
+"Conforto, Michael",San Francisco,18000000,0.5,FALSE
+"Crawford, Brandon",San Francisco,16000000,0.5,FALSE
+"Manaea, Sean",San Francisco,12500000,0.5,FALSE
+"Stripling, Ross",San Francisco,12500000,0.5,FALSE
+"Wood, Alex",San Francisco,12500000,0.5,FALSE
+"DeSclafani, Anthony",San Francisco,12000000,0.5,FALSE
+"Cobb, Alex",San Francisco,9000000,0.5,FALSE
+"Rogers, Taylor",San Francisco,9000000,0.5,FALSE
+"Haniger, Mitch*",San Francisco,8000000,0.5,FALSE
+"Flores, Wilmer",San Francisco,6500000,0.5,FALSE
+"Yastrzemski, Mike",San Francisco,6100000,0.5,FALSE
+"Webb, Logan",San Francisco,4600000,0.5,FALSE
+"Davis, J.D.",San Francisco,4210000,0.5,FALSE
+"Slater, Austin*",San Francisco,3200000,0.5,FALSE
+"Jackson, Luke*",San Francisco,3000000,0.5,FALSE
+"Junis, Jakob",San Francisco,2800000,0.5,FALSE
+"Perez, Roberto",San Francisco,2500000,0.5,FALSE
+"Brebbia, John",San Francisco,2300000,0.5,FALSE
+"Estrada, Thairo",San Francisco,2250000,0.5,FALSE
+"Rogers, Tyler",San Francisco,1675000,0.5,FALSE
+"Wade, LaMonte",San Francisco,1375000,0.5,FALSE
+"Beaty, Matt",San Francisco,1250000,0.5,FALSE
+"Alexander, Scott",San Francisco,1150000,0.5,FALSE
+"Bart, Joey",San Francisco,735000,0.5,FALSE
+"Doval, Camilo",San Francisco,735000,0.5,FALSE
+"Gonzalez, Luis*",San Francisco,735000,0.5,FALSE
+"Szapucki, Thomas*",San Francisco,723750,0.5,FALSE
+"Villar, David",San Francisco,723750,0.5,FALSE
+"Sabol, Blake",San Francisco,720000,0.5,FALSE
+"Wisely, Brett",San Francisco,720000,0.5,FALSE
+"Ray, Robbie",Seattle,21000000,0.556,FALSE
+"Hernandez, Teoscar",Seattle,14000000,0.556,FALSE
+"La Stella, Tommy",Seattle,11500000,0.556,FALSE
+"Castillo, Luis",Seattle,11400000,0.556,FALSE
+"Crawford, J.P.",Seattle,11000000,0.556,FALSE
+"Suarez, Eugenio",Seattle,11000000,0.556,FALSE
+"Wong, Kolten",Seattle,10000000,0.556,FALSE
+"Flexen, Christopher",Seattle,8000000,0.556,FALSE
+"Pollock, A.J.",Seattle,7000000,0.556,FALSE
+"Gonzales, Marco",Seattle,6700000,0.556,FALSE
+"Rodriguez, Julio",Seattle,6185714,0.556,FALSE
+"France, Ty",Seattle,4100000,0.556,FALSE
+"Sewald, Paul",Seattle,4100000,0.556,FALSE
+"Castillo, Diego",Seattle,2950000,0.556,FALSE
+"Moore, Dylan*",Seattle,2083333,0.556,FALSE
+"Munoz, Andres",Seattle,1687500,0.556,FALSE
+"Murphy, Tom",Seattle,1625000,0.556,FALSE
+"Gott, Trevor",Seattle,1200000,0.556,FALSE
+"Gilbert, Logan",Seattle,767300,0.556,FALSE
+"Kirby, George",Seattle,758300,0.556,FALSE
+"Raleigh, Cal",Seattle,758300,0.556,FALSE
+"Kelenic, Jarred",Seattle,729400,0.556,FALSE
+"Murfee, Penn",Seattle,727000,0.556,FALSE
+"Trammell, Taylor*",Seattle,726700,0.556,FALSE
+"Haggerty, Sam",Seattle,726600,0.556,FALSE
+"Brash, Matthew",Seattle,725800,0.556,FALSE
+"Festa, Matt",Seattle,725200,0.556,FALSE
+"Hummel, Cooper",Seattle,723800,0.556,FALSE
+"Arenado, Nolan",St. Louis,32822071,0.574,FALSE
+"Goldschmidt, Paul",St. Louis,25333333,0.574,FALSE
+"Mikolas, Miles",St. Louis,21666667,0.574,FALSE
+"Wainwright, Adam*",St. Louis,14521720,0.574,FALSE
+"Matz, Steven",St. Louis,10500000,0.574,FALSE
+"Contreras, Willson",St. Louis,10000000,0.574,FALSE
+"Montgomery, Jordan",St. Louis,10000000,0.574,FALSE
+"DeJong, Paul*",St. Louis,9166667,0.574,FALSE
+"Flaherty, Jack",St. Louis,5400000,0.574,FALSE
+"O'Neill, Tyler",St. Louis,4950000,0.574,FALSE
+"Gallegos, Giovanny",St. Louis,4750000,0.574,FALSE
+"Edman, Tommy",St. Louis,4200000,0.574,FALSE
+"VerHagen, Drew",St. Louis,3000000,0.574,FALSE
+"Stratton, Chris",St. Louis,2800000,0.574,FALSE
+"Helsley, Ryan",St. Louis,2150000,0.574,FALSE
+"Hicks, Jordan",St. Louis,1837500,0.574,FALSE
+"Knizner, Andrew",St. Louis,1100000,0.574,FALSE
+"Motter, Taylor",St. Louis,775000,0.574,FALSE
+"Carlson, Dylan",St. Louis,742400,0.574,FALSE
+"Woodford, Jake",St. Louis,739800,0.574,FALSE
+"Nootbaar, Lars",St. Louis,732400,0.574,FALSE
+"Naughton, Packy",St. Louis,728750,0.574,FALSE
+"Donovan, Brendan",St. Louis,728600,0.574,FALSE
+"Pallante, Andre",St. Louis,728600,0.574,FALSE
+"Gorman, Nolan",St. Louis,726950,0.574,FALSE
+"Thompson, Zack",St. Louis,725000,0.574,FALSE
+"Burleson, Alec",St. Louis,721450,0.574,FALSE
+"Rodriguez, Wilking*",St. Louis,720400,0.574,FALSE
+"Walker, Jordan",St. Louis,720000,0.574,FALSE
+"Eflin, Zach",Tampa Bay,11000000,0.531,FALSE
+"Margot, Manuel",Tampa Bay,7000000,0.531,FALSE
+"Diaz, Yandy",Tampa Bay,6000000,0.531,FALSE
+"Glasnow, Tyler*",Tampa Bay,5350000,0.531,FALSE
+"Lowe, Brandon",Tampa Bay,5250000,0.531,FALSE
+"Arozarena, Randy",Tampa Bay,4150000,0.531,FALSE
+"Springs, Jeffrey",Tampa Bay,4000000,0.531,FALSE
+"Fairbanks, Peter",Tampa Bay,3666666,0.531,FALSE
+"Franco, Wander",Tampa Bay,2454545,0.531,FALSE
+"Ramirez, Harold",Tampa Bay,2200000,0.531,FALSE
+"Mejia, Francisco",Tampa Bay,2155000,0.531,FALSE
+"Kittredge, Andrew*",Tampa Bay,2075000,0.531,FALSE
+"Adam, Jason",Tampa Bay,1775000,0.531,FALSE
+"Beeks, Jalen",Tampa Bay,1375000,0.531,FALSE
+"Bethancourt, Christian",Tampa Bay,1350000,0.531,FALSE
+"Armstrong, Shawn*",Tampa Bay,1200000,0.531,FALSE
+"Poche, Colin",Tampa Bay,1175000,0.531,FALSE
+"Thompson, Ryan",Tampa Bay,1000000,0.531,FALSE
+"Rasmussen, Drew",Tampa Bay,739700,0.531,FALSE
+"McClanahan, Shane",Tampa Bay,737000,0.531,FALSE
+"Paredes, Isaac",Tampa Bay,735000,0.531,FALSE
+"Siri, Jose",Tampa Bay,731600,0.531,FALSE
+"Walls, Taylor",Tampa Bay,727600,0.531,FALSE
+"Fleming, Josh",Tampa Bay,727000,0.531,FALSE
+"Cleavinger, Garrett",Tampa Bay,725100,0.531,FALSE
+"Baz, Shane*",Tampa Bay,723600,0.531,FALSE
+"Lowe, Josh",Tampa Bay,723200,0.531,FALSE
+"Raley, Luke",Tampa Bay,722300,0.531,FALSE
+"Faucher, Calvin",Tampa Bay,721500,0.531,FALSE
+"Kelly, Kevin",Tampa Bay,720000,0.531,FALSE
+"Seager, Corey",Texas,35500000,0.42,FALSE
+"deGrom, Jacob",Texas,30000000,0.42,FALSE
+"Semien, Marcus",Texas,26000000,0.42,FALSE
+"Perez, Martin",Texas,19650000,0.42,FALSE
+"Eovaldi, Nathan",Texas,17000000,0.42,FALSE
+"Gray, Jon",Texas,15000000,0.42,FALSE
+"Odorizzi, Jake*",Texas,12500000,0.42,FALSE
+"Heaney, Andrew",Texas,12000000,0.42,FALSE
+"Leclerc, Jose",Texas,6000000,0.42,FALSE
+"Lowe, Nate",Texas,4050000,0.42,FALSE
+"Miller, Brad",Texas,4000000,0.42,FALSE
+"Garver, Mitch",Texas,3900000,0.42,FALSE
+"Kennedy, Ian",Texas,2250000,0.42,FALSE
+"Grossman, Robbie",Texas,2000000,0.42,FALSE
+"Smith, Will",Texas,1500000,0.42,FALSE
+"Hearn, Taylor",Texas,1462500,0.42,FALSE
+"Martin, Brett*",Texas,1275000,0.42,FALSE
+"Jankowski, Travis",Texas,1250000,0.42,FALSE
+"Hernandez, Jonathan",Texas,995000,0.42,FALSE
+"Garcia, Adolis",Texas,747760,0.42,FALSE
+"Heim, Jonah",Texas,745660,0.42,FALSE
+"Burke, Brock",Texas,742840,0.42,FALSE
+"Dunning, Dane",Texas,742840,0.42,FALSE
+"Otto, Glenn*",Texas,736340,0.42,FALSE
+"Howard, Spencer*",Texas,733455,0.42,FALSE
+"Sborz, Josh*",Texas,733450,0.42,FALSE
+"Taveras, Leody*",Texas,733445,0.42,FALSE
+"Smith, Josh",Texas,727095,0.42,FALSE
+"Thompson, Bubba",Texas,724305,0.42,FALSE
+"Duran, Ezequiel",Texas,724170,0.42,FALSE
+"Ragans, Cole",Texas,724145,0.42,FALSE
+"Jung, Josh",Texas,721485,0.42,FALSE
+"Springer, George",Toronto,24166667,0.568,FALSE
+"Gausman, Kevin",Toronto,21000000,0.568,FALSE
+"Ryu, Hyun-Jin*",Toronto,20000000,0.568,FALSE
+"Bassitt, Chris",Toronto,19000000,0.568,FALSE
+"Berrios, Jose",Toronto,16000000,0.568,FALSE
+"Guerrero, Vladimir",Toronto,14500000,0.568,FALSE
+"Chapman, Matt",Toronto,12500000,0.568,FALSE
+"Kikuchi, Yusei",Toronto,10000000,0.568,FALSE
+"Belt, Brandon",Toronto,9300000,0.568,FALSE
+"Kiermaier, Kevin",Toronto,9000000,0.568,FALSE
+"Merrifield, Whit",Toronto,6750000,0.568,FALSE
+"Garcia, Yimi",Toronto,5500000,0.568,FALSE
+"Romano, Jordan",Toronto,4537500,0.568,FALSE
+"Bichette, Bo",Toronto,3933333,0.568,FALSE
+"Jansen, Danny",Toronto,3500000,0.568,FALSE
+"Cimber, Adam",Toronto,3150000,0.568,FALSE
+"Varsho, Daulton",Toronto,3050000,0.568,FALSE
+"Bass, Anthony",Toronto,3000000,0.568,FALSE
+"Biggio, Cavan",Toronto,2800000,0.568,FALSE
+"Green, Chad*",Toronto,2250000,0.568,FALSE
+"Espinal, Santiago",Toronto,2100000,0.568,FALSE
+"Mayza, Tim",Toronto,2100000,0.568,FALSE
+"Richards, Trevor",Toronto,1500000,0.568,FALSE
+"Swanson, Erik",Toronto,1250000,0.568,FALSE
+"Kirk, Alejandro",Toronto,767300,0.568,FALSE
+"Manoah, Alek",Toronto,745650,0.568,FALSE
+"White, Mitchell*",Toronto,743000,0.568,FALSE
+"Pop, Zachary",Toronto,742200,0.568,FALSE
+"Lukes, Nathan",Toronto,720000,0.568,FALSE
+"Strasburg, Stephen*",Washington,32500286,0.34,FALSE
+"Corbin, Patrick",Washington,24416667,0.34,FALSE
+"Williams, Trevor",Washington,6000000,0.34,FALSE
+"Candelario, Jeimer",Washington,5000000,0.34,FALSE
+"Finnegan, Kyle",Washington,2325000,0.34,FALSE
+"Robles, Victor",Washington,2325000,0.34,FALSE
+"Dickerson, Corey",Washington,2250000,0.34,FALSE
+"Edwards, Carl",Washington,2250000,0.34,FALSE
+"Thomas, Lane",Washington,2200000,0.34,FALSE
+"Kuhl, Chad",Washington,2000000,0.34,FALSE
+"Smith, Dominic",Washington,2000000,0.34,FALSE
+"Rainey, Tanner*",Washington,1500000,0.34,FALSE
+"Ruiz, Keibert",Washington,1375000,0.34,FALSE
+"Chavis, Michael",Washington,1000000,0.34,FALSE
+"Ramirez, Erasmo",Washington,1000000,0.34,FALSE
+"Vargas, Ildemaro",Washington,975000,0.34,FALSE
+"Arano, Victor*",Washington,925000,0.34,FALSE
+"Harvey, Hunter",Washington,870000,0.34,FALSE
+"Banda, Anthony",Washington,850000,0.34,FALSE
+"Garcia, Luis",Washington,738600,0.34,FALSE
+"Kieboom, Carter*",Washington,733400,0.34,FALSE
+"Gray, Josiah",Washington,730000,0.34,FALSE
+"Adams, Riley",Washington,728800,0.34,FALSE
+"Thompson, Mason",Washington,724400,0.34,FALSE
+"Abrams Jr., CJ",Washington,724200,0.34,FALSE
+"Gore, MacKenzie",Washington,723300,0.34,FALSE
+"Meneses, Joey",Washington,723300,0.34,FALSE
+"Call, Alex",Washington,721800,0.34,FALSE
+"Cavalli, Cade*",Washington,720200,0.34,FALSE
+"Pineda, Israel*",Washington,720200,0.34,FALSE
+"Harris, Hobie",Washington,720000,0.34,FALSE
+"Ward, Thaddeus",Washington,720000,0.34,FALSE
