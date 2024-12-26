@@ -1,0 +1,99 @@
+---
+title: "Problem Set 2: Data Transformation"
+---
+
+**Due: 5pm on Wednesday, February 14.**
+
+::: {.callout-note}
+Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link)
+:::
+
+Student identifer: [type your anonymous identifier here]
+
+- Use this [.qmd template](../assets/pset2/pset2.qmd) to complete the problem set
+- In Canvas, you will upload the PDF produced by your .qmd file
+- Put your identifier above, not your name! We want anonymous grading to be possible
+
+This problem set draws on the following paper.
+
+> England, Paula, Andrew Levine, and Emma Mishel. 2020. [Progress toward
+> gender equality in the United States has slowed or
+> stalled,](https://www.pnas.org/doi/full/10.1073/pnas.1918891117) PNAS
+> 117(13):6990–6997.
+
+**A note about sex and gender**. As we have discussed in class, sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is "sex," coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses "gender" to refer to this construct.
+
+## 1. Data analysis: Existing question
+
+**20 points.** Reproduce Figure 1 from the paper.
+
+Visit [cps.ipums.org](https://cps.ipums.org/cps/) to download data from the 1962--2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the "ASEC" tab and none of the samples in the "Basic Monthly" tab. Include these variables in your cart: [sex](https://cps.ipums.org/cps-action/variables/SEX), [age](https://cps.ipums.org/cps-action/variables/AGE), [asecwt](https://cps.ipums.org/cps-action/variables/ASECWT), [empstat](https://cps.ipums.org/cps-action/variables/EMPSTAT).
+
+To reduce extract size, select cases to those ages 25--54. Before submitting your extract, we recommend changing the data format to "Stata (.dta)" so that you get value labels.
+
+::: {.callout-tip}
+Look ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.
+:::
+
+On your computer, analyze these data.
+
+- filter to `asecwt > 0` (see paper footnote on p. 6995 about negative weights)
+- mutate to create an `employed` variable indicating that `empstat == 10 | empstat == 12`
+- mutate to convert `sex` to a factor variable using `as_factor`
+- group by `sex` and `year`
+- summarize the proportion employed: use `weighted.mean` to take the mean of `employed` using the weight `asecwt`
+
+Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels. For example, it would be more accurate to the data to label the legend "Sex" with values "Male" and "Female."
+
+```{r, comment = F, message = F}
+library(tidyverse)
+library(scales)
+library(haven)
+```
+
+## 2. Reading questions
+
+**2.1 (3 points)** The authors write that "change in the gender system has been deeply asymmetric." Explain this in a sentence or two to someone who hasn’t read the article.
+
+**2.2 (3 points)** The authors discuss cultural changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about cultural changes.
+
+::: {.callout-tip}
+If you are not sure how to word a survey question, here are some examples from the [American Time Use Survey](https://www.atusdata.org/atus-action/variables/RCVPDLV#questionnaire_text_section), [Current Population Survey](https://cps.ipums.org/cps-action/variables/PENSION#questionnaire_text_section), and [General Social Survey](https://gssdataexplorer.norc.org/variables/706/vshow).
+:::
+
+**2.3 (3 points)** The authors discuss institutional changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about institutional changes.
+
+**2.4 (1 point)** What was one fact presented in this paper that most surprised you?
+
+## 3. A new outcome
+
+**20 points.** The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.
+
+As in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.
+
+Your answer should include
+
+- a written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable
+- a written interpretation of what you found
+- code following style conventions
+- your publication-quality visualization
+
+## Grad question: Ratio and difference
+
+> This question is required for grad students. It is optional for undergrads, and worth no extra credit.
+
+**20 points.** The figures above visualize a summary statistic for each subgroup: male and female. Another way to visualize this is with the ratio (female statistic / male statistic) or difference of the two (female statistic - male statistic).
+
+For your own question, produce two new visualizations:
+
+- one showing the female / male ratio over time
+- one showing the female - male difference over time
+
+Which do you find easier to interpret, and why?
+
+::: {.callout-tip}
+It is likely that your code for the previous parts produced one column with estimates and another column `sex` containing the values `male` and `female`. One way to calculate a ratio and difference is to reshape the data so that there is one row for each year, containing both the `male` and `female` estimates. You can do this with `pivot_wider` where the names come from `sex` and the values come from the column containing your estimates. Then you can `mutate()` to create the ratio and difference.
+:::
+
+
+

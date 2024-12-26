@@ -1,0 +1,52 @@
+---
+title: "Problem Set 0: Setting up R, RStudio, and Quarto"
+subtitle: "**Info 3370. Studying Social Inequality with Data Science. Spring 2024**"
+---
+
+**Due: 5pm on Wednesday, January 24.**
+
+In this exercise, you will install R, RStudio and
+Quarto. The exercise will ensure that they are set up correctly so that
+everybody is ready to dive into coursework.
+
+## Install Software Requirements
+
+You should follow the instructions in [R4DS](https://r4ds.hadley.nz/) to:
+
+1. [Install R](https://r4ds.hadley.nz/intro#r)
+2. [Install RStudio](https://r4ds.hadley.nz/intro#rstudio)
+
+Once R and RStudio are successfully installed, this also means that Quarto is
+successfully installed because it comes bundled with RStudio.
+
+Finally, you will need to open RStudio, select the Terminal tab, and execute
+the following command: `quarto install tinytex` as demonstrated in the image
+below.
+
+![](../assets/pset0/tinytex.png)
+
+## Download Problem Set
+
+Next, download [this problem set](../assets/pset0/pset0.qmd) which is a
+Quarto Markdown Document.
+
+## Render the Problem Set
+
+Finally, open the downloaded problem set in RStudio. You should then click
+the "Render" button as shown in the image below.
+
+![](../assets/pset0/render.png)
+This will run the R code and combine the output with the text in the document
+into a PDF. By default, this PDF will be output in the same directory that
+you saved `pset0.qmd` in. You will then submit the PDF on Canvas.
+
+<!-- ::: {.callout-tip} -->
+<!-- If you're not sure what your working directory is, run `getwd()` in your -->
+<!-- RStudio console. This will print your working directory. You can set it to the place you've saved this file by clicking the top menu Session -> Set Working Directory -> To Source File Location. -->
+<!-- ::: -->
+
+## Issues
+
+If you run into issues while attempting to render the Problem Set, be sure
+to open a question on the
+[Ed Discussion]("https://edstem.org/us/courses/54550/")!

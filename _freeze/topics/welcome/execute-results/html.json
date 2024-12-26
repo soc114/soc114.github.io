@@ -1,0 +1,15 @@
+{
+  "hash": "33187e13e7fc14f2bdbbfdb0f85b1694",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Welcome!\"\n---\n\n\n## Does inequality matter?\n\n[Slides](../assets/slides/2_Jencks.pdf){: .btn }\n\nBefore this class session, you should read p. 49--57 of a paper that is more than 20 years old:\n\n> Jencks, C. (2002). [Does inequality matter?](https://www.jstor.org/stable/20027737) Daedalus, 131(1), 49-65.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1+1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n\n\nWhy read this paper? A few highlights make this paper particularly worthwhile.\n\n1. The paper distinguishes moral and theoretical arguments from quantitative empirical evidence\n2. The paper uses simple yet powerful descriptive statistics\n3. The paper is humble---it recognizes that data alone cannot answer moral questions, but moral questions about whether society is just or desirable can be better considered in light of transparent evidence\n\nIn coming weeks, the data we use will be more up-to-date. We will also return to engage more deeply with some of the moral arguments. But most broadly, we will follow the example of this paper as we seek to connect theories about inequality to quantitative empirical evidence.\n\n## Summary video: What we covered today\n\n\n{{< video https://www.youtube.com/embed/DFsHRZmAuqM >}}\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

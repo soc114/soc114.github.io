@@ -1,0 +1,97 @@
+project:
+  type: website
+  render: 
+    - "*.qmd"
+    - "!/assets/"
+
+execute: 
+  freeze: auto
+
+website:
+  title: "Studying Social Inequality with Data Science"
+  description: "Generate new knowledge about social inequality using the tools of data science."
+  navbar:
+    pinned: true
+    right:
+      - href: index.qmd
+        text: " "
+      - href: assets/syllabus.pdf
+        text: Syllabus
+      - href: who_we_are.qmd
+        text: Team
+      - href: schedule.qmd
+        text: Schedule
+      - href: office_hours.qmd
+        text: Office Hours
+      - href: "https://edstem.org/us/courses/54550/"
+        text: Ed Discussion
+      - href: forms.qmd
+        text: Forms
+        
+  sidebar:
+    style: "docked"
+    search: true
+    collapse-level: 2
+    contents:
+      - href: index.qmd
+        text: Home
+      - section: "Topics"
+        contents:
+          - topics/welcome.qmd
+          - topics/sampling.qmd
+          - section: "Working with Data"
+            contents:
+              - topics/r_basics.qmd
+              - topics/visualization.qmd
+              - topics/data_transformation.qmd
+              - topics/weights.qmd
+              - topics/statistical_learning.qmd
+              - topics/learning_exercise.qmd
+              - topics/sample_splitting.qmd
+          - section: "Describing Inequality"
+            contents:
+              - topics/prediction.qmd
+              - topics/race.qmd
+              - topics/gender.qmd
+              - topics/class.qmd
+          - topics/asking_questions.qmd
+          - section: "Reducing Inequality"
+            contents:
+              - topics/moral_arguments.qmd
+              - topics/interventions.qmd
+      - section: "Assignments"
+        contents:
+          - section: "Problem Sets"
+            contents:
+              - href: assignments/pset0.qmd
+                text: "Problem Set 0"
+              - href: assignments/pset1.qmd
+                text: "Problem Set 1"
+              - href: assignments/pset2.qmd
+                text: "Problem Set 2"
+              - href: assignments/pset3.qmd
+                text: "Problem Set 3"
+              - href: assignments/pset4.qmd
+                text: "Problem Set 4"
+              - href: assignments/pset5.qmd
+                text: "Problem Set 5"
+          - href: assignments/project.qmd
+            text: "Project"
+            contents:
+              - href: assignments/project1.qmd
+                text: "Discussion 3-21"
+              
+  back-to-top-navigation: true
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    # grid: 
+    #   sidebar-width: 300px
+
+
+
