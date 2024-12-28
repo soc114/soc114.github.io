@@ -2,12 +2,10 @@
 title: "Problem Set 1: Visualization"
 ---
 
-**Due: 5pm on Wednesday, January 31.**
+**Due: 5pm on Friday, January 24.**
 
 ::: {.callout-note}
-## Before you start
-Create an anonymous identifier for yourself [here](https://docs.google.com/forms/d/e/1FAIpQLSfL6cX1YJ4LJDvoy5LRT5wrrqm4KctOBZbJHscooTFXwQaYaA/viewform?usp=sf_link)!
-Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSdR7LMX4pvs7l7qndzgzGL4HeJjc730yhvUgVuMRom_ihplcg/viewform?usp=sf_link)
+Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfZDC4zNsn4aKboRiFDKGtQysgMYgcWnKkSxboz9ORKkUJHbg/viewform?usp=sf_link)
 :::
 
 Student identifer: [type your anonymous identifier here]
@@ -43,7 +41,7 @@ The data contain five variables.
 4. `age` is the age at which earnings were measured: `r min(lifeCourse$age)`--`r max(lifeCourse$age)`
 5. `income` is the value for the given earnings percentile in the given subgroup. Income values are provided in 2022 dollars
 
-# 1. Visualize (25 points)
+## 1. Visualize (25 points)
 
 Use `ggplot` to visualize these data. To denote the different trajectories,
 
@@ -67,7 +65,7 @@ Many different graphs can be equally correct. You will be evaluated by
 
 ```
 
-# 2. Interpret (10 points)
+## 2. Interpret (10 points)
 
 Write 2-3 sentences summarizing the trends that you see in the data.
 
@@ -75,7 +73,7 @@ Write 2-3 sentences summarizing the trends that you see in the data.
 
 > Type your answer here.
 
-**2.2 (3 points).** Focus on those born in 1970. How does the pattern differ for those without college degres differ from your answer in 2.1?
+**2.2 (3 points).** Focus on those born in 1970. How does the pattern differ for those without college degrees differ from your answer in 2.1?
 
 > Type your answer here.
 
@@ -84,7 +82,7 @@ Write 2-3 sentences summarizing the trends that you see in the data.
 
 > Type your answer here. 
 
-# 3. Connect to reading (15 points)
+## 3. Connect to reading (15 points)
 
 Read p. 1--7 of following paper. Stop before the section "Analytic Framework for Decomposing Inequality."
 
@@ -114,35 +112,7 @@ Cheng discusses period trends, cohort trends, and age trends.
 
 > Type your answer here.
 
-# Grad question: Model-based estimates
+## Recap and connections to your project
 
-This question assumes familiarity with Ordinary Least Squares.
+The visualization you produced in this problem set is an example of the kind of visualization you will produce in the final project. As in this problem set, your visualization in the project should include well-written labels to make the graph readable. A difference between the two is that in this problem set we provided a dataset in which each row was already a summary statistic. In the final project, you will manipulate data in which each row corresponds to a unit of analysis that you aggregate to produce a summary statistic. This is a skill you will practice on the next problem set.
 
-- For graduate students, this question is worth 20 points.
-- For undergraduate students, this question is optional and worth 0 points.
-
-The data contain nonparametric estimates that contain some noise: the data points provided partly reflect random variation because they are estimatd in a sample.
-
-Model-based estimates reduce noise by pooling information across observations, at the cost of introducing assumptions. Fit an OLS model to the data using `age` as a numeric variable and `education`, `cohort`, and `quantity` as factor variables. Interact all of these predictors with each other.
-
-```{r}
-fit <- lm(
-  income ~ age * factor(cohort) * education * quantity,
-  data = lifeCourse
-)
-```
-
-Effectively, this estimates a best-fit line through each set of points depicted in your original figure. For each observation, store a prediction from this model (see [`predict()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/predict.lm.html)).
-
-Re-create your plot from (1) using
-
-- `geom_point()` for the nonparametric estimates (as above)
-- `geom_line()` for your model-based predicted values
-
-# Computing environment
-
-Leave this at the bottom of your file, and it will record information such as your operating system, R version, and package versions. This is helpful for resolving any differences in results across people.
-
-```{r}
-sessionInfo()
-```

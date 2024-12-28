@@ -1,0 +1,96 @@
+---
+title: "Problem Set 4: Social Class"
+---
+
+**Due: 5pm on Wednesday, March 20.**
+
+::: {.callout-note}
+Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfQKK55fNVojf8573h5rz_STWpcjoml27FAthNUG_FXsg5AeA/viewform?usp=sf_link)
+:::
+
+Student identifer: [type your anonymous identifier here]
+
+- Use this [.qmd template](../assets/pset4/pset4.qmd) to complete the problem set
+- In Canvas, you will upload the PDF produced by your .qmd file
+- Put your identifier above, not your name! We want anonymous grading to be possible
+
+## Reading questions
+
+The reading studies pay disparities across categories of class origin, defined by the occupations of one's parents.
+
+> Laurison, D., & Friedman, S. (2024). [The Class Ceiling in the United States: Class-Origin Pay Penalties in Higher Professional and Managerial Occupations.](https://academic.oup.com/sf/advance-article-abstract/doi/10.1093/sf/soae025/7616417) Social Forces.
+
+::: {.callout-note}
+This paper appeared online very recently (Feb 29), which makes access more tricky. We included a PDF in the Canvas assignment. To access it through the Cornell Library, search the library website for "Social Forces" (the journal in which this is published) and click to find an online resource, making sure to choose one that has all publications through the present. This article is not yet in an issue, but is in the advanced articles section of the Social Forces page.
+:::
+
+The first part of the paper argues for why class origin may or may not be consequential for pay in the U.S.
+
+**1.1. (2 points)** Give a hypothetical example of a hiring or advancement practice at an imaginary company in which other factors such as race and education determine a person's outcome, but class origin per se is not relevant.
+
+**1.2. (2 points)** Give a hypothetical example of a hiring or advancement practice at an imaginary company that might create pay disparities by class origin. In a couple sentences, explain.
+
+**1.3. (3 points)** This paper has many excellent, descriptive figures, much like those you will produce in the final project. Which figure is your favorite, and why?
+
+**1.4. (3 points)** Suggest one way to make your favorite figure even better.
+
+**1.5. (4 points)** What is an open question the authors haven't answered, that you might be able to answer using survey data?
+
+## Data analysis questions
+
+The paper uses the [Panel Study of Income Dynamics](https://psidonline.isr.umich.edu/), which is a difficult dataset to use. We will explore a similar question using the [General Social Survey](https://gssdataexplorer.norc.org/). It is also good for science when findings can be reproduced in a different dataset. To simplify your analysis, we wrote [code](../code/pset4.R) that prepares the GSS data into the file [pset4.RDS](../data/pset4.RDS) which you can load to complete this problem set.
+
+```{r, comment = F, warning = F, message = F, eval = F}
+library(tidyverse)
+pset4 <- readRDS(url("https://info3370.github.io/data/pset4.RDS"))
+```
+```{r, comment = F, warning = F, message = F, echo = F}
+library(tidyverse)
+pset4 <- readRDS("../data/pset4.RDS")
+```
+
+
+**2.1. (8 points)** Group by parent class. Visualize the distribution of respondent classes within each parent class.
+
+- we suggest a bar graph
+- we suggest using the x-axis for respondent class
+- we suggest using the y-axis for the proportion in that respondent class
+- we suggest using facets for parent class
+- remember to weight by `wtssall`
+
+::: {.callout-tip}
+One way to do this: group by parent and respondent class, summarize to sum the weight within each group, group by only parent class, then mutate to estimate the proportion in each respondent class as the weight divided by the sum of the weight on all respondents within that parent class.
+:::
+
+**2.2. (4 points)** Interpret your graph from (2.1) in up to three sentences.
+
+**2.3. (8 points)** Group by `parent_class`. Visualize the median value of respondent income (`realrinc`).
+
+- we suggest using the x-axis for parent class
+- we suggest using the y-axis for median respondent income
+- remember to weight by `wtssall`
+
+**2.4. (4 points)** Interpret your graph from (2.3) in up to three sentences.
+
+**2.5. (8 points)** Group by `parent_class` and `respondent_class`. Visualize the median value of respondent income (`realrinc`).
+
+- we suggest using the x-axis for parent class
+- we suggest using facets for respondent class
+- we suggest using the y-axis for median respondent income
+- remember to weight by `wtssall`
+
+**2.6. (4 points)** Interpret your graph from (2.5) in up to three sentences. Comment particularly on how the facet for respondents who are in the higher professional class looks different from the others.
+
+## Grad question
+
+**G.1 (5 points)** Estimate the proportion of respondents with college degrees (`respondent_college == TRUE`) among those within each parent class. Visualize in a bar graph.
+
+**G.2 (5 points)** Interpret the result from G.1. Explain how higher education might help parents from advantaged class positions to transmit that advantage on to their children.
+
+**G.3 (5 points)** Estimate the weighted proportion of respondents in each `respondent_class`, within groups defined by `respondent_college` and `parent_class`. Visualize in a bar graph.
+
+- we suggest respondent class on the x-axis
+- we suggest parent class and respondent college on facets
+
+**G.4 (5 points)** Interpret the result from G.3. Is the pattern of respondent classes more consistent across parent classes within respondent education, or across respondent education within parent classes?
+

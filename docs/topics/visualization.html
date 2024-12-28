@@ -63,6 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../topics/data_transformation.html" rel="next">
+<link href="../topics/r_basics.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -102,6 +104,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -198,6 +229,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/questions_data_can_answer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions data can answer</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/r_basics.html" class="sidebar-item-text sidebar-link">
@@ -321,6 +358,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discussion Meetings</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
@@ -369,12 +412,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Problem Set 4</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../assignments/pset5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Problem Set 5</span></a>
-  </div>
-</li>
       </ul>
   </li>
           <li class="sidebar-item">
@@ -395,15 +432,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a>
-  <ul class="collapse">
-  <li><a href="#prepare-the-environment" id="toc-prepare-the-environment" class="nav-link" data-scroll-target="#prepare-the-environment">Prepare the environment</a></li>
+  <li><a href="#prepare-the-environment" id="toc-prepare-the-environment" class="nav-link active" data-scroll-target="#prepare-the-environment">Prepare the environment</a></li>
   <li><a href="#explore-the-data" id="toc-explore-the-data" class="nav-link" data-scroll-target="#explore-the-data">Explore the data</a></li>
-  <li><a href="#produce-a-graph" id="toc-produce-a-graph" class="nav-link" data-scroll-target="#produce-a-graph">Produce a graph</a></li>
+  <li><a href="#produce-a-visualization" id="toc-produce-a-visualization" class="nav-link" data-scroll-target="#produce-a-visualization">Produce a visualization</a>
+  <ul class="collapse">
+  <li><a href="#begin-with-an-empty-graph" id="toc-begin-with-an-empty-graph" class="nav-link" data-scroll-target="#begin-with-an-empty-graph">Begin with an empty graph</a></li>
+  <li><a href="#add-a-layer-to-the-graph" id="toc-add-a-layer-to-the-graph" class="nav-link" data-scroll-target="#add-a-layer-to-the-graph">Add a layer to the graph</a></li>
+  </ul></li>
   <li><a href="#customizing-your-graph" id="toc-customizing-your-graph" class="nav-link" data-scroll-target="#customizing-your-graph">Customizing your graph</a></li>
   <li><a href="#interpret-your-graph" id="toc-interpret-your-graph" class="nav-link" data-scroll-target="#interpret-your-graph">Interpret your graph</a></li>
-  <li><a href="#prepare-a-quarto-report" id="toc-prepare-a-quarto-report" class="nav-link" data-scroll-target="#prepare-a-quarto-report">Prepare a Quarto report</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -430,53 +467,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <blockquote class="blockquote">
-<p>Prerequisites. You should first install R and RStudio as described in the <a href="https://r4ds.hadley.nz/intro#prerequisites">R4DS Prerequisites</a>. If you are unfamiliar with the layout of RStudio, see the <a href="https://docs.posit.co/ide/user">User Guide</a>.</p>
+<p>This topic is covered on Jan 9.</p>
 </blockquote>
-<p>In this discussion section, we will</p>
-<ul>
-<li>load the data from <a href="https://www.jstor.org/stable/20027737">Jencks 2002</a> Table 1</li>
-<li>visualize the data using <code>ggplot</code></li>
-</ul>
-<section id="getting-started" class="level1">
-<h1>Getting started</h1>
-<p>In your table groups, introduce yourselves</p>
-<ul>
-<li>what made you interested in this class</li>
-<li>how much experience do you have with R and <code>ggplot</code>?</li>
-</ul>
-<p>Whoever has the least experience—you are the coder! Arrange yourselves so that everyone can see the coder’s screen.</p>
+<blockquote class="blockquote">
+<p>Prerequisites. You should first install R, RStudio, and the <code>tidyverse</code> package as described in the <a href="topics/r_basics">previous page</a>.</p>
+</blockquote>
+<p>Visualizing data is an essential skill for data science. We will write our first code to visualize how countries’ level of economic output is related to their level of inequality. We will use data reported in tabular form in <a href="https://www.jstor.org/stable/20027737">Jencks 2002</a> Table 1, made available in digital form in <a href="../data/jencks_table1.csv">jencks_table1.csv</a>.</p>
 <section id="prepare-the-environment" class="level2">
 <h2 class="anchored" data-anchor-id="prepare-the-environment">Prepare the environment</h2>
-<p>Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise.</p>
-<p>Paste the code below into your R Script. Place your cursor within the line and hit <code>CMD + Enter</code> or <code>CTRL + Enter</code> to run the code and load the <code>tidyverse</code> package.</p>
+<p>Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking <code>File -&gt; Save</code> from the menu at the very top of your screen.</p>
+<p><img src="../assets/r_script_screenshot.png" class="img-fluid" alt="How to create a new R script in RStudio."> Paste the code below into your R Script. Place your cursor within the line and hit <code>CMD + Return</code> or <code>CTRL + Enter</code> to run the code and load the <code>tidyverse</code> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You will see action in the console. You have added some functionality to R for this session!</p>
 <p>The <a href="../data/jencks_table1.csv">data</a> can be loaded from the course website with the line below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"https://info3370.github.io/data/jencks_table1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"https://soc114.github.io/data/jencks_table1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When you run this code, the object <code>data</code> will appear in your environment pane.</p>
+<p>When you run this code, the object <code>table1</code> will appear in your environment pane.</p>
 </section>
 <section id="explore-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="explore-the-data">Explore the data</h2>
-<p>Type <code>data</code> in your console. You can see the data!</p>
+<p>Type <code>table1</code> in your console. You can see the data!</p>
+<p><img src="../assets/data_screenshot.png" class="img-fluid" style="width:30.0%"></p>
+<p>The data contain four variables (columns):</p>
 <ul>
 <li><code>country</code> country name</li>
 <li><code>ratio</code> ratio of 90th to 10th percentile of household income. You can think of this as how many dollars a high-income household receives for each dollar that a low-income household receives</li>
 <li><code>gdp</code> Gross Domestic Product Per Capita, expressed as a proportion of U.S. GDP</li>
 <li><code>life_expectancy</code> life expectancy at birth</li>
 </ul>
-<p>For details on the data, see Jencks (2002) Table 1.</p>
+<p>There is one row for each country. For details on the data, see Jencks (2002) Table 1.</p>
 </section>
-<section id="produce-a-graph" class="level2">
-<h2 class="anchored" data-anchor-id="produce-a-graph">Produce a graph</h2>
-<p>We are ready to produce a graph! The code below will produce a simple graph.</p>
+<section id="produce-a-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="produce-a-visualization">Produce a visualization</h2>
+<p>To visualize data, we will use the <code>ggplot()</code> function which you have already loaded into your R session as part of the <code>tidyverse</code> package.</p>
+<section id="begin-with-an-empty-graph" class="level3">
+<h3 class="anchored" data-anchor-id="begin-with-an-empty-graph">Begin with an empty graph</h3>
+<p>A function in R takes in <strong>arguments</strong> and returns an <strong>object</strong>. The arguments are the inputs that we give to the function. The function then returns something back to us.</p>
+<p>The <code>ggplot()</code> function takes two arguments:</p>
+<ul>
+<li><code>data = table1</code> says that data will come from the object <code>table1</code></li>
+<li><code>mapping = aes(x = ratio, y = gdp)</code> maps the data to the aesthetics of the graph. This line says that the <code>ratio</code> variable will be placed on the <span class="math inline">\(x\)</span>-axis and the <code>gdp</code> variable will be on the <span class="math inline">\(y\)</span>-axis.</li>
+</ul>
+<p>When you run this code, the function returns an object which is the resulting plot. The plot will appear in the <code>Plots</code> pane in RStudio.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ratio, <span class="at">y =</span> gdp)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> table1,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ratio, <span class="at">y =</span> gdp)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -485,29 +525,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Let’s break this code down into pieces</p>
-<ul>
-<li><code>data</code> tells R to start with the object <code>data</code></li>
-<li><code>|&gt;</code> is called the pipe operator. It passes the <code>data</code> object down to the function in the next line</li>
-<li><code>ggplot()</code> is a function that creates a plot environment</li>
-<li>the argument <code>mapping = aes(x = ratio, y = gdp)</code> tells <code>ggplot()</code> how variables in the data will correspond to elements of the plot. We will visualize <code>ratio</code> on the x-axis and <code>gdp</code> on the y-axis</li>
-<li><code>+</code> tells <code>ggplot()</code> we will add a new layer on the next line</li>
-<li><code>geom_point()</code> tells <code>ggplot()</code> to add a layer of points to the graph</li>
-</ul>
+</section>
+<section id="add-a-layer-to-the-graph" class="level3">
+<h3 class="anchored" data-anchor-id="add-a-layer-to-the-graph">Add a layer to the graph</h3>
+<p>Once we have an empty graph, we can add elements to the graph in layers. <code>ggplot()</code> is set up to add layers connected by a <code>+</code> symbol between lines. For example, we can add points to the graph by adding the layer <code>geom_point()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> table1,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ratio, <span class="at">y =</span> gdp)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="customizing-your-graph" class="level2">
 <h2 class="anchored" data-anchor-id="customizing-your-graph">Customizing your graph</h2>
-<p>In your group, create additional layers with additional lines connected by <code>+</code>. Be creative! Here are some ideas:</p>
+<p>Now it is your turn! Create additional layers with additional lines connected by <code>+</code>. Be creative! Here are some ideas:</p>
 <ul>
+<li>add a <code>geom_smooth()</code> layer to show the trend in the data</li>
+<li>add a <code>geom_text()</code> layer to label the points with country names. To do so, you will need to add the aesthetic mapping <code>label = country</code>.
+<ul>
+<li>Pro tip: If you want text to be far from points, install and load the <a href="https://ggrepel.slowkow.com/"><code>ggrepel</code></a> package and use <code>geom_text_repel</code>.</li>
+</ul></li>
+<li>add <a href="https://ggplot2.tidyverse.org/reference/labs.html">labels</a> to your visualization for axes and titles</li>
 <li>label the axes with <code>scale_x_continuous(name = "your text here")</code> and <code>scale_y_continuous(name = "your text here")</code></li>
-<li>label countries using <code>geom_text</code> or <code>geom_text_repel</code>, with the aesthetic <code>label = country</code></li>
 </ul>
 <p>There are many possible graphs to make. An example is below.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="visualization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="visualization_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -520,14 +575,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>write a few sentences explaining your graph</li>
 <li>discuss what questions you would like to ask next</li>
 </ul>
-</section>
-<section id="prepare-a-quarto-report" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-a-quarto-report">Prepare a Quarto report</h2>
-<p>Create a new Quarto document. Put your R code and interpretation into that document. Upload to Canvas!</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/YWTZ6xxRiP8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1095,6 +1145,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../topics/r_basics.html" class="pagination-link" aria-label="Setting up your computer">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Setting up your computer</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../topics/data_transformation.html" class="pagination-link" aria-label="Data transformation">
+        <span class="nav-page-text">Data transformation</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

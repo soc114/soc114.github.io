@@ -1,11 +1,11 @@
 ---
-title: "Problem Set 3: Income Prediction Challenge"
+title: "Problem Set 3: Causal Inference"
 ---
 
-**Due: 5pm on Wednesday, March 6.**
+**Due: 5pm on Friday, February 14.**
 
 ::: {.callout-note}
-Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfE9cKW1TdZvmNH7AUTdzL2Fd3vnQicKVECc7qW2_S4civJpg/viewform?usp=sharing)
+Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link)
 :::
 
 Student identifer: [type your anonymous identifier here]
@@ -14,43 +14,89 @@ Student identifer: [type your anonymous identifier here]
 - In Canvas, you will upload the PDF produced by your .qmd file
 - Put your identifier above, not your name! We want anonymous grading to be possible
 
-This problem set is connected to the [PSID Income Prediction Challenge](../topics/prediction.qmd) from discussion.
+## 1. Potential outcomes in a hypothetical setting
 
-## Income Prediction Challenge
+Jose says that coming to UCLA caused him to discover sociology, and it became his major! He says that if he had gone to UCSD, he would have stuck with biology.
 
-**Collaboration note.** This question is an individual write-up connected to your group work from discussion. We expect that the approach you tell us might be the same as that of your other group members, but your answers to these questions should be in your own words.
+**1.1 (5 points)**
 
-**1.1 (5 points)** How did you choose the predictor variables you used? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.
+In Jose's claim, what is the treatment?
 
-**1.2 (5 points)** What learning algorithms or models did you consider, and how did you choose one? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.
+**Answer.** Your answer here
 
-**1.3 (20 points)** Split the `learning` data randomly into `train` and `test`. Your split can be 50-50 or another ratio. Learn in the `train` set and make predictions in the `test` set. What do you estimate for your out-of-sample mean squared error? There is no written answer here; the answer is the code and result.
+**1.2 (5 points)**
 
-## Create a new task
+Using the mathematical notation we discussed in class, define the two potential outcomes to which Jose is referring.
 
-The predictability of life outcomes is not likely to be the same in every setting. Imagine you were designing a challenge like this one in a new setting, to study how outcomes change over the life course or across generations.
+**Answer.** Your answer here
 
-**2.1 (5 points)** From what population would you draw your sample?
+**1.3 (5 points) **
 
-**2.2 (5 points)** What outcome would you study?
+In a sentence or two, say how the Fundamental Problem of Causal Inference applies to Jose's claim.
 
-**2.3 (5 points)** What predictors would you include?
+**Answer.** Your answer here
 
-**2.4 (5 points)** Why would it be interesting in your setting if predictions were accurate? Why would it be interesting if predictions were inaccurate?
+**1.4 (5 points) **
 
-## Grad. Machine learning versus statistics
+Using conditional expectations or probabilities, write the following in math: the probability of majoring in sociology is higher among students who attend UCLA than among students who attend UCSD.
 
-> This question is required for grad students. It is optional for undergrads, and worth no extra credit.
+**Answer.** Your answer here
 
-**20 points.** This question is about the relative gain in this problem as we move from no model to a statistical model to a machine learning model.
+**1.5 (5 points) **
 
-First, use your `train` set to estimate 3 learners and predict in your `test` set.
+Using conditional expectations or probabilities, write the following in math: the probability of majoring in sociology would be higher if we intervened to send students to UCLA than if we intervened to send them to UCSD.
 
-a) No model. For every `test` observation, predict the mean of the `train` outcomes
-b) Ordinary Least Squares. Choose a set of predictors $\vec{X}$. For every `test` observation, predict using a linear model `lm()` fit to the `train` set with the predictors $\vec{X}$.
-c) Machine learning. Use the same set of predictors $\vec{X}$. For every `test` observation, predict using a machine learning model fit to the `train` set with the predictors $\vec{X}$. Your machine learning model could be a Generalized Additive Model (`gam()`), a decision tree (`rpart()`), or some other machine learning approach.
+**Answer.** Your answer here
 
-Report your out-of-sample mean squared error estimates for each approach. How did mean squared error change from (a) to (b)? From (b) to (c)?
+## 2. Potential outcomes in a real experiment
 
-Interpret what you found. To what degree does machine learning improve predictability, beyond what can be achieved by Ordinary Least Squares?
+This problem is based on:
+
+Bertrand, M \& Mullainathan, S. 2004. "[Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination](https://www-jstor-org.proxy.library.cornell.edu/stable/3592802)." American Economic Review 94(4):991--1013.
+
+Read the first 10 pages of the paper (through the end of section 2). In this paper,
+
+- the unit of analysis is a resume submitted to a job opening
+- the treatment is the name at the top of the resume
+- the outcome is whether the employer called or emailed back for an interview
+
+**2.1. (5 points) Fundamental Problem **
+
+One submitted resume had the name "Emily Baker." It yielded a callback. The same resume could have had the name "Lakisha Washington." Explain how the Fundamental Problem of Causal Inference applies to this case (1--2 sentences).
+
+**2.2. (5 points) Exchangeability **
+
+In a sentence, what is the exchangeability assumption in this study? For concreteness, for this question you may suppose that the only names in the study were "Emily Baker" and "Lakisha Washington." Be sure to explicitly state the treatment and the potential outcomes.
+
+**2.3 (15 points) Analyzing the experimental data **
+
+Load packages that our code will use.
+```{r, comment = F, message = F}
+library(tidyverse)
+library(haven)
+```
+
+Download the study's data from OpenICPSR: [https://www.openicpsr.org/openicpsr/project/116023/version/V1/view](https://www.openicpsr.org/openicpsr/project/116023/version/V1/view). This will require creating an account and agreeing to terms for using the data ethically. Put the data in the folder on your computer where this .Rmd is located. Read the data into R using `read_dta`. 
+
+```{r, eval = F}
+d <- read_dta("lakisha_aer.dta")
+```
+```{r, include = F}
+d <- read_dta("../assets/data/lakisha_aer_aggregated.dta")
+```
+
+> If you have an error, you might need to set your working directory first. This tells R where to look for data files. At the top of RStudio, click Session -> Set Working Directory -> To Source File Location.
+
+You will now see `d` in your Global Environment at the top right of RStudio.
+
+We will use two variables:
+
+| Name | Role | Values
+| ---- | ---- | ------
+`call` | outcome | 1 if resume submission yielded a callback
+| | | 0 if not
+`race` | category of treatments | `b` if first name signals Black
+| | | `w` if first name signals white
+
+The top of Table 1 reports callback rates: 9.65\% for white names and 6.45\% for Black names. Reproduce those numbers. Write code that reproduces these numbers.
 

@@ -1,96 +1,46 @@
 ---
-title: "Problem Set 4: Social Class"
+title: "Problem Set 4: Statistical Learning"
 ---
 
-**Due: 5pm on Wednesday, March 20.**
+**Due: 5pm on Friday, Feb 28.**
+
+**NOTE:** This problem set will be updated to explicitly involve statistical learning with more guidance, as well as some causal inference.
 
 ::: {.callout-note}
-Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfQKK55fNVojf8573h5rz_STWpcjoml27FAthNUG_FXsg5AeA/viewform?usp=sf_link)
+Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfE9cKW1TdZvmNH7AUTdzL2Fd3vnQicKVECc7qW2_S4civJpg/viewform?usp=sharing)
 :::
 
 Student identifer: [type your anonymous identifier here]
 
-- Use this [.qmd template](../assets/pset4/pset4.qmd) to complete the problem set
+- Use this [.qmd template](../assets/pset3/pset3.qmd) to complete the problem set
 - In Canvas, you will upload the PDF produced by your .qmd file
 - Put your identifier above, not your name! We want anonymous grading to be possible
 
-## Reading questions
+This problem set is connected to the [PSID Income Prediction Challenge](../topics/prediction.qmd) from discussion.
 
-The reading studies pay disparities across categories of class origin, defined by the occupations of one's parents.
+## Income Prediction Challenge
 
-> Laurison, D., & Friedman, S. (2024). [The Class Ceiling in the United States: Class-Origin Pay Penalties in Higher Professional and Managerial Occupations.](https://academic.oup.com/sf/advance-article-abstract/doi/10.1093/sf/soae025/7616417) Social Forces.
+**Collaboration note.** This question is an individual write-up connected to your group work from discussion. We expect that the approach you tell us might be the same as that of your other group members, but your answers to these questions should be in your own words.
 
-::: {.callout-note}
-This paper appeared online very recently (Feb 29), which makes access more tricky. We included a PDF in the Canvas assignment. To access it through the Cornell Library, search the library website for "Social Forces" (the journal in which this is published) and click to find an online resource, making sure to choose one that has all publications through the present. This article is not yet in an issue, but is in the advanced articles section of the Social Forces page.
-:::
+**1.1 (5 points)** How did you choose the predictor variables you used? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.
 
-The first part of the paper argues for why class origin may or may not be consequential for pay in the U.S.
+**1.2 (5 points)** What learning algorithms or models did you consider, and how did you choose one? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.
 
-**1.1. (2 points)** Give a hypothetical example of a hiring or advancement practice at an imaginary company in which other factors such as race and education determine a person's outcome, but class origin per se is not relevant.
+**1.3 (20 points)** Split the `learning` data randomly into `train` and `test`. Your split can be 50-50 or another ratio. Learn in the `train` set and make predictions in the `test` set. What do you estimate for your out-of-sample mean squared error? There is no written answer here; the answer is the code and result.
 
-**1.2. (2 points)** Give a hypothetical example of a hiring or advancement practice at an imaginary company that might create pay disparities by class origin. In a couple sentences, explain.
+## Grad. Machine learning versus statistics
 
-**1.3. (3 points)** This paper has many excellent, descriptive figures, much like those you will produce in the final project. Which figure is your favorite, and why?
+> This question is required for grad students. It is optional for undergrads, and worth no extra credit.
 
-**1.4. (3 points)** Suggest one way to make your favorite figure even better.
+**20 points.** This question is about the relative gain in this problem as we move from no model to a statistical model to a machine learning model.
 
-**1.5. (4 points)** What is an open question the authors haven't answered, that you might be able to answer using survey data?
+First, use your `train` set to estimate 3 learners and predict in your `test` set.
 
-## Data analysis questions
+a) No model. For every `test` observation, predict the mean of the `train` outcomes
+b) Ordinary Least Squares. Choose a set of predictors $\vec{X}$. For every `test` observation, predict using a linear model `lm()` fit to the `train` set with the predictors $\vec{X}$.
+c) Machine learning. Use the same set of predictors $\vec{X}$. For every `test` observation, predict using a machine learning model fit to the `train` set with the predictors $\vec{X}$. Your machine learning model could be a Generalized Additive Model (`gam()`), a decision tree (`rpart()`), or some other machine learning approach.
 
-The paper uses the [Panel Study of Income Dynamics](https://psidonline.isr.umich.edu/), which is a difficult dataset to use. We will explore a similar question using the [General Social Survey](https://gssdataexplorer.norc.org/). It is also good for science when findings can be reproduced in a different dataset. To simplify your analysis, we wrote [code](../code/pset4.R) that prepares the GSS data into the file [pset4.RDS](../data/pset4.RDS) which you can load to complete this problem set.
+Report your out-of-sample mean squared error estimates for each approach. How did mean squared error change from (a) to (b)? From (b) to (c)?
 
-```{r, comment = F, warning = F, message = F, eval = F}
-library(tidyverse)
-pset4 <- readRDS(url("https://info3370.github.io/data/pset4.RDS"))
-```
-```{r, comment = F, warning = F, message = F, echo = F}
-library(tidyverse)
-pset4 <- readRDS("../data/pset4.RDS")
-```
-
-
-**2.1. (8 points)** Group by parent class. Visualize the distribution of respondent classes within each parent class.
-
-- we suggest a bar graph
-- we suggest using the x-axis for respondent class
-- we suggest using the y-axis for the proportion in that respondent class
-- we suggest using facets for parent class
-- remember to weight by `wtssall`
-
-::: {.callout-tip}
-One way to do this: group by parent and respondent class, summarize to sum the weight within each group, group by only parent class, then mutate to estimate the proportion in each respondent class as the weight divided by the sum of the weight on all respondents within that parent class.
-:::
-
-**2.2. (4 points)** Interpret your graph from (2.1) in up to three sentences.
-
-**2.3. (8 points)** Group by `parent_class`. Visualize the median value of respondent income (`realrinc`).
-
-- we suggest using the x-axis for parent class
-- we suggest using the y-axis for median respondent income
-- remember to weight by `wtssall`
-
-**2.4. (4 points)** Interpret your graph from (2.3) in up to three sentences.
-
-**2.5. (8 points)** Group by `parent_class` and `respondent_class`. Visualize the median value of respondent income (`realrinc`).
-
-- we suggest using the x-axis for parent class
-- we suggest using facets for respondent class
-- we suggest using the y-axis for median respondent income
-- remember to weight by `wtssall`
-
-**2.6. (4 points)** Interpret your graph from (2.5) in up to three sentences. Comment particularly on how the facet for respondents who are in the higher professional class looks different from the others.
-
-## Grad question
-
-**G.1 (5 points)** Estimate the proportion of respondents with college degrees (`respondent_college == TRUE`) among those within each parent class. Visualize in a bar graph.
-
-**G.2 (5 points)** Interpret the result from G.1. Explain how higher education might help parents from advantaged class positions to transmit that advantage on to their children.
-
-**G.3 (5 points)** Estimate the weighted proportion of respondents in each `respondent_class`, within groups defined by `respondent_college` and `parent_class`. Visualize in a bar graph.
-
-- we suggest respondent class on the x-axis
-- we suggest parent class and respondent college on facets
-
-**G.4 (5 points)** Interpret the result from G.3. Is the pattern of respondent classes more consistent across parent classes within respondent education, or across respondent education within parent classes?
+Interpret what you found. To what degree does machine learning improve predictability, beyond what can be achieved by Ordinary Least Squares?
 

@@ -3,11 +3,11 @@ title: "Problem Set 1: Visualization"
 format: pdf
 ---
 
-**Due: 5pm on Wednesday, January 31.**
+**Due: 5pm on Friday, January 24.**
 
-Student identifer: [type your anonymous identifying number here]
+Student identifer: [type your anonymous identifier here]
 
-- Use this template to complete the problem set
+- Use this [.qmd template](../assets/pset1/pset1.qmd) to complete the problem set
 - In Canvas, you will upload the PDF produced by your .qmd file
 - Put your identifier above, not your name! We want anonymous grading to be possible
 
@@ -15,7 +15,7 @@ This problem set involves both data analysis and reading.
 
 ### Data analysis
 
-This problem set uses the data [`lifeCourse.csv`](https://info3370.github.io/data/lifeCourse.csv).
+This problem set uses the data [`lifeCourse.csv`](https://soc114.github.io/data/lifeCourse.csv).
 
 ```{r, comment = F, message = F}
 library(tidyverse)
@@ -103,31 +103,6 @@ Cheng discusses period trends, cohort trends, and age trends.
 **3.5 (3 points)** Cheng discusses wage volatility: how wages rise and fall over time for a given person. Why is our data (the Current Population Survey) the wrong dataset to study wage volatility?
 
 > Type your answer here.
-
-# Grad question: Model-based estimates
-
-This question assumes familiarity with Ordinary Least Squares.
-
-- For graduate students, this question is worth 20 points.
-- For undergraduate students, this question is optional and worth 0 points.
-
-The data contain nonparametric estimates that contain some noise: the data points provided partly reflect random variation because they are estimatd in a sample.
-
-Model-based estimates reduce noise by pooling information across observations, at the cost of introducing assumptions. Fit an OLS model to the data using `age` as a numeric variable and `education`, `cohort`, and `quantity` as factor variables. Interact all of these predictors with each other.
-
-```{r}
-fit <- lm(
-  income ~ age * factor(cohort) * education * quantity,
-  data = lifeCourse
-)
-```
-
-Effectively, this estimates a best-fit line through each set of points depicted in your original figure. For each observation, store a prediction from this model (see [`predict()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/predict.lm.html)).
-
-Re-create your plot from (1) using
-
-- `geom_point()` for the nonparametric estimates (as above)
-- `geom_line()` for your model-based predicted values
 
 # Computing environment
 

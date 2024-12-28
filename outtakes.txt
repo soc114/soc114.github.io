@@ -7,3 +7,17 @@
           - topics/class.qmd
           - topics/asking_questions.qmd
           - topics/moral_arguments.qmd
+
+
+
+
+could make the Cheng paper questions part of the next discussion
++ what makes this graph compelling?
++ how could it be made better?
+
+Reading questions on England paper could become part of next discussion (pset 2)
+
+discussion can look at firstname after pset 3
+
+
+pset 1, 2, 3 are good to go

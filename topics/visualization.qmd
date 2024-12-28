@@ -2,27 +2,18 @@
 title: "Visualization"
 ---
 
-> Prerequisites. You should first install R and RStudio as described in the [R4DS Prerequisites](https://r4ds.hadley.nz/intro#prerequisites). If you are unfamiliar with the layout of RStudio, see the [User Guide](https://docs.posit.co/ide/user).
+> This topic is covered on Jan 9.
 
-In this discussion section, we will
+> Prerequisites. You should first install R, RStudio, and the `tidyverse` package as described in the [previous page](topics/r_basics).
 
-- load the data from [Jencks 2002](https://www.jstor.org/stable/20027737) Table 1
-- visualize the data using `ggplot`
-
-# Getting started
-
-In your table groups, introduce yourselves
-
-- what made you interested in this class
-- how much experience do you have with R and `ggplot`?
-
-Whoever has the least experience---you are the coder! Arrange yourselves so that everyone can see the coder's screen.
+Visualizing data is an essential skill for data science. We will write our first code to visualize how countries' level of economic output is related to their level of inequality. We will use data reported in tabular form in [Jencks 2002](https://www.jstor.org/stable/20027737) Table 1, made available in digital form in [jencks_table1.csv](../data/jencks_table1.csv).
 
 ## Prepare the environment
 
-Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise.
+Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking `File -> Save` from the menu at the very top of your screen.
 
-Paste the code below into your R Script. Place your cursor within the line and hit `CMD + Enter` or `CTRL + Enter` to run the code and load the `tidyverse` package.
+![How to create a new R script in RStudio.](../assets/r_script_screenshot.png)
+Paste the code below into your R Script. Place your cursor within the line and hit `CMD + Return` or `CTRL + Enter` to run the code and load the `tidyverse` package.
 
 ```{r, message = F, warning = F}
 library(tidyverse)
@@ -33,52 +24,74 @@ You will see action in the console. You have added some functionality to R for t
 The [data](../data/jencks_table1.csv) can be loaded from the course website with the line below.
 
 ```{r, comment = F, message = F}
-data <- read_csv(file = "https://info3370.github.io/data/jencks_table1.csv")
+table1 <- read_csv(file = "https://soc114.github.io/data/jencks_table1.csv")
 ```
 
-When you run this code, the object `data` will appear in your environment pane.
+When you run this code, the object `table1` will appear in your environment pane.
 
 ## Explore the data
 
-Type `data` in your console. You can see the data!
+Type `table1` in your console. You can see the data!
+
+![](../assets/data_screenshot.png){width=30%}
+
+The data contain four variables (columns):
 
 - `country` country name
 - `ratio` ratio of 90th to 10th percentile of household income. You can think of this as how many dollars a high-income household receives for each dollar that a low-income household receives
 - `gdp` Gross Domestic Product Per Capita, expressed as a proportion of U.S. GDP
 - `life_expectancy` life expectancy at birth
 
-For details on the data, see Jencks (2002) Table 1.
+There is one row for each country. For details on the data, see Jencks (2002) Table 1.
 
-## Produce a graph
+## Produce a visualization
 
-We are ready to produce a graph! The code below will produce a simple graph.
+To visualize data, we will use the `ggplot()` function which you have already loaded into your R session as part of the `tidyverse` package.
+
+### Begin with an empty graph
+
+A function in R takes in **arguments** and returns an **object**. The arguments are the inputs that we give to the function. The function then returns something back to us.
+
+The `ggplot()` function takes two arguments:
+
+* `data = table1` says that data will come from the object `table1`
+* `mapping = aes(x = ratio, y = gdp)` maps the data to the aesthetics of the graph. This line says that the `ratio` variable will be placed on the $x$-axis and the `gdp` variable will be on the $y$-axis.
+
+When you run this code, the function returns an object which is the resulting plot. The plot will appear in the `Plots` pane in RStudio.
 
 ```{r}
-data |>
-  ggplot(mapping = aes(x = ratio, y = gdp)) +
+ggplot(
+  data = table1,
+  mapping = aes(x = ratio, y = gdp)
+)
+```
+
+### Add a layer to the graph
+
+Once we have an empty graph, we can add elements to the graph in layers. `ggplot()` is set up to add layers connected by a `+` symbol between lines. For example, we can add points to the graph by adding the layer `geom_point()`.
+
+```{r}
+ggplot(
+  data = table1,
+  mapping = aes(x = ratio, y = gdp)
+) +
   geom_point()
 ```
 
-Let's break this code down into pieces
-
-- `data` tells R to start with the object `data`
-- `|>` is called the pipe operator. It passes the `data` object down to the function in the next line
-- `ggplot()` is a function that creates a plot environment
-- the argument `mapping = aes(x = ratio, y = gdp)` tells `ggplot()` how variables in the data will correspond to elements of the plot. We will visualize `ratio` on the x-axis and `gdp` on the y-axis
-- `+` tells `ggplot()` we will add a new layer on the next line
-- `geom_point()` tells `ggplot()` to add a layer of points to the graph
-
 ## Customizing your graph
 
-In your group, create additional layers with additional lines connected by `+`. Be creative! Here are some ideas:
+Now it is your turn! Create additional layers with additional lines connected by `+`. Be creative! Here are some ideas:
 
-- label the axes with `scale_x_continuous(name = "your text here")` and `scale_y_continuous(name = "your text here")`
-- label countries using `geom_text` or `geom_text_repel`, with the aesthetic `label = country`
+* add a `geom_smooth()` layer to show the trend in the data
+* add a `geom_text()` layer to label the points with country names. To do so, you will need to add the aesthetic mapping `label = country`.
+     * Pro tip: If you want text to be far from points, install and load the [`ggrepel`](https://ggrepel.slowkow.com/) package and use `geom_text_repel`.
+* add [labels](https://ggplot2.tidyverse.org/reference/labs.html) to your visualization for axes and titles
+* label the axes with `scale_x_continuous(name = "your text here")` and `scale_y_continuous(name = "your text here")`
 
 There are many possible graphs to make. An example is below.
 
 ```{r, echo = F}
-data |>
+table1 |>
   ggplot(aes(x = ratio, y = gdp)) +
   geom_point() +
   geom_smooth(formula = 'y ~ x',
@@ -99,9 +112,5 @@ Once you are happy with your graph,
 
 - write a few sentences explaining your graph
 - discuss what questions you would like to ask next
-
-## Prepare a Quarto report
-
-Create a new Quarto document. Put your R code and interpretation into that document. Upload to Canvas!
 
 {{< video https://www.youtube.com/embed/YWTZ6xxRiP8 >}}

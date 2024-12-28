@@ -7,7 +7,7 @@ format:
     toc: false
 ---
 
-Together, we will use tools from data science to answer social science questions about inequality.
+Together, we will use tools from data science to answer social science questions. As an area of application, we will focus on questions about inequality and social stratification.
 
 ## Learning goals
 

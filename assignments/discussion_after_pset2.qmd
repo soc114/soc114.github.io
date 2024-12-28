@@ -1,0 +1,22 @@
+---
+title: "Untitled"
+editor: visual
+---
+
+This discussion draws on the following paper from Problem Set 2.
+
+> England, Paula, Andrew Levine, and Emma Mishel. 2020. [Progress toward gender equality in the United States has slowed or stalled,](https://www.pnas.org/doi/full/10.1073/pnas.1918891117) PNAS 117(13):6990–6997.
+
+**1.** The authors write that "change in the gender system has been deeply asymmetric." Explain this in a sentence or two to someone who hasn’t read the article.
+
+**2.** The authors discuss cultural changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about cultural changes.
+
+::: callout-tip
+If you are not sure how to word a survey question, here are some examples from the [American Time Use Survey](https://www.atusdata.org/atus-action/variables/RCVPDLV#questionnaire_text_section), [Current Population Survey](https://cps.ipums.org/cps-action/variables/PENSION#questionnaire_text_section), and [General Social Survey](https://gssdataexplorer.norc.org/variables/706/vshow).
+:::
+
+**3.** The authors discuss institutional changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about institutional changes.
+
+**4.** What was one fact presented in this paper that most surprised you?
+
+**5.** What about the graphs in this paper is compelling? What would you improve or change if you were producing these graphs?

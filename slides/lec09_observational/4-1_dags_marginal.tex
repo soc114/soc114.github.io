@@ -1,0 +1,233 @@
+
+\documentclass{beamer}
+\usecolortheme{dove}
+\setbeamertemplate{navigation symbols}{}
+\usepackage{amsmath,amssymb,amsfonts,amsthm, multicol, subfigure, color}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\definecolor{seagreen}{RGB}{46, 139, 87}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\log{\text{log}}
+\newcommand\logit{\text{logit}}
+\newcommand\iid{\stackrel{\text{iid}}{\sim}}
+\newcommand\E{\text{E}}
+\newcommand\V{\text{V}}
+\renewcommand\P{\text{P}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\Cor}{\text{Cor}}
+\newcommand\doop{\text{do}}
+\usepackage{stackrel}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
+\newcommand\slideref[1]{\vskip .1cm \tiny \textcolor{gray}{{#1}}}
+\newcommand\red[1]{\color{red}#1}
+\newcommand\blue[1]{\color{blue}#1}
+\newcommand\gray[1]{\color{gray}#1}
+\newcommand\seagreen[1]{\color{seagreen}#1}
+\newcommand\purple[1]{\color{purple}#1}
+\newcommand\orange[1]{\color{orange}#1}
+\newcommand\black[1]{\color{black}#1}
+\newcommand\white[1]{\color{white}#1}
+\newcommand\teal[1]{\color{teal}#1}
+\newcommand\magenta[1]{\color{magenta}#1}
+\newcommand\Fuchsia[1]{\color{Fuchsia}#1}
+\newcommand\BlueGreen[1]{\color{BlueGreen}#1}
+\newcommand\bblue[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand\bred[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand\bgray[1]{\textcolor{gray}{\textbf{#1}}}
+\newcommand\bgreen[1]{\textcolor{seagreen}{\textbf{#1}}}
+\newcommand\bref[2]{\href{#1}{\color{blue}{#2}}}
+\colorlet{lightgray}{gray!40}
+\pgfdeclarelayer{bg}    % declare background layer for tikz
+\pgfsetlayers{bg,main} % order layers for tikz
+\newcommand\mycite[1]{\begin{scriptsize}\textcolor{darkgray}{(#1)}\end{scriptsize}}
+\newcommand{\tcframe}{\frame{
+%\small{
+\only<1|handout:0>{\tableofcontents}
+\only<2|handout:1>{\tableofcontents[currentsection]}}
+%}
+}
+
+\usepackage[round]{natbib}
+\bibliographystyle{humannat-mod}
+\setbeamertemplate{enumerate items}[default]
+\usepackage{mathtools}
+
+\newcommand{\goalsframe}{\begin{frame}{Learning goals for today}
+At the end of class, you will be able to\vskip .2in
+\begin{itemize}
+\item draw a causal Directed Acyclic Graph
+\item enumerate edges in the graph
+\item read statistical dependence of nodes in the graph
+\item determine marginal exchangeability in the graph
+\end{itemize} \vskip .2in
+After class:
+\begin{itemize}
+\item Hernán and Robins 2020 Chapter 6.1 and 6.2
+\end{itemize}
+\end{frame}}
+
+\title{Directed Acyclic Graphs:\\Marginal Independence}
+\author{Cornell STSCI / INFO / ILRST 3900\\Fall 2023\\\bref{https://causal3900.github.io/}{causal3900.github.io}}
+\date{14 Sep 2023}
+
+\begin{document}
+
+\maketitle
+
+\goalsframe
+
+\begin{frame}
+\begin{tikzpicture}[x = \textwidth, y = \textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node<1-5>[anchor = north west] at (0,.9) {Directed Acyclic Graphs (DAGs) formalize \textbf{causal beliefs}};
+\node<6-9>[anchor = north west] at (0,.9) {Directed Acyclic Graphs (DAGs) formalize \textbf{statistical dependence}};
+\onslide<1-2,6->{
+\node (l) at (.2,.6) {Smokes};
+\node (a) at (.5,.6) {Carries Lighter};
+\node (y) at (.8,.6) {Lung Cancer};
+}
+\onslide<3-5>{
+\node[seagreen, font = \bf] (l) at (.2,.6) {Smokes};
+\node[seagreen, font = \bf] (a) at (.5,.6) {Carries Lighter};
+\node[seagreen, font = \bf] (y) at (.8,.6) {Lung Cancer};
+}
+\onslide<1-3,6->{
+\draw[->, thick] (l) -- (a);
+\draw[->, thick] (l) to[bend left] (y);
+}
+\onslide<4-5>{
+\draw[->, line width = 2pt, blue] (l) -- (a);
+\draw[->, line width = 2pt, blue] (l) to[bend left] (y);
+}
+\node<1>[anchor = north west, align = left] at (0,.5) {
+Causal beliefs:\\
+1) Smoking may cause you to carry a lighter \\
+2) Smoking may cause lung cancer \\
+3) Carrying a lighter does not cause lung cancer};
+\node<3-5>[anchor = north west] (nodes) at (0,.5) {\bgreen{Nodes} represent random variables};
+\node<4-5>[anchor = north west] (edges) at (nodes.south west) {\bblue{Edges} represent direct causal effects};
+\node<5>[anchor = north west] at (0,.3) {Requirement};
+\node<5>[anchor = north west, align = left] at (.25,.3) {Any node with edges to at least two\\other nodes must be included};
+%%%%%%%
+\node<7-10>[anchor = north west, align = left, outer sep = 3pt] (d1) at (0,.5) {(Smokes, Carries Lighter) are statistically dependent\\\begin{footnotesize}--- because (Smokes) causes (Carries Lighter)\end{footnotesize}};
+\node<8-10>[anchor = north west, align = left, outer sep = 3pt] (d2) at (d1.south west) {(Smokes, Lung Cancer) are statistically dependent\\\begin{footnotesize}--- because (Smokes) causes (Lung Cancer)\end{footnotesize}};
+\node<9-10>[anchor = north west, align = left, outer sep = 3pt] (d3) at (d2.south west) {(Carries Lighter, Lung Cancer) are statistically dependent\\\begin{footnotesize}--- because (Smokes) causes both\end{footnotesize}};
+\node<10->[anchor = north west, align = left, outer sep = 3pt, fill = blue, rounded corners, fill opacity = .2, text opacity = 1] at (0,.95) {\textbf{Task.} Propose a rule for when two nodes are dependent};
+\node<10-12>[anchor = north west, align = left, outer sep = 3pt] at (0,.87) {Two nodes are dependent if and only if \rule{2cm}{0.15mm}};
+\node<11-12>[anchor = north west, align = left] (rule) at (0,.5) {\textbf{Possible rule}\\(not yet correct)};
+\node<11-12>[anchor = north west, align = left] at (.3,.5) {Two nodes are dependent if and only if\\they are connected by a path};
+\node<12>[anchor = north west, align = left] at (0,.32) {\textbf{Path}};
+\node<12>[anchor = north west, align = left] at (.3,.32) {A sequence of edges connecting two nodes};
+\node<12>[anchor = north west, align = left, font = \footnotesize] at (.3,.25) {Smokes $\rightarrow$ Carries Lighter\\Smokes $\rightarrow$ Lung Cancer\\Carries Lighter $\leftarrow$ Smokes $\rightarrow$ Lung Cancer};
+\node<13->[align = center] (air) at (.8,.75) {Local Air\\Pollution};
+\draw<13->[->, thick] (air) -- (y);
+\node<14-17>[anchor = north west, font = \small] at (0,.5) {(Local Air Pollution) causes (Lung Cancer)};
+\node<15-17>[anchor = north west, font = \small] at (0,.42) {There are no common causes of (Smokes, Local Air Pollution)};
+\node<16-17>[anchor = north west, font = \small] at (0,.34) {There is a path: (Smokes) $\rightarrow$ (Lung Cancer) $\leftarrow$ (Local Air Pollution)};
+\node<17>[anchor = north] at (.5, .24) {Is (Smokes) statistically related to (Local Air Pollution)?};
+\node<18-21>[anchor = north west, align = left] at (0, .53) {Lung cancer is a \textbf{collider} on the path\\(Smokes) $\rightarrow$ (Lung Cancer) $\leftarrow$ (Local Air Pollution)};
+\node<19-21>[anchor = north west] at (0, .4) {\textbf{Collider}};
+\node<19-21>[anchor = north west] at (.2, .4) {A node on a path where two edges collide $\rightarrow\bullet\leftarrow$};
+\node<20-21>[anchor = north west, align = left] at (0, .3) {A collider \textbf{blocks the path}.\\A blocked path does not create statistical dependence.};
+\node<21>[anchor = north west] at (0, .18) {Intuition:};
+\node<21>[anchor = north west, align = left] at (.2,.18) {If two variables affect one outcome,\\that does not make those two variables related};
+\node<23-24>[anchor = north west, align = left] (rule) at (0,.4) {\textbf{Possible rule}\\(not yet correct)};
+\node<23>[anchor = north west, align = left] at (.3,.4) {Two nodes are dependent if and only if\\they are connected by a path};
+\node<25>[anchor = north west, align = left] (rule) at (0,.4) {\textbf{Rule}};
+\node<24-25>[anchor = north west, align = left] at (.3,.4) {Two nodes are dependent if and only if\\they are connected by an unblocked path};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{DAGs help us reason about exchangeability} \pause
+DAGs tell us why two variables are statistically dependent
+\begin{itemize}
+\item A set of unblocked paths
+\end{itemize} \vskip .15in \pause
+Exchangeability requires statistical independence: $A\indep Y^a$
+\begin{itemize}
+\item Exchangeability holds if the only reason $A$ and $Y$ are related is the causal effect of $A$ on $Y$
+\end{itemize} \vskip .3in \pause
+
+\begin{center} \large
+Exchangeability holds if all unblocked paths between $A$ and $Y$\\are causal paths that point from $A$ to $Y$
+\end{center}
+\end{frame}
+
+\begin{frame}{DAGs help us reason about exchangeability}
+\begin{tikzpicture}[x = \textwidth, y = \textheight]
+\node at (0,0) {};
+\node at (1,1) {}; \pause
+%\node[anchor = north west] at (0, .9) {\textbf{Exchangeability}};
+%\node[anchor = north west] at (.3,.9) {$A\indep Y^a$ for every treatment value $a$}; \pause
+%\node[anchor = north west, align = right, font = \bf] at (0, .8) {Causal path};
+%\node[anchor = north west, align = left] at (.3,.8) {A path in which all edges\\point the same direction}; \pause
+%\node[anchor = north west, align = left] at (0,.67) {Exchangeability holds if all unblocked paths\\between $A$ and $Y$ are causal paths from $A$ to $Y$}; \pause
+\node[anchor = north west, align = left] at (0,.95) {\textbf{Procedure}\\1) List all paths between $A$ to $Y$\\2) Cross out the blocked paths\\3) Exchangeability holds if all remaining paths are causal}; \pause
+\node[anchor = north] (dag) at (.1,.7) {DAG 1};
+\draw[thick] (dag.south west) -- (dag.south east);
+\node (a) at (.05,.45) {$A$};
+\node (y) at (.15,.45) {$Y$};
+\node (u) at (.15,.6) {$U$};
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (u) -- (y);
+\node[anchor = north] (dag) at (.3,.7) {DAG 2};
+\draw[thick] (dag.south west) -- (dag.south east);
+\node (a) at (.25,.45) {$A$};
+\node (y) at (.35,.45) {$Y$};
+\node (u) at (.25,.6) {$U$};
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (u) -- (a);
+\draw[->, thick] (u) -- (y);
+\node[anchor = north] (dag) at (.5,.7) {DAG 3};
+\draw[thick] (dag.south west) -- (dag.south east);
+\node (a) at (.45,.45) {$A$};
+\node (u) at (.5,.6) {$U$};
+\node (y) at (.55,.45) {$Y$};
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (a) -- (u);
+\draw[->, thick] (u) -- (y);
+\node[anchor = north] (dag) at (.7,.7) {DAG 4};
+\draw[thick] (dag.south west) -- (dag.south east);
+\node (a) at (.65,.45) {$A$};
+\node (u) at (.75,.6) {$U$};
+\node (y) at (.75,.45) {$Y$};
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (a) -- (u);
+\draw[->, thick] (y) -- (u);
+\node[anchor = north] (dag) at (.9,.7) {DAG 5};
+\draw[thick] (dag.south west) -- (dag.south east);
+\node (a) at (.83,.45) {$A$};
+\node (u1) at (.83,.6) {$U_1$};
+\node (u2) at (.97,.6) {$U_2$};
+\node (u3) at (.9,.5) {$U_3$};
+\node (y) at (.97,.45) {$Y$};
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (u1) -- (a);
+\draw[->, thick] (u1) -- (u3);
+\draw[->, thick] (u2) -- (u3);
+\draw[->, thick] (u2) -- (y);
+%\node[anchor = north west] at (0, .2) {In which DAGs does exchangeability hold?}; \pause
+%\node[anchor = north, seagreen, font = \Large] at (.1,.4) {$\checkmark$}; \pause
+%\node[anchor = north, red, font = \Large] at (.3,.4) {$\times$}; \pause
+%\node[anchor = north, seagreen, font = \Large] at (.5,.4) {$\checkmark$}; \pause
+%\node[anchor = north, seagreen, font = \Large] at (.7,.4) {$\checkmark$}; \pause
+%\node[anchor = north, seagreen, font = \Large] at (.9,.4) {$\checkmark$};
+\end{tikzpicture}
+\end{frame}
+
+\goalsframe
+
+\end{document}
+
+
+
+
+

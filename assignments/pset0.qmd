@@ -1,9 +1,8 @@
 ---
-title: "Problem Set 0: Setting up R, RStudio, and Quarto"
-subtitle: "**Info 3370. Studying Social Inequality with Data Science. Spring 2024**"
+title: "Problem Set 0: Computing environment"
 ---
 
-**Due: 5pm on Wednesday, January 24.**
+**Due: 5pm on Friday, January 10.**
 
 In this exercise, you will install R, RStudio and
 Quarto. The exercise will ensure that they are set up correctly so that
@@ -48,5 +47,5 @@ you saved `pset0.qmd` in. You will then submit the PDF on Canvas.
 ## Issues
 
 If you run into issues while attempting to render the Problem Set, be sure
-to open a question on the
-[Ed Discussion]("https://edstem.org/us/courses/54550/")!
+to open a question on
+[Piazza]("https://piazza.com/class/m3q7dpj6kqd2fn")!

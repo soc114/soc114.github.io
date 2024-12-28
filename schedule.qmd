@@ -8,6 +8,54 @@ format:
     toc: true
 ---
 
+## Lecture topics
+
+The course is divided into three broad sections:
+
+* Jan 7--16: Working with data
+* Jan 21--Feb 6: Inference without models
+* Feb 11 onward: Inference with models
+
+Each date will be a link to the slides for that lecture.
+
+| Date | Course Section | Website Page |
+|---|---|---|
+| [Jan 7](slides/lec1/lec1.pdf)	| [Welcome](index.qmd) |
+| | [Questions data can answer](topics/questions_data_can_answer.qmd) |
+| | [Setting up your computer](topics/r_basics.qmd) |
+| [Jan 9](slides/lec2/lec2.pdf)	| [Visualization](topics/visualization.qmd) |
+| [Jan 14](slides/lec3/lec3.pdf) & [Jan 16](slides/lec4.pdf)	| [Data transformation](topics/data_transformation.qmd) |
+| Thu, Jan 16	| Data transformation |
+| Tue, Jan 21	| Population sampling |
+| Thu, Jan 23	| Population sampling |
+| Tue, Jan 28	| Defining counterfactuals |
+| Thu, Jan 30	| Exchangeability and experiments |
+| Tue, Feb 4	| Exchangeability and observational studies |
+| Thu, Feb 6	| Exchangeability and observational studies |
+| Tue, Feb 11	| Why model? |
+| Thu, Feb 13	| Properties of estimators |
+| Tue, Feb 18	| Estimating the properties of estimators |
+| Thu, Feb 20	| Modeling for causal inference: Outcome model |
+| Tue, Feb 25	| Modeling for causal inference: IPTW |
+| Thu, Feb 27	| Machine learning as a plug-in: Descriptive and causal |
+| Tue, Mar 4	| Machine learning: Penalized regression |
+| Thu, Mar 6	| Machine learning: Trees and forests |
+| Tue, Mar 11	| Machine learning vs regression: A case study (FF Challenge) |
+| Thu, Mar 13	| Course recap |
+
+## Assignment due dates
+
+Fri, Jan 10	at 5pm | Problem Set 1
+Fri, Jan 17	at 5pm | Peer Review 1
+Fri, Jan 24	at 5pm | Problem Set 2
+Fri, Jan 31	at 5pm | Peer Review 2
+Fri, Feb 07	at 5pm | Problem Set 3
+Fri, Feb 14	at 5pm | Peer Review 3
+Fri, Feb 21	at 5pm | Problem Set 4
+Fri, Feb 28	at 5pm | Peer Review 4
+Fri, Mar 07	at 5pm | Project
+Fri, Mar 14	at 5pm | Project Peer Review
+
 ## Assignments
 
 Some assignments have associated readings, which are listed in the reading column. Due dates are tentative for assignments that are not yet released.
@@ -35,12 +83,14 @@ Some assignments have associated readings, which are listed in the reading colum
 
 Readings are to be read after class, unless otherwise specified. Readings from [R for Data Science](https://r4ds.hadley.nz/) (R4DS, Wickham et al. 2023) are intended as references that do not need to be read line-by-line but are a useful reference to support ideas.
 
+| 
+
 | Date | Type | Topic | Reading |
 |---|---|---|---|
-| Jan 23 | Lecture | [Welcome](topics/welcome.qmd) | [Jencks 2002](https://www.jstor.org/stable/20027737) p. 49--53 |
-| Jan 25 | Discussion | [Visualization](topics/visualization.qmd) | [R4DS Ch 1](https://r4ds.hadley.nz/data-visualize)
-| Jan 30 | Lecture | [Sampling](topics/sampling.qmd): Simple random and unequal probability | [Probability sampling](https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm) |
-| Feb 1 | Discussion | [Data transformation](topics/data_transformation.qmd) (day 1 / 2) | [R4DS Ch 3](https://r4ds.hadley.nz/data-transform)
+| Jan 7 | Lecture | [Welcome](topics/welcome.qmd) | [Jencks 2002](https://www.jstor.org/stable/20027737) p. 49--53 |
+| Jan 9 | Discussion | [Visualization](topics/visualization.qmd) | [R4DS Ch 1](https://r4ds.hadley.nz/data-visualize)
+| Jan 14 & 16 | Lecture | [Sampling](topics/sampling.qmd): Simple random and unequal probability | [Probability sampling](https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm) |
+| Jan 16 | Discussion | [Data transformation](topics/data_transformation.qmd) (day 1 / 2) | [R4DS Ch 3](https://r4ds.hadley.nz/data-transform)
 | Feb 6 | Lecture | [Sampling](topics/sampling.qmd): Stratified, clustered, and the future | [Groves 2011](https://academic.oup.com/poq/article/75/5/861/1831518)
 | Feb 8 | Discussion | [Data transformation](topics/data_transformation.qmd) (day 2 / 2) | [R4DS Ch 3](https://r4ds.hadley.nz/data-transform)
 | Feb 13 | Lecture | Statistical learning | [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play."

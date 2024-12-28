@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 3: Income Prediction Challenge – Social Data Science</title>
+<title>Problem Set 3: Causal Inference – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,6 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../assignments/pset4.html" rel="next">
+<link href="../assignments/pset2.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,35 +104,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -193,6 +200,12 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/questions_data_can_answer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions data can answer</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/r_basics.html" class="sidebar-item-text sidebar-link">
@@ -316,6 +329,12 @@ window.Quarto = {
   </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discussion Meetings</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
@@ -364,12 +383,6 @@ window.Quarto = {
  <span class="menu-text">Problem Set 4</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../assignments/pset5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Problem Set 5</span></a>
-  </div>
-</li>
       </ul>
   </li>
           <li class="sidebar-item">
@@ -390,9 +403,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#income-prediction-challenge" id="toc-income-prediction-challenge" class="nav-link active" data-scroll-target="#income-prediction-challenge">Income Prediction Challenge</a></li>
-  <li><a href="#create-a-new-task" id="toc-create-a-new-task" class="nav-link" data-scroll-target="#create-a-new-task">Create a new task</a></li>
-  <li><a href="#grad.-machine-learning-versus-statistics" id="toc-grad.-machine-learning-versus-statistics" class="nav-link" data-scroll-target="#grad.-machine-learning-versus-statistics">Grad. Machine learning versus statistics</a></li>
+  <li><a href="#potential-outcomes-in-a-hypothetical-setting" id="toc-potential-outcomes-in-a-hypothetical-setting" class="nav-link active" data-scroll-target="#potential-outcomes-in-a-hypothetical-setting">1. Potential outcomes in a hypothetical setting</a></li>
+  <li><a href="#potential-outcomes-in-a-real-experiment" id="toc-potential-outcomes-in-a-real-experiment" class="nav-link" data-scroll-target="#potential-outcomes-in-a-real-experiment">2. Potential outcomes in a real experiment</a></li>
   </ul>
 </nav>
     </div>
@@ -401,7 +413,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Assignments</li><li class="breadcrumb-item"><a href="../assignments/pset0.html">Problem Sets</a></li><li class="breadcrumb-item"><a href="../assignments/pset3.html">Problem Set 3</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Problem Set 3: Income Prediction Challenge</h1>
+<h1 class="title">Problem Set 3: Causal Inference</h1>
 </div>
 
 
@@ -418,7 +430,7 @@ window.Quarto = {
 </header>
 
 
-<p><strong>Due: 5pm on Wednesday, March 6.</strong></p>
+<p><strong>Due: 5pm on Friday, February 14.</strong></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -429,7 +441,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfE9cKW1TdZvmNH7AUTdzL2Fd3vnQicKVECc7qW2_S4civJpg/viewform?usp=sharing">rubric</a></p>
+<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link">rubric</a></p>
 </div>
 </div>
 <p>Student identifer: [type your anonymous identifier here]</p>
@@ -438,36 +450,86 @@ Note
 <li>In Canvas, you will upload the PDF produced by your .qmd file</li>
 <li>Put your identifier above, not your name! We want anonymous grading to be possible</li>
 </ul>
-<p>This problem set is connected to the <a href="../topics/prediction.html">PSID Income Prediction Challenge</a> from discussion.</p>
-<section id="income-prediction-challenge" class="level2">
-<h2 class="anchored" data-anchor-id="income-prediction-challenge">Income Prediction Challenge</h2>
-<p><strong>Collaboration note.</strong> This question is an individual write-up connected to your group work from discussion. We expect that the approach you tell us might be the same as that of your other group members, but your answers to these questions should be in your own words.</p>
-<p><strong>1.1 (5 points)</strong> How did you choose the predictor variables you used? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.</p>
-<p><strong>1.2 (5 points)</strong> What learning algorithms or models did you consider, and how did you choose one? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.</p>
-<p><strong>1.3 (20 points)</strong> Split the <code>learning</code> data randomly into <code>train</code> and <code>test</code>. Your split can be 50-50 or another ratio. Learn in the <code>train</code> set and make predictions in the <code>test</code> set. What do you estimate for your out-of-sample mean squared error? There is no written answer here; the answer is the code and result.</p>
+<section id="potential-outcomes-in-a-hypothetical-setting" class="level2">
+<h2 class="anchored" data-anchor-id="potential-outcomes-in-a-hypothetical-setting">1. Potential outcomes in a hypothetical setting</h2>
+<p>Jose says that coming to UCLA caused him to discover sociology, and it became his major! He says that if he had gone to UCSD, he would have stuck with biology.</p>
+<p><strong>1.1 (5 points)</strong></p>
+<p>In Jose’s claim, what is the treatment?</p>
+<p><strong>Answer.</strong> Your answer here</p>
+<p><strong>1.2 (5 points)</strong></p>
+<p>Using the mathematical notation we discussed in class, define the two potential outcomes to which Jose is referring.</p>
+<p><strong>Answer.</strong> Your answer here</p>
+<p><strong>1.3 (5 points) </strong></p>
+<p>In a sentence or two, say how the Fundamental Problem of Causal Inference applies to Jose’s claim.</p>
+<p><strong>Answer.</strong> Your answer here</p>
+<p><strong>1.4 (5 points) </strong></p>
+<p>Using conditional expectations or probabilities, write the following in math: the probability of majoring in sociology is higher among students who attend UCLA than among students who attend UCSD.</p>
+<p><strong>Answer.</strong> Your answer here</p>
+<p><strong>1.5 (5 points) </strong></p>
+<p>Using conditional expectations or probabilities, write the following in math: the probability of majoring in sociology would be higher if we intervened to send students to UCLA than if we intervened to send them to UCSD.</p>
+<p><strong>Answer.</strong> Your answer here</p>
 </section>
-<section id="create-a-new-task" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-new-task">Create a new task</h2>
-<p>The predictability of life outcomes is not likely to be the same in every setting. Imagine you were designing a challenge like this one in a new setting, to study how outcomes change over the life course or across generations.</p>
-<p><strong>2.1 (5 points)</strong> From what population would you draw your sample?</p>
-<p><strong>2.2 (5 points)</strong> What outcome would you study?</p>
-<p><strong>2.3 (5 points)</strong> What predictors would you include?</p>
-<p><strong>2.4 (5 points)</strong> Why would it be interesting in your setting if predictions were accurate? Why would it be interesting if predictions were inaccurate?</p>
-</section>
-<section id="grad.-machine-learning-versus-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="grad.-machine-learning-versus-statistics">Grad. Machine learning versus statistics</h2>
+<section id="potential-outcomes-in-a-real-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="potential-outcomes-in-a-real-experiment">2. Potential outcomes in a real experiment</h2>
+<p>This problem is based on:</p>
+<p>Bertrand, M &amp; Mullainathan, S. 2004. “<a href="https://www-jstor-org.proxy.library.cornell.edu/stable/3592802">Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination</a>.” American Economic Review 94(4):991–1013.</p>
+<p>Read the first 10 pages of the paper (through the end of section 2). In this paper,</p>
+<ul>
+<li>the unit of analysis is a resume submitted to a job opening</li>
+<li>the treatment is the name at the top of the resume</li>
+<li>the outcome is whether the employer called or emailed back for an interview</li>
+</ul>
+<p><strong>2.1. (5 points) Fundamental Problem </strong></p>
+<p>One submitted resume had the name “Emily Baker.” It yielded a callback. The same resume could have had the name “Lakisha Washington.” Explain how the Fundamental Problem of Causal Inference applies to this case (1–2 sentences).</p>
+<p><strong>2.2. (5 points) Exchangeability </strong></p>
+<p>In a sentence, what is the exchangeability assumption in this study? For concreteness, for this question you may suppose that the only names in the study were “Emily Baker” and “Lakisha Washington.” Be sure to explicitly state the treatment and the potential outcomes.</p>
+<p><strong>2.3 (15 points) Analyzing the experimental data </strong></p>
+<p>Load packages that our code will use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Download the study’s data from OpenICPSR: <a href="https://www.openicpsr.org/openicpsr/project/116023/version/V1/view">https://www.openicpsr.org/openicpsr/project/116023/version/V1/view</a>. This will require creating an account and agreeing to terms for using the data ethically. Put the data in the folder on your computer where this .Rmd is located. Read the data into R using <code>read_dta</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"lakisha_aer.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <blockquote class="blockquote">
-<p>This question is required for grad students. It is optional for undergrads, and worth no extra credit.</p>
+<p>If you have an error, you might need to set your working directory first. This tells R where to look for data files. At the top of RStudio, click Session -&gt; Set Working Directory -&gt; To Source File Location.</p>
 </blockquote>
-<p><strong>20 points.</strong> This question is about the relative gain in this problem as we move from no model to a statistical model to a machine learning model.</p>
-<p>First, use your <code>train</code> set to estimate 3 learners and predict in your <code>test</code> set.</p>
-<ol type="a">
-<li>No model. For every <code>test</code> observation, predict the mean of the <code>train</code> outcomes</li>
-<li>Ordinary Least Squares. Choose a set of predictors <span class="math inline">\(\vec{X}\)</span>. For every <code>test</code> observation, predict using a linear model <code>lm()</code> fit to the <code>train</code> set with the predictors <span class="math inline">\(\vec{X}\)</span>.</li>
-<li>Machine learning. Use the same set of predictors <span class="math inline">\(\vec{X}\)</span>. For every <code>test</code> observation, predict using a machine learning model fit to the <code>train</code> set with the predictors <span class="math inline">\(\vec{X}\)</span>. Your machine learning model could be a Generalized Additive Model (<code>gam()</code>), a decision tree (<code>rpart()</code>), or some other machine learning approach.</li>
-</ol>
-<p>Report your out-of-sample mean squared error estimates for each approach. How did mean squared error change from (a) to (b)? From (b) to (c)?</p>
-<p>Interpret what you found. To what degree does machine learning improve predictability, beyond what can be achieved by Ordinary Least Squares?</p>
+<p>You will now see <code>d</code> in your Global Environment at the top right of RStudio.</p>
+<p>We will use two variables:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>call</code></td>
+<td>outcome</td>
+<td>1 if resume submission yielded a callback</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>0 if not</td>
+</tr>
+<tr class="odd">
+<td><code>race</code></td>
+<td>category of treatments</td>
+<td><code>b</code> if first name signals Black</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><code>w</code> if first name signals white</td>
+</tr>
+</tbody>
+</table>
+<p>The top of Table 1 reports callback rates: 9.65% for white names and 6.45% for Black names. Reproduce those numbers. Write code that reproduces these numbers.</p>
 
 
 </section>
@@ -1037,6 +1099,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../assignments/pset2.html" class="pagination-link" aria-label="Problem Set 2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Problem Set 2</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../assignments/pset4.html" class="pagination-link" aria-label="Problem Set 4">
+        <span class="nav-page-text">Problem Set 4</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

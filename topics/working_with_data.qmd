@@ -1,22 +1,15 @@
 ---
-title: "What data can tell us"
+title: "Working with data"
 ---
 
-[[Slides]](../slides/lec1/lec1.pdf)
+> This topic is covered on Jan 7.
 
-America is more unequal by many measures than other industrialized nations. Should we be concerned? In today's reading, Jencks discusses how quantitative empirical evidence on inequality relates to arguments about the amount of inequality that is desirable.
+Data science is a world of abundant opportunities. Over recent decades, the field has been transformed by the rapid growth of both computational power and available data. With the proliferation of new technological advances and data opportunities, a social scientist might reasonably ask: where do I begin?
 
-After our discussion in class, read p. 49--53 of this paper:
+Social data science begins from a place that is both philosophical and practical.
 
-> Jencks, C. (2002). [Does inequality matter?](https://www.jstor.org/stable/20027737) Daedalus, 131(1).
+Philosophically, we as the scientists need to understand the kinds of questions that data can answer. Data cannot generally answer normative questions about what should be, but data can answer objective questions about what is. Yet we still must choose: what numbers are important to estimate? How do those numbers inform debates? The next page discusses these choices in the context of a topic in which normative and objective arguments are often conflated: inequality.
 
-The paper's engagement with both normative arguments and quantitative evidence is an example we will follow this semester.
+Practically, we need the tools to work with data. This course therefore begins by setting up our [computing environment]^(Your computing environment encompasses both your computer's operating system and software installed on that operating system.). Instead of using point-and-click approaches, we will analyze data by writing code. A code script is a set of sequential instructions: it tells the computer to first do this, then do that, then report a result in a chosen way. By learning to write code, you will rapidly expand the set of data science tools available to you. Perhaps more importantly, your work will become reproducible: someone else with your raw data should be able to run your code and produce exactly the same result.
 
-- we will use data to summarize inequality
-- we will connect those summaries to moral arguments
-
-Ultimately, this class is creative: you will produce new evidence about a question of your choosing. To get there, we first need to learn a bit about population data and how to work with those data.
-
-## Summary video: What we covered today
-
-{{< video https://www.youtube.com/embed/sN35dvXeNv0 >}}
+The next pages discuss the philosophical questions data can answer and then walk through the steps of working with data using code.

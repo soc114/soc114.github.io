@@ -11,6 +11,7 @@ execute:
 website:
   title: "Social Data Science"
   description: "Generate new knowledge about social inequality using the tools of data science."
+  page-navigation: true
   navbar:
     pinned: true
     right:
@@ -39,6 +40,7 @@ website:
       - href: topics/working_with_data.qmd
         text: "Working with Data"
         contents:
+          - topics/questions_data_can_answer.qmd
           - topics/r_basics.qmd
           - topics/visualization.qmd
           - topics/data_transformation.qmd
@@ -63,6 +65,7 @@ website:
           - section: "Models for causal inference"
           - section: "Machine learning"
             contents:
+      - href: discussion.qmd
       - section: "Assignments"
         contents:
           - section: "Problem Sets"
@@ -77,8 +80,6 @@ website:
                 text: "Problem Set 3"
               - href: assignments/pset4.qmd
                 text: "Problem Set 4"
-              - href: assignments/pset5.qmd
-                text: "Problem Set 5"
           - href: assignments/project.qmd
             text: "Project"
 

@@ -13,20 +13,15 @@ You can answer any question about inequality (broadly defined) using the ideas w
 
 ## What you will submit
 
-There are two submitted items, both due 5pm on Wednesday April 24
+There are two submitted items, both due 5pm on Friday, Mar 7.
 
-**Writeup.** This should be a `.qmd` document compiled into a PDF. It should include all code that produces your results. For undergraduate groups, this must be no more than 1,000 words and will contain 1 or more visualizations. For graduate groups, this must be no more than 2,000 words and contain 3 or more visualizations.
+**Writeup.** This should be a `.qmd` document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.
 
 **Slides.** Upload slides in PDF format for your presentation in discussion. We encourage you to keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. You should plan to address the key points 1--6 above. We realize that 10 minutes is short; being concise is a virtue!
 
 ## Group structure
 
-We will share a Google form in which you can either
-
-- tell us your group. We anticipate 4--6 students, but we can be flexible
-- tell us your interests, and we will team you up with others!
-
-If you want a smaller group or to work individually, come talk to us
+We will form groups of about 5 students each within discussion sections. Groups will be formed during discussion in the middle of the quarter.
 
 ## Key components of the project
 
@@ -35,13 +30,16 @@ If you want a smaller group or to work individually, come talk to us
      - this may be a probability sample, such as those available via IPUMS. If so, tell us a little bit about the sampling design
      - this may be a convenience sample. If so, why does it speak to the population and what are the limitations?
      - this may be data on the entire population, as in our [baseball](../topics/sampling.qmd#sec-baseball) example
-3) Choose an outcome variable, which is defined for each unit in the population
+3) Choose an outcome variable, which is defined for each unit in the population. Your outcome variable can be a factual variable ($Y$) for descriptive claims, or a potential outcome ($Y^a$) or difference in potential outcomes ($Y^1-Y^0$) for causal claims.
      - example: annual wage and salary income
 4) Choose one or more variables on which to create population subgroups
      - example: subgroups defined by sex (male and female)
-5) Choose a summary statistic, which aggregates the outcome distribution to one summary per subgroup
+6) Choose a summary statistic, which aggregates the outcome distribution to one summary per subgroup
      - examples: proportion, mean, median, 90th percentile
-6) Visualize your findings in a `ggplot`
+7) Write with clarity on causal assumptions
+     - if your goal is causal with potential outcomes, draw a DAG in which those potential outcomes can be identified by an assumption of conditional exchangeability. If there are unmeasured confounders, discuss how their omission from your DAG may threaten the credibility of your estimates. It is ok if the assumptions are doubtful as long as you write them down clearly.
+     - if your goal is descriptive with only factual outcomes, then write your results carefully using only descriptive language. As a heuristic, if your goal is descriptive then you should not be using the sentence structure "X [verb] Y", such as "going to college increases earnings." This claim suggests a college graduate would have earned less if they had not gone to college---a counterfactual outcome we did not see. For truly descriptive claims, you should phrase more like: "There is a difference in earnings among those who did and did not go to college." A heuristic to recognize a non-causal claim is that it can be phrased it in an "among" statement: "Among subgroup A, we find \_\_\_. Among subgroup B, we find \_\_\_." Or "There is a disparity in Y across subgroups defined by X."
+8) Visualize your findings in a `ggplot`
      
 Your goal should be to **tell us a story** using the data. What do we learn by studying this outcome, aggregated this way, in these subgroups from this population?
 
@@ -51,12 +49,6 @@ Your goal should be to **tell us a story** using the data. What do we learn by s
 - **Models.** If your question involves many subgroups (e.g., ages) with few observations in each subgroup, you can (but are not required to) use a statistical model to estimate your summary statistic in the subgroup by a predicted value. For example, you could use OLS to predict the proportion mean income at each age. If you do this, you should report the predicted value of the summary statistic, not the coefficients of the model.
 - **Aggregation.** Your data must begin with units (e.g., people) who you aggregate into subgroups (e.g., age groups). Your data might come pre-aggregated, such as data where each row contains data for all students in a particular college or university. Then you would need to aggregate further, such as to produce summaries for private versus public universities.
 - **Dropped cases.** As you move from raw data to the data that produce your graph, you might drop cases on the way. For example, some cases may have missing values on key predictors. Report how many are dropped, and why. Our goal here is transparent, open science.
-- **Avoiding causal language.** Beware of saying that one variable causes, shapes, influences, or determines another. These causal claims are important, but hard to support! You should take STSCI 3900 first. A heuristic to recognize causal claims is the sentence structure "X [verb] Y", such as "going to college increases earnings." This claim suggests a college graduate would have earned less if they had not gone to college---a counterfactual outcome we did not see. For our class, we suggest you focus on non-causal claim, such as "There is a difference in earnings among those who did and did not go to college." A heuristic to recognize a non-causal claim is that it can be phrased it in an "among" statement: "Among subgroup A, we find \_\_\_. Among subgroup B, we find \_\_\_." Or "There is a disparity in Y across subgroups defined by X."
-- **But I wanted to ask a causal question!** While we encourage descriptive claims, we will allow causal claims if they are supported by transparent mathematical assumptions, using potential outcomes or Directed Acyclic Graphs. This might be an appropriate choice for students who previously took STSCI 3900, or who have other background in causal inference. If you take this road, come talk to us in office hours to make sure we are on the same page about the assumptions required.
-
-## Support from an assigned TA
-
-Each group will be assigned one TA. That TA will be your first point of contact for support, and we expect they will get to know the project along the way. While your assigned TA will be specifically aware of your project, you are also welcome at all of our office hours.
 
 ## Have fun
 

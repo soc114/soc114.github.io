@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 4: Social Class – Social Data Science</title>
+<title>Problem Set 4: Statistical Learning – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -63,6 +29,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../assignments/project.html" rel="next">
+<link href="../assignments/pset3.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -102,6 +70,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -198,6 +195,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/questions_data_can_answer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions data can answer</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/r_basics.html" class="sidebar-item-text sidebar-link">
@@ -321,6 +324,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discussion Meetings</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
@@ -369,12 +378,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Problem Set 4</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../assignments/pset5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Problem Set 5</span></a>
-  </div>
-</li>
       </ul>
   </li>
           <li class="sidebar-item">
@@ -395,9 +398,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reading-questions" id="toc-reading-questions" class="nav-link active" data-scroll-target="#reading-questions">Reading questions</a></li>
-  <li><a href="#data-analysis-questions" id="toc-data-analysis-questions" class="nav-link" data-scroll-target="#data-analysis-questions">Data analysis questions</a></li>
-  <li><a href="#grad-question" id="toc-grad-question" class="nav-link" data-scroll-target="#grad-question">Grad question</a></li>
+  <li><a href="#income-prediction-challenge" id="toc-income-prediction-challenge" class="nav-link active" data-scroll-target="#income-prediction-challenge">Income Prediction Challenge</a></li>
+  <li><a href="#grad.-machine-learning-versus-statistics" id="toc-grad.-machine-learning-versus-statistics" class="nav-link" data-scroll-target="#grad.-machine-learning-versus-statistics">Grad. Machine learning versus statistics</a></li>
   </ul>
 </nav>
     </div>
@@ -406,7 +408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Assignments</li><li class="breadcrumb-item"><a href="../assignments/pset0.html">Problem Sets</a></li><li class="breadcrumb-item"><a href="../assignments/pset4.html">Problem Set 4</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Problem Set 4: Social Class</h1>
+<h1 class="title">Problem Set 4: Statistical Learning</h1>
 </div>
 
 
@@ -423,7 +425,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Due: 5pm on Wednesday, March 20.</strong></p>
+<p><strong>Due: 5pm on Friday, Feb 28.</strong></p>
+<p><strong>NOTE:</strong> This problem set will be updated to explicitly involve statistical learning with more guidance, as well as some causal inference.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -434,96 +437,37 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQKK55fNVojf8573h5rz_STWpcjoml27FAthNUG_FXsg5AeA/viewform?usp=sf_link">rubric</a></p>
+<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfE9cKW1TdZvmNH7AUTdzL2Fd3vnQicKVECc7qW2_S4civJpg/viewform?usp=sharing">rubric</a></p>
 </div>
 </div>
 <p>Student identifer: [type your anonymous identifier here]</p>
 <ul>
-<li>Use this <a href="../assets/pset4/pset4.qmd">.qmd template</a> to complete the problem set</li>
+<li>Use this <a href="../assets/pset3/pset3.qmd">.qmd template</a> to complete the problem set</li>
 <li>In Canvas, you will upload the PDF produced by your .qmd file</li>
 <li>Put your identifier above, not your name! We want anonymous grading to be possible</li>
 </ul>
-<section id="reading-questions" class="level2">
-<h2 class="anchored" data-anchor-id="reading-questions">Reading questions</h2>
-<p>The reading studies pay disparities across categories of class origin, defined by the occupations of one’s parents.</p>
+<p>This problem set is connected to the <a href="../topics/prediction.html">PSID Income Prediction Challenge</a> from discussion.</p>
+<section id="income-prediction-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="income-prediction-challenge">Income Prediction Challenge</h2>
+<p><strong>Collaboration note.</strong> This question is an individual write-up connected to your group work from discussion. We expect that the approach you tell us might be the same as that of your other group members, but your answers to these questions should be in your own words.</p>
+<p><strong>1.1 (5 points)</strong> How did you choose the predictor variables you used? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.</p>
+<p><strong>1.2 (5 points)</strong> What learning algorithms or models did you consider, and how did you choose one? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.</p>
+<p><strong>1.3 (20 points)</strong> Split the <code>learning</code> data randomly into <code>train</code> and <code>test</code>. Your split can be 50-50 or another ratio. Learn in the <code>train</code> set and make predictions in the <code>test</code> set. What do you estimate for your out-of-sample mean squared error? There is no written answer here; the answer is the code and result.</p>
+</section>
+<section id="grad.-machine-learning-versus-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="grad.-machine-learning-versus-statistics">Grad. Machine learning versus statistics</h2>
 <blockquote class="blockquote">
-<p>Laurison, D., &amp; Friedman, S. (2024). <a href="https://academic.oup.com/sf/advance-article-abstract/doi/10.1093/sf/soae025/7616417">The Class Ceiling in the United States: Class-Origin Pay Penalties in Higher Professional and Managerial Occupations.</a> Social Forces.</p>
+<p>This question is required for grad students. It is optional for undergrads, and worth no extra credit.</p>
 </blockquote>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This paper appeared online very recently (Feb 29), which makes access more tricky. We included a PDF in the Canvas assignment. To access it through the Cornell Library, search the library website for “Social Forces” (the journal in which this is published) and click to find an online resource, making sure to choose one that has all publications through the present. This article is not yet in an issue, but is in the advanced articles section of the Social Forces page.</p>
-</div>
-</div>
-<p>The first part of the paper argues for why class origin may or may not be consequential for pay in the U.S.</p>
-<p><strong>1.1. (2 points)</strong> Give a hypothetical example of a hiring or advancement practice at an imaginary company in which other factors such as race and education determine a person’s outcome, but class origin per se is not relevant.</p>
-<p><strong>1.2. (2 points)</strong> Give a hypothetical example of a hiring or advancement practice at an imaginary company that might create pay disparities by class origin. In a couple sentences, explain.</p>
-<p><strong>1.3. (3 points)</strong> This paper has many excellent, descriptive figures, much like those you will produce in the final project. Which figure is your favorite, and why?</p>
-<p><strong>1.4. (3 points)</strong> Suggest one way to make your favorite figure even better.</p>
-<p><strong>1.5. (4 points)</strong> What is an open question the authors haven’t answered, that you might be able to answer using survey data?</p>
-</section>
-<section id="data-analysis-questions" class="level2">
-<h2 class="anchored" data-anchor-id="data-analysis-questions">Data analysis questions</h2>
-<p>The paper uses the <a href="https://psidonline.isr.umich.edu/">Panel Study of Income Dynamics</a>, which is a difficult dataset to use. We will explore a similar question using the <a href="https://gssdataexplorer.norc.org/">General Social Survey</a>. It is also good for science when findings can be reproduced in a different dataset. To simplify your analysis, we wrote <a href="../code/pset4.R">code</a> that prepares the GSS data into the file <a href="../data/pset4.RDS">pset4.RDS</a> which you can load to complete this problem set.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pset4 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="st">"https://info3370.github.io/data/pset4.RDS"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>2.1. (8 points)</strong> Group by parent class. Visualize the distribution of respondent classes within each parent class.</p>
-<ul>
-<li>we suggest a bar graph</li>
-<li>we suggest using the x-axis for respondent class</li>
-<li>we suggest using the y-axis for the proportion in that respondent class</li>
-<li>we suggest using facets for parent class</li>
-<li>remember to weight by <code>wtssall</code></li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>One way to do this: group by parent and respondent class, summarize to sum the weight within each group, group by only parent class, then mutate to estimate the proportion in each respondent class as the weight divided by the sum of the weight on all respondents within that parent class.</p>
-</div>
-</div>
-<p><strong>2.2. (4 points)</strong> Interpret your graph from (2.1) in up to three sentences.</p>
-<p><strong>2.3. (8 points)</strong> Group by <code>parent_class</code>. Visualize the median value of respondent income (<code>realrinc</code>).</p>
-<ul>
-<li>we suggest using the x-axis for parent class</li>
-<li>we suggest using the y-axis for median respondent income</li>
-<li>remember to weight by <code>wtssall</code></li>
-</ul>
-<p><strong>2.4. (4 points)</strong> Interpret your graph from (2.3) in up to three sentences.</p>
-<p><strong>2.5. (8 points)</strong> Group by <code>parent_class</code> and <code>respondent_class</code>. Visualize the median value of respondent income (<code>realrinc</code>).</p>
-<ul>
-<li>we suggest using the x-axis for parent class</li>
-<li>we suggest using facets for respondent class</li>
-<li>we suggest using the y-axis for median respondent income</li>
-<li>remember to weight by <code>wtssall</code></li>
-</ul>
-<p><strong>2.6. (4 points)</strong> Interpret your graph from (2.5) in up to three sentences. Comment particularly on how the facet for respondents who are in the higher professional class looks different from the others.</p>
-</section>
-<section id="grad-question" class="level2">
-<h2 class="anchored" data-anchor-id="grad-question">Grad question</h2>
-<p><strong>G.1 (5 points)</strong> Estimate the proportion of respondents with college degrees (<code>respondent_college == TRUE</code>) among those within each parent class. Visualize in a bar graph.</p>
-<p><strong>G.2 (5 points)</strong> Interpret the result from G.1. Explain how higher education might help parents from advantaged class positions to transmit that advantage on to their children.</p>
-<p><strong>G.3 (5 points)</strong> Estimate the weighted proportion of respondents in each <code>respondent_class</code>, within groups defined by <code>respondent_college</code> and <code>parent_class</code>. Visualize in a bar graph.</p>
-<ul>
-<li>we suggest respondent class on the x-axis</li>
-<li>we suggest parent class and respondent college on facets</li>
-</ul>
-<p><strong>G.4 (5 points)</strong> Interpret the result from G.3. Is the pattern of respondent classes more consistent across parent classes within respondent education, or across respondent education within parent classes?</p>
+<p><strong>20 points.</strong> This question is about the relative gain in this problem as we move from no model to a statistical model to a machine learning model.</p>
+<p>First, use your <code>train</code> set to estimate 3 learners and predict in your <code>test</code> set.</p>
+<ol type="a">
+<li>No model. For every <code>test</code> observation, predict the mean of the <code>train</code> outcomes</li>
+<li>Ordinary Least Squares. Choose a set of predictors <span class="math inline">\(\vec{X}\)</span>. For every <code>test</code> observation, predict using a linear model <code>lm()</code> fit to the <code>train</code> set with the predictors <span class="math inline">\(\vec{X}\)</span>.</li>
+<li>Machine learning. Use the same set of predictors <span class="math inline">\(\vec{X}\)</span>. For every <code>test</code> observation, predict using a machine learning model fit to the <code>train</code> set with the predictors <span class="math inline">\(\vec{X}\)</span>. Your machine learning model could be a Generalized Additive Model (<code>gam()</code>), a decision tree (<code>rpart()</code>), or some other machine learning approach.</li>
+</ol>
+<p>Report your out-of-sample mean squared error estimates for each approach. How did mean squared error change from (a) to (b)? From (b) to (c)?</p>
+<p>Interpret what you found. To what degree does machine learning improve predictability, beyond what can be achieved by Ordinary Least Squares?</p>
 
 
 </section>
@@ -1093,6 +1037,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../assignments/pset3.html" class="pagination-link" aria-label="Problem Set 3">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Problem Set 3</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../assignments/project.html" class="pagination-link" aria-label="Project">
+        <span class="nav-page-text">Project</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

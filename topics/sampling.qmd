@@ -2,6 +2,8 @@
 title: "Population Sampling"
 ---
 
+> This topic is covered on Jan 21 and 23.
+
 ```{r, echo = F, message = F, warning = F}
 library(tidyverse)
 library(scales)
@@ -9,15 +11,10 @@ library(scales)
 
 Claims about inequality are often claims about a population. Our data are typically only a sample! This module addresses the link between samples and populations.
 
-This page covers two lecture (1/30 and 2/6).
+This page covers two lectures.
 
-- Lecture on 1/30 [[slides]](../slides/lec2/lec2.pdf) covers [full count enumeration](#full-count-enumeration) through the [Current Population Survey](#sec-cps). After lecture, you should read about [probability sampling](https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm) and register for an account at [cps.ipums.org](https://cps.ipums.org/cps/).
-- Lecture on 2/6 [[slides]](../slides/lec3/lec3.pdf) uses salaries of [Major League Baseball players](#sec-baseball) to carry out three sampling strategies and explore their performance. After class, you should read [Groves 2011](https://academic.oup.com/poq/article/75/5/861/1831518) on the past and future of sampling
-
-::: {.callout-tip}
-### Heads-up!
-You will want your computer in lecture on 2/6.
-:::
+- The first lecture [[slides]](../slides/lec2/lec2.pdf) covers [full count enumeration](#full-count-enumeration) through the [Current Population Survey](#sec-cps). After lecture, you should read about [probability sampling](https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm) and register for an account at [cps.ipums.org](https://cps.ipums.org/cps/).
+- The second lecture [[slides]](../slides/lec3/lec3.pdf) uses salaries of [Major League Baseball players](#sec-baseball) to carry out three sampling strategies and explore their performance. After class, you should read [Groves 2011](https://academic.oup.com/poq/article/75/5/861/1831518) on the past and future of sampling.
     
 ## Full count enumeration
 

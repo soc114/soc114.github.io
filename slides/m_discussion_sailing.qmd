@@ -1,0 +1,25 @@
+---
+title: "Untitled"
+editor: visual
+---
+## 2. A sailing class 
+
+You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.
+
+**2.1 (5 points) **
+
+Last year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.
+
+**Answer.** Your answer here
+
+**2.2 (5 points) **
+
+Last year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.
+
+**Answer.** Your answer here
+
+**2.3 (5 points) **
+
+On average, the students in this class emerged more prepared to sail than they would have been without the class.
+
+**Answer.** Your answer here

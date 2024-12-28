@@ -63,6 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../topics/weights.html" rel="next">
+<link href="../topics/data_transformation.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -229,6 +231,12 @@ window.Quarto = {
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../topics/questions_data_can_answer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions data can answer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../topics/r_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up your computer</span></a>
   </div>
@@ -350,6 +358,12 @@ window.Quarto = {
   </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discussion Meetings</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
@@ -396,12 +410,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../assignments/pset4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Problem Set 4</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../assignments/pset5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Problem Set 5</span></a>
   </div>
 </li>
       </ul>
@@ -463,25 +471,15 @@ window.Quarto = {
 </header>
 
 
+<blockquote class="blockquote">
+<p>This topic is covered on Jan 21 and 23.</p>
+</blockquote>
 <p>Claims about inequality are often claims about a population. Our data are typically only a sample! This module addresses the link between samples and populations.</p>
-<p>This page covers two lecture (1/30 and 2/6).</p>
+<p>This page covers two lectures.</p>
 <ul>
-<li>Lecture on 1/30 <a href="../slides/lec2/lec2.pdf">[slides]</a> covers <a href="#full-count-enumeration">full count enumeration</a> through the <a href="#sec-cps">Current Population Survey</a>. After lecture, you should read about <a href="https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm">probability sampling</a> and register for an account at <a href="https://cps.ipums.org/cps/">cps.ipums.org</a>.</li>
-<li>Lecture on 2/6 <a href="../slides/lec3/lec3.pdf">[slides]</a> uses salaries of <a href="#sec-baseball">Major League Baseball players</a> to carry out three sampling strategies and explore their performance. After class, you should read <a href="https://academic.oup.com/poq/article/75/5/861/1831518">Groves 2011</a> on the past and future of sampling</li>
+<li>The first lecture <a href="../slides/lec2/lec2.pdf">[slides]</a> covers <a href="#full-count-enumeration">full count enumeration</a> through the <a href="#sec-cps">Current Population Survey</a>. After lecture, you should read about <a href="https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm">probability sampling</a> and register for an account at <a href="https://cps.ipums.org/cps/">cps.ipums.org</a>.</li>
+<li>The second lecture <a href="../slides/lec3/lec3.pdf">[slides]</a> uses salaries of <a href="#sec-baseball">Major League Baseball players</a> to carry out three sampling strategies and explore their performance. After class, you should read <a href="https://academic.oup.com/poq/article/75/5/861/1831518">Groves 2011</a> on the past and future of sampling.</li>
 </ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Heads-up!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You will want your computer in lecture on 2/6.</p>
-</div>
-</div>
 <section id="full-count-enumeration" class="level2">
 <h2 class="anchored" data-anchor-id="full-count-enumeration">Full count enumeration</h2>
 <p>What proportion of our class prefers to sit in the front of the room?</p>
@@ -650,16 +648,16 @@ Note
 <pre><code># A tibble: 60 × 6
    player          team              position   salary p_sampled sampling_weight
    &lt;chr&gt;           &lt;chr&gt;             &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
- 1 Donaldson, Josh N.Y. Yankees      3B       21000000    0.0636            15.7
- 2 Crawford, J.P.  Seattle           SS       11000000    0.0636            15.7
- 3 Alvarez, Yordan Houston           DH        7833333    0.0636            15.7
- 4 Bellinger, Cody Chicago Cubs      OF       12500000    0.0636            15.7
- 5 Alberto, Hanser Chicago White Sox 2B        1300000    0.0636            15.7
- 6 Oviedo, Johan   Pittsburgh        RHP        735000    0.0636            15.7
- 7 Edwards, Carl   Washington        RHP       2250000    0.0636            15.7
- 8 Civale, Aaron   Cleveland         RHP       2600000    0.0636            15.7
- 9 Pop, Zachary    Toronto           RHP        742200    0.0636            15.7
-10 Young, Alex     Cincinnati        LHP       1150000    0.0636            15.7
+ 1 Pillar, Kevin   Atlanta           OF        3000000    0.0636            15.7
+ 2 Giolito, Lucas  Chicago White Sox RHP      10400000    0.0636            15.7
+ 3 Martin, Chris   Boston            RHP       8000000    0.0636            15.7
+ 4 Coleman, Dylan  Kansas City       RHP        731750    0.0636            15.7
+ 5 Kreidler, Ryan  Detroit           SS         721600    0.0636            15.7
+ 6 Dubon, Mauricio Houston           OF        1400000    0.0636            15.7
+ 7 Kimbrel, Craig  Philadelphia      RHP      10000000    0.0636            15.7
+ 8 Casali, Curt    Cincinnati        C         2500000    0.0636            15.7
+ 9 Reyes, Franmil  Kansas City       DH        2000000    0.0636            15.7
+10 McKinstry, Zach Detroit           2B         734500    0.0636            15.7
 # ℹ 50 more rows</code></pre>
 </div>
 </div>
@@ -731,7 +729,7 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_example <span class="ot">&lt;-</span> <span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimator</span>(<span class="at">sample =</span> sample_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6271403</code></pre>
+<pre><code>[1] 4926964</code></pre>
 </div>
 </div>
 <p>Try it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?</p>
@@ -1384,6 +1382,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../topics/data_transformation.html" class="pagination-link" aria-label="Data transformation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Data transformation</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../topics/weights.html" class="pagination-link" aria-label="Weights">
+        <span class="nav-page-text">Weights</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

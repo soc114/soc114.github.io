@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 2: Data Transformation – Social Data Science</title>
+<title>Problem Set 2: Data Transformation and Sampling – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,6 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../assignments/pset3.html" rel="next">
+<link href="../assignments/pset1.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -200,6 +202,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../topics/questions_data_can_answer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions data can answer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../topics/r_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up your computer</span></a>
   </div>
@@ -321,6 +329,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discussion Meetings</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
@@ -369,12 +383,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Problem Set 4</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../assignments/pset5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Problem Set 5</span></a>
-  </div>
-</li>
       </ul>
   </li>
           <li class="sidebar-item">
@@ -396,9 +404,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#data-analysis-existing-question" id="toc-data-analysis-existing-question" class="nav-link active" data-scroll-target="#data-analysis-existing-question">1. Data analysis: Existing question</a></li>
-  <li><a href="#reading-questions" id="toc-reading-questions" class="nav-link" data-scroll-target="#reading-questions">2. Reading questions</a></li>
-  <li><a href="#a-new-outcome" id="toc-a-new-outcome" class="nav-link" data-scroll-target="#a-new-outcome">3. A new outcome</a></li>
-  <li><a href="#grad-question-ratio-and-difference" id="toc-grad-question-ratio-and-difference" class="nav-link" data-scroll-target="#grad-question-ratio-and-difference">Grad question: Ratio and difference</a></li>
+  <li><a href="#a-new-outcome" id="toc-a-new-outcome" class="nav-link" data-scroll-target="#a-new-outcome">2. A new outcome</a></li>
+  <li><a href="#conceptual-questions-on-sampling" id="toc-conceptual-questions-on-sampling" class="nav-link" data-scroll-target="#conceptual-questions-on-sampling">3. Conceptual questions on sampling</a></li>
+  <li><a href="#recap-and-connections-to-your-project" id="toc-recap-and-connections-to-your-project" class="nav-link" data-scroll-target="#recap-and-connections-to-your-project">Recap and connections to your project</a></li>
   </ul>
 </nav>
     </div>
@@ -407,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Assignments</li><li class="breadcrumb-item"><a href="../assignments/pset0.html">Problem Sets</a></li><li class="breadcrumb-item"><a href="../assignments/pset2.html">Problem Set 2</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Problem Set 2: Data Transformation</h1>
+<h1 class="title">Problem Set 2: Data Transformation and Sampling</h1>
 </div>
 
 
@@ -482,28 +490,8 @@ Tip
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="reading-questions" class="level2">
-<h2 class="anchored" data-anchor-id="reading-questions">2. Reading questions</h2>
-<p><strong>2.1 (3 points)</strong> The authors write that “change in the gender system has been deeply asymmetric.” Explain this in a sentence or two to someone who hasn’t read the article.</p>
-<p><strong>2.2 (3 points)</strong> The authors discuss cultural changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about cultural changes.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you are not sure how to word a survey question, here are some examples from the <a href="https://www.atusdata.org/atus-action/variables/RCVPDLV#questionnaire_text_section">American Time Use Survey</a>, <a href="https://cps.ipums.org/cps-action/variables/PENSION#questionnaire_text_section">Current Population Survey</a>, and <a href="https://gssdataexplorer.norc.org/variables/706/vshow">General Social Survey</a>.</p>
-</div>
-</div>
-<p><strong>2.3 (3 points)</strong> The authors discuss institutional changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about institutional changes.</p>
-<p><strong>2.4 (1 point)</strong> What was one fact presented in this paper that most surprised you?</p>
-</section>
 <section id="a-new-outcome" class="level2">
-<h2 class="anchored" data-anchor-id="a-new-outcome">3. A new outcome</h2>
+<h2 class="anchored" data-anchor-id="a-new-outcome">2. A new outcome</h2>
 <p><strong>20 points.</strong> The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.</p>
 <p>As in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.</p>
 <p>Your answer should include</p>
@@ -514,31 +502,19 @@ Tip
 <li>your publication-quality visualization</li>
 </ul>
 </section>
-<section id="grad-question-ratio-and-difference" class="level2">
-<h2 class="anchored" data-anchor-id="grad-question-ratio-and-difference">Grad question: Ratio and difference</h2>
-<blockquote class="blockquote">
-<p>This question is required for grad students. It is optional for undergrads, and worth no extra credit.</p>
-</blockquote>
-<p><strong>20 points.</strong> The figures above visualize a summary statistic for each subgroup: male and female. Another way to visualize this is with the ratio (female statistic / male statistic) or difference of the two (female statistic - male statistic).</p>
-<p>For your own question, produce two new visualizations:</p>
-<ul>
-<li>one showing the female / male ratio over time</li>
-<li>one showing the female - male difference over time</li>
-</ul>
-<p>Which do you find easier to interpret, and why?</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>It is likely that your code for the previous parts produced one column with estimates and another column <code>sex</code> containing the values <code>male</code> and <code>female</code>. One way to calculate a ratio and difference is to reshape the data so that there is one row for each year, containing both the <code>male</code> and <code>female</code> estimates. You can do this with <code>pivot_wider</code> where the names come from <code>sex</code> and the values come from the column containing your estimates. Then you can <code>mutate()</code> to create the ratio and difference.</p>
-</div>
-</div>
+<section id="conceptual-questions-on-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="conceptual-questions-on-sampling">3. Conceptual questions on sampling</h2>
+<p>The Los Angeles Family and Neighborhood Study (<a href="https://lasurvey.rand.org/design/">L.A. FANS</a>) was designed to study both family and neighborhood characteristics in L.A. This question is about the sample design.</p>
+<p>The study selected a probability sample of all households in Los Angeles County in 2000. The sample was selected by a multi-stage design that first sampled Census tracts, then Census blocks within those Census tracts, then households within those blocks. At the first stage of sampling, the study oversampled Census tracts with high poverty rates. As a result, the sample is an unequal-probability sample in which poor households had higher probabilities of sample inclusion than non-poor households.</p>
+<p>Researchers sometimes analyze L.A. FANS with a person, a household, or a Census tract as the unit of analysis. For the questions below, we will consider a household to be the unit of analysis.</p>
+<p><strong>3.1 (3 points)</strong> What is the target population?</p>
+<p><strong>3.2 (3 points)</strong> If poor households have higher probabilities of sample inclusion, which sampled households have higher weights: poor or non-poor households?</p>
+<p><strong>3.3 (4 points)</strong> Suppose a researcher estimated the poverty rate, defined as the percent of households in poverty in L.A. County in 2000. Suppose the researcher used L.A. FANS and ignored the sample weights. Would the researcher over- or under-estimate the poverty rate?</p>
+</section>
+<section id="recap-and-connections-to-your-project" class="level2">
+<h2 class="anchored" data-anchor-id="recap-and-connections-to-your-project">Recap and connections to your project</h2>
+<p>This problem set discussed two datasets you may be interested in using in your final project. You accessed and downloaded the Current Population Survey at <a href="https://cps.ipums.org/cps/">cps.ipums.org</a>. You may also be interested in using L.A. FANS in your final project. Those data are a bit more difficult to use and are available <a href="https://www.icpsr.umich.edu/web/DSDR/studies/37279#">here</a>. Full documentation of the sample design is available in Section 5 of <a href="https://www.rand.org/pubs/reprints/RP1241.html#document-details">Sastry et al.&nbsp;2006</a>.</p>
+<p>A few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.</p>
 
 
 </section>
@@ -1108,6 +1084,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../assignments/pset1.html" class="pagination-link" aria-label="Problem Set 1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Problem Set 1</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../assignments/pset3.html" class="pagination-link" aria-label="Problem Set 3">
+        <span class="nav-page-text">Problem Set 3</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

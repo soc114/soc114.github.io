@@ -2,6 +2,8 @@
 title: "Data transformation"
 ---
 
+> This topic is covered on Jan 14 and 16.
+
 This exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022. We expect that this exercise may take more time than one discussion session.^[Thanks to past TA Abby Sachar for designing the base of this exercise.] You will begin by downloading data and end by making this graph.
 
 ```{r, echo = F, message = F, warning = F}

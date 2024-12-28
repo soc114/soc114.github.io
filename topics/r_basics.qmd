@@ -2,12 +2,47 @@
 title: "Setting up your computer"
 ---
 
-This course uses R, RStudio, and Quarto
+> This topic is covered on Jan 7.
 
-- R is statistical software
-- RStudio is a user interface
-- Quarto is an authoring framework for reproducible documents
+In order to begin producing objective evidence about inequality, you will first need to prepare your computer to analyze data.
 
-All are free and open source. To set the software up on your computer, follow the steps in the [Prerequisites](https://r4ds.hadley.nz/intro#prerequisites) section of R4DS. To learn about RStudio, visit the [User Guide](https://docs.posit.co/ide/user).
+## Install statistical software: R
+
+We will write code in the R programming language. R is available as open-source software at [https://cran.r-project.org/](https://cran.r-project.org/). The first step to set up your computer is to install R.
+
+## Install the interface RStudio
+
+We will work with R using an interface called RStudio, which makes it easy to write code and see results all in one place. You should install RStudio Desktop, which is available to download here: [https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
+
+## Install the `tidyverse` package
+
+Many R functions are made freely available in open-source *packages* that contain sets of functions designed to carry out common tasks. One package we will use often is the [`tidyverse`](https://tidyverse.tidyverse.org/), which contains functions to manipulate and visualize data. To install `tidyverse`, first open RStudio. Find the *Console*, which is a place where you can type code to immediately execute.
+
+![](../assets/console_screenshot.png)
+
+In the console type,
+
+```{r, eval = F}
+install.packages("tidyverse")
+```
+
+and press `enter` or `return` on your keyboard. This runs a line of code to install a set of software packages.
+
+## Install `tinytex` to produce PDF reports
+
+Homework assignments will be submitted in PDF form. We will learn how to use RStudio to produce a PDF documents that embed your code, results, and written responses. In order to do so, your computer needs to have some version of [LaTeX](https://www.latex-project.org/), which is software that typesets documents. Some versions of LaTeX are large and difficult to install. If you have never used LaTeX on your computer, we recommend that you install as follows: paste the code below into your R console and press `enter` or `return` to install a minimal version of the software.
+
+```{r, eval = F}
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+
+Students often find this step confusing, and computers present various errors. If you have an error, look on Piazza to see if anyone else has encountered your error. If not, then post a screenshot of your error on Piazza so we can help you to resolve the problem.
+
+## Support and guidance
+
+Congratulations on preparing your computing environment!
+
+Throughout the first part of the course, we will often use the online textbook [R for Data Science](https://r4ds.hadley.nz/) by Hadley Wickham as a reference. The book will introduce how to work with data using R and RStudio. If you want additional guidance for setting up the software, see the [Prerequisites](https://r4ds.hadley.nz/intro#prerequisites) section of R4DS. To learn more about RStudio, visit the [RStudio User Guide](https://docs.posit.co/ide/user).
 
 {{< video https://www.youtube.com/embed/YmYcw2aTqKE >}}

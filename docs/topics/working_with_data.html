@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>What data can tell us – Social Data Science</title>
+<title>Working with data – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,6 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../topics/questions_data_can_answer.html" rel="next">
+<link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -166,6 +168,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../topics/questions_data_can_answer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions data can answer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../topics/r_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up your computer</span></a>
   </div>
@@ -287,6 +295,12 @@ ul.task-list li input[type="checkbox"] {
   </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discussion Meetings</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
@@ -335,12 +349,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Problem Set 4</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../assignments/pset5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Problem Set 5</span></a>
-  </div>
-</li>
       </ul>
   </li>
           <li class="sidebar-item">
@@ -356,21 +364,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#summary-video-what-we-covered-today" id="toc-summary-video-what-we-covered-today" class="nav-link active" data-scroll-target="#summary-video-what-we-covered-today">Summary video: What we covered today</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">What data can tell us</h1>
+<h1 class="title">Working with data</h1>
 </div>
 
 
@@ -387,24 +389,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><a href="../slides/lec1/lec1.pdf">[Slides]</a></p>
-<p>America is more unequal by many measures than other industrialized nations. Should we be concerned? In today’s reading, Jencks discusses how quantitative empirical evidence on inequality relates to arguments about the amount of inequality that is desirable.</p>
-<p>After our discussion in class, read p.&nbsp;49–53 of this paper:</p>
 <blockquote class="blockquote">
-<p>Jencks, C. (2002). <a href="https://www.jstor.org/stable/20027737">Does inequality matter?</a> Daedalus, 131(1).</p>
+<p>This topic is covered on Jan 7.</p>
 </blockquote>
-<p>The paper’s engagement with both normative arguments and quantitative evidence is an example we will follow this semester.</p>
-<ul>
-<li>we will use data to summarize inequality</li>
-<li>we will connect those summaries to moral arguments</li>
-</ul>
-<p>Ultimately, this class is creative: you will produce new evidence about a question of your choosing. To get there, we first need to learn a bit about population data and how to work with those data.</p>
-<section id="summary-video-what-we-covered-today" class="level2">
-<h2 class="anchored" data-anchor-id="summary-video-what-we-covered-today">Summary video: What we covered today</h2>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/sN35dvXeNv0" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Data science is a world of abundant opportunities. Over recent decades, the field has been transformed by the rapid growth of both computational power and available data. With the proliferation of new technological advances and data opportunities, a social scientist might reasonably ask: where do I begin?</p>
+<p>Social data science begins from a place that is both philosophical and practical.</p>
+<p>Philosophically, we as the scientists need to understand the kinds of questions that data can answer. Data cannot generally answer normative questions about what should be, but data can answer objective questions about what is. Yet we still must choose: what numbers are important to estimate? How do those numbers inform debates? The next page discusses these choices in the context of a topic in which normative and objective arguments are often conflated: inequality.</p>
+<p>Practically, we need the tools to work with data. This course therefore begins by setting up our [computing environment]^(Your computing environment encompasses both your computer’s operating system and software installed on that operating system.). Instead of using point-and-click approaches, we will analyze data by writing code. A code script is a set of sequential instructions: it tells the computer to first do this, then do that, then report a result in a chosen way. By learning to write code, you will rapidly expand the set of data science tools available to you. Perhaps more importantly, your work will become reproducible: someone else with your raw data should be able to run your code and produce exactly the same result.</p>
+<p>The next pages discuss the philosophical questions data can answer and then walk through the steps of working with data using code.</p>
 
 
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -971,6 +965,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Home">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../topics/questions_data_can_answer.html" class="pagination-link" aria-label="Questions data can answer">
+        <span class="nav-page-text">Questions data can answer</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
