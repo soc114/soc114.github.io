@@ -8,9 +8,119 @@ This page contains a general plan for the topics of the 10 discussion section me
 
 In this discussion, we will introduce ourselves and ensure our computers are prepared for the class. This will involve checking that we have R, RStudio, tinytex, and `tidyverse` installed. See [R basics](topics/r_basics.qmd).
 
-## Jan 14--16 and 21--23
+## Jan 14--16
 
-We will form groups of 3 and work through the [data transformation exercise](topics/data_transformation.qmd).
+Last week's lecture introduced visualization with the `ggplot()` function in the `tidyverse` package. This discussion explores more of what `ggplot()` can do.
+
+* Form groups of about 4 students
+* Introduce yourself to your group members
+* Choose a graph that your group likes in [Ch 1 of R For Data Science](https://r4ds.hadley.nz/data-visualize.html).
+   * Look at the code for that graph
+   * Discuss what each element of the code is doing
+   * Choose someone to present to the class
+* At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class
+
+## Jan 21--23
+
+There are two options for this discussion section. The teaching team will discuss and choose one of the options.
+
+### Option A: Write a function
+
+Now that we have worked with functions in R, it is time to understand them on a deeper level. In this exercise, we will write our own functions.
+
+#### A basic function
+
+You can store a function as an object in your environment, just like any other object. The function below accepts a numeric variable `x` and returns twice the value of `x`.
+
+```{r}
+double_x <- function(x) {
+  doubled <- 2 * x
+  return(doubled)
+}
+```
+
+There are a few pieces to the code above
+
+* We created a function that has a **name**: `double_x`
+* Our function that takes one **argument** named `x`
+* The **body** of the function is the lines within the `{}`. These lines take the argument, do some things, and then `return()` a result. The object within `return()` is what R sends back after running the function.
+
+Once you create that function, you can run it just like any other function.
+
+```{r}
+double_x(x = 2)
+```
+
+#### A function with two arguments
+
+A function can also take multiple arguments, such as one that adds `x` and `y`.
+
+```{r}
+add_x_y <- function(x, y) {
+  added <- x + y
+  return(added)
+}
+```
+
+which works as follows.
+
+```{r}
+add_x_y(x = 2, y = 3)
+```
+
+#### Challenge: Write your own function
+
+A function does not have to just take numbers as an argument. It can also take a dataset as an argument. Sometimes, we might want an `estimator(data)` function that takes data as an argument and applies an `estimator()` to that data, to return an estimate of something. You will create one such function here.
+
+As an example, suppose three surveys ask people if they prefer chocolate ice cream (`prefers_chocolate = TRUE`) or vanilla ice cream (`prefers_chocolate = FALSE`). The survey also records whether the respondent is a child `age = "child"` or an adult `age = "adult"`.
+
+```{r, message = F, warning = F, comment = F}
+library(tidyverse)
+sample_a <- tibble(
+  age = c("child","child","child","adult","adult"),
+  prefers_chocolate = c(T,T,F,F,F)
+)
+sample_b <- tibble(
+  age = c("child","child","adult","adult"),
+  prefers_chocolate = c(T,F,T,F)
+)
+sample_c <- tibble(
+  age = c("child","child","child","adult","adult","adult"),
+  prefers_chocolate = c(T,T,F,F,F,T)
+)
+```
+
+We want to know the proportion preferring chocolate among children and adults in each sample. To estimate in `sample_a`, we would write
+
+```{r}
+estimate <- sample_a |>
+  group_by(age) |>
+  summarize(prefers_chocolate = mean(prefers_chocolate))
+```
+
+Now write that within a function.
+
+```{r, eval = F}
+estimator <- function(data) {
+  # do some things to data
+  # return() your estimate
+}
+```
+
+and apply the estimator to `sample_a`, `sample_b`, and `sample_c`.
+
+### Option B: Explain a function
+
+Last week's lecture introduced data transformation with the `tidyverse` package. This discussion explores more of what the `tidyverse` can do.
+
+* Form groups of about 4 students
+* Introduce yourself to your group members
+* Choose a function in [Ch 3 of R For Data Science](https://r4ds.hadley.nz/data-transform) that we did not cover explicitly in class.
+    * Possibilities include: `arrange()`, `distinct()`, `rename()`, `relocate()`, the `slice_` functions, `ungroup()`
+    * Find an example of the function in the chapter.
+    * Discuss how the code works.
+    * Prepare to explain to the class.
+* At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class
 
 ## Jan 28--30
 

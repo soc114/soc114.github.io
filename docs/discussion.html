@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -370,7 +404,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#jan-79" id="toc-jan-79" class="nav-link active" data-scroll-target="#jan-79">Jan 7–9</a></li>
-  <li><a href="#jan-1416-and-2123" id="toc-jan-1416-and-2123" class="nav-link" data-scroll-target="#jan-1416-and-2123">Jan 14–16 and 21–23</a></li>
+  <li><a href="#jan-1416" id="toc-jan-1416" class="nav-link" data-scroll-target="#jan-1416">Jan 14–16</a></li>
+  <li><a href="#jan-2123" id="toc-jan-2123" class="nav-link" data-scroll-target="#jan-2123">Jan 21–23</a>
+  <ul class="collapse">
+  <li><a href="#option-a-write-a-function" id="toc-option-a-write-a-function" class="nav-link" data-scroll-target="#option-a-write-a-function">Option A: Write a function</a></li>
+  <li><a href="#option-b-explain-a-function" id="toc-option-b-explain-a-function" class="nav-link" data-scroll-target="#option-b-explain-a-function">Option B: Explain a function</a></li>
+  </ul></li>
   <li><a href="#jan-2830" id="toc-jan-2830" class="nav-link" data-scroll-target="#jan-2830">Jan 28–30</a></li>
   <li><a href="#feb-46" id="toc-feb-46" class="nav-link" data-scroll-target="#feb-46">Feb 4–6</a></li>
   <li><a href="#feb-1113" id="toc-feb-1113" class="nav-link" data-scroll-target="#feb-1113">Feb 11–13</a></li>
@@ -408,9 +447,118 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="jan-79">Jan 7–9</h2>
 <p>In this discussion, we will introduce ourselves and ensure our computers are prepared for the class. This will involve checking that we have R, RStudio, tinytex, and <code>tidyverse</code> installed. See <a href="./topics/r_basics.html">R basics</a>.</p>
 </section>
-<section id="jan-1416-and-2123" class="level2">
-<h2 class="anchored" data-anchor-id="jan-1416-and-2123">Jan 14–16 and 21–23</h2>
-<p>We will form groups of 3 and work through the <a href="./topics/data_transformation.html">data transformation exercise</a>.</p>
+<section id="jan-1416" class="level2">
+<h2 class="anchored" data-anchor-id="jan-1416">Jan 14–16</h2>
+<p>Last week’s lecture introduced visualization with the <code>ggplot()</code> function in the <code>tidyverse</code> package. This discussion explores more of what <code>ggplot()</code> can do.</p>
+<ul>
+<li>Form groups of about 4 students</li>
+<li>Introduce yourself to your group members</li>
+<li>Choose a graph that your group likes in <a href="https://r4ds.hadley.nz/data-visualize.html">Ch 1 of R For Data Science</a>.
+<ul>
+<li>Look at the code for that graph</li>
+<li>Discuss what each element of the code is doing</li>
+<li>Choose someone to present to the class</li>
+</ul></li>
+<li>At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class</li>
+</ul>
+</section>
+<section id="jan-2123" class="level2">
+<h2 class="anchored" data-anchor-id="jan-2123">Jan 21–23</h2>
+<p>There are two options for this discussion section. The teaching team will discuss and choose one of the options.</p>
+<section id="option-a-write-a-function" class="level3">
+<h3 class="anchored" data-anchor-id="option-a-write-a-function">Option A: Write a function</h3>
+<p>Now that we have worked with functions in R, it is time to understand them on a deeper level. In this exercise, we will write our own functions.</p>
+<section id="a-basic-function" class="level4">
+<h4 class="anchored" data-anchor-id="a-basic-function">A basic function</h4>
+<p>You can store a function as an object in your environment, just like any other object. The function below accepts a numeric variable <code>x</code> and returns twice the value of <code>x</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>double_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  doubled <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(doubled)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are a few pieces to the code above</p>
+<ul>
+<li>We created a function that has a <strong>name</strong>: <code>double_x</code></li>
+<li>Our function that takes one <strong>argument</strong> named <code>x</code></li>
+<li>The <strong>body</strong> of the function is the lines within the <code>{}</code>. These lines take the argument, do some things, and then <code>return()</code> a result. The object within <code>return()</code> is what R sends back after running the function.</li>
+</ul>
+<p>Once you create that function, you can run it just like any other function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">double_x</span>(<span class="at">x =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</section>
+<section id="a-function-with-two-arguments" class="level4">
+<h4 class="anchored" data-anchor-id="a-function-with-two-arguments">A function with two arguments</h4>
+<p>A function can also take multiple arguments, such as one that adds <code>x</code> and <code>y</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>add_x_y <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  added <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(added)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>which works as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_x_y</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-write-your-own-function" class="level4">
+<h4 class="anchored" data-anchor-id="challenge-write-your-own-function">Challenge: Write your own function</h4>
+<p>A function does not have to just take numbers as an argument. It can also take a dataset as an argument. Sometimes, we might want an <code>estimator(data)</code> function that takes data as an argument and applies an <code>estimator()</code> to that data, to return an estimate of something. You will create one such function here.</p>
+<p>As an example, suppose three surveys ask people if they prefer chocolate ice cream (<code>prefers_chocolate = TRUE</code>) or vanilla ice cream (<code>prefers_chocolate = FALSE</code>). The survey also records whether the respondent is a child <code>age = "child"</code> or an adult <code>age = "adult"</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sample_a <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="st">"child"</span>,<span class="st">"child"</span>,<span class="st">"child"</span>,<span class="st">"adult"</span>,<span class="st">"adult"</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">prefers_chocolate =</span> <span class="fu">c</span>(T,T,F,F,F)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>sample_b <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="st">"child"</span>,<span class="st">"child"</span>,<span class="st">"adult"</span>,<span class="st">"adult"</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">prefers_chocolate =</span> <span class="fu">c</span>(T,F,T,F)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>sample_c <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="st">"child"</span>,<span class="st">"child"</span>,<span class="st">"child"</span>,<span class="st">"adult"</span>,<span class="st">"adult"</span>,<span class="st">"adult"</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">prefers_chocolate =</span> <span class="fu">c</span>(T,T,F,F,F,T)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We want to know the proportion preferring chocolate among children and adults in each sample. To estimate in <code>sample_a</code>, we would write</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>estimate <span class="ot">&lt;-</span> sample_a <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">prefers_chocolate =</span> <span class="fu">mean</span>(prefers_chocolate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now write that within a function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>estimator <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># do some things to data</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return() your estimate</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and apply the estimator to <code>sample_a</code>, <code>sample_b</code>, and <code>sample_c</code>.</p>
+</section>
+</section>
+<section id="option-b-explain-a-function" class="level3">
+<h3 class="anchored" data-anchor-id="option-b-explain-a-function">Option B: Explain a function</h3>
+<p>Last week’s lecture introduced data transformation with the <code>tidyverse</code> package. This discussion explores more of what the <code>tidyverse</code> can do.</p>
+<ul>
+<li>Form groups of about 4 students</li>
+<li>Introduce yourself to your group members</li>
+<li>Choose a function in <a href="https://r4ds.hadley.nz/data-transform">Ch 3 of R For Data Science</a> that we did not cover explicitly in class.
+<ul>
+<li>Possibilities include: <code>arrange()</code>, <code>distinct()</code>, <code>rename()</code>, <code>relocate()</code>, the <code>slice_</code> functions, <code>ungroup()</code></li>
+<li>Find an example of the function in the chapter.</li>
+<li>Discuss how the code works.</li>
+<li>Prepare to explain to the class.</li>
+</ul></li>
+<li>At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class</li>
+</ul>
+</section>
 </section>
 <section id="jan-2830" class="level2">
 <h2 class="anchored" data-anchor-id="jan-2830">Jan 28–30</h2>
