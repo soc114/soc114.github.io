@@ -4,34 +4,18 @@ title: "Problem Set 0: Computing environment"
 
 **Due: 5pm on Friday, January 10.**
 
-In this exercise, you will install R, RStudio and
-Quarto. The exercise will ensure that they are set up correctly so that
-everybody is ready to dive into coursework.
+To complete the problem set, download <a href="../assets/pset0/pset0.qmd" download>pset0.qmd</a> and render to a PDF.
 
-## Install Software Requirements
+You will then submit two things:
 
-You should follow the instructions in [R4DS](https://r4ds.hadley.nz/) to:
+1) Upload the rendered PDF to BruinLearn
+2) In our [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSfMxlewBaz7QJ3uKNCsj2g5rukOOumqrZVAnu-ckybbfwvFsg/viewform?usp=sf_link), tell us your anonymous identifier that appears in your rendered PDF.
 
-1. [Install R](https://r4ds.hadley.nz/intro#r)
-2. [Install RStudio](https://r4ds.hadley.nz/intro#rstudio)
+## Help with gettinngs tarted
 
-Once R and RStudio are successfully installed, this also means that Quarto is
-successfully installed because it comes bundled with RStudio.
+If you are stuck, make sure that you first follow the installation instructions in [setting up your computer](../topics/r_basics.qmd).
 
-Finally, you will need to open RStudio, select the Terminal tab, and execute
-the following command: `quarto install tinytex` as demonstrated in the image
-below.
-
-![](../assets/pset0/tinytex.png)
-
-## Download Problem Set
-
-Next, download [this problem set](../assets/pset0/pset0.qmd) which is a
-Quarto Markdown Document.
-
-## Render the Problem Set
-
-Finally, open the downloaded problem set in RStudio. You should then click
+Open the downloaded problem set in RStudio. You should then click
 the "Render" button as shown in the image below.
 
 ![](../assets/pset0/render.png)

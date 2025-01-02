@@ -793,7 +793,7 @@
     "href": "assignments/pset0.html",
     "title": "Problem Set 0: Computing environment",
     "section": "",
-    "text": "Due: 5pm on Friday, January 10.\nIn this exercise, you will install R, RStudio and Quarto. The exercise will ensure that they are set up correctly so that everybody is ready to dive into coursework.",
+    "text": "Due: 5pm on Friday, January 10.\nTo complete the problem set, download pset0.qmd and render to a PDF.\nYou will then submit two things:",
     "crumbs": [
       " ",
       "Assignments",
@@ -802,37 +802,11 @@
     ]
   },
   {
-    "objectID": "assignments/pset0.html#install-software-requirements",
-    "href": "assignments/pset0.html#install-software-requirements",
+    "objectID": "assignments/pset0.html#help-with-gettinngs-tarted",
+    "href": "assignments/pset0.html#help-with-gettinngs-tarted",
     "title": "Problem Set 0: Computing environment",
-    "section": "Install Software Requirements",
-    "text": "Install Software Requirements\nYou should follow the instructions in R4DS to:\n\nInstall R\nInstall RStudio\n\nOnce R and RStudio are successfully installed, this also means that Quarto is successfully installed because it comes bundled with RStudio.\nFinally, you will need to open RStudio, select the Terminal tab, and execute the following command: quarto install tinytex as demonstrated in the image below.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 0"
-    ]
-  },
-  {
-    "objectID": "assignments/pset0.html#download-problem-set",
-    "href": "assignments/pset0.html#download-problem-set",
-    "title": "Problem Set 0: Computing environment",
-    "section": "Download Problem Set",
-    "text": "Download Problem Set\nNext, download this problem set which is a Quarto Markdown Document.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 0"
-    ]
-  },
-  {
-    "objectID": "assignments/pset0.html#render-the-problem-set",
-    "href": "assignments/pset0.html#render-the-problem-set",
-    "title": "Problem Set 0: Computing environment",
-    "section": "Render the Problem Set",
-    "text": "Render the Problem Set\nFinally, open the downloaded problem set in RStudio. You should then click the “Render” button as shown in the image below.\n This will run the R code and combine the output with the text in the document into a PDF. By default, this PDF will be output in the same directory that you saved pset0.qmd in. You will then submit the PDF on Canvas.",
+    "section": "Help with gettinngs tarted",
+    "text": "Help with gettinngs tarted\nIf you are stuck, make sure that you first follow the installation instructions in setting up your computer.\nOpen the downloaded problem set in RStudio. You should then click the “Render” button as shown in the image below.\n This will run the R code and combine the output with the text in the document into a PDF. By default, this PDF will be output in the same directory that you saved pset0.qmd in. You will then submit the PDF on Canvas.",
     "crumbs": [
       " ",
       "Assignments",
