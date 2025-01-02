@@ -1,8 +1,8 @@
 ---
-title: "Asking Questions"
+title: "Asking questions with data"
 ---
 
-[slides](../slides/lec9/lec9.pdf)
+<!-- [slides](../slides/asking_questions/asking_questions.pdf) -->
 
 Asking your own research question is fun, and it is also daunting. There is no formula for asking a good question, and much research involves trial and error. In this lecture, we will discuss together what makes a good research question.
 

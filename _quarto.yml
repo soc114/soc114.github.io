@@ -40,7 +40,7 @@ website:
       - href: topics/working_with_data.qmd
         text: "Working with Data"
         contents:
-          - topics/questions_data_can_answer.qmd
+          - topics/asking_questions.qmd
           - topics/r_basics.qmd
           - topics/visualization.qmd
           - topics/data_transformation.qmd

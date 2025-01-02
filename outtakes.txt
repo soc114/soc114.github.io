@@ -21,3 +21,9 @@ discussion can look at firstname after pset 3
 
 
 pset 1, 2, 3 are good to go
+
+
+causal effect of parenthood on employment?
+
+should make use of description page and causalestimators page
+description forecasting would exactly parallel what we do with the baseball players

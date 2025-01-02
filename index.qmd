@@ -18,4 +18,6 @@ As a result of participating in this course, students will be able to
 - evaluate the effects of hypothetical interventions to reduce inequality
 - conduct data analysis using the R programming language
 
-{{< video https://www.youtube.com/embed/h6wocn6LT9g>}}
+---
+#{{< video https://www.youtube.com/embed/h6wocn6LT9g>}}
+---

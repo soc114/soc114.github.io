@@ -2,7 +2,7 @@
 title: "Questions data can answer"
 ---
 
-[[Slides]](../slides/lec1/lec1.pdf)
+<!-- [[Slides]](../slides/lec1/lec1.pdf) -->
 
 Data science should begin with clarity about what questions data can (and cannot) answer. As a motivating example, we will discuss questions about inequality as introduced in p. 49--53 of this paper:
 
@@ -145,6 +145,6 @@ While we will refrain from explicit normative arguments, we will produce objecti
 
 As a data scientist, your task is to produce statistical summaries that help people better understand the world. As a scholar of inequality, you might hope that your objective evidence will be troubling to people with normative commitments such as beliefs in equality and fairness. But we will focus on making precise objective claims.
 
-## Summary video: What we covered today
+<!-- ## Summary video: What we covered today -->
 
-{{< video https://www.youtube.com/embed/sN35dvXeNv0 >}}
+<!-- {{< video https://www.youtube.com/embed/sN35dvXeNv0 >}} -->

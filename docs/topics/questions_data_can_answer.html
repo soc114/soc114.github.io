@@ -29,8 +29,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../topics/r_basics.html" rel="next">
-<link href="../topics/working_with_data.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -160,7 +158,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/working_with_data.html">Working with Data</a></li><li class="breadcrumb-item"><a href="../topics/questions_data_can_answer.html">Questions data can answer</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Questions data can answer</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -197,8 +195,8 @@ window.Quarto = {
       <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/questions_data_can_answer.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Questions data can answer</span></a>
+  <a href="../topics/asking_questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Asking questions with data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -404,14 +402,13 @@ window.Quarto = {
   <li><a href="#normative-claims-an-illustration-with-manna" id="toc-normative-claims-an-illustration-with-manna" class="nav-link" data-scroll-target="#normative-claims-an-illustration-with-manna">Normative claims: An illustration with manna</a></li>
   <li><a href="#objective-claims" id="toc-objective-claims" class="nav-link" data-scroll-target="#objective-claims">Objective claims</a></li>
   </ul></li>
-  <li><a href="#summary-video-what-we-covered-today" id="toc-summary-video-what-we-covered-today" class="nav-link" data-scroll-target="#summary-video-what-we-covered-today">Summary video: What we covered today</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/working_with_data.html">Working with Data</a></li><li class="breadcrumb-item"><a href="../topics/questions_data_can_answer.html">Questions data can answer</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Questions data can answer</h1>
 </div>
@@ -430,7 +427,7 @@ window.Quarto = {
 </header>
 
 
-<p><a href="../slides/lec1/lec1.pdf">[Slides]</a></p>
+<!-- [[Slides]](../slides/lec1/lec1.pdf) -->
 <p>Data science should begin with clarity about what questions data can (and cannot) answer. As a motivating example, we will discuss questions about inequality as introduced in p.&nbsp;49–53 of this paper:</p>
 <blockquote class="blockquote">
 <p>Jencks, C. (2002). <a href="https://www.jstor.org/stable/20027737">Does inequality matter?</a> Daedalus, 131(1).</p>
@@ -494,13 +491,11 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="objective-claims">Objective claims</h3>
 <p>While we will refrain from explicit normative arguments, we will produce objective claims about inequality that we or our readers might find normatively troubling. For example, it might be concerning to us that a household at the 90th percentile receives $14 for every $1 received by a household at the 10th percentile. People’s normative commitments are often bound up in their objective beliefs about the world. Consider a person who believes that high inequality is desirable in order to promote economic growth. This person might be surprised by an objective fact: the countries with high levels of economic inequality are not necessarily the same countries that have high levels of economic output per capita. We will visualize this objective fact in the pages to come.</p>
 <p>As a data scientist, your task is to produce statistical summaries that help people better understand the world. As a scholar of inequality, you might hope that your objective evidence will be troubling to people with normative commitments such as beliefs in equality and fairness. But we will focus on making precise objective claims.</p>
-</section>
-</section>
-<section id="summary-video-what-we-covered-today" class="level2">
-<h2 class="anchored" data-anchor-id="summary-video-what-we-covered-today">Summary video: What we covered today</h2>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/sN35dvXeNv0" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<!-- ## Summary video: What we covered today -->
+<!--  -->
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1068,18 +1063,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../topics/working_with_data.html" class="pagination-link" aria-label="Working with Data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Working with Data</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../topics/r_basics.html" class="pagination-link" aria-label="Setting up your computer">
-        <span class="nav-page-text">Setting up your computer</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

@@ -43,80 +43,17 @@ Each date will be a link to the slides for that lecture.
 | Tue, Mar 11	| Machine learning vs regression: A case study (FF Challenge) |
 | Thu, Mar 13	| Course recap |
 
-## Assignment due dates
-
-Fri, Jan 10	at 5pm | Problem Set 1
-Fri, Jan 17	at 5pm | Peer Review 1
-Fri, Jan 24	at 5pm | Problem Set 2
-Fri, Jan 31	at 5pm | Peer Review 2
-Fri, Feb 07	at 5pm | Problem Set 3
-Fri, Feb 14	at 5pm | Peer Review 3
-Fri, Feb 21	at 5pm | Problem Set 4
-Fri, Feb 28	at 5pm | Peer Review 4
-Fri, Mar 07	at 5pm | Project
-Fri, Mar 14	at 5pm | Project Peer Review
-
 ## Assignments
 
-Some assignments have associated readings, which are listed in the reading column. Due dates are tentative for assignments that are not yet released.
+| Fri, Jan 10	at 5pm | Problem Set 1 |
+|---|---|
+| Fri, Jan 17	at 5pm | Peer Review 1 |
+| Fri, Jan 24	at 5pm | Problem Set 2 |
+| Fri, Jan 31	at 5pm | Peer Review 2 |
+| Fri, Feb 07	at 5pm | Problem Set 3 |
+| Fri, Feb 14	at 5pm | Peer Review 3 |
+| Fri, Feb 21	at 5pm | Problem Set 4 |
+| Fri, Feb 28	at 5pm | Peer Review 4 |
+| Fri, Mar 07	at 5pm | Project |
+| Fri, Mar 14	at 5pm | Project Peer Review |
 
-| Due date | Assignment | Reading |
-|---|---|---|
-| Fri Jan 10 at 5pm | [Problem Set 0](assignments/pset0.qmd) |
-| Fri Jan 17 at 5pm | [Problem Set 1](assignments/pset1.qmd) | [Cheng 2021](https://doi.org/10.1093/sf/soab003) |
-| TBD | Peer Review 1 |
-| Wed Feb 14 at 5pm | Problem Set 2 | [England et al. 2020](https://doi.org/10.1073/pnas.1918891117)
-| Wed Feb 21 at 5pm | Peer Review 2 |
-| **February break** | |
-| Wed Mar 6 at 5pm | Problem Set 3 |
-| Wed Mar 13 at 5pm | Peer Review 3 |
-| Wed Mar 20 at 5pm | Problem Set 4 |
-| Wed Mar 27 at 5pm | Peer Review 4 |
-| **Spring break** | |
-| Wed Apr 17 at 5pm | Problem Set 5 |
-| Wed Apr 24 at 5pm | Project writeup + presentation slides due |
-| Th Apr 25 8:40--9:55am | Project presentations in discussion |
-| Wed May 1 at 5pm | Peer Review 5 |
-| Th May 2 8:40--9:55am | Project presentations in discussion |
-
-## Meetings
-
-Readings are to be read after class, unless otherwise specified. Readings from [R for Data Science](https://r4ds.hadley.nz/) (R4DS, Wickham et al. 2023) are intended as references that do not need to be read line-by-line but are a useful reference to support ideas.
-
-| 
-
-| Date | Type | Topic | Reading |
-|---|---|---|---|
-| Jan 7 | Lecture | [Welcome](topics/welcome.qmd) | [Jencks 2002](https://www.jstor.org/stable/20027737) p. 49--53 |
-| Jan 9 | Discussion | [Visualization](topics/visualization.qmd) | [R4DS Ch 1](https://r4ds.hadley.nz/data-visualize)
-| Jan 14 & 16 | Lecture | [Sampling](topics/sampling.qmd): Simple random and unequal probability | [Probability sampling](https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm) |
-| Jan 16 | Discussion | [Data transformation](topics/data_transformation.qmd) (day 1 / 2) | [R4DS Ch 3](https://r4ds.hadley.nz/data-transform)
-| Feb 6 | Lecture | [Sampling](topics/sampling.qmd): Stratified, clustered, and the future | [Groves 2011](https://academic.oup.com/poq/article/75/5/861/1831518)
-| Feb 8 | Discussion | [Data transformation](topics/data_transformation.qmd) (day 2 / 2) | [R4DS Ch 3](https://r4ds.hadley.nz/data-transform)
-| Feb 13 | Lecture | Statistical learning | [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play."
-| Feb 15 | Discussion | Statistical learning activity |
-| Feb 20 | Lecture | Predicting life outcomes | Optional: [Salganik et al. 2020](https://doi.org/10.1073/pnas.1915006117) |
-| Feb 22 | Discussion | PSID Income Prediction Challenge (day 1 / 2) |
-| **February break** |  |  |
-| Feb 29 | Discussion | PSID Income Prediction Challenge (day 2 / 2) |
-| Mar 5 | Lecture | PSID Income Prediction: Awards and takeaways | Optional: [Lundberg et al. 2024](https://arxiv.org/abs/2310.12871) |
-| Mar 7 | Discussion | [Racial wealth gap](topics/race.qmd) |
-| Mar 12 | Lecture | [Political origins of racial inequality](topics/race.qmd) |
-| Mar 14 | Discussion | [Class inequality exercise](topics/class.qmd) |
-| Mar 19 | Lecture | [Class](topics/class.qmd) + [gender](topics/gender.qmd) inequality |
-| Mar 21 | Discussion | [Project work](assignments/project.qmd) |
-| Mar 26 | Lecture | [Asking research questions](topics/asking_questions.qmd) |
-| Mar 28 | Discussion | [Project work](assignments/project.qmd) |
-| **Spring break** | | |
-| Apr 9 | Lecture | Moral arguments: [Rawls](topics/moral_arguments.html#rawls-justice-as-fairness) | Recap of ideas is [here](https://www.youtube.com/watch?v=5-JQ17X6VNg)
-| Apr 11 | Discussion | [Project work](assignments/project.qmd) |
-| Apr 16 | Lecture | Moral arguments: [Nozick](topics/moral_arguments.html#nozick-justice-as-individual-rights) | Recap in 3:49--5:05 [here](https://youtu.be/H0CTHVCkm90?t=229)
-| Apr 18 | Discussion | [Project work](assignments/project.qmd) |
-| Apr 23 | Lecture | Reducing inequality: Educational expansion | Brand 2023 Ch 1 |
-| Apr 25 | Discussion | Project presentations |
-| Apr 30 | Lecture | Reducing inequality: Reparations | Before class, watch [Ta-Nehisi Coates](https://www.youtube.com/watch?v=kcCnQ3iRkys)
-| May 2 | Discussion | Project presentations |
-| May 7 | Course summary |
-
-
-<!-- | Apr 30 | Lecture | Reducing inequality: Sentencing reform | Before class, explore [A Matter of Time](https://apps.urban.org/features/long-prison-terms/demographics.html) -->
