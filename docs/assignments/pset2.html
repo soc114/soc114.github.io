@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 2: Data Transformation and Sampling – Social Data Science</title>
+<title>Problem Set 2: Data Transformation – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -405,7 +405,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#data-analysis-existing-question" id="toc-data-analysis-existing-question" class="nav-link active" data-scroll-target="#data-analysis-existing-question">1. Data analysis: Existing question</a></li>
   <li><a href="#a-new-outcome" id="toc-a-new-outcome" class="nav-link" data-scroll-target="#a-new-outcome">2. A new outcome</a></li>
-  <li><a href="#conceptual-questions-on-sampling" id="toc-conceptual-questions-on-sampling" class="nav-link" data-scroll-target="#conceptual-questions-on-sampling">3. Conceptual questions on sampling</a></li>
   <li><a href="#recap-and-connections-to-your-project" id="toc-recap-and-connections-to-your-project" class="nav-link" data-scroll-target="#recap-and-connections-to-your-project">Recap and connections to your project</a></li>
   </ul>
 </nav>
@@ -415,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Assignments</li><li class="breadcrumb-item"><a href="../assignments/pset0.html">Problem Sets</a></li><li class="breadcrumb-item"><a href="../assignments/pset2.html">Problem Set 2</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Problem Set 2: Data Transformation and Sampling</h1>
+<h1 class="title">Problem Set 2: Data Transformation</h1>
 </div>
 
 
@@ -459,7 +458,7 @@ Note
 <p><strong>A note about sex and gender</strong>. As we have discussed in class, sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.</p>
 <section id="data-analysis-existing-question" class="level2">
 <h2 class="anchored" data-anchor-id="data-analysis-existing-question">1. Data analysis: Existing question</h2>
-<p><strong>20 points.</strong> Reproduce Figure 1 from the paper.</p>
+<p><strong>25 points.</strong> Reproduce Figure 1 from the paper.</p>
 <p>Visit <a href="https://cps.ipums.org/cps/">cps.ipums.org</a> to download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. Include these variables in your cart: <a href="https://cps.ipums.org/cps-action/variables/SEX">sex</a>, <a href="https://cps.ipums.org/cps-action/variables/AGE">age</a>, <a href="https://cps.ipums.org/cps-action/variables/ASECWT">asecwt</a>, <a href="https://cps.ipums.org/cps-action/variables/EMPSTAT">empstat</a>.</p>
 <p>To reduce extract size, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -492,7 +491,7 @@ Tip
 </section>
 <section id="a-new-outcome" class="level2">
 <h2 class="anchored" data-anchor-id="a-new-outcome">2. A new outcome</h2>
-<p><strong>20 points.</strong> The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.</p>
+<p><strong>25 points.</strong> The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.</p>
 <p>As in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.</p>
 <p>Your answer should include</p>
 <ul>
@@ -502,18 +501,8 @@ Tip
 <li>your publication-quality visualization</li>
 </ul>
 </section>
-<section id="conceptual-questions-on-sampling" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-questions-on-sampling">3. Conceptual questions on sampling</h2>
-<p>The Los Angeles Family and Neighborhood Study (<a href="https://lasurvey.rand.org/design/">L.A. FANS</a>) was designed to study both family and neighborhood characteristics in L.A. This question is about the sample design.</p>
-<p>The study selected a probability sample of all households in Los Angeles County in 2000. The sample was selected by a multi-stage design that first sampled Census tracts, then Census blocks within those Census tracts, then households within those blocks. At the first stage of sampling, the study oversampled Census tracts with high poverty rates. As a result, the sample is an unequal-probability sample in which poor households had higher probabilities of sample inclusion than non-poor households.</p>
-<p>Researchers sometimes analyze L.A. FANS with a person, a household, or a Census tract as the unit of analysis. For the questions below, we will consider a household to be the unit of analysis.</p>
-<p><strong>3.1 (3 points)</strong> What is the target population?</p>
-<p><strong>3.2 (3 points)</strong> If poor households have higher probabilities of sample inclusion, which sampled households have higher weights: poor or non-poor households?</p>
-<p><strong>3.3 (4 points)</strong> Suppose a researcher estimated the poverty rate, defined as the percent of households in poverty in L.A. County in 2000. Suppose the researcher used L.A. FANS and ignored the sample weights. Would the researcher over- or under-estimate the poverty rate?</p>
-</section>
 <section id="recap-and-connections-to-your-project" class="level2">
 <h2 class="anchored" data-anchor-id="recap-and-connections-to-your-project">Recap and connections to your project</h2>
-<p>This problem set discussed two datasets you may be interested in using in your final project. You accessed and downloaded the Current Population Survey at <a href="https://cps.ipums.org/cps/">cps.ipums.org</a>. You may also be interested in using L.A. FANS in your final project. Those data are a bit more difficult to use and are available <a href="https://www.icpsr.umich.edu/web/DSDR/studies/37279#">here</a>. Full documentation of the sample design is available in Section 5 of <a href="https://www.rand.org/pubs/reprints/RP1241.html#document-details">Sastry et al.&nbsp;2006</a>.</p>
 <p>A few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.</p>
 
 

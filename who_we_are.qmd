@@ -20,7 +20,7 @@ Get to know a little bit about our teaching team! For office hours, see the [Syl
 
 ::: {.g-col-10}
 [**Ian Lundberg**](https://www.ianlundberg.org/)  
-[**ilundberg@cornell.edu**](mailto:ilundberg@cornell.edu)  
+[**ianlundberg@ucla.edu**](mailto:ianlundberg@ucla.edu)  
 (_he / him_)
 
 Working with data to understand inequality brings me joy and meaning, as I first discovered as a college student years ago. I hope to share that joy with you! Other joys of mine include hiking, surfing, and oatmeal with blueberries.
@@ -36,9 +36,10 @@ Working with data to understand inequality brings me joy and meaning, as I first
 
 ::: {.g-col-10}
 [**Christina Wilmot**](https://soc.ucla.edu/person/christina-wilmot/)  
-[**cwilmot@ucla.edu**](mailto:cwilmot@ucla.edu)  
+[**cwilmot@ucla.edu**](mailto:cwilmot@ucla.edu)
+(_she / they_)
 
-Christina is a PhD student in sociology at UCLA.
+I am interested in studying the many ways that technology and society interact. My background is in computer science and software engineering, so I really enjoy bringing those tools to sociologists. Outside of work I enjoy crafting, gaming, and obsessing over my two adorable cats. 
 :::
 
 ::: {.g-col-2}
@@ -46,9 +47,10 @@ Christina is a PhD student in sociology at UCLA.
 :::
 
 ::: {.g-col-10}
-[**Nathan Hoffman**](https://nathanhoffmann.com/)  
+[**Nathan Hoffmann**](https://nathanhoffmann.com/)  
 [**nathanihoff@g.ucla.edu**](mailto:nathanihoff@g.ucla.edu)
+(_he / him_)
 
-Nathan is a PhD student in sociology at UCLA.
+I'm a PhD candidate in sociology who uses statistics and machine learning to study international migration, education, and sexuality. I also like cooking, biking, and concerts.
 :::
 

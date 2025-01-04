@@ -731,7 +731,7 @@
     "href": "who_we_are.html",
     "title": "Who We Are",
     "section": "",
-    "text": "Get to know a little bit about our teaching team! For office hours, see the Syllabus.\n\n\n\n\n\n\n\n\nIan Lundberg\nilundberg@cornell.edu\n(he / him)\nWorking with data to understand inequality brings me joy and meaning, as I first discovered as a college student years ago. I hope to share that joy with you! Other joys of mine include hiking, surfing, and oatmeal with blueberries.\n\n\n\n\n\n\n\n\nChristina Wilmot\ncwilmot@ucla.edu\nChristina is a PhD student in sociology at UCLA.\n\n\n\n\n\nNathan Hoffman\nnathanihoff@g.ucla.edu\nNathan is a PhD student in sociology at UCLA."
+    "text": "Get to know a little bit about our teaching team! For office hours, see the Syllabus.\n\n\n\n\n\n\n\n\nIan Lundberg\nianlundberg@ucla.edu\n(he / him)\nWorking with data to understand inequality brings me joy and meaning, as I first discovered as a college student years ago. I hope to share that joy with you! Other joys of mine include hiking, surfing, and oatmeal with blueberries.\n\n\n\n\n\n\n\n\nChristina Wilmot\ncwilmot@ucla.edu (she / they)\nI am interested in studying the many ways that technology and society interact. My background is in computer science and software engineering, so I really enjoy bringing those tools to sociologists. Outside of work I enjoy crafting, gaming, and obsessing over my two adorable cats.\n\n\n\n\n\nNathan Hoffmann\nnathanihoff@g.ucla.edu (he / him)\nI’m a PhD candidate in sociology who uses statistics and machine learning to study international migration, education, and sexuality. I also like cooking, biking, and concerts."
   },
   {
     "objectID": "topics/interventions.html",
@@ -981,7 +981,7 @@
   {
     "objectID": "assignments/pset2.html",
     "href": "assignments/pset2.html",
-    "title": "Problem Set 2: Data Transformation and Sampling",
+    "title": "Problem Set 2: Data Transformation",
     "section": "",
     "text": "Due: 5pm on Wednesday, February 14.\nStudent identifer: [type your anonymous identifier here]\nThis problem set draws on the following paper.\nA note about sex and gender. As we have discussed in class, sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.",
     "crumbs": [
@@ -994,9 +994,9 @@
   {
     "objectID": "assignments/pset2.html#data-analysis-existing-question",
     "href": "assignments/pset2.html#data-analysis-existing-question",
-    "title": "Problem Set 2: Data Transformation and Sampling",
+    "title": "Problem Set 2: Data Transformation",
     "section": "1. Data analysis: Existing question",
-    "text": "1. Data analysis: Existing question\n20 points. Reproduce Figure 1 from the paper.\nVisit cps.ipums.org to download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. Include these variables in your cart: sex, age, asecwt, empstat.\nTo reduce extract size, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.\n\n\n\n\n\n\nTip\n\n\n\nLook ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.\n\n\nOn your computer, analyze these data.\n\nfilter to asecwt &gt; 0 (see paper footnote on p. 6995 about negative weights)\nmutate to create an employed variable indicating that empstat == 10 | empstat == 12\nmutate to convert sex to a factor variable using as_factor\ngroup by sex and year\nsummarize the proportion employed: use weighted.mean to take the mean of employed using the weight asecwt\n\nYour figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels. For example, it would be more accurate to the data to label the legend “Sex” with values “Male” and “Female.”\n\nlibrary(tidyverse)\nlibrary(scales)\nlibrary(haven)",
+    "text": "1. Data analysis: Existing question\n25 points. Reproduce Figure 1 from the paper.\nVisit cps.ipums.org to download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. Include these variables in your cart: sex, age, asecwt, empstat.\nTo reduce extract size, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.\n\n\n\n\n\n\nTip\n\n\n\nLook ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.\n\n\nOn your computer, analyze these data.\n\nfilter to asecwt &gt; 0 (see paper footnote on p. 6995 about negative weights)\nmutate to create an employed variable indicating that empstat == 10 | empstat == 12\nmutate to convert sex to a factor variable using as_factor\ngroup by sex and year\nsummarize the proportion employed: use weighted.mean to take the mean of employed using the weight asecwt\n\nYour figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels. For example, it would be more accurate to the data to label the legend “Sex” with values “Male” and “Female.”\n\nlibrary(tidyverse)\nlibrary(scales)\nlibrary(haven)",
     "crumbs": [
       " ",
       "Assignments",
@@ -1007,22 +1007,9 @@
   {
     "objectID": "assignments/pset2.html#a-new-outcome",
     "href": "assignments/pset2.html#a-new-outcome",
-    "title": "Problem Set 2: Data Transformation and Sampling",
+    "title": "Problem Set 2: Data Transformation",
     "section": "2. A new outcome",
-    "text": "2. A new outcome\n20 points. The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.\nAs in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.\nYour answer should include\n\na written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable\na written interpretation of what you found\ncode following style conventions\nyour publication-quality visualization",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 2"
-    ]
-  },
-  {
-    "objectID": "assignments/pset2.html#conceptual-questions-on-sampling",
-    "href": "assignments/pset2.html#conceptual-questions-on-sampling",
-    "title": "Problem Set 2: Data Transformation and Sampling",
-    "section": "3. Conceptual questions on sampling",
-    "text": "3. Conceptual questions on sampling\nThe Los Angeles Family and Neighborhood Study (L.A. FANS) was designed to study both family and neighborhood characteristics in L.A. This question is about the sample design.\nThe study selected a probability sample of all households in Los Angeles County in 2000. The sample was selected by a multi-stage design that first sampled Census tracts, then Census blocks within those Census tracts, then households within those blocks. At the first stage of sampling, the study oversampled Census tracts with high poverty rates. As a result, the sample is an unequal-probability sample in which poor households had higher probabilities of sample inclusion than non-poor households.\nResearchers sometimes analyze L.A. FANS with a person, a household, or a Census tract as the unit of analysis. For the questions below, we will consider a household to be the unit of analysis.\n3.1 (3 points) What is the target population?\n3.2 (3 points) If poor households have higher probabilities of sample inclusion, which sampled households have higher weights: poor or non-poor households?\n3.3 (4 points) Suppose a researcher estimated the poverty rate, defined as the percent of households in poverty in L.A. County in 2000. Suppose the researcher used L.A. FANS and ignored the sample weights. Would the researcher over- or under-estimate the poverty rate?",
+    "text": "2. A new outcome\n25 points. The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.\nAs in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.\nYour answer should include\n\na written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable\na written interpretation of what you found\ncode following style conventions\nyour publication-quality visualization",
     "crumbs": [
       " ",
       "Assignments",
@@ -1033,9 +1020,9 @@
   {
     "objectID": "assignments/pset2.html#recap-and-connections-to-your-project",
     "href": "assignments/pset2.html#recap-and-connections-to-your-project",
-    "title": "Problem Set 2: Data Transformation and Sampling",
+    "title": "Problem Set 2: Data Transformation",
     "section": "Recap and connections to your project",
-    "text": "Recap and connections to your project\nThis problem set discussed two datasets you may be interested in using in your final project. You accessed and downloaded the Current Population Survey at cps.ipums.org. You may also be interested in using L.A. FANS in your final project. Those data are a bit more difficult to use and are available here. Full documentation of the sample design is available in Section 5 of Sastry et al. 2006.\nA few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.",
+    "text": "Recap and connections to your project\nA few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.",
     "crumbs": [
       " ",
       "Assignments",
@@ -1070,11 +1057,11 @@
     ]
   },
   {
-    "objectID": "assignments/pset1.html#interpret-10-points",
-    "href": "assignments/pset1.html#interpret-10-points",
+    "objectID": "assignments/pset1.html#understand-components-of-research-question",
+    "href": "assignments/pset1.html#understand-components-of-research-question",
     "title": "Problem Set 1: Visualization",
-    "section": "2. Interpret (10 points)",
-    "text": "2. Interpret (10 points)\nWrite 2-3 sentences summarizing the trends that you see in the data.\n2.1 (3 points). Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course?\n\nType your answer here.\n\n2.2 (3 points). Focus on those born in 1970. How does the pattern differ for those without college degrees differ from your answer in 2.1?\n\nType your answer here.\n\n2.3 (4 points). How do the patterns you identified in 2.1 and 2.2 change from the 1940 to the 1970 cohort?\n\nType your answer here.",
+    "section": "2. Understand components of research question",
+    "text": "2. Understand components of research question\nThe graph above answered a descriptive research question. Here are a few components of that question:\n\nAnnual income in 2022 dollars\nAmerican workers in each subgroup defined by birth cohort, age, and education\n10th, 50th, and 90th percentile\nA person\n\nFor 2.1–2.4, write the letter of the corresponding component of the research question.\n2.1 (2 points) What is the unit of analysis?\n2.2 (2 points) What is the outcome variable?\n2.3 (2 points) What are the target populations?\n2.4 (2 points) What are the summary statistics?",
     "crumbs": [
       " ",
       "Assignments",
@@ -1083,11 +1070,24 @@
     ]
   },
   {
-    "objectID": "assignments/pset1.html#connect-to-reading-15-points",
-    "href": "assignments/pset1.html#connect-to-reading-15-points",
+    "objectID": "assignments/pset1.html#interpret-the-graph",
+    "href": "assignments/pset1.html#interpret-the-graph",
     "title": "Problem Set 1: Visualization",
-    "section": "3. Connect to reading (15 points)",
-    "text": "3. Connect to reading (15 points)\nRead p. 1–7 of following paper. Stop before the section “Analytic Framework for Decomposing Inequality.”\n\nCheng, Siwei. 2021. The shifting life course patterns of wage inequality.. Social Forces 100(1):1–28.\n\nOur data are not the same as Cheng’s. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less.\nCheng discusses period trends, cohort trends, and age trends.\n3.1 (3 points) Which dimension of your graph shows a cohort trend?\n\nType your answer here.\n\n3.2 (3 points) Which dimension of your graph shows an age trend?\n\nType your answer here.\n\n3.3 (3 points) Cheng discusses education-based cumulative advantage. Describe how you see this in your graph.\n\nType your answer here.\n\n3.4 (3 points) Cheng discusses within-education trajectory heterogeneity. Describe how your graph shows heterogeneity of outcomes within educational categories.\n\nType your answer here.\n\n3.5 (3 points) Cheng discusses wage volatility: how wages rise and fall over time for a given person. Why is our data (the Current Population Survey) the wrong dataset to study wage volatility?\n\nType your answer here.",
+    "section": "3. Interpret the graph",
+    "text": "3. Interpret the graph\nWrite 2-3 sentences summarizing what your figure shows.\n3.1 (3 points). Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course?\n\nType your answer here.\n\n3.2 (3 points). Focus on those born in 1970. How does the pattern in the 90th percentile differ for those with and without college degrees?\n\nType your answer here.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "assignments/pset1.html#connect-to-reading",
+    "href": "assignments/pset1.html#connect-to-reading",
+    "title": "Problem Set 1: Visualization",
+    "section": "4. Connect to reading",
+    "text": "4. Connect to reading\nRead p. 1–7 of following paper. Stop before the section “Analytic Framework for Decomposing Inequality.”\n\nCheng, Siwei. 2021. The shifting life course patterns of wage inequality.. Social Forces 100(1):1–28.\n\nOur data are not the same as Cheng’s. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less.\nCheng discusses period trends, cohort trends, and age trends.\n4.1 (3 points) Describe a cohort trend that you see in your graph.\n\nType your answer here.\n\n4.2 (3 points) Describe an age trend that you see in your graph.\n\nType your answer here.\n\n4.3 (5 points) Describe two ways that our results align with the arguments in the paper.\n\nType your answer here.",
     "crumbs": [
       " ",
       "Assignments",

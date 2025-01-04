@@ -1,5 +1,5 @@
 ---
-title: "Problem Set 2: Data Transformation and Sampling"
+title: "Problem Set 2: Data Transformation"
 ---
 
 **Due: 5pm on Wednesday, February 14.**
@@ -25,7 +25,7 @@ This problem set draws on the following paper.
 
 ## 1. Data analysis: Existing question
 
-**20 points.** Reproduce Figure 1 from the paper.
+**25 points.** Reproduce Figure 1 from the paper.
 
 Visit [cps.ipums.org](https://cps.ipums.org/cps/) to download data from the 1962--2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the "ASEC" tab and none of the samples in the "Basic Monthly" tab. Include these variables in your cart: [sex](https://cps.ipums.org/cps-action/variables/SEX), [age](https://cps.ipums.org/cps-action/variables/AGE), [asecwt](https://cps.ipums.org/cps-action/variables/ASECWT), [empstat](https://cps.ipums.org/cps-action/variables/EMPSTAT).
 
@@ -53,7 +53,7 @@ library(haven)
 
 ## 2. A new outcome
 
-**20 points.** The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.
+**25 points.** The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.
 
 As in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.
 
@@ -64,23 +64,7 @@ Your answer should include
 - code following style conventions
 - your publication-quality visualization
 
-## 3. Conceptual questions on sampling
-
-The Los Angeles Family and Neighborhood Study ([L.A. FANS](https://lasurvey.rand.org/design/)) was designed to study both family and neighborhood characteristics in L.A. This question is about the sample design.
-
-The study selected a probability sample of all households in Los Angeles County in 2000. The sample was selected by a multi-stage design that first sampled Census tracts, then Census blocks within those Census tracts, then households within those blocks. At the first stage of sampling, the study oversampled Census tracts with high poverty rates. As a result, the sample is an unequal-probability sample in which poor households had higher probabilities of sample inclusion than non-poor households.
-
-Researchers sometimes analyze L.A. FANS with a person, a household, or a Census tract as the unit of analysis. For the questions below, we will consider a household to be the unit of analysis.
-
-**3.1 (3 points)** What is the target population?
-
-**3.2 (3 points)** If poor households have higher probabilities of sample inclusion, which sampled households have higher weights: poor or non-poor households?
-
-**3.3 (4 points)** Suppose a researcher estimated the poverty rate, defined as the percent of households in poverty in L.A. County in 2000. Suppose the researcher used L.A. FANS and ignored the sample weights. Would the researcher over- or under-estimate the poverty rate?
-
 ## Recap and connections to your project
-
-This problem set discussed two datasets you may be interested in using in your final project. You accessed and downloaded the Current Population Survey at [cps.ipums.org](https://cps.ipums.org/cps/). You may also be interested in using L.A. FANS in your final project. Those data are a bit more difficult to use and are available [here](https://www.icpsr.umich.edu/web/DSDR/studies/37279#). Full documentation of the sample design is available in Section 5 of [Sastry et al. 2006](https://www.rand.org/pubs/reprints/RP1241.html#document-details).
 
 A few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.
 

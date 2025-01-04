@@ -1,4 +1,13 @@
 
+
+Reply to TAs
+Review PhD applications
+
+Nanum letter
+
+
+
+
       - section: "No longer used"
         contents:
           - topics/prediction.qmd
@@ -18,6 +27,16 @@ could make the Cheng paper questions part of the next discussion
 Reading questions on England paper could become part of next discussion (pset 2)
 
 discussion can look at firstname after pset 3
+
+TO DO:
+- Make rubric for pset 1
+- Check rubric on pset 2
+
+No peer review on pset 0 (need to update Github)
+No peer review on pset 4 (need to write to be easy to grade)
+
+might remove conceptual sampling questions pset 2
+
 
 
 pset 1, 2, 3 are good to go

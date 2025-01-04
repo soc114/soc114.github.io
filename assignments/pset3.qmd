@@ -14,43 +14,7 @@ Student identifer: [type your anonymous identifier here]
 - In Canvas, you will upload the PDF produced by your .qmd file
 - Put your identifier above, not your name! We want anonymous grading to be possible
 
-## 1. Potential outcomes in a hypothetical setting
-
-Jose says that coming to UCLA caused him to discover sociology, and it became his major! He says that if he had gone to UCSD, he would have stuck with biology.
-
-**1.1 (5 points)**
-
-In Jose's claim, what is the treatment?
-
-**Answer.** Your answer here
-
-**1.2 (5 points)**
-
-Using the mathematical notation we discussed in class, define the two potential outcomes to which Jose is referring.
-
-**Answer.** Your answer here
-
-**1.3 (5 points) **
-
-In a sentence or two, say how the Fundamental Problem of Causal Inference applies to Jose's claim.
-
-**Answer.** Your answer here
-
-**1.4 (5 points) **
-
-Using conditional expectations or probabilities, write the following in math: the probability of majoring in sociology is higher among students who attend UCLA than among students who attend UCSD.
-
-**Answer.** Your answer here
-
-**1.5 (5 points) **
-
-Using conditional expectations or probabilities, write the following in math: the probability of majoring in sociology would be higher if we intervened to send students to UCLA than if we intervened to send them to UCSD.
-
-**Answer.** Your answer here
-
-## 2. Potential outcomes in a real experiment
-
-This problem is based on:
+This problem set is based on:
 
 Bertrand, M \& Mullainathan, S. 2004. "[Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination](https://www-jstor-org.proxy.library.cornell.edu/stable/3592802)." American Economic Review 94(4):991--1013.
 
@@ -60,15 +24,7 @@ Read the first 10 pages of the paper (through the end of section 2). In this pap
 - the treatment is the name at the top of the resume
 - the outcome is whether the employer called or emailed back for an interview
 
-**2.1. (5 points) Fundamental Problem **
-
-One submitted resume had the name "Emily Baker." It yielded a callback. The same resume could have had the name "Lakisha Washington." Explain how the Fundamental Problem of Causal Inference applies to this case (1--2 sentences).
-
-**2.2. (5 points) Exchangeability **
-
-In a sentence, what is the exchangeability assumption in this study? For concreteness, for this question you may suppose that the only names in the study were "Emily Baker" and "Lakisha Washington." Be sure to explicitly state the treatment and the potential outcomes.
-
-**2.3 (15 points) Analyzing the experimental data **
+## Analyzing the experimental data (25 points)
 
 Load packages that our code will use.
 ```{r, comment = F, message = F}
@@ -100,3 +56,22 @@ We will use two variables:
 
 The top of Table 1 reports callback rates: 9.65\% for white names and 6.45\% for Black names. Reproduce those numbers. Write code that reproduces these numbers.
 
+## Causal inference concepts
+
+**2.1. (5 points) Fundamental problem **
+
+One submitted resume had the name "Emily Baker." It yielded a callback. The same resume could have had the name "Lakisha Washington." Explain how the Fundamental Problem of Causal Inference applies to this case (1--2 sentences).
+
+**2.2. (5 points) Potential outcomes**. Using math, write the following in potential outcomes notation: resume submission 5 would receive a callback if it signaled the name "Emily Baker". (There are several ways to write a correct answer.)
+
+**2.3. (5 points) Exchangeability **
+
+In a sentence, what is the exchangeability assumption in this study? For concreteness, for this question you may suppose that the only names in the study were "Emily Baker" and "Lakisha Washington." Be sure to explicitly state the treatment and the potential outcomes.
+
+**2.4. (5 points) Observational study**
+
+Suppose that instead of randomly assigning names to fictitious resumes, the authors had instead analyzed real job applications by people named "Emily Baker" and "Lakisha Washington." Use mathematical notation with a conditional probability $P(\text{A}\mid \text{B})$ to state the following: the probability of being called back was higher among resumes from Emily Baker than among resumes from Lakisha Washington.
+
+**2.5 (5 points) Exchangeability violated**
+
+The descriptive estimand in the observational study (2.4) is different than the causal estimand in the experimental study (2.2). Suppose the researchers wanted to use the observational study to learn about the quantity in (2.2). Explain one way the exchangeability assumption would be violated.
