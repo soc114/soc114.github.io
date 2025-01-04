@@ -11,7 +11,7 @@ You will then submit two things:
 1) Upload the rendered PDF to BruinLearn
 2) In our [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSfMxlewBaz7QJ3uKNCsj2g5rukOOumqrZVAnu-ckybbfwvFsg/viewform?usp=sf_link), tell us your anonymous identifier that appears in your rendered PDF.
 
-## Help with gettinngs tarted
+## Help with gettinng started
 
 If you are stuck, make sure that you first follow the installation instructions in [setting up your computer](../topics/r_basics.qmd).
 
