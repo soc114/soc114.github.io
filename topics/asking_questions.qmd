@@ -2,7 +2,7 @@
 title: "Asking questions with data"
 ---
 
-<!-- [slides](../slides/asking_questions/asking_questions.pdf) -->
+[slides](../slides/lec01_asking_questions/lec01_asking_questions.pdf)
 
 Asking your own research question is fun, and it is also daunting. There is no formula for asking a good question, and much research involves trial and error. In this lecture, we will discuss together what makes a good research question.
 
@@ -32,11 +32,11 @@ This may be the hardest to pin down. Before you work with data, try to tell a st
 
 Questions where only one answer is plausible are often tedious. Questions that are exciting are often the ones where results could surprise you by going several possible directions.
 
-### Examples
+<!-- ### Examples -->
 
-The [slides](../slides/lec9/lec9.pdf) contain some examples of good research questions, and some examples of hypothetical questions that could be improved.
+<!-- The [slides](../slides/lec9/lec9.pdf) contain some examples of good research questions, and some examples of hypothetical questions that could be improved. -->
 
-{{< video https://www.youtube.com/embed/CRzAR0Wgsq8 >}}
+<!-- {{< video https://www.youtube.com/embed/CRzAR0Wgsq8 >}} -->
 
 <!-- ## Examples -->
 

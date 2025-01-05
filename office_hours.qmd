@@ -10,4 +10,4 @@ format:
 |---|---|---|
 | Ian | Th 2--3pm | Haines 241C |
 | Christina | TBD | TBD | 
-| Nathan | TBD | TBD |
+| Nathan | T 1:30--2:30pm | Haines A55 |

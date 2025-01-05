@@ -4,6 +4,12 @@ title: "Problem Set 4: Statistical Learning"
 
 **Due: 5pm on Friday, Feb 28.**
 
+Idea:
+- Income prediction challenge. OLS with two predictor sets. Sample split. Which one is better?
+- OLS with all variables. G-formula for causal effect of college on earnings, in subgroups of parent college
+
+
+
 This problem set has not yet been posted.
 
 class website page is a possibility for data here. Effect of college on subjective social class.
