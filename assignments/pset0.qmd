@@ -4,9 +4,16 @@ title: "Problem Set 0: Computing environment"
 
 **Due: 5pm on Friday, January 10.**
 
-To complete the problem set, download <a href="../assets/pset0/pset0.qmd" download>pset0.qmd</a> and render to a PDF.
+To complete the problem set, download <a href="../assets/pset0/pset0.qmd" download>pset0.qmd</a>. Add these four lines of code to the top if they do not appear in your download,
 
-You will then submit two things:
+```{r, eval = F}
+---
+title: "Problem Set 0: Computing environment"
+format: pdf
+---
+```
+
+and render to a PDF. You will then submit two things:
 
 1) Upload the rendered PDF to BruinLearn
 2) In our [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSfMxlewBaz7QJ3uKNCsj2g5rukOOumqrZVAnu-ckybbfwvFsg/viewform?usp=sf_link), tell us your anonymous identifier that appears in your rendered PDF.

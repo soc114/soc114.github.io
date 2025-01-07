@@ -1,0 +1,15 @@
+{
+  "hash": "c3208f7300a1157577502f69484de5cc",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Problem Set 0: Computing environment\"\n---\n\n\n\n\n**Due: 5pm on Friday, January 10.**\n\nTo complete the problem set, download <a href=\"../assets/pset0/pset0.qmd\" download>pset0.qmd</a>. Add these four lines of code to the top if they do not appear in your download,\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n---\ntitle: \"Problem Set 0: Computing environment\"\nformat: pdf\n---\n```\n:::\n\n\n\n\nand render to a PDF. You will then submit two things:\n\n1) Upload the rendered PDF to BruinLearn\n2) In our [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSfMxlewBaz7QJ3uKNCsj2g5rukOOumqrZVAnu-ckybbfwvFsg/viewform?usp=sf_link), tell us your anonymous identifier that appears in your rendered PDF.\n\n## Help with gettinng started\n\nIf you are stuck, make sure that you first follow the installation instructions in [setting up your computer](../topics/r_basics.qmd).\n\nOpen the downloaded problem set in RStudio. You should then click\nthe \"Render\" button as shown in the image below.\n\n![](../assets/pset0/render.png)\nThis will run the R code and combine the output with the text in the document\ninto a PDF. By default, this PDF will be output in the same directory that\nyou saved `pset0.qmd` in. You will then submit the PDF on Canvas.\n\n<!-- ::: {.callout-tip} -->\n<!-- If you're not sure what your working directory is, run `getwd()` in your -->\n<!-- RStudio console. This will print your working directory. You can set it to the place you've saved this file by clicking the top menu Session -> Set Working Directory -> To Source File Location. -->\n<!-- ::: -->\n\n## Issues\n\nIf you run into issues while attempting to render the Problem Set, be sure\nto open a question on\n[Piazza](\"https://piazza.com/class/m3q7dpj6kqd2fn\")!",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -45,8 +45,9 @@ Each date will be a link to the slides for that lecture.
 
 ## Assignments
 
-| Fri, Jan 10	at 5pm | Problem Set 1 |
+| Due Date | Assignment |
 |---|---|
+| Fri, Jan 10	at 5pm | Problem Set 1 |
 | Fri, Jan 17	at 5pm | Peer Review 1 |
 | Fri, Jan 24	at 5pm | Problem Set 2 |
 | Fri, Jan 31	at 5pm | Peer Review 2 |
