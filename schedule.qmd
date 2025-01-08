@@ -47,14 +47,14 @@ Each date will be a link to the slides for that lecture.
 
 | Due Date | Assignment |
 |---|---|
-| Fri, Jan 10	at 5pm | Problem Set 1 |
-| Fri, Jan 17	at 5pm | Peer Review 1 |
-| Fri, Jan 24	at 5pm | Problem Set 2 |
-| Fri, Jan 31	at 5pm | Peer Review 2 |
-| Fri, Feb 07	at 5pm | Problem Set 3 |
-| Fri, Feb 14	at 5pm | Peer Review 3 |
-| Fri, Feb 21	at 5pm | Problem Set 4 |
-| Fri, Feb 28	at 5pm | Peer Review 4 |
+| Fri, Jan 10	at 5pm | Problem Set 0 |
+| Fri, Jan 17	at 5pm | Problem Set 1 |
+| Fri, Jan 24	at 5pm | Peer Review 1 |
+| Fri, Jan 31	at 5pm | Problem Set 2 |
+| Fri, Feb 07	at 5pm | Peer Review 2 |
+| Fri, Feb 14	at 5pm | Problem Set 3 |
+| Fri, Feb 21	at 5pm | Peer Review 3 |
+| Fri, Feb 28	at 5pm | Problem Set 4 |
 | Fri, Mar 07	at 5pm | Project |
 | Fri, Mar 14	at 5pm | Project Peer Review |
 
