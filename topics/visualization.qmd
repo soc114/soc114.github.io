@@ -2,11 +2,148 @@
 title: "Visualization"
 ---
 
-> This topic is covered on Jan 9.
+> This topic is covered on Jan 14.
 
 > Prerequisites. You should first install R, RStudio, and the `tidyverse` package as described in the [previous page](topics/r_basics).
 
+```{r, message = F, comment = F, warning = F, echo = F, fig.height = 2.5}
+library(tidyverse)
+theme_set(theme_bw())
+library(scales)
+library(haven)
+```
+
 Visualizing data is an essential skill for data science. We will write our first code to visualize how countries' level of economic output is related to their level of inequality. We will use data reported in tabular form in [Jencks 2002](https://www.jstor.org/stable/20027737) Table 1, made available in digital form in [jencks_table1.csv](../data/jencks_table1.csv).
+
+## A motivating question: Economic output and inequality
+
+Is economic output higher in countries with higher levels of income inequality? Some argue that this would be the case, for example if high levels of income inequality provide an incentive for hard work and innovation. But is it true?
+
+```{r, echo = F, fig.height = 2.5}
+set.seed(91784)
+tibble(x = runif(14)) |>
+  mutate(y_responsive = x + runif(n(), min = -.1, max = .1),
+         y_unresponsive = sample(y_responsive)) |>
+  pivot_longer(cols = starts_with("y")) |>
+  mutate(
+    name = case_when(name == "y_responsive" ~ "A result you would expect\nif economic output is higher\nwhen income inequality is higher",
+                     name == "y_unresponsive" ~ "A result you would expect\nif economic output and income\ninequality are independent"),
+    name = fct_rev(name)
+  ) |>
+  ggplot(aes(x = x, y = value)) +
+  geom_point() +
+  facet_wrap(~name) +
+  xlab("Income Inequality") +
+  ylab("Economic Output") +
+  ggtitle("Hypothetical figures: Each dot is a country") +
+  theme_grey() +
+  theme(
+    strip.text = element_text(hjust = 0),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+To begin answering this question, we first have to define measures of economic output (the $y$-axis) and inequality (the $x$-axis).
+
+### Measuring economic output
+
+We use Gross Domestic Product (GDP) Per Capita as a measure of economic output. This measure captures the total economic production of a country divided by the population of the country. For ease of comparison, our data normalizes GDP per capita by dividing by the U.S. GDP per capita. In our data, Sweden's GDP per capita is recorded as 0.68, indicating that Sweden's GDP per capita was 68\% as high as the U.S. GDP per capita at the time the data were collected.
+
+### Measuring inequality
+
+To measure inequality, we consider a measure that asks how many times higher an income at the top of the distribution is compared with an income at the bottom of the distribution. Our measure is called the 90/10 income ratio. We will illustrate this concept using the 2022 U.S. household income distribution, visualized below.
+
+```{r, message = F, comment = F, warning = F, echo = F, fig.height = 2.5}
+# Write a custom function we will use
+weighted.quantile <- function(x, q, w) {
+  result.df <- data.frame(x = x, w = w) %>%
+    arrange(x) %>%
+    mutate(cdf = cumsum(w) / sum(w)) %>%
+    filter(cdf >= q) %>%
+    filter(1:n() == 1)
+  result <- result.df$x
+  return(result)
+}
+
+# 1. LOAD DATA
+
+# Load microdata from the Current Population Survey
+# https://cps.ipums.org/
+micro <- read_dta("../data_raw/cps_00062.dta") |>
+  filter(year == 2022)
+
+prepared <- micro |>
+  # Remove missing household incomes
+  filter(hhincome != 99999999) |>
+  mutate(hhincome = case_when(hhincome < 0 ~ 0,
+                              T ~ hhincome)) |>
+  # Restrict to one row per household
+  # instead of one row per person
+  group_by(year, serial) %>%
+  filter(1:n() == 1) |>
+  ungroup()
+
+summaries <- prepared |>
+  summarize(median = weighted.quantile(hhincome, w = asecwth,
+                                       q = .5),
+            q10 = weighted.quantile(hhincome, w = asecwth,
+                                    q = .1),
+            q90 = weighted.quantile(hhincome, w = asecwth,
+                                    q = .9),
+            over_top = weighted.mean(hhincome > 500e3,
+                                    w = asecwth),
+            .groups = "drop")
+
+# Big visualization of U.S. household income distribution
+
+p <- prepared |>
+  filter(hhincome < 500e3) |>
+  ggplot(aes(x = hhincome, weight = asecwth)) +
+  geom_histogram(binwidth = 25e3, alpha = .4, boundary = 0) +
+  scale_x_continuous(labels = scales::label_dollar(),
+                     name = "Household Income") +
+  scale_y_continuous(breaks = NULL,
+                     name = "Density") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1),
+        panel.grid.minor = element_blank())
+ggsave(plot = p, 
+       filename = "../slides/lec02_visualization/figures/us2022_hh_dist_big.pdf",
+       height = 3, width = 4.5)
+p +
+  geom_vline(xintercept = summaries$q90,
+             color = "blue", size = 2) +
+  geom_vline(xintercept = summaries$q10,
+             color = "seagreen4", size = 2) +
+  annotate(geom = "text", color = "blue", size = 4,
+           x = 375e3, y = 2e7,
+           label = paste0("90th percentile (",scales::dollar(summaries$q90),")"),
+           fontface = "bold") +
+  annotate(geom = "text", color = "black", size = 4,
+           x = 375e3, y = 1.5e7,
+           label = paste0("gets ",
+                          round(summaries$q90 / summaries$q10),
+                          "x as much as the")) +
+  annotate(geom = "text", color = "seagreen4", size = 4,
+           x = 375e3, y = 1e7,
+           label = paste0("10th percentile (",scales::dollar(summaries$q10),")"),
+           fontface = "bold")
+ggsave("../slides/lec02_visualization/figures/us2022_hh_dist_9010.pdf",
+       height = 3, width = 4.5)
+```
+
+This graph is a histogram. The width of each bar in the histogram is \$25k. The height of each bar shows the number of households with incomes falling within the range of household incomes (x-axis) that correspond to the width of the bar.
+
+There are two summary statistics: the 90th percentile in blue and the 10th percentile in green. The 90th percentile is the income value such that 90\% of households have incomes that are lower. 90\% of the gray mass is to the left of the blue line. The 10th percentile is the income value such that 10\% of households have incomes that are lower. We can think of the 90th percentile as a measure of a high income in the distribution and the 10th percentile as a measure of a low income in the distribution.
+
+The 90/10 income ratio is the 90th percentile divided by the 10th percentile. For U.S. household incomes in 2022, this works out as
+
+$$
+\text{90/10 ratio} = \frac{\text{90th percentile}}{\text{10th percentile}} = \frac{`r label_dollar()(summaries$q90)`}{`r label_dollar()(summaries$q10)`} = `r round(summaries$q90 / summaries$q10,1)`
+$$
+
+A higher value of the 90/10 ratio corresponds to higher inequality. In our hypothetical case, a household at the 90th percentile has an income that is `r round(summaries$q90 / summaries$q10,1)` times as high as the income of a household at the 10th percentile.
 
 ## Prepare the environment
 
@@ -38,8 +175,8 @@ Type `table1` in your console. You can see the data!
 The data contain four variables (columns):
 
 - `country` country name
-- `ratio` ratio of 90th to 10th percentile of household income. You can think of this as how many dollars a high-income household receives for each dollar that a low-income household receives
-- `gdp` Gross Domestic Product Per Capita, expressed as a proportion of U.S. GDP
+- `ratio` ratio is the 90/10 income ratio in the country
+- `gdp` is GDP per capita in the country, expressed as a proportion of U.S. GDP
 - `life_expectancy` life expectancy at birth
 
 There is one row for each country. For details on the data, see Jencks (2002) Table 1.
@@ -78,39 +215,49 @@ ggplot(
   geom_point()
 ```
 
-## Customizing your graph
+### Improve labels
 
-Now it is your turn! Create additional layers with additional lines connected by `+`. Be creative! Here are some ideas:
+```{r}
+ggplot(
+  data = table1,
+  mapping = aes(x = ratio, y = gdp)
+) +
+  geom_point() +
+  labs(
+    x = "Inequality: 90th percentile / 10th percentile of household income",
+    y = "GDP as a Fraction of U.S. GDP"
+  )
+```
 
-* add a `geom_smooth()` layer to show the trend in the data
-* add a `geom_text()` layer to label the points with country names. To do so, you will need to add the aesthetic mapping `label = country`.
-     * Pro tip: If you want text to be far from points, install and load the [`ggrepel`](https://ggrepel.slowkow.com/) package and use `geom_text_repel`.
-* add [labels](https://ggplot2.tidyverse.org/reference/labs.html) to your visualization for axes and titles
-* label the axes with `scale_x_continuous(name = "your text here")` and `scale_y_continuous(name = "your text here")`
+### Customize in many ways
 
-There are many possible graphs to make. An example is below.
+There are many ways to customize the graph. For example, the code below
 
-```{r, echo = F}
+* loads the `ggrepel` package in order to add country labels to the points
+* uses `geom_smooth` to add a trend line
+* uses `scale_y_continuous` to convert the $y$-axis labels from decimals to percentages
+
+```{r}
+library(ggrepel)
 table1 |>
   ggplot(aes(x = ratio, y = gdp)) +
   geom_point() +
-  geom_smooth(formula = 'y ~ x',
-              method = "lm", 
-              se = F, 
-              color = "black") +
-  ggrepel::geom_text_repel(aes(label = country),
-                           size = 3) +
-  scale_y_continuous(labels = scales::label_percent(),
-                     name = "GDP as a Percent of U.S.") +
-  scale_x_continuous(name = "Inequality\n90th percentile / 10th percentile\nof household income") +
+  geom_smooth(
+    formula = 'y ~ x',
+    method = "lm", 
+    se = F, 
+    color = "black"
+  ) +
+  geom_text_repel(
+    aes(label = country),
+    size = 3
+  ) +
+  scale_y_continuous(
+    labels = scales::label_percent(),
+    name = "GDP as a Percent of U.S."
+  ) +
+  scale_x_continuous(name = "Inequality: 90th percentile / 10th percentile of household income") +
   theme(legend.position = "none")
 ```
-
-## Interpret your graph
-
-Once you are happy with your graph,
-
-- write a few sentences explaining your graph
-- discuss what questions you would like to ask next
 
 {{< video https://www.youtube.com/embed/YWTZ6xxRiP8 >}}

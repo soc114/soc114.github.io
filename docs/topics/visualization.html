@@ -432,15 +432,20 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#prepare-the-environment" id="toc-prepare-the-environment" class="nav-link active" data-scroll-target="#prepare-the-environment">Prepare the environment</a></li>
+  <li><a href="#a-motivating-question-economic-output-and-inequality" id="toc-a-motivating-question-economic-output-and-inequality" class="nav-link active" data-scroll-target="#a-motivating-question-economic-output-and-inequality">A motivating question: Economic output and inequality</a>
+  <ul class="collapse">
+  <li><a href="#measuring-economic-output" id="toc-measuring-economic-output" class="nav-link" data-scroll-target="#measuring-economic-output">Measuring economic output</a></li>
+  <li><a href="#measuring-inequality" id="toc-measuring-inequality" class="nav-link" data-scroll-target="#measuring-inequality">Measuring inequality</a></li>
+  </ul></li>
+  <li><a href="#prepare-the-environment" id="toc-prepare-the-environment" class="nav-link" data-scroll-target="#prepare-the-environment">Prepare the environment</a></li>
   <li><a href="#explore-the-data" id="toc-explore-the-data" class="nav-link" data-scroll-target="#explore-the-data">Explore the data</a></li>
   <li><a href="#produce-a-visualization" id="toc-produce-a-visualization" class="nav-link" data-scroll-target="#produce-a-visualization">Produce a visualization</a>
   <ul class="collapse">
   <li><a href="#begin-with-an-empty-graph" id="toc-begin-with-an-empty-graph" class="nav-link" data-scroll-target="#begin-with-an-empty-graph">Begin with an empty graph</a></li>
   <li><a href="#add-a-layer-to-the-graph" id="toc-add-a-layer-to-the-graph" class="nav-link" data-scroll-target="#add-a-layer-to-the-graph">Add a layer to the graph</a></li>
+  <li><a href="#improve-labels" id="toc-improve-labels" class="nav-link" data-scroll-target="#improve-labels">Improve labels</a></li>
+  <li><a href="#customize-in-many-ways" id="toc-customize-in-many-ways" class="nav-link" data-scroll-target="#customize-in-many-ways">Customize in many ways</a></li>
   </ul></li>
-  <li><a href="#customizing-your-graph" id="toc-customizing-your-graph" class="nav-link" data-scroll-target="#customizing-your-graph">Customizing your graph</a></li>
-  <li><a href="#interpret-your-graph" id="toc-interpret-your-graph" class="nav-link" data-scroll-target="#interpret-your-graph">Interpret your graph</a></li>
   </ul>
 </nav>
     </div>
@@ -467,12 +472,50 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p>This topic is covered on Jan 9.</p>
+<p>This topic is covered on Jan 14.</p>
 </blockquote>
 <blockquote class="blockquote">
 <p>Prerequisites. You should first install R, RStudio, and the <code>tidyverse</code> package as described in the <a href="topics/r_basics">previous page</a>.</p>
 </blockquote>
 <p>Visualizing data is an essential skill for data science. We will write our first code to visualize how countries’ level of economic output is related to their level of inequality. We will use data reported in tabular form in <a href="https://www.jstor.org/stable/20027737">Jencks 2002</a> Table 1, made available in digital form in <a href="../data/jencks_table1.csv">jencks_table1.csv</a>.</p>
+<section id="a-motivating-question-economic-output-and-inequality" class="level2">
+<h2 class="anchored" data-anchor-id="a-motivating-question-economic-output-and-inequality">A motivating question: Economic output and inequality</h2>
+<p>Is economic output higher in countries with higher levels of income inequality? Some argue that this would be the case, for example if high levels of income inequality provide an incentive for hard work and innovation. But is it true?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualization_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To begin answering this question, we first have to define measures of economic output (the <span class="math inline">\(y\)</span>-axis) and inequality (the <span class="math inline">\(x\)</span>-axis).</p>
+<section id="measuring-economic-output" class="level3">
+<h3 class="anchored" data-anchor-id="measuring-economic-output">Measuring economic output</h3>
+<p>We use Gross Domestic Product (GDP) Per Capita as a measure of economic output. This measure captures the total economic production of a country divided by the population of the country. For ease of comparison, our data normalizes GDP per capita by dividing by the U.S. GDP per capita. In our data, Sweden’s GDP per capita is recorded as 0.68, indicating that Sweden’s GDP per capita was 68% as high as the U.S. GDP per capita at the time the data were collected.</p>
+</section>
+<section id="measuring-inequality" class="level3">
+<h3 class="anchored" data-anchor-id="measuring-inequality">Measuring inequality</h3>
+<p>To measure inequality, we consider a measure that asks how many times higher an income at the top of the distribution is compared with an income at the bottom of the distribution. Our measure is called the 90/10 income ratio. We will illustrate this concept using the 2022 U.S. household income distribution, visualized below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualization_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This graph is a histogram. The width of each bar in the histogram is $25k. The height of each bar shows the number of households with incomes falling within the range of household incomes (x-axis) that correspond to the width of the bar.</p>
+<p>There are two summary statistics: the 90th percentile in blue and the 10th percentile in green. The 90th percentile is the income value such that 90% of households have incomes that are lower. 90% of the gray mass is to the left of the blue line. The 10th percentile is the income value such that 10% of households have incomes that are lower. We can think of the 90th percentile as a measure of a high income in the distribution and the 10th percentile as a measure of a low income in the distribution.</p>
+<p>The 90/10 income ratio is the 90th percentile divided by the 10th percentile. For U.S. household incomes in 2022, this works out as</p>
+<p><span class="math display">\[
+\text{90/10 ratio} = \frac{\text{90th percentile}}{\text{10th percentile}} = \frac{$212,110}{$15,640} = 13.6
+\]</span></p>
+<p>A higher value of the 90/10 ratio corresponds to higher inequality. In our hypothetical case, a household at the 90th percentile has an income that is 13.6 times as high as the income of a household at the 10th percentile.</p>
+</section>
+</section>
 <section id="prepare-the-environment" class="level2">
 <h2 class="anchored" data-anchor-id="prepare-the-environment">Prepare the environment</h2>
 <p>Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking <code>File -&gt; Save</code> from the menu at the very top of your screen.</p>
@@ -494,8 +537,8 @@ window.Quarto = {
 <p>The data contain four variables (columns):</p>
 <ul>
 <li><code>country</code> country name</li>
-<li><code>ratio</code> ratio of 90th to 10th percentile of household income. You can think of this as how many dollars a high-income household receives for each dollar that a low-income household receives</li>
-<li><code>gdp</code> Gross Domestic Product Per Capita, expressed as a proportion of U.S. GDP</li>
+<li><code>ratio</code> ratio is the 90/10 income ratio in the country</li>
+<li><code>gdp</code> is GDP per capita in the country, expressed as a proportion of U.S. GDP</li>
 <li><code>life_expectancy</code> life expectancy at birth</li>
 </ul>
 <p>There is one row for each country. For details on the data, see Jencks (2002) Table 1.</p>
@@ -520,7 +563,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="visualization_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="visualization_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -538,46 +581,74 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="visualization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="visualization_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section id="customizing-your-graph" class="level2">
-<h2 class="anchored" data-anchor-id="customizing-your-graph">Customizing your graph</h2>
-<p>Now it is your turn! Create additional layers with additional lines connected by <code>+</code>. Be creative! Here are some ideas:</p>
-<ul>
-<li>add a <code>geom_smooth()</code> layer to show the trend in the data</li>
-<li>add a <code>geom_text()</code> layer to label the points with country names. To do so, you will need to add the aesthetic mapping <code>label = country</code>.
-<ul>
-<li>Pro tip: If you want text to be far from points, install and load the <a href="https://ggrepel.slowkow.com/"><code>ggrepel</code></a> package and use <code>geom_text_repel</code>.</li>
-</ul></li>
-<li>add <a href="https://ggplot2.tidyverse.org/reference/labs.html">labels</a> to your visualization for axes and titles</li>
-<li>label the axes with <code>scale_x_continuous(name = "your text here")</code> and <code>scale_y_continuous(name = "your text here")</code></li>
-</ul>
-<p>There are many possible graphs to make. An example is below.</p>
+<section id="improve-labels" class="level3">
+<h3 class="anchored" data-anchor-id="improve-labels">Improve labels</h3>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> table1,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ratio, <span class="at">y =</span> gdp)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Inequality: 90th percentile / 10th percentile of household income"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"GDP as a Fraction of U.S. GDP"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="visualization_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="visualization_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="interpret-your-graph" class="level2">
-<h2 class="anchored" data-anchor-id="interpret-your-graph">Interpret your graph</h2>
-<p>Once you are happy with your graph,</p>
+<section id="customize-in-many-ways" class="level3">
+<h3 class="anchored" data-anchor-id="customize-in-many-ways">Customize in many ways</h3>
+<p>There are many ways to customize the graph. For example, the code below</p>
 <ul>
-<li>write a few sentences explaining your graph</li>
-<li>discuss what questions you would like to ask next</li>
+<li>loads the <code>ggrepel</code> package in order to add country labels to the points</li>
+<li>uses <code>geom_smooth</code> to add a trend line</li>
+<li>uses <code>scale_y_continuous</code> to convert the <span class="math inline">\(y\)</span>-axis labels from decimals to percentages</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ratio, <span class="at">y =</span> gdp)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> <span class="st">'y ~ x'</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> F, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> country),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"GDP as a Percent of U.S."</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"Inequality: 90th percentile / 10th percentile of household income"</span>) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="visualization_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/YWTZ6xxRiP8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->

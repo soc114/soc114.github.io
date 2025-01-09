@@ -4,7 +4,19 @@
     "href": "topics/data_transformation.html",
     "title": "Data transformation",
     "section": "",
-    "text": "This topic is covered on Jan 14 and 16.\nThis exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022. We expect that this exercise may take more time than one discussion session.1 You will begin by downloading data and end by making this graph.",
+    "text": "This topic is covered on Jan 16.\nThis exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.1 The goal is to produce a graph like this one.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Data transformation"
+    ]
+  },
+  {
+    "objectID": "topics/data_transformation.html#prepare-your-r-environment",
+    "href": "topics/data_transformation.html#prepare-your-r-environment",
+    "title": "Data transformation",
+    "section": "Prepare your R environment",
+    "text": "Prepare your R environment\nIn RStudio, create a Quarto document. Save it in your working directory. Run the following code to load two packages we will use. If you do not have these packages, first run install.packages(\"tidyverse\") and install.packages(\"haven\") to install the packages.\n\nlibrary(tidyverse)\nlibrary(haven)",
     "crumbs": [
       " ",
       "Working with Data",
@@ -16,7 +28,7 @@
     "href": "topics/data_transformation.html#data-access",
     "title": "Data transformation",
     "section": "Data access",
-    "text": "Data access\nThis exercise uses data from the Current Population Survey.\n\nRegister for an account at cps.ipums.org\nLog in\nClick “Get Data”\nAdd the following variables to your cart: incwage, educ, wkswork2, age, asecwt\nAdd the 1962–2023 ASEC samples to your cart. Exclude the basic monthly samples\nCreate a data extract\n\nSelect cases to only download people ages 30–45\nChoose to download in Stata (.dta) format\n\nSubmit your extract and download the data!\n\nStore your data in a working directory: a folder on your computer that will hold the data for this exercise.\n\n\n\n\n\n\nTip\n\n\n\nKeep a browser tab open with the IPUMS webpage to easily access full documentation",
+    "text": "Data access\nThis exercise uses data from the Current Population Survey, provided via IPUMS. We have two versions of the data:\n\nsimulated data made available to you via the course website\nactual data, for which you will register with the data provider\n\nIn lecture, we will use simulated data. In discussion, your TA will walk through the process to access the actual data. You will ultimately need to access the actual data for future assignments in this class.\n\nAccessing simulated data\nThe simulated data are designed to have the same statistical properties as the actual data. To access the simulated data, copy the following line of code into your R script and run it. This line loads the data and stores it in an object called cps_data.\n\n\ncps_data &lt;- read_dta(\"https://soc114.github.io/data/simulated_cps_data.dta\")\n\n\n\nAccessing actual data\nAccessing the actual data is important for future assignments. You may also use these data in your project. Here are instructions to access the data:\n\nRegister for an account at cps.ipums.org\nLog in\nClick “Get Data”\nAdd the following variables to your cart: incwage, educ, wkswork2, age, asecwt\nAdd the 1962–2023 ASEC samples to your cart. Exclude the basic monthly samples\nCreate a data extract\n\nSelect cases to only download people ages 30–45\nChoose to download in Stata (.dta) format\n\nSubmit your extract and download the data!\n\nStore your data in a working directory: a folder on your computer that will hold the data for this exercise. Load the data using the read_dta function in the haven package.\n\ncps_data &lt;- read_dta(\"your_downloaded_file_name.dta\")\n\n\n\n\n\n\n\nTip\n\n\n\n\nChange the file name to the name of the file you downloaded\nIf R says the file does not exist in your current working directory, you may need to set your working directory by clicking Session -&gt; Set Working Directory -&gt; To Source File Location on a Mac or Tools -&gt; Change Working Directory on Windows.",
     "crumbs": [
       " ",
       "Working with Data",
@@ -24,23 +36,11 @@
     ]
   },
   {
-    "objectID": "topics/data_transformation.html#prepare-r-environment",
-    "href": "topics/data_transformation.html#prepare-r-environment",
+    "objectID": "topics/data_transformation.html#explore-the-data",
+    "href": "topics/data_transformation.html#explore-the-data",
     "title": "Data transformation",
-    "section": "Prepare R environment",
-    "text": "Prepare R environment\nIn RStudio, create a Quarto document. Save it in your working directory.\nUse the code below to load packages:\n\nlibrary(tidyverse)\nlibrary(haven)\n\nThe haven package allows us to load data in the .dta format designed for Stata. Use read_dta()) and store the data in an object called micro. By default, these data are stored in a tibble.\n\nmicro &lt;- read_dta(\"cps_00077.dta\")\n\n\n\n\n\n\n\nTip\n\n\n\n\nChange the file name to the name of the file you downloaded\nIf R says the file does not exist in your current working directory, you may need to set your working directory by clicking Session -&gt; Set Working Directory -&gt; To Source File Location on a Mac or Tools -&gt; Change Working Directory on Windows.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Data transformation"
-    ]
-  },
-  {
-    "objectID": "topics/data_transformation.html#get-familiar-with-our-dataset",
-    "href": "topics/data_transformation.html#get-familiar-with-our-dataset",
-    "title": "Data transformation",
-    "section": "Get familiar with our dataset",
-    "text": "Get familiar with our dataset\nType micro in the console. What do you see?\n\nHow many rows are there?\nHow many columns?\n\nSome columns such as educ have a numeric code and a label. The code is how IPUMS has stored the data. The label is what the code means. Getting these labels is a benefit of downloading the file in .dta format.\nType View(micro) in the console. This will pop up another tab in RStudio which allows you to scroll through the dataset. You can see that each column name has a description. For instance asecwt is “annual social and economic supplement weight.”",
+    "section": "Explore the data",
+    "text": "Explore the data\nType cps_data in the console. Some columns such as educ have a numeric code and a label. The code is how IPUMS has stored the data. The label is what the code means. You can always find more documentation explaining the labels on the IPUMS-CPS website.",
     "crumbs": [
       " ",
       "Working with Data",
@@ -52,7 +52,7 @@
     "href": "topics/data_transformation.html#filter-to-cases-of-interest",
     "title": "Data transformation",
     "section": "filter() to cases of interest",
-    "text": "filter() to cases of interest\n\nIn this step, you will use filter() to convert your micro object to a new object called filtered.\n\nThe filter() function keeps only rows in our dataset that correspond to those we want to study. The examples on the documentation page are especially helpful. The R4DS section is also helpful.\nHere are two ways to use filter() to restrict to people working 50+ weeks per year. One way is to call the filter() function and hand it two arguments\n\n.data = micro is the dataset\nyear == 1962 is a logical condition coded TRUE for observations in 1962\n\n\nfilter(.data = micro, year == 1962)\n\nThe result of this call is a tibble with only the observations from 1962. Another way to do the same operation is with the pipe operator |&gt;\n\nmicro |&gt;\n  filter(year == 1962)\n\nThis approach begins with the data set micro. The pipe operator |&gt; hands this data set on as the first argument to the filter() function in the next line. As before, the second argument is the logical condition year == 1962.\nThe piping approach is often preferable because it reads like a sentence: begin with data, then filter to cases with a given condition. The pipe is also useful\nThe pipe operator |&gt; takes what is on the first line and hands it on as the first argument to the function in the next line. This reads in a sentence: begin with the micro tibble and then filter() to cases with year == 1962. The pipe can also string together many operations, with comments allowed between them:\n\nmicro |&gt;\n  # Restrict to 1962\n  filter(year == 1962) |&gt;\n  # Restrict to ages 40-44\n  filter(age &gt;= 40 & age &lt;= 44)\n\nYour turn. Begin with the micro dataset. Filter to\n\npeople working 50+ weeks per year (check documentation for wkswork2)\nvalid report of incwage greater than 0 and less than 99999998\n\nIf you get stuck, see how we did it at the end of this page. filtered should have 1,350,542 rows and 15 columns.\n\n\n\n\n\n\nNote\n\n\n\nFiltering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.\n\n\n\n\n\nfilter() without the pipe\n\n\n\n\nfilter() with the pipe",
+    "text": "filter() to cases of interest\n\nIn this step, you will use filter() to convert your cps_data object to a new object called filtered.\n\nThe filter() function keeps only rows in our dataset that correspond to those we want to study. The examples on the documentation page are especially helpful. The R4DS section is also helpful.\nHere are two ways to use filter() to restrict to people working 50+ weeks per year. One way is to call the filter() function and hand it two arguments\n\n.data = cps_data is the dataset\nyear == 1962 is a logical condition coded TRUE for observations in 1962\n\n\nfilter(.data = cps_data, year == 1962)\n\nThe result of this call is a tibble with only the observations from 1962. Another way to do the same operation is with the pipe operator |&gt;\n\ncps_data |&gt;\n  filter(year == 1962)\n\nThis approach begins with the data set cps_data. The pipe operator |&gt; hands this data set on as the first argument to the filter() function in the next line. As before, the second argument is the logical condition year == 1962.\nThe piping approach is often preferable because it reads like a sentence: begin with data, then filter to cases with a given condition. The pipe is also useful\nThe pipe operator |&gt; takes what is on the first line and hands it on as the first argument to the function in the next line. This reads in a sentence: begin with the cps_data tibble and then filter() to cases with year == 1962. The pipe can also string together many operations, with comments allowed between them:\n\ncps_data |&gt;\n  # Restrict to 1962\n  filter(year == 1962) |&gt;\n  # Restrict to ages 40-44\n  filter(age &gt;= 40 & age &lt;= 44)\n\nYour turn. Begin with the cps_data dataset. Filter to\n\npeople working 50+ weeks per year (check documentation for wkswork2)\nvalid report of incwage greater than 0 and less than 99999998\n\n\n\nShow the code answer\nfiltered &lt;- cps_data |&gt;\n  # Subset to cases working full year\n  filter(wkswork2 == 6) |&gt;\n  # Subset to cases with valid income\n  filter(incwage &gt; 0 & incwage &lt; 99999998)\n\n\n\n\n\n\n\n\nNote\n\n\n\nFiltering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.\n\n\n\n\n\nfilter() without the pipe\n\n\n\n\nfilter() with the pipe",
     "crumbs": [
       " ",
       "Working with Data",
@@ -64,7 +64,7 @@
     "href": "topics/data_transformation.html#group_by-and-summarize-for-subpopulation-summaries",
     "title": "Data transformation",
     "section": "group_by() and summarize() for subpopulation summaries",
-    "text": "group_by() and summarize() for subpopulation summaries\n\nIn this step, you will use group_by() and summarize() to convert your mutated object to a new object called summarized.\n\nEach row in our dataset is a person. We want a dataset where each row is a year.\n\nUse group_by() function to group by year. The next operations will automatically be carried out within groups\nUse summarize() to aggregate to the 10th, 50th, and 90th percentiles within each year\n\np10 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.1)\np50 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.5)\np90 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.9)\n\n\nIf you get stuck, see how we did it at the end of this page.\n\n\n\n\n\n\nTip\n\n\n\nThat was a new way of calling a package! The Hmisc package has a bunch of miscellaneous functions. To install the package, type install.packages(\"Hmisc\"). One of the functions is wtd.quantile(), which summarizes data with weighted quantiles (e.g., the 10th percentile estimated in a survey with sampling weights). So why call it with Hmisc::wtd.quantile() instead of using library(Hmisc)? When you use library(), you load all the functions in a package. Hmisc is a big package, and some of the functions have the same names as other functions we use in tidyverse. Loading the whole package can create conflicts where two function shave the same name! Instead, the way we’ve written it above tells R to just look in the package for the particular function we’re using at that moment.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe summarized data frame should have 62 rows and 4 columns (year, education categories, p10, p50, and p90).\n\n\n\n\n\nSample summaries\n\n\n\n\nWeighted sample summaries",
+    "text": "group_by() and summarize() for subpopulation summaries\n\nIn this step, you will use group_by() and summarize() to convert your mutated object to a new object called summarized.\n\nEach row in our dataset is a person. We want a dataset where each row is a year. To get there, we will group our data by year and then summarize each group by a set of summary statistics.\n\nIntroducing summarize() with the sample mean\nTo see how summarize() works, let’s first summarize the sample mean income within each year. The input has one row per person. The result has one row per group. For each year, it records the sample mean income.\n\nfiltered |&gt;\n  group_by(year) |&gt;\n  summarize(mean_income = mean(incwage))\n\n# A tibble: 62 × 2\n    year mean_income\n   &lt;dbl&gt;       &lt;dbl&gt;\n 1  1962       6383.\n 2  1963       5831.\n 3  1964       6688.\n 4  1965       6066.\n 5  1966       6438.\n 6  1967       6745.\n 7  1968       7244.\n 8  1969       8465.\n 9  1970       9198.\n10  1971       8490.\n# ℹ 52 more rows\n\n\n\n\nUsing summarize() with weighted quantiles\nInstead of the mean, we plan to use three other summary statistics: the 10th, 50th, and 90th percentiles of income. We also want to incorporate the sampling weights provided with the Current Population Survey, in order to summarize the population instead of the sample.\nWe will use the wtd.quantile function to create weighted quantiles. This function is available in the Hmisc package. If you don’t have that package, install it with install.packages(\"Hmisc\"). Using the Hmisc package is tricky, because it has some functions with the same name as functions that we use in the tidyverse. Instead of loading the whole package, we will only load the functions we are using at the time we use them. Whenever we want to calculate a weighted quantile, we will call it with the code packagename::functionname() which in this case is Hmisc::wtd.quantile().\nThe wtd.quantile function will take three arguments:\n\nx is the variable to be summarized\nweights is the variable containing sampling weights\nprobs is the probability cutoffs for the quantiles. For the 10th, 50th, and 90th percentiles we want 0.1, 0.5, and 0.9.\n\nThe code below produces weighted quantile summaries.\n\nsummarized &lt;- filtered |&gt;\n  group_by(year) |&gt;\n  summarize(\n    p10 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.1),\n    p50 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.5),\n    p90 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.9),\n    .groups = \"drop\"\n  )\n\n\n\n\nSample summaries\n\n\n\n\nWeighted sample summaries",
     "crumbs": [
       " ",
       "Working with Data",
@@ -76,7 +76,7 @@
     "href": "topics/data_transformation.html#pivot_longer-to-reshape-data",
     "title": "Data transformation",
     "section": "pivot_longer() to reshape data",
-    "text": "pivot_longer() to reshape data\n\nIn this step, you will use pivot_longer() to convert your summarized object to a new object called pivoted. We first explain why, then explain the task.\n\nWe ultimately want to make a ggplot() where income values are placed on the y-axis. We want to plot the 10th, 50th, and 90th percentiles along this axis, distinguished by color. We need them all in one colun! But currently, they are in three columns.\nHere is the task. How our data look:\n\n\n# A tibble: 62 × 4\n   year   p10   p50   p90\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1  1962  2000  5100  9000\n2  1963  2000  5200  9200\n# ℹ 60 more rows\n\n\nHere we want our data to look:\n\n\n# A tibble: 186 × 3\n   year quantity income\n  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n1  1962 p10        2000\n2  1962 p50        5100\n3  1962 p90        9000\n4  1963 p10        2000\n5  1963 p50        5200\n6  1963 p90        9200\n# ℹ 180 more rows\n\n\nThis way, we can use year for the x-axis, quantity for color, and value for the y-axis.\nUse pivot_longer() to change the first data frame to the second.\n\nUse the cols argument to tell it which columns will disappear\nUse the names_to argument to tell R that the names of those variables will be moved to a column called quantity\nUse the values_to argument to tell R that the values of those variables will be moved to a column called income\n\nIf you get stuck, see how we did it at the end of this page.",
+    "text": "pivot_longer() to reshape data\n\nIn this step, you will use pivot_longer() to convert your summarized object to a new object called pivoted. We first explain why, then explain the task.\n\nWe ultimately want to make a ggplot() where income values are placed on the y-axis. We want to plot the 10th, 50th, and 90th percentiles along this axis, distinguished by color. We need them all in one colun! But currently, they are in three columns.\nHere is the task. How our data look:\n\n\n# A tibble: 62 × 4\n   year   p10   p50    p90\n  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1  1962 1826. 4460. 11733.\n2  1963 1770. 4484. 11934.\n# ℹ 60 more rows\n\n\nHere we want our data to look:\n\n\n# A tibble: 186 × 3\n   year quantity income\n  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n1  1962 p10       1826.\n2  1962 p50       4460.\n3  1962 p90      11733.\n4  1963 p10       1770.\n5  1963 p50       4484.\n6  1963 p90      11934.\n# ℹ 180 more rows\n\n\nThis way, we can use year for the x-axis, quantity for color, and value for the y-axis.\nUse pivot_longer() to change the first data frame to the second.\n\nUse the cols argument to tell it which columns will disappear\nUse the names_to argument to tell R that the names of those variables will be moved to a column called quantity\nUse the values_to argument to tell R that the values of those variables will be moved to a column called income\n\nIf you get stuck, see how we did it at the end of this page.\n\n\nShow the code answer\npivoted &lt;- summarized %&gt;%\n  pivot_longer(\n    cols = c(\"p10\",\"p50\",\"p90\"),\n    names_to = \"quantity\",\n    values_to = \"income\"\n  )",
     "crumbs": [
       " ",
       "Working with Data",
@@ -88,7 +88,7 @@
     "href": "topics/data_transformation.html#left_join-an-inflation-adjustment",
     "title": "Data transformation",
     "section": "left_join() an inflation adjustment",
-    "text": "left_join() an inflation adjustment\n\nIn this step, you will use left_join() to merge in an inflation adjustment\n\nA dollar in 1962 bought a lot more than a dollar in 2022. We will adjust for inflation using the Consumer Price Index, which tracks the cost of a standard basket of market goods. We already took this index to create a file inflation.csv,\n\ninflation &lt;- read_csv(\"https://info3370.github.io/data/inflation.csv\")\n\n\n\n# A tibble: 62 × 2\n   year inflation_factor\n  &lt;dbl&gt;            &lt;dbl&gt;\n1  1962            10.1 \n2  1963             9.95\n3  1964             9.82\n# ℹ 59 more rows\n\n\nThe inflation_factor tells us that $1 in 1962 could buy about as much as $10.10 in 2023. To take a 1962 income and report it in 2023 dollars, we should multiple it by 10.1. We need to join our data\n\n\n# A tibble: 186 × 3\n   year quantity income\n  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n1  1962 p10        2000\n2  1962 p50        5100\n3  1962 p90        9000\n# ℹ 183 more rows\n\n\ntogether with inflation.csv by the linking variable year. Use left_join() to merge inflation_factor onto the dataset pivoted. Below is a hypothetical example for the structure.\n\n# Hypothetical example\njoined &lt;- data_A |&gt;\n  left_join(\n    data_B,\n    by = join_by(key_variable_in_A_and_B)\n  )\n\nIf you get stuck, see how we did it at the end of this page.",
+    "text": "left_join() an inflation adjustment\n\nIn this step, you will use left_join() to merge in an inflation adjustment\n\nA dollar in 1962 bought a lot more than a dollar in 2022. We will adjust for inflation using the Consumer Price Index, which tracks the cost of a standard basket of market goods. We already took this index to create a file inflation.csv,\n\ninflation &lt;- read_csv(\"https://soc114.github.io/data/inflation.csv\")\n\n\n\n# A tibble: 62 × 2\n   year inflation_factor\n  &lt;dbl&gt;            &lt;dbl&gt;\n1  1962            10.1 \n2  1963             9.95\n3  1964             9.82\n# ℹ 59 more rows\n\n\nThe inflation_factor tells us that $1 in 1962 could buy about as much as $10.10 in 2023. To take a 1962 income and report it in 2023 dollars, we should multiple it by 10.1. We need to join our data\n\n\n# A tibble: 186 × 3\n   year quantity income\n  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n1  1962 p10       1826.\n2  1962 p50       4460.\n3  1962 p90      11733.\n# ℹ 183 more rows\n\n\ntogether with inflation.csv by the linking variable year. Use left_join() to merge inflation_factor onto the dataset pivoted. Below is a hypothetical example for the structure.\n\n# Hypothetical example\njoined &lt;- data_A |&gt;\n  left_join(\n    data_B,\n    by = join_by(key_variable_in_A_and_B)\n  )\n\n\n\nShow the code answer\njoined &lt;- pivoted |&gt;\n  left_join(\n    inflation,\n    by = join_by(year)\n  )",
     "crumbs": [
       " ",
       "Working with Data",
@@ -100,7 +100,7 @@
     "href": "topics/data_transformation.html#mutate-to-adjust-for-inflation",
     "title": "Data transformation",
     "section": "mutate() to adjust for inflation",
-    "text": "mutate() to adjust for inflation\n\nIn this step, you will use mutate() to multiple income by the inflation_factor\n\nThe mutate() function modifies columns. It can overwrite existing columns or create new columns at the right of the data set. The new variable is some transformation of the old variables.\n\n# Hypothetical example\nold_data |&gt;\n  mutate(new_variable = old_variable_1 + old_variable_2)\n\nUse mutate() to modify income so that it takes the values income * inflation_factor. If you get stuck, see how we did it at the end of this page.",
+    "text": "mutate() to adjust for inflation\n\nIn this step, you will use mutate() to multiple income by the inflation_factor\n\nThe mutate() function modifies columns. It can overwrite existing columns or create new columns at the right of the data set. The new variable is some transformation of the old variables.\n\n# Hypothetical example\nold_data |&gt;\n  mutate(new_variable = old_variable_1 + old_variable_2)\n\nUse mutate() to modify income so that it takes the values income * inflation_factor.\n\n\nShow the code answer\nmutated &lt;- joined |&gt;\n  mutate(income = income * inflation_factor)",
     "crumbs": [
       " ",
       "Working with Data",
@@ -124,7 +124,7 @@
     "href": "topics/data_transformation.html#all-together",
     "title": "Data transformation",
     "section": "All together",
-    "text": "All together\nPutting it all together, we have a pipeline that goes from data to the plot.\n\nread_dta(\"cps_00077.dta\") |&gt;\n  # Subset to cases working full year\n  filter(wkswork2 == 6) |&gt;\n  # Subset to cases with valid income\n  filter(incwage &gt; 0 & incwage &lt; 99999998) |&gt;\n  # Produce summaries\n  group_by(year) |&gt;\n  summarize(\n    p10 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.1),\n    p50 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.5),\n    p90 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.9\n    ),\n    .groups = \"drop\"\n  ) |&gt;\n  pivot_longer(\n    cols = c(\"p10\",\"p50\",\"p90\"),\n    names_to = \"quantity\",\n    values_to = \"income\"\n  ) |&gt;\n  # Join data for inflation adjustment\n  left_join(\n    read_csv(\"inflation.csv\"),\n    by = join_by(year)\n  ) |&gt;\n  # Apply the inflation adjustment\n  mutate(income = income * inflation_factor) |&gt;\n  # Produce a ggplot\n  ggplot(aes(x = year, y = income, color = quantity)) +\n  geom_line() +\n  xlab(\"Year\") +\n  scale_y_continuous(name = \"Annual Wage and Salary Income\\n(2023 dollars)\",\n                     labels = scales::label_dollar()) +\n  scale_color_discrete(name = \"Percentile of\\nDistribution\",\n                       labels = function(x) paste0(gsub(\"p\",\"\",x),\"th\")) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+    "text": "All together\nPutting it all together, we have a pipeline that goes from data to the plot.\n\ncps_data |&gt;\n  # Subset to cases working full year\n  filter(wkswork2 == 6) |&gt;\n  # Subset to cases with valid income\n  filter(incwage &gt; 0 & incwage &lt; 99999998) |&gt;\n  # Produce summaries\n  group_by(year) |&gt;\n  summarize(\n    p10 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.1),\n    p50 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.5),\n    p90 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.9\n    ),\n    .groups = \"drop\"\n  ) |&gt;\n  pivot_longer(\n    cols = c(\"p10\",\"p50\",\"p90\"),\n    names_to = \"quantity\",\n    values_to = \"income\"\n  ) |&gt;\n  # Join data for inflation adjustment\n  left_join(\n    read_csv(\"https://soc114.github.io/data/inflation.csv\"),\n    by = join_by(year)\n  ) |&gt;\n  # Apply the inflation adjustment\n  mutate(income = income * inflation_factor) |&gt;\n  # Produce a ggplot\n  ggplot(aes(x = year, y = income, color = quantity)) +\n  geom_line() +\n  xlab(\"Year\") +\n  scale_y_continuous(name = \"Annual Wage and Salary Income\\n(2023 dollars)\",\n                     labels = scales::label_dollar()) +\n  scale_color_discrete(name = \"Percentile of\\nDistribution\",\n                       labels = function(x) paste0(gsub(\"p\",\"\",x),\"th\")) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
     "crumbs": [
       " ",
       "Working with Data",
@@ -132,11 +132,11 @@
     ]
   },
   {
-    "objectID": "topics/data_transformation.html#finished-early",
-    "href": "topics/data_transformation.html#finished-early",
+    "objectID": "topics/data_transformation.html#want-to-do-more",
+    "href": "topics/data_transformation.html#want-to-do-more",
     "title": "Data transformation",
-    "section": "Finished early?",
-    "text": "Finished early?\nIf you are finished early, you could\n\nincorporate the educ variable in your plot. You might want to group by those who do and do not hold college degrees, perhaps using facet_grid()\ntry geom_histogram() for people’s incomes in a specific year\nexplore IPUMS-CPS for other variables and begin your own visualization",
+    "section": "Want to do more?",
+    "text": "Want to do more?\nIf you have finished and want to do more, you could\n\nincorporate the educ variable in your plot. You might want to group by those who do and do not hold college degrees, perhaps using facet_grid()\ntry geom_histogram() for people’s incomes in a specific year\nexplore IPUMS-CPS for other variables and begin your own visualization",
     "crumbs": [
       " ",
       "Working with Data",
@@ -455,76 +455,23 @@
     ]
   },
   {
-    "objectID": "topics/learning_exercise.html",
-    "href": "topics/learning_exercise.html",
-    "title": "Learning Exercise",
-    "section": "",
-    "text": "Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women1 with a 1-year-old child at home. Our data include those with at least one child age 0–18.",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
-    ]
-  },
-  {
-    "objectID": "topics/learning_exercise.html#synthetic-data",
-    "href": "topics/learning_exercise.html#synthetic-data",
-    "title": "Learning Exercise",
-    "section": "Synthetic data",
-    "text": "Synthetic data\nTo speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010–2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated synthetic data: we created a new dataset for you to use with simulated people using these known probabilities.\nSynthetic data is good in our setting for two reasons\n\nwe know the answer\nyou can download the synthetic data right from this website\n\nFor transparency, here is the code with which we created the synthetic data. The line below will load the synthetic data.\n\nparents &lt;- read_csv(\"https://info3370.github.io/data/parents.csv\")\n\nYour synthetic data intentionally omits any parents with child age 1! Here is a graph showing the averages in your data, grouped by child age and sex.",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
-    ]
-  },
-  {
-    "objectID": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
-    "href": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
-    "title": "Learning Exercise",
-    "section": "Your task: Predict at child age 1",
-    "text": "Your task: Predict at child age 1\nYour task is to answer the question: what proportion are employed among female respondents whose youngest child is 1 year old?\n\nyou can use a model with the other ages\nyou can use strategies from the statistical learning page\nyou can use the male respondents if you think they are helpful\n\nNear the end of discussion, we will ask every table to make one estimate. Then we will reveal the truth and see who is closest!",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
-    ]
-  },
-  {
-    "objectID": "topics/learning_exercise.html#one-approach-to-the-task",
-    "href": "topics/learning_exercise.html#one-approach-to-the-task",
-    "title": "Learning Exercise",
-    "section": "One approach to the task",
-    "text": "One approach to the task\nOne approach is to estimate a linear regression model with child_age interacted with sex. We would first create a fitted model object,\n\nmodel &lt;- lm(at_work ~ sex * child_age, data = parents)\n\nthen define the target population to predict\n\ntarget_population &lt;- tibble(sex = \"female\", child_age = 0)\n\nand report a predicted value for the employment rate of female respondents with a 1-year-old youngest child.\n\npredict(model, newdata = target_population)\n\n        1 \n0.5468421",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
-    ]
-  },
-  {
-    "objectID": "topics/learning_exercise.html#footnotes",
-    "href": "topics/learning_exercise.html#footnotes",
-    "title": "Learning Exercise",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nEach married pair need not be of different sex. The data include same-sex couples.↩︎",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
-    ]
-  },
-  {
     "objectID": "topics/visualization.html",
     "href": "topics/visualization.html",
     "title": "Visualization",
     "section": "",
-    "text": "This topic is covered on Jan 9.\nVisualizing data is an essential skill for data science. We will write our first code to visualize how countries’ level of economic output is related to their level of inequality. We will use data reported in tabular form in Jencks 2002 Table 1, made available in digital form in jencks_table1.csv.",
+    "text": "This topic is covered on Jan 14.\nVisualizing data is an essential skill for data science. We will write our first code to visualize how countries’ level of economic output is related to their level of inequality. We will use data reported in tabular form in Jencks 2002 Table 1, made available in digital form in jencks_table1.csv.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Visualization"
+    ]
+  },
+  {
+    "objectID": "topics/visualization.html#a-motivating-question-economic-output-and-inequality",
+    "href": "topics/visualization.html#a-motivating-question-economic-output-and-inequality",
+    "title": "Visualization",
+    "section": "A motivating question: Economic output and inequality",
+    "text": "A motivating question: Economic output and inequality\nIs economic output higher in countries with higher levels of income inequality? Some argue that this would be the case, for example if high levels of income inequality provide an incentive for hard work and innovation. But is it true?\n\n\n\n\n\n\n\n\n\nTo begin answering this question, we first have to define measures of economic output (the \\(y\\)-axis) and inequality (the \\(x\\)-axis).\n\nMeasuring economic output\nWe use Gross Domestic Product (GDP) Per Capita as a measure of economic output. This measure captures the total economic production of a country divided by the population of the country. For ease of comparison, our data normalizes GDP per capita by dividing by the U.S. GDP per capita. In our data, Sweden’s GDP per capita is recorded as 0.68, indicating that Sweden’s GDP per capita was 68% as high as the U.S. GDP per capita at the time the data were collected.\n\n\nMeasuring inequality\nTo measure inequality, we consider a measure that asks how many times higher an income at the top of the distribution is compared with an income at the bottom of the distribution. Our measure is called the 90/10 income ratio. We will illustrate this concept using the 2022 U.S. household income distribution, visualized below.\n\n\n\n\n\n\n\n\n\nThis graph is a histogram. The width of each bar in the histogram is $25k. The height of each bar shows the number of households with incomes falling within the range of household incomes (x-axis) that correspond to the width of the bar.\nThere are two summary statistics: the 90th percentile in blue and the 10th percentile in green. The 90th percentile is the income value such that 90% of households have incomes that are lower. 90% of the gray mass is to the left of the blue line. The 10th percentile is the income value such that 10% of households have incomes that are lower. We can think of the 90th percentile as a measure of a high income in the distribution and the 10th percentile as a measure of a low income in the distribution.\nThe 90/10 income ratio is the 90th percentile divided by the 10th percentile. For U.S. household incomes in 2022, this works out as\n\\[\n\\text{90/10 ratio} = \\frac{\\text{90th percentile}}{\\text{10th percentile}} = \\frac{$212,110}{$15,640} = 13.6\n\\]\nA higher value of the 90/10 ratio corresponds to higher inequality. In our hypothetical case, a household at the 90th percentile has an income that is 13.6 times as high as the income of a household at the 10th percentile.",
     "crumbs": [
       " ",
       "Working with Data",
@@ -548,7 +495,7 @@
     "href": "topics/visualization.html#explore-the-data",
     "title": "Visualization",
     "section": "Explore the data",
-    "text": "Explore the data\nType table1 in your console. You can see the data!\n\nThe data contain four variables (columns):\n\ncountry country name\nratio ratio of 90th to 10th percentile of household income. You can think of this as how many dollars a high-income household receives for each dollar that a low-income household receives\ngdp Gross Domestic Product Per Capita, expressed as a proportion of U.S. GDP\nlife_expectancy life expectancy at birth\n\nThere is one row for each country. For details on the data, see Jencks (2002) Table 1.",
+    "text": "Explore the data\nType table1 in your console. You can see the data!\n\nThe data contain four variables (columns):\n\ncountry country name\nratio ratio is the 90/10 income ratio in the country\ngdp is GDP per capita in the country, expressed as a proportion of U.S. GDP\nlife_expectancy life expectancy at birth\n\nThere is one row for each country. For details on the data, see Jencks (2002) Table 1.",
     "crumbs": [
       " ",
       "Working with Data",
@@ -560,562 +507,12 @@
     "href": "topics/visualization.html#produce-a-visualization",
     "title": "Visualization",
     "section": "Produce a visualization",
-    "text": "Produce a visualization\nTo visualize data, we will use the ggplot() function which you have already loaded into your R session as part of the tidyverse package.\n\nBegin with an empty graph\nA function in R takes in arguments and returns an object. The arguments are the inputs that we give to the function. The function then returns something back to us.\nThe ggplot() function takes two arguments:\n\ndata = table1 says that data will come from the object table1\nmapping = aes(x = ratio, y = gdp) maps the data to the aesthetics of the graph. This line says that the ratio variable will be placed on the \\(x\\)-axis and the gdp variable will be on the \\(y\\)-axis.\n\nWhen you run this code, the function returns an object which is the resulting plot. The plot will appear in the Plots pane in RStudio.\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n)\n\n\n\n\n\n\n\n\n\n\nAdd a layer to the graph\nOnce we have an empty graph, we can add elements to the graph in layers. ggplot() is set up to add layers connected by a + symbol between lines. For example, we can add points to the graph by adding the layer geom_point().\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n) +\n  geom_point()",
+    "text": "Produce a visualization\nTo visualize data, we will use the ggplot() function which you have already loaded into your R session as part of the tidyverse package.\n\nBegin with an empty graph\nA function in R takes in arguments and returns an object. The arguments are the inputs that we give to the function. The function then returns something back to us.\nThe ggplot() function takes two arguments:\n\ndata = table1 says that data will come from the object table1\nmapping = aes(x = ratio, y = gdp) maps the data to the aesthetics of the graph. This line says that the ratio variable will be placed on the \\(x\\)-axis and the gdp variable will be on the \\(y\\)-axis.\n\nWhen you run this code, the function returns an object which is the resulting plot. The plot will appear in the Plots pane in RStudio.\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n)\n\n\n\n\n\n\n\n\n\n\nAdd a layer to the graph\nOnce we have an empty graph, we can add elements to the graph in layers. ggplot() is set up to add layers connected by a + symbol between lines. For example, we can add points to the graph by adding the layer geom_point().\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\nImprove labels\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n) +\n  geom_point() +\n  labs(\n    x = \"Inequality: 90th percentile / 10th percentile of household income\",\n    y = \"GDP as a Fraction of U.S. GDP\"\n  )\n\n\n\n\n\n\n\n\n\n\nCustomize in many ways\nThere are many ways to customize the graph. For example, the code below\n\nloads the ggrepel package in order to add country labels to the points\nuses geom_smooth to add a trend line\nuses scale_y_continuous to convert the \\(y\\)-axis labels from decimals to percentages\n\n\nlibrary(ggrepel)\ntable1 |&gt;\n  ggplot(aes(x = ratio, y = gdp)) +\n  geom_point() +\n  geom_smooth(\n    formula = 'y ~ x',\n    method = \"lm\", \n    se = F, \n    color = \"black\"\n  ) +\n  geom_text_repel(\n    aes(label = country),\n    size = 3\n  ) +\n  scale_y_continuous(\n    labels = scales::label_percent(),\n    name = \"GDP as a Percent of U.S.\"\n  ) +\n  scale_x_continuous(name = \"Inequality: 90th percentile / 10th percentile of household income\") +\n  theme(legend.position = \"none\")",
     "crumbs": [
       " ",
       "Working with Data",
       "Visualization"
     ]
-  },
-  {
-    "objectID": "topics/visualization.html#customizing-your-graph",
-    "href": "topics/visualization.html#customizing-your-graph",
-    "title": "Visualization",
-    "section": "Customizing your graph",
-    "text": "Customizing your graph\nNow it is your turn! Create additional layers with additional lines connected by +. Be creative! Here are some ideas:\n\nadd a geom_smooth() layer to show the trend in the data\nadd a geom_text() layer to label the points with country names. To do so, you will need to add the aesthetic mapping label = country.\n\nPro tip: If you want text to be far from points, install and load the ggrepel package and use geom_text_repel.\n\nadd labels to your visualization for axes and titles\nlabel the axes with scale_x_continuous(name = \"your text here\") and scale_y_continuous(name = \"your text here\")\n\nThere are many possible graphs to make. An example is below.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Visualization"
-    ]
-  },
-  {
-    "objectID": "topics/visualization.html#interpret-your-graph",
-    "href": "topics/visualization.html#interpret-your-graph",
-    "title": "Visualization",
-    "section": "Interpret your graph",
-    "text": "Interpret your graph\nOnce you are happy with your graph,\n\nwrite a few sentences explaining your graph\ndiscuss what questions you would like to ask next",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Visualization"
-    ]
-  },
-  {
-    "objectID": "assignments/pset3.html",
-    "href": "assignments/pset3.html",
-    "title": "Problem Set 3: Causal Inference",
-    "section": "",
-    "text": "Due: 5pm on Friday, February 14.\nStudent identifer: [type your anonymous identifier here]",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 3"
-    ]
-  },
-  {
-    "objectID": "assignments/pset3.html#potential-outcomes-in-a-hypothetical-setting",
-    "href": "assignments/pset3.html#potential-outcomes-in-a-hypothetical-setting",
-    "title": "Problem Set 3: Causal Inference",
-    "section": "1. Potential outcomes in a hypothetical setting",
-    "text": "1. Potential outcomes in a hypothetical setting\nJose says that coming to UCLA caused him to discover sociology, and it became his major! He says that if he had gone to UCSD, he would have stuck with biology.\n1.1 (5 points)\nIn Jose’s claim, what is the treatment?\nAnswer. Your answer here\n1.2 (5 points)\nUsing the mathematical notation we discussed in class, define the two potential outcomes to which Jose is referring.\nAnswer. Your answer here\n1.3 (5 points) \nIn a sentence or two, say how the Fundamental Problem of Causal Inference applies to Jose’s claim.\nAnswer. Your answer here\n1.4 (5 points) \nUsing conditional expectations or probabilities, write the following in math: the probability of majoring in sociology is higher among students who attend UCLA than among students who attend UCSD.\nAnswer. Your answer here\n1.5 (5 points) \nUsing conditional expectations or probabilities, write the following in math: the probability of majoring in sociology would be higher if we intervened to send students to UCLA than if we intervened to send them to UCSD.\nAnswer. Your answer here",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 3"
-    ]
-  },
-  {
-    "objectID": "assignments/pset3.html#potential-outcomes-in-a-real-experiment",
-    "href": "assignments/pset3.html#potential-outcomes-in-a-real-experiment",
-    "title": "Problem Set 3: Causal Inference",
-    "section": "2. Potential outcomes in a real experiment",
-    "text": "2. Potential outcomes in a real experiment\nThis problem is based on:\nBertrand, M & Mullainathan, S. 2004. “Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination.” American Economic Review 94(4):991–1013.\nRead the first 10 pages of the paper (through the end of section 2). In this paper,\n\nthe unit of analysis is a resume submitted to a job opening\nthe treatment is the name at the top of the resume\nthe outcome is whether the employer called or emailed back for an interview\n\n2.1. (5 points) Fundamental Problem \nOne submitted resume had the name “Emily Baker.” It yielded a callback. The same resume could have had the name “Lakisha Washington.” Explain how the Fundamental Problem of Causal Inference applies to this case (1–2 sentences).\n2.2. (5 points) Exchangeability \nIn a sentence, what is the exchangeability assumption in this study? For concreteness, for this question you may suppose that the only names in the study were “Emily Baker” and “Lakisha Washington.” Be sure to explicitly state the treatment and the potential outcomes.\n2.3 (15 points) Analyzing the experimental data \nLoad packages that our code will use.\n\nlibrary(tidyverse)\nlibrary(haven)\n\nDownload the study’s data from OpenICPSR: https://www.openicpsr.org/openicpsr/project/116023/version/V1/view. This will require creating an account and agreeing to terms for using the data ethically. Put the data in the folder on your computer where this .Rmd is located. Read the data into R using read_dta.\n\nd &lt;- read_dta(\"lakisha_aer.dta\")\n\n\nIf you have an error, you might need to set your working directory first. This tells R where to look for data files. At the top of RStudio, click Session -&gt; Set Working Directory -&gt; To Source File Location.\n\nYou will now see d in your Global Environment at the top right of RStudio.\nWe will use two variables:\n\n\n\nName\nRole\nValues\n\n\n\n\ncall\noutcome\n1 if resume submission yielded a callback\n\n\n\n\n0 if not\n\n\nrace\ncategory of treatments\nb if first name signals Black\n\n\n\n\nw if first name signals white\n\n\n\nThe top of Table 1 reports callback rates: 9.65% for white names and 6.45% for Black names. Reproduce those numbers. Write code that reproduces these numbers.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 3"
-    ]
-  },
-  {
-    "objectID": "topics/r_basics.html",
-    "href": "topics/r_basics.html",
-    "title": "Setting up your computer",
-    "section": "",
-    "text": "This topic is covered on Jan 7.\nIn order to begin producing objective evidence about inequality, you will first need to prepare your computer to analyze data.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Setting up your computer"
-    ]
-  },
-  {
-    "objectID": "topics/r_basics.html#install-statistical-software-r",
-    "href": "topics/r_basics.html#install-statistical-software-r",
-    "title": "Setting up your computer",
-    "section": "Install statistical software: R",
-    "text": "Install statistical software: R\nWe will write code in the R programming language. R is available as open-source software at https://cran.r-project.org/. The first step to set up your computer is to install R.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Setting up your computer"
-    ]
-  },
-  {
-    "objectID": "topics/r_basics.html#install-the-interface-rstudio",
-    "href": "topics/r_basics.html#install-the-interface-rstudio",
-    "title": "Setting up your computer",
-    "section": "Install the interface RStudio",
-    "text": "Install the interface RStudio\nWe will work with R using an interface called RStudio, which makes it easy to write code and see results all in one place. You should install RStudio Desktop, which is available to download here: https://posit.co/download/rstudio-desktop/",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Setting up your computer"
-    ]
-  },
-  {
-    "objectID": "topics/r_basics.html#install-the-tidyverse-package",
-    "href": "topics/r_basics.html#install-the-tidyverse-package",
-    "title": "Setting up your computer",
-    "section": "Install the tidyverse package",
-    "text": "Install the tidyverse package\nMany R functions are made freely available in open-source packages that contain sets of functions designed to carry out common tasks. One package we will use often is the tidyverse, which contains functions to manipulate and visualize data. To install tidyverse, first open RStudio. Find the Console, which is a place where you can type code to immediately execute.\n\nIn the console type,\n\ninstall.packages(\"tidyverse\")\n\nand press enter or return on your keyboard. This runs a line of code to install a set of software packages.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Setting up your computer"
-    ]
-  },
-  {
-    "objectID": "topics/r_basics.html#install-tinytex-to-produce-pdf-reports",
-    "href": "topics/r_basics.html#install-tinytex-to-produce-pdf-reports",
-    "title": "Setting up your computer",
-    "section": "Install tinytex to produce PDF reports",
-    "text": "Install tinytex to produce PDF reports\nHomework assignments will be submitted in PDF form. We will learn how to use RStudio to produce a PDF documents that embed your code, results, and written responses. In order to do so, your computer needs to have some version of LaTeX, which is software that typesets documents. Some versions of LaTeX are large and difficult to install. If you have never used LaTeX on your computer, we recommend that you install as follows: paste the code below into your R console and press enter or return to install a minimal version of the software.\n\ninstall.packages(\"tinytex\")\ntinytex::install_tinytex()\n\nStudents often find this step confusing, and computers present various errors. If you have an error, look on Piazza to see if anyone else has encountered your error. If not, then post a screenshot of your error on Piazza so we can help you to resolve the problem.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Setting up your computer"
-    ]
-  },
-  {
-    "objectID": "topics/r_basics.html#support-and-guidance",
-    "href": "topics/r_basics.html#support-and-guidance",
-    "title": "Setting up your computer",
-    "section": "Support and guidance",
-    "text": "Support and guidance\nCongratulations on preparing your computing environment!\nThroughout the first part of the course, we will often use the online textbook R for Data Science by Hadley Wickham as a reference. The book will introduce how to work with data using R and RStudio. If you want additional guidance for setting up the software, see the Prerequisites section of R4DS. To learn more about RStudio, visit the RStudio User Guide.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Setting up your computer"
-    ]
-  },
-  {
-    "objectID": "assignments/pset0.html",
-    "href": "assignments/pset0.html",
-    "title": "Problem Set 0: Computing environment",
-    "section": "",
-    "text": "Due: 5pm on Friday, January 10.\nTo complete the problem set, download pset0.qmd. Add these four lines of code to the top if they do not appear in your download,\n---\ntitle: \"Problem Set 0: Computing environment\"\nformat: pdf\n---\nand render to a PDF. You will then submit two things:",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 0"
-    ]
-  },
-  {
-    "objectID": "assignments/pset0.html#help-with-gettinng-started",
-    "href": "assignments/pset0.html#help-with-gettinng-started",
-    "title": "Problem Set 0: Computing environment",
-    "section": "Help with gettinng started",
-    "text": "Help with gettinng started\nIf you are stuck, make sure that you first follow the installation instructions in setting up your computer.\nOpen the downloaded problem set in RStudio. You should then click the “Render” button as shown in the image below.\n This will run the R code and combine the output with the text in the document into a PDF. By default, this PDF will be output in the same directory that you saved pset0.qmd in. You will then submit the PDF on Canvas.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 0"
-    ]
-  },
-  {
-    "objectID": "assignments/pset0.html#issues",
-    "href": "assignments/pset0.html#issues",
-    "title": "Problem Set 0: Computing environment",
-    "section": "Issues",
-    "text": "Issues\nIf you run into issues while attempting to render the Problem Set, be sure to open a question on Piazza!",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 0"
-    ]
-  },
-  {
-    "objectID": "who_we_are.html",
-    "href": "who_we_are.html",
-    "title": "Who We Are",
-    "section": "",
-    "text": "Get to know a little bit about our teaching team! For office hours, see the Syllabus.\n\n\n\n\n\n\n\n\nIan Lundberg\nianlundberg@ucla.edu\n(he / him)\nWorking with data to understand inequality brings me joy and meaning, as I first discovered as a college student years ago. I hope to share that joy with you! Other joys of mine include hiking, surfing, and oatmeal with blueberries.\n\n\n\n\n\n\n\n\nChristina Wilmot\ncwilmot@ucla.edu (she / they)\nI am interested in studying the many ways that technology and society interact. My background is in computer science and software engineering, so I really enjoy bringing those tools to sociologists. Outside of work I enjoy crafting, gaming, and obsessing over my two adorable cats.\n\n\n\n\n\nNathan Hoffmann\nnathanihoff@g.ucla.edu (he / him)\nI’m a PhD candidate in sociology who uses statistics and machine learning to study international migration, education, and sexuality. I also like cooking, biking, and concerts."
-  },
-  {
-    "objectID": "topics/interventions.html",
-    "href": "topics/interventions.html",
-    "title": "Causal Interventions",
-    "section": "",
-    "text": "If we want to reduce inequality, we want to know the effect of an intervention: what would happen if some treatment went differently?\nAs a running illustration, this section considers the rapid expansion of higher education over the 20th century. We will discuss how completion of a college degree causally increases economic outcomes, especially for students unlikely to finish college.\nThis material draws on the following book:\n\nBrand, Jennie E. 2023. Overcoming the Odds: The Benefits of Completing College for Unlikely Graduates. Russell Sage Foundation.\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Randomized experiments",
-      "Causal Interventions"
-    ]
-  },
-  {
-    "objectID": "slides/m_discussion_sailing.html",
-    "href": "slides/m_discussion_sailing.html",
-    "title": "Untitled",
-    "section": "",
-    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
-  },
-  {
-    "objectID": "slides/m_discussion_sailing.html#a-sailing-class",
-    "href": "slides/m_discussion_sailing.html#a-sailing-class",
-    "title": "Untitled",
-    "section": "",
-    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
-  },
-  {
-    "objectID": "office_hours.html",
-    "href": "office_hours.html",
-    "title": "Office Hours",
-    "section": "",
-    "text": "Person\nTime\nLocation\n\n\n\n\nNathan\nT 1:30–2:30pm\nHaines A55\n\n\nIan\nTh 1–2pm\nHaines 241C\n\n\nChristina\nTh 2–3pm\nHaines A58-C\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "assignments/pset4.html",
-    "href": "assignments/pset4.html",
-    "title": "Problem Set 4: Statistical Learning",
-    "section": "",
-    "text": "Due: 5pm on Friday, Feb 28.\nThis problem set has not yet been posted.\n\n\n\n Back to top",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 4"
-    ]
-  },
-  {
-    "objectID": "assignments/project.html",
-    "href": "assignments/project.html",
-    "title": "Final Project",
-    "section": "",
-    "text": "The culmination of the course is a group research project. You will\nYou can answer any question about inequality (broadly defined) using the ideas we learned in this course.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Project"
-    ]
-  },
-  {
-    "objectID": "assignments/project.html#what-you-will-submit",
-    "href": "assignments/project.html#what-you-will-submit",
-    "title": "Final Project",
-    "section": "What you will submit",
-    "text": "What you will submit\nThere are two submitted items, both due 5pm on Friday, Mar 7.\nWriteup. A .qmd document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.\nSlides. A PDF that you will present in discussion. Keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. Your presentation should be 10 minutes or less.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Project"
-    ]
-  },
-  {
-    "objectID": "assignments/project.html#group-structure",
-    "href": "assignments/project.html#group-structure",
-    "title": "Final Project",
-    "section": "Group structure",
-    "text": "Group structure\nWe will form groups of about 5 students each within discussion sections. Groups will be formed during discussion in the middle of the quarter.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Project"
-    ]
-  },
-  {
-    "objectID": "assignments/project.html#key-components-of-the-project",
-    "href": "assignments/project.html#key-components-of-the-project",
-    "title": "Final Project",
-    "section": "Key components of the project",
-    "text": "Key components of the project\nYour goal should be to tell us a story using the data. What do we learn by studying this outcome, aggregated this way, in these subgroups from this population?\nA few points should be part of your writeup:\n\nDefine your unit of analysis\nDefine your target population\n\nMotivate: why is this population interesting to study?\n\nDescribe how your sample was chosen from that population\n\nthis may be a probability sample, such as those available via IPUMS. If so, tell us a little bit about the sampling design\nthis may be a convenience sample. If so, why does it speak to the population and what are the limitations?\nthis may be data on the entire population, as in our baseball example\n\nChoose an outcome variable, which is defined for each unit in the population. Your outcome variable can be a factual variable (\\(Y\\)) for descriptive claims, or a potential outcome (\\(Y^a\\)) or difference in potential outcomes (\\(Y^1-Y^0\\)) for causal claims.\n\nexample: annual wage and salary income\n\nChoose one or more variables on which to create population subgroups\n\nexample: subgroups defined by sex (male and female)\n\nChoose a summary statistic, which aggregates the outcome distribution to one summary per subgroup\n\nexamples: proportion, mean, median, 90th percentile\n\nWrite with clarity on causal assumptions\n\nif your goal is causal with potential outcomes, draw a DAG in which those potential outcomes can be identified by an assumption of conditional exchangeability. If there are unmeasured confounders, discuss how their omission from your DAG may threaten the credibility of your estimates. It is ok if the assumptions are doubtful as long as you write them down clearly.\nif your goal is descriptive with only factual outcomes, then write your results carefully using only descriptive language. As a heuristic, if your goal is descriptive then you should not be using the sentence structure “X [verb] Y”, such as “going to college increases earnings.” This claim suggests a college graduate would have earned less if they had not gone to college—a counterfactual outcome we did not see. For truly descriptive claims, you should phrase more like: “There is a difference in earnings among those who did and did not go to college.” A heuristic to recognize a non-causal claim is that it can be phrased it in an “among” statement: “Among subgroup A, we find ___. Among subgroup B, we find ___.” Or “There is a disparity in Y across subgroups defined by X.”\n\nVisualize your findings in a ggplot",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Project"
-    ]
-  },
-  {
-    "objectID": "assignments/project.html#considerations-to-bear-in-mind",
-    "href": "assignments/project.html#considerations-to-bear-in-mind",
-    "title": "Final Project",
-    "section": "Considerations to bear in mind",
-    "text": "Considerations to bear in mind\n\nWeights. If your sample is drawn from the population with unequal probabilities, you should use sampling weights\nModels. If your question involves many subgroups (e.g., ages) with few observations in each subgroup, you can (but are not required to) use a statistical model to estimate your summary statistic in the subgroup by a predicted value. For example, you could use OLS to predict the proportion mean income at each age. If you do this, you should report the predicted value of the summary statistic, not the coefficients of the model.\nAggregation. Your data must begin with units (e.g., people) who you aggregate into subgroups (e.g., age groups). Your data might come pre-aggregated, such as data where each row contains data for all students in a particular college or university. Then you would need to aggregate further, such as to produce summaries for private versus public universities.\nDropped cases. As you move from raw data to the data that produce your graph, you might drop cases on the way. For example, some cases may have missing values on key predictors. Report how many are dropped, and why. Our goal here is transparent, open science.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Project"
-    ]
-  },
-  {
-    "objectID": "assignments/project.html#have-fun",
-    "href": "assignments/project.html#have-fun",
-    "title": "Final Project",
-    "section": "Have fun",
-    "text": "Have fun\nAs a teaching team, the project is our favorite part of the course. Preparing you to succeed in the project has been (in some sense) the entire goal of all that precedes the project in the course. We hope you will find joy in answering questions with data, as we do.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Project"
-    ]
-  },
-  {
-    "objectID": "forms.html",
-    "href": "forms.html",
-    "title": "Forms",
-    "section": "",
-    "text": "Assignment extension form. If you are experiencing an exceptional circumstance that may warrant an extension, use this to request one.\nRegrade request form. If you think we have graded something wrong, you can report it on this form. Responses are only accepted for within 72 hours of grade post.\nExcused absence form. To request an excused absence from lecture or discussion.\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Schedule",
-    "section": "",
-    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining counterfactuals\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
-  },
-  {
-    "objectID": "schedule.html#lecture-topics",
-    "href": "schedule.html#lecture-topics",
-    "title": "Schedule",
-    "section": "",
-    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining counterfactuals\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
-  },
-  {
-    "objectID": "schedule.html#assignments",
-    "href": "schedule.html#assignments",
-    "title": "Schedule",
-    "section": "Assignments",
-    "text": "Assignments\n\n\n\nDue Date\nAssignment\n\n\n\n\nFri, Jan 10 at 5pm\nProblem Set 0\n\n\nFri, Jan 17 at 5pm\nProblem Set 1\n\n\nFri, Jan 24 at 5pm\nPeer Review 1\n\n\nFri, Jan 31 at 5pm\nProblem Set 2\n\n\nFri, Feb 07 at 5pm\nPeer Review 2\n\n\nFri, Feb 14 at 5pm\nProblem Set 3\n\n\nFri, Feb 21 at 5pm\nPeer Review 3\n\n\nFri, Feb 28 at 5pm\nProblem Set 4\n\n\nFri, Mar 07 at 5pm\nProject\n\n\nFri, Mar 14 at 5pm\nProject Peer Review"
-  },
-  {
-    "objectID": "slides/m_discussion_poststratification_dag.html",
-    "href": "slides/m_discussion_poststratification_dag.html",
-    "title": "m_discussion_poststratification_dag",
-    "section": "",
-    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
-  },
-  {
-    "objectID": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
-    "href": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
-    "title": "m_discussion_poststratification_dag",
-    "section": "",
-    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
-  },
-  {
-    "objectID": "topics/asking_questions.html",
-    "href": "topics/asking_questions.html",
-    "title": "Asking questions with data",
-    "section": "",
-    "text": "slides\nAsking your own research question is fun, and it is also daunting. There is no formula for asking a good question, and much research involves trial and error. In this lecture, we will discuss together what makes a good research question.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Asking questions with data"
-    ]
-  },
-  {
-    "objectID": "topics/asking_questions.html#some-characteristics-of-a-good-question",
-    "href": "topics/asking_questions.html#some-characteristics-of-a-good-question",
-    "title": "Asking questions with data",
-    "section": "Some characteristics of a good question",
-    "text": "Some characteristics of a good question\nWhile good questions come in many forms, good research questions often has a few characteristics.\n\nA unit of analysis\nThe unit of analysis is the bedrock of a good research question. What will a row of your dataset represent? While the answer may seem straightforward, many units of analysis are possible: a person, a school, a neighborhood, a country, etc. In settings with repeated observations, the unit of analysis might be a person observed at a particular age: Jose at age 29 may be one row of your dataset and Jose at age 30 may be another row. The unit of analysis is the unit at which the outcome is defined, so getting it right is important.\n\n\nA clear population\nA good research question addresses a population that is relevant to the author’s argument. A well-defined population could be a set of units, such as American residents in a certain age range. It could be the set of all students at Cornell. It could also be a set of aggregate entities, such as the population of all four-year colleges and universities in the U.S., where each unit in the population is a college or university.\nWhen the population is well-defined, a reader should be able to imagine making a list of all the units in that population. When presented with a new unit and asked whether that unit is part of the population, you should be able to confidently answer “yes” or “no” and not “maybe.”\nIt is rarely satisfying to answer the question “who is being studied?” with the answer “the people in my sample.” While full-count enumerations of interesting populations exist, usually your sample is a subset of a broader population of interest. Good research tells us who that population is.\n\n\nA precise outcome\nFor each unit in the population, there is an outcome. This might be the income of an individual person, or the graduation rate of an individual college. A good research question tells you what the outcome is, and why it matters.\n\n\nThe potential for surprising results\nThis may be the hardest to pin down. Before you work with data, try to tell a story about why the results might go one way or another way. Perhaps you study a particular population of employed people where there is one set of reasons to expect men to earn more and another set of reasons to expect women to earn more. Try to convince yourself that the results could go either way! This builds excitement about the empirical answer, because it shows that the answer is really unknown before data analysis. Write down your arguments because they will also help readers be excited about your questions.\nQuestions where only one answer is plausible are often tedious. Questions that are exciting are often the ones where results could surprise you by going several possible directions.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Asking questions with data"
-    ]
-  },
-  {
-    "objectID": "topics/working_with_data.html",
-    "href": "topics/working_with_data.html",
-    "title": "Working with data",
-    "section": "",
-    "text": "This topic is covered on Jan 7.\n\nData science is a world of abundant opportunities. Over recent decades, the field has been transformed by the rapid growth of both computational power and available data. With the proliferation of new technological advances and data opportunities, a social scientist might reasonably ask: where do I begin?\nA good place to begin is to first\n\nChoose a question data can answer\nWork with data to answer the question\n\nWe will first talk about how to ask a good question that data can answer. Then, we will begin preparing our computers with software and tools to answer those questions. Over the quarter, we will develop the skills to ask our own questions and find data to answer them.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      " ",
-      "Working with Data"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Social Data Science",
-    "section": "",
-    "text": "Together, we will use tools from data science to answer social science questions. As an area of application, we will focus on questions about inequality and social stratification.",
-    "crumbs": [
-      " ",
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#learning-goals",
-    "href": "index.html#learning-goals",
-    "title": "Social Data Science",
-    "section": "Learning goals",
-    "text": "Learning goals\nAs a result of participating in this course, students will be able to\n\nvisualize economic inequality with graphs that summarize survey data\nconnect theories about inequality to quantitative empirical evidence\nevaluate the effects of hypothetical interventions to reduce inequality\nconduct data analysis using the R programming language",
-    "crumbs": [
-      " ",
-      "Home"
-    ]
-  },
-  {
-    "objectID": "assignments/pset2.html",
-    "href": "assignments/pset2.html",
-    "title": "Problem Set 2: Data Transformation",
-    "section": "",
-    "text": "Due: 5pm on Wednesday, February 14.\nStudent identifer: [type your anonymous identifier here]\nThis problem set draws on the following paper.\nA note about sex and gender. As we have discussed in class, sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 2"
-    ]
-  },
-  {
-    "objectID": "assignments/pset2.html#data-analysis-existing-question",
-    "href": "assignments/pset2.html#data-analysis-existing-question",
-    "title": "Problem Set 2: Data Transformation",
-    "section": "1. Data analysis: Existing question",
-    "text": "1. Data analysis: Existing question\n25 points. Reproduce Figure 1 from the paper.\nVisit cps.ipums.org to download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. Include these variables in your cart: sex, age, asecwt, empstat.\nTo reduce extract size, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.\n\n\n\n\n\n\nTip\n\n\n\nLook ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.\n\n\nOn your computer, analyze these data.\n\nfilter to asecwt &gt; 0 (see paper footnote on p. 6995 about negative weights)\nmutate to create an employed variable indicating that empstat == 10 | empstat == 12\nmutate to convert sex to a factor variable using as_factor\ngroup by sex and year\nsummarize the proportion employed: use weighted.mean to take the mean of employed using the weight asecwt\n\nYour figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels. For example, it would be more accurate to the data to label the legend “Sex” with values “Male” and “Female.”\n\nlibrary(tidyverse)\nlibrary(scales)\nlibrary(haven)",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 2"
-    ]
-  },
-  {
-    "objectID": "assignments/pset2.html#a-new-outcome",
-    "href": "assignments/pset2.html#a-new-outcome",
-    "title": "Problem Set 2: Data Transformation",
-    "section": "2. A new outcome",
-    "text": "2. A new outcome\n25 points. The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.\nAs in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.\nYour answer should include\n\na written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable\na written interpretation of what you found\ncode following style conventions\nyour publication-quality visualization",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 2"
-    ]
-  },
-  {
-    "objectID": "assignments/pset2.html#recap-and-connections-to-your-project",
-    "href": "assignments/pset2.html#recap-and-connections-to-your-project",
-    "title": "Problem Set 2: Data Transformation",
-    "section": "Recap and connections to your project",
-    "text": "Recap and connections to your project\nA few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 2"
-    ]
-  },
-  {
-    "objectID": "assignments/pset1.html",
-    "href": "assignments/pset1.html",
-    "title": "Problem Set 1: Visualization",
-    "section": "",
-    "text": "Due: 5pm on Friday, January 24.\nStudent identifer: [type your anonymous identifier here]\nThis problem set involves both data analysis and reading.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 1"
-    ]
-  },
-  {
-    "objectID": "assignments/pset1.html#visualize-25-points",
-    "href": "assignments/pset1.html#visualize-25-points",
-    "title": "Problem Set 1: Visualization",
-    "section": "1. Visualize (25 points)",
-    "text": "1. Visualize (25 points)\nUse ggplot to visualize these data. To denote the different trajectories,\n\nmake your plot using geom_point() or geom_line()\nuse the x-axis for age\nuse the y-axis for income\nuse color for quantity\nuse facet_grid to make a panel of facets where each row is an education value and each column is a cohort value\n\nYou should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Try using the label_dollar() function from the scales package so that the y-axis uses dollar values.\nYour code should be well-formatted as defined by R4DS. In your produced PDF, no lines of code should run off the page.\nMany different graphs can be equally correct. You will be evaluated by\n\nhaving publication-ready graph aesthetics\ncode that follows style conventions\n\n\n# your code goes here",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 1"
-    ]
-  },
-  {
-    "objectID": "assignments/pset1.html#understand-components-of-research-question",
-    "href": "assignments/pset1.html#understand-components-of-research-question",
-    "title": "Problem Set 1: Visualization",
-    "section": "2. Understand components of research question",
-    "text": "2. Understand components of research question\nThe graph above answered a descriptive research question. Here are a few components of that question:\n\nAnnual income in 2022 dollars\nAmerican workers in each subgroup defined by birth cohort, age, and education\n10th, 50th, and 90th percentile\nA person\n\nFor 2.1–2.4, write the letter of the corresponding component of the research question.\n2.1 (2 points) What is the unit of analysis?\n2.2 (2 points) What is the outcome variable?\n2.3 (2 points) What are the target populations?\n2.4 (2 points) What are the summary statistics?",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 1"
-    ]
-  },
-  {
-    "objectID": "assignments/pset1.html#interpret-the-graph",
-    "href": "assignments/pset1.html#interpret-the-graph",
-    "title": "Problem Set 1: Visualization",
-    "section": "3. Interpret the graph",
-    "text": "3. Interpret the graph\nWrite 2-3 sentences summarizing what your figure shows.\n3.1 (3 points). Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course?\n\nType your answer here.\n\n3.2 (3 points). Focus on those born in 1970. How does the pattern in the 90th percentile differ for those with and without college degrees?\n\nType your answer here.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 1"
-    ]
-  },
-  {
-    "objectID": "assignments/pset1.html#connect-to-reading",
-    "href": "assignments/pset1.html#connect-to-reading",
-    "title": "Problem Set 1: Visualization",
-    "section": "4. Connect to reading",
-    "text": "4. Connect to reading\nRead p. 1–7 of following paper. Stop before the section “Analytic Framework for Decomposing Inequality.”\n\nCheng, Siwei. 2021. The shifting life course patterns of wage inequality.. Social Forces 100(1):1–28.\n\nOur data are not the same as Cheng’s. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less.\nCheng discusses period trends, cohort trends, and age trends.\n4.1 (3 points) Describe a cohort trend that you see in your graph.\n\nType your answer here.\n\n4.2 (3 points) Describe an age trend that you see in your graph.\n\nType your answer here.\n\n4.3 (5 points) Describe two ways that our results align with the arguments in the paper.\n\nType your answer here.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 1"
-    ]
-  },
-  {
-    "objectID": "assignments/pset1.html#recap-and-connections-to-your-project",
-    "href": "assignments/pset1.html#recap-and-connections-to-your-project",
-    "title": "Problem Set 1: Visualization",
-    "section": "Recap and connections to your project",
-    "text": "Recap and connections to your project\nThe visualization you produced in this problem set is an example of the kind of visualization you will produce in the final project. As in this problem set, your visualization in the project should include well-written labels to make the graph readable. A difference between the two is that in this problem set we provided a dataset in which each row was already a summary statistic. In the final project, you will manipulate data in which each row corresponds to a unit of analysis that you aggregate to produce a summary statistic. This is a skill you will practice on the next problem set.",
-    "crumbs": [
-      " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 1"
-    ]
-  },
-  {
-    "objectID": "topics/questions_data_can_answer.html",
-    "href": "topics/questions_data_can_answer.html",
-    "title": "Questions data can answer",
-    "section": "",
-    "text": "Data science should begin with clarity about what questions data can (and cannot) answer. As a motivating example, we will discuss questions about inequality as introduced in p. 49–53 of this paper:\nWe will emphasize two key ideas in this paper:"
-  },
-  {
-    "objectID": "topics/questions_data_can_answer.html#choosing-a-summary-of-a-distribution",
-    "href": "topics/questions_data_can_answer.html#choosing-a-summary-of-a-distribution",
-    "title": "Questions data can answer",
-    "section": "Choosing a summary of a distribution",
-    "text": "Choosing a summary of a distribution\nThe histogram below visualizes the distribution of annual household income across U.S. households as estimated from the 2022 Current Population Survey. To produce this graph, we categorized households into discrete income groups that are each $25,000 wide. The height of each bar corresponds to the number of households falling in that income group. We can see that the most common household income values are below $100,000, but a small number of households have very high incomes that create a long upper tail at the right.\n\n\n\n\n\n\n\n\n\nWe often want to take a distribution and convert it to a single-number summary. One way to summarize the distribution is by its median: the value at which 50% of households have higher incomes and 50% of households have lower incomes.\n\n\n\n\n\n\n\n\n\nThe median is a useful measure of central tendency: it gives a sense of the income value in the middle of the distribution. But it may not give us a good sense of inequality, which requires some sense of the spread of the distribution. The graph below presents an alternative summary. The 90th percentile is the household income value such that 90% of households have lower incomes. The 10th percentile is the value such that 10% of households have lower incomes. The 90/10 income ratio (\\(\\frac{\\text{90th percentile}}{\\text{10th percentile}}\\)) is one measure of inequality: how many dollars does a household at the 90th percentile get for every dollar that goes to a household at the 10th percentile? We might say that inequality is high to the degree that the 90/10 income ratio is large.\n\n\n\n\n\n\n\n\n\nThe median and the 90/10 income ratio are only two of many ways to summarize a distribution. At the end of this course, you will produce your own visualization that can have any summary you want. Before analyzing data, it is often useful to ask ourselves: what summary do we want to produce? Ideally, you will produce a summary that is informative and perhaps surprising to your readers."
-  },
-  {
-    "objectID": "topics/questions_data_can_answer.html#normative-and-objective-claims",
-    "href": "topics/questions_data_can_answer.html#normative-and-objective-claims",
-    "title": "Questions data can answer",
-    "section": "Normative and objective claims",
-    "text": "Normative and objective claims\nInequality is a topic that brings out normative commitments: beliefs about how the world should be. Many of us study inequality because of our own moral beliefs in fairness, equality, and opportunity. Inequality is also a topic full of objective facts, such as quantitative evidence describing the U.S. household income distribution. When studying inequality, it is important to distinguish between normative claims (what should be) and objective claims (what is).\n\nNormative claims: An illustration with manna\nNormative claims are the focus of moral philosophy. Because this is a course on data science, we will mostly avoid normative claims. To illustrate the difference between the kinds of approaches useful in the two settings, we consider a story from the Hebrew scriptures as retold by Jencks (2002).\nIn the story, the Israelites are wandering in the desert without food. God provides a form of bread (manna) that falls down from heaven every day. People do not work for their manna; it is provided freely by God. Taking this example, Jencks considers a normative question about inequality: how should the manna be distributed among the people?\n\n\n\nThe Israelites Collecting Manna from Heaven. Austria. About 1400–1410. Unknown artist. Getty Open Content Program. getty.edu/art/collection/object/105T6R\n\n\nJencks presents a utilitarian moral argument. Suppose that (1) we want to maximize overall societal welfare. Suppose also that (2) each person gets diminishing welfare returns to additional amounts of manna: the first pound of manna relieves you from starvation, the second pound is a bit less helpful, and the third pound even less than that. Under premises (1) and (2), it would make no sense to give lots of manna to a few people while others go hungry. Instead, the welfare-maximizing distribution of manna would be one in which each person receives an equal share.\nThe story of the manna illustrates the elements of a moral argument. One must argue for premises, such as the notion that we should maximize welfare and the notion that each person receives diminishing returns from manna. A debate could happen by challenging some of these premises, such as by arguing that a child might need less manna than a full-grown adult to achieve the same level of welfare. Applying these arguments to present-day inequality is further complicated by the fact that money is earned through work instead of falling freely from the sky. Moral arguments about inequality are important and should be the subject of more thorough treatments in classes on moral and political philosophy.\n\n\nObjective claims\nWhile we will refrain from explicit normative arguments, we will produce objective claims about inequality that we or our readers might find normatively troubling. For example, it might be concerning to us that a household at the 90th percentile receives $14 for every $1 received by a household at the 10th percentile. People’s normative commitments are often bound up in their objective beliefs about the world. Consider a person who believes that high inequality is desirable in order to promote economic growth. This person might be surprised by an objective fact: the countries with high levels of economic inequality are not necessarily the same countries that have high levels of economic output per capita. We will visualize this objective fact in the pages to come.\nAs a data scientist, your task is to produce statistical summaries that help people better understand the world. As a scholar of inequality, you might hope that your objective evidence will be troubling to people with normative commitments such as beliefs in equality and fairness. But we will focus on making precise objective claims."
   },
   {
     "objectID": "discussion.html",
@@ -1236,6 +633,597 @@
     "crumbs": [
       " ",
       "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "topics/questions_data_can_answer.html",
+    "href": "topics/questions_data_can_answer.html",
+    "title": "Questions data can answer",
+    "section": "",
+    "text": "Data science should begin with clarity about what questions data can (and cannot) answer. As a motivating example, we will discuss questions about inequality as introduced in p. 49–53 of this paper:\nWe will emphasize two key ideas in this paper:"
+  },
+  {
+    "objectID": "topics/questions_data_can_answer.html#choosing-a-summary-of-a-distribution",
+    "href": "topics/questions_data_can_answer.html#choosing-a-summary-of-a-distribution",
+    "title": "Questions data can answer",
+    "section": "Choosing a summary of a distribution",
+    "text": "Choosing a summary of a distribution\nThe histogram below visualizes the distribution of annual household income across U.S. households as estimated from the 2022 Current Population Survey. To produce this graph, we categorized households into discrete income groups that are each $25,000 wide. The height of each bar corresponds to the number of households falling in that income group. We can see that the most common household income values are below $100,000, but a small number of households have very high incomes that create a long upper tail at the right.\n\n\n\n\n\n\n\n\n\nWe often want to take a distribution and convert it to a single-number summary. One way to summarize the distribution is by its median: the value at which 50% of households have higher incomes and 50% of households have lower incomes.\n\n\n\n\n\n\n\n\n\nThe median is a useful measure of central tendency: it gives a sense of the income value in the middle of the distribution. But it may not give us a good sense of inequality, which requires some sense of the spread of the distribution. The graph below presents an alternative summary. The 90th percentile is the household income value such that 90% of households have lower incomes. The 10th percentile is the value such that 10% of households have lower incomes. The 90/10 income ratio (\\(\\frac{\\text{90th percentile}}{\\text{10th percentile}}\\)) is one measure of inequality: how many dollars does a household at the 90th percentile get for every dollar that goes to a household at the 10th percentile? We might say that inequality is high to the degree that the 90/10 income ratio is large.\n\n\n\n\n\n\n\n\n\nThe median and the 90/10 income ratio are only two of many ways to summarize a distribution. At the end of this course, you will produce your own visualization that can have any summary you want. Before analyzing data, it is often useful to ask ourselves: what summary do we want to produce? Ideally, you will produce a summary that is informative and perhaps surprising to your readers."
+  },
+  {
+    "objectID": "topics/questions_data_can_answer.html#normative-and-objective-claims",
+    "href": "topics/questions_data_can_answer.html#normative-and-objective-claims",
+    "title": "Questions data can answer",
+    "section": "Normative and objective claims",
+    "text": "Normative and objective claims\nInequality is a topic that brings out normative commitments: beliefs about how the world should be. Many of us study inequality because of our own moral beliefs in fairness, equality, and opportunity. Inequality is also a topic full of objective facts, such as quantitative evidence describing the U.S. household income distribution. When studying inequality, it is important to distinguish between normative claims (what should be) and objective claims (what is).\n\nNormative claims: An illustration with manna\nNormative claims are the focus of moral philosophy. Because this is a course on data science, we will mostly avoid normative claims. To illustrate the difference between the kinds of approaches useful in the two settings, we consider a story from the Hebrew scriptures as retold by Jencks (2002).\nIn the story, the Israelites are wandering in the desert without food. God provides a form of bread (manna) that falls down from heaven every day. People do not work for their manna; it is provided freely by God. Taking this example, Jencks considers a normative question about inequality: how should the manna be distributed among the people?\n\n\n\nThe Israelites Collecting Manna from Heaven. Austria. About 1400–1410. Unknown artist. Getty Open Content Program. getty.edu/art/collection/object/105T6R\n\n\nJencks presents a utilitarian moral argument. Suppose that (1) we want to maximize overall societal welfare. Suppose also that (2) each person gets diminishing welfare returns to additional amounts of manna: the first pound of manna relieves you from starvation, the second pound is a bit less helpful, and the third pound even less than that. Under premises (1) and (2), it would make no sense to give lots of manna to a few people while others go hungry. Instead, the welfare-maximizing distribution of manna would be one in which each person receives an equal share.\nThe story of the manna illustrates the elements of a moral argument. One must argue for premises, such as the notion that we should maximize welfare and the notion that each person receives diminishing returns from manna. A debate could happen by challenging some of these premises, such as by arguing that a child might need less manna than a full-grown adult to achieve the same level of welfare. Applying these arguments to present-day inequality is further complicated by the fact that money is earned through work instead of falling freely from the sky. Moral arguments about inequality are important and should be the subject of more thorough treatments in classes on moral and political philosophy.\n\n\nObjective claims\nWhile we will refrain from explicit normative arguments, we will produce objective claims about inequality that we or our readers might find normatively troubling. For example, it might be concerning to us that a household at the 90th percentile receives $14 for every $1 received by a household at the 10th percentile. People’s normative commitments are often bound up in their objective beliefs about the world. Consider a person who believes that high inequality is desirable in order to promote economic growth. This person might be surprised by an objective fact: the countries with high levels of economic inequality are not necessarily the same countries that have high levels of economic output per capita. We will visualize this objective fact in the pages to come.\nAs a data scientist, your task is to produce statistical summaries that help people better understand the world. As a scholar of inequality, you might hope that your objective evidence will be troubling to people with normative commitments such as beliefs in equality and fairness. But we will focus on making precise objective claims."
+  },
+  {
+    "objectID": "assignments/pset1.html",
+    "href": "assignments/pset1.html",
+    "title": "Problem Set 1: Visualization",
+    "section": "",
+    "text": "Due: 5pm on Friday, January 17.\nStudent identifer: [type your anonymous identifier here]\nThis problem set involves both data analysis and reading.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "assignments/pset1.html#visualize-25-points",
+    "href": "assignments/pset1.html#visualize-25-points",
+    "title": "Problem Set 1: Visualization",
+    "section": "1. Visualize (25 points)",
+    "text": "1. Visualize (25 points)\nUse ggplot to visualize these data. To denote the different trajectories,\n\nmake your plot using geom_point() or geom_line()\nuse the x-axis for age\nuse the y-axis for income\nuse color for quantity\nuse facet_grid to make a panel of facets where each row is an education value and each column is a cohort value\n\nYou should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Try using the label_dollar() function from the scales package so that the y-axis uses dollar values.\nYour code should be well-formatted as defined by R4DS. In your produced PDF, no lines of code should run off the page.\nMany different graphs can be equally correct. You will be evaluated by\n\nhaving publication-ready graph aesthetics\ncode that follows style conventions\n\n\n# your code goes here",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "assignments/pset1.html#understand-components-of-research-question",
+    "href": "assignments/pset1.html#understand-components-of-research-question",
+    "title": "Problem Set 1: Visualization",
+    "section": "2. Understand components of research question",
+    "text": "2. Understand components of research question\nThe graph above answered a descriptive research question. Here are a few components of that question:\n\nAnnual income in 2022 dollars\nAmerican workers in each subgroup defined by birth cohort, age, and education\n10th, 50th, and 90th percentile\nA person\n\nFor 2.1–2.4, write the letter of the corresponding component of the research question.\n2.1 (2 points) What is the unit of analysis?\n2.2 (2 points) What is the outcome variable?\n2.3 (2 points) What are the target populations?\n2.4 (2 points) What are the summary statistics?",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "assignments/pset1.html#interpret-the-graph",
+    "href": "assignments/pset1.html#interpret-the-graph",
+    "title": "Problem Set 1: Visualization",
+    "section": "3. Interpret the graph",
+    "text": "3. Interpret the graph\nWrite 2-3 sentences summarizing what your figure shows.\n3.1 (3 points). Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course?\n\nType your answer here.\n\n3.2 (3 points). Focus on those born in 1970. How does the pattern in the 90th percentile differ for those with and without college degrees?\n\nType your answer here.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "assignments/pset1.html#connect-to-reading",
+    "href": "assignments/pset1.html#connect-to-reading",
+    "title": "Problem Set 1: Visualization",
+    "section": "4. Connect to reading",
+    "text": "4. Connect to reading\nRead p. 1–7 of following paper. Stop before the section “Analytic Framework for Decomposing Inequality.”\n\nCheng, Siwei. 2021. The shifting life course patterns of wage inequality.. Social Forces 100(1):1–28.\n\nOur data are not the same as Cheng’s. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less.\nCheng discusses period trends, cohort trends, and age trends.\n4.1 (3 points) Describe a cohort trend that you see in your graph.\n\nType your answer here.\n\n4.2 (3 points) Describe an age trend that you see in your graph.\n\nType your answer here.\n\n4.3 (5 points) Describe two ways that our results align with the arguments in the paper.\n\nType your answer here.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "assignments/pset1.html#recap-and-connections-to-your-project",
+    "href": "assignments/pset1.html#recap-and-connections-to-your-project",
+    "title": "Problem Set 1: Visualization",
+    "section": "Recap and connections to your project",
+    "text": "Recap and connections to your project\nThe visualization you produced in this problem set is an example of the kind of visualization you will produce in the final project. As in this problem set, your visualization in the project should include well-written labels to make the graph readable. A difference between the two is that in this problem set we provided a dataset in which each row was already a summary statistic. In the final project, you will manipulate data in which each row corresponds to a unit of analysis that you aggregate to produce a summary statistic. This is a skill you will practice on the next problem set.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "assignments/pset2.html",
+    "href": "assignments/pset2.html",
+    "title": "Problem Set 2: Data Transformation",
+    "section": "",
+    "text": "Due: 5pm on Friday, Jan 31.\nStudent identifer: [type your anonymous identifier here]\nThis problem set draws on the following paper.\nA note about sex and gender. As we have discussed in class, sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 2"
+    ]
+  },
+  {
+    "objectID": "assignments/pset2.html#data-analysis-existing-question",
+    "href": "assignments/pset2.html#data-analysis-existing-question",
+    "title": "Problem Set 2: Data Transformation",
+    "section": "1. Data analysis: Existing question",
+    "text": "1. Data analysis: Existing question\n25 points. Reproduce Figure 1 from the paper.\nVisit cps.ipums.org to download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. Include these variables in your cart: sex, age, asecwt, empstat.\nTo reduce extract size, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.\n\n\n\n\n\n\nTip\n\n\n\nLook ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.\n\n\nOn your computer, analyze these data.\n\nfilter to asecwt &gt; 0 (see paper footnote on p. 6995 about negative weights)\nmutate to create an employed variable indicating that empstat == 10 | empstat == 12\nmutate to convert sex to a factor variable using as_factor\ngroup by sex and year\nsummarize the proportion employed: use weighted.mean to take the mean of employed using the weight asecwt\n\nYour figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels. For example, it would be more accurate to the data to label the legend “Sex” with values “Male” and “Female.”\n\nlibrary(tidyverse)\nlibrary(scales)\nlibrary(haven)",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 2"
+    ]
+  },
+  {
+    "objectID": "assignments/pset2.html#a-new-outcome",
+    "href": "assignments/pset2.html#a-new-outcome",
+    "title": "Problem Set 2: Data Transformation",
+    "section": "2. A new outcome",
+    "text": "2. A new outcome\n25 points. The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.\nAs in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.\nYour answer should include\n\na written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable\na written interpretation of what you found\ncode following style conventions\nyour publication-quality visualization",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 2"
+    ]
+  },
+  {
+    "objectID": "assignments/pset2.html#recap-and-connections-to-your-project",
+    "href": "assignments/pset2.html#recap-and-connections-to-your-project",
+    "title": "Problem Set 2: Data Transformation",
+    "section": "Recap and connections to your project",
+    "text": "Recap and connections to your project\nA few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 2"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Social Data Science",
+    "section": "",
+    "text": "Together, we will use tools from data science to answer social science questions. As an area of application, we will focus on questions about inequality and social stratification.",
+    "crumbs": [
+      " ",
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#learning-goals",
+    "href": "index.html#learning-goals",
+    "title": "Social Data Science",
+    "section": "Learning goals",
+    "text": "Learning goals\nAs a result of participating in this course, students will be able to\n\nvisualize economic inequality with graphs that summarize survey data\nconnect theories about inequality to quantitative empirical evidence\nevaluate the effects of hypothetical interventions to reduce inequality\nconduct data analysis using the R programming language",
+    "crumbs": [
+      " ",
+      "Home"
+    ]
+  },
+  {
+    "objectID": "topics/working_with_data.html",
+    "href": "topics/working_with_data.html",
+    "title": "Working with data",
+    "section": "",
+    "text": "This topic is covered on Jan 7.\n\nData science is a world of abundant opportunities. Over recent decades, the field has been transformed by the rapid growth of both computational power and available data. With the proliferation of new technological advances and data opportunities, a social scientist might reasonably ask: where do I begin?\nA good place to begin is to first\n\nChoose a question data can answer\nWork with data to answer the question\n\nWe will first talk about how to ask a good question that data can answer. Then, we will begin preparing our computers with software and tools to answer those questions. Over the quarter, we will develop the skills to ask our own questions and find data to answer them.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      " ",
+      "Working with Data"
+    ]
+  },
+  {
+    "objectID": "topics/asking_questions.html",
+    "href": "topics/asking_questions.html",
+    "title": "Asking questions with data",
+    "section": "",
+    "text": "slides\nAsking your own research question is fun, and it is also daunting. There is no formula for asking a good question, and much research involves trial and error. In this lecture, we will discuss together what makes a good research question.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Asking questions with data"
+    ]
+  },
+  {
+    "objectID": "topics/asking_questions.html#some-characteristics-of-a-good-question",
+    "href": "topics/asking_questions.html#some-characteristics-of-a-good-question",
+    "title": "Asking questions with data",
+    "section": "Some characteristics of a good question",
+    "text": "Some characteristics of a good question\nWhile good questions come in many forms, good research questions often has a few characteristics.\n\nA unit of analysis\nThe unit of analysis is the bedrock of a good research question. What will a row of your dataset represent? While the answer may seem straightforward, many units of analysis are possible: a person, a school, a neighborhood, a country, etc. In settings with repeated observations, the unit of analysis might be a person observed at a particular age: Jose at age 29 may be one row of your dataset and Jose at age 30 may be another row. The unit of analysis is the unit at which the outcome is defined, so getting it right is important.\n\n\nA clear population\nA good research question addresses a population that is relevant to the author’s argument. A well-defined population could be a set of units, such as American residents in a certain age range. It could be the set of all students at Cornell. It could also be a set of aggregate entities, such as the population of all four-year colleges and universities in the U.S., where each unit in the population is a college or university.\nWhen the population is well-defined, a reader should be able to imagine making a list of all the units in that population. When presented with a new unit and asked whether that unit is part of the population, you should be able to confidently answer “yes” or “no” and not “maybe.”\nIt is rarely satisfying to answer the question “who is being studied?” with the answer “the people in my sample.” While full-count enumerations of interesting populations exist, usually your sample is a subset of a broader population of interest. Good research tells us who that population is.\n\n\nA precise outcome\nFor each unit in the population, there is an outcome. This might be the income of an individual person, or the graduation rate of an individual college. A good research question tells you what the outcome is, and why it matters.\n\n\nThe potential for surprising results\nThis may be the hardest to pin down. Before you work with data, try to tell a story about why the results might go one way or another way. Perhaps you study a particular population of employed people where there is one set of reasons to expect men to earn more and another set of reasons to expect women to earn more. Try to convince yourself that the results could go either way! This builds excitement about the empirical answer, because it shows that the answer is really unknown before data analysis. Write down your arguments because they will also help readers be excited about your questions.\nQuestions where only one answer is plausible are often tedious. Questions that are exciting are often the ones where results could surprise you by going several possible directions.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Asking questions with data"
+    ]
+  },
+  {
+    "objectID": "slides/m_discussion_poststratification_dag.html",
+    "href": "slides/m_discussion_poststratification_dag.html",
+    "title": "m_discussion_poststratification_dag",
+    "section": "",
+    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
+  },
+  {
+    "objectID": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
+    "href": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
+    "title": "m_discussion_poststratification_dag",
+    "section": "",
+    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining counterfactuals\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
+  },
+  {
+    "objectID": "schedule.html#lecture-topics",
+    "href": "schedule.html#lecture-topics",
+    "title": "Schedule",
+    "section": "",
+    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining counterfactuals\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
+  },
+  {
+    "objectID": "schedule.html#assignments",
+    "href": "schedule.html#assignments",
+    "title": "Schedule",
+    "section": "Assignments",
+    "text": "Assignments\n\n\n\nDue Date\nAssignment\n\n\n\n\nFri, Jan 10 at 5pm\nProblem Set 0\n\n\nFri, Jan 17 at 5pm\nProblem Set 1\n\n\nFri, Jan 24 at 5pm\nPeer Review 1\n\n\nFri, Jan 31 at 5pm\nProblem Set 2\n\n\nFri, Feb 07 at 5pm\nPeer Review 2\n\n\nFri, Feb 14 at 5pm\nProblem Set 3\n\n\nFri, Feb 21 at 5pm\nPeer Review 3\n\n\nFri, Feb 28 at 5pm\nProblem Set 4\n\n\nFri, Mar 07 at 5pm\nProject\n\n\nFri, Mar 14 at 5pm\nProject Peer Review"
+  },
+  {
+    "objectID": "forms.html",
+    "href": "forms.html",
+    "title": "Forms",
+    "section": "",
+    "text": "Assignment extension form. If you are experiencing an exceptional circumstance that may warrant an extension, use this to request one.\nRegrade request form. If you think we have graded something wrong, you can report it on this form. Responses are only accepted for within 72 hours of grade post.\nExcused absence form. To request an excused absence from lecture or discussion.\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "assignments/project.html",
+    "href": "assignments/project.html",
+    "title": "Final Project",
+    "section": "",
+    "text": "The culmination of the course is a group research project. You will\nYou can answer any question about inequality (broadly defined) using the ideas we learned in this course.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Project"
+    ]
+  },
+  {
+    "objectID": "assignments/project.html#what-you-will-submit",
+    "href": "assignments/project.html#what-you-will-submit",
+    "title": "Final Project",
+    "section": "What you will submit",
+    "text": "What you will submit\nThere are two submitted items, both due 5pm on Friday, Mar 7.\nWriteup. A .qmd document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.\nSlides. A PDF that you will present in discussion. Keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. Your presentation should be 10 minutes or less.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Project"
+    ]
+  },
+  {
+    "objectID": "assignments/project.html#group-structure",
+    "href": "assignments/project.html#group-structure",
+    "title": "Final Project",
+    "section": "Group structure",
+    "text": "Group structure\nWe will form groups of about 5 students each within discussion sections. Groups will be formed during discussion in the middle of the quarter.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Project"
+    ]
+  },
+  {
+    "objectID": "assignments/project.html#key-components-of-the-project",
+    "href": "assignments/project.html#key-components-of-the-project",
+    "title": "Final Project",
+    "section": "Key components of the project",
+    "text": "Key components of the project\nYour goal should be to tell us a story using the data. What do we learn by studying this outcome, aggregated this way, in these subgroups from this population?\nA few points should be part of your writeup:\n\nDefine your unit of analysis\nDefine your target population\n\nMotivate: why is this population interesting to study?\n\nDescribe how your sample was chosen from that population\n\nthis may be a probability sample, such as those available via IPUMS. If so, tell us a little bit about the sampling design\nthis may be a convenience sample. If so, why does it speak to the population and what are the limitations?\nthis may be data on the entire population, as in our baseball example\n\nChoose an outcome variable, which is defined for each unit in the population. Your outcome variable can be a factual variable (\\(Y\\)) for descriptive claims, or a potential outcome (\\(Y^a\\)) or difference in potential outcomes (\\(Y^1-Y^0\\)) for causal claims.\n\nexample: annual wage and salary income\n\nChoose one or more variables on which to create population subgroups\n\nexample: subgroups defined by sex (male and female)\n\nChoose a summary statistic, which aggregates the outcome distribution to one summary per subgroup\n\nexamples: proportion, mean, median, 90th percentile\n\nWrite with clarity on causal assumptions\n\nif your goal is causal with potential outcomes, draw a DAG in which those potential outcomes can be identified by an assumption of conditional exchangeability. If there are unmeasured confounders, discuss how their omission from your DAG may threaten the credibility of your estimates. It is ok if the assumptions are doubtful as long as you write them down clearly.\nif your goal is descriptive with only factual outcomes, then write your results carefully using only descriptive language. As a heuristic, if your goal is descriptive then you should not be using the sentence structure “X [verb] Y”, such as “going to college increases earnings.” This claim suggests a college graduate would have earned less if they had not gone to college—a counterfactual outcome we did not see. For truly descriptive claims, you should phrase more like: “There is a difference in earnings among those who did and did not go to college.” A heuristic to recognize a non-causal claim is that it can be phrased it in an “among” statement: “Among subgroup A, we find ___. Among subgroup B, we find ___.” Or “There is a disparity in Y across subgroups defined by X.”\n\nVisualize your findings in a ggplot",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Project"
+    ]
+  },
+  {
+    "objectID": "assignments/project.html#considerations-to-bear-in-mind",
+    "href": "assignments/project.html#considerations-to-bear-in-mind",
+    "title": "Final Project",
+    "section": "Considerations to bear in mind",
+    "text": "Considerations to bear in mind\n\nWeights. If your sample is drawn from the population with unequal probabilities, you should use sampling weights\nModels. If your question involves many subgroups (e.g., ages) with few observations in each subgroup, you can (but are not required to) use a statistical model to estimate your summary statistic in the subgroup by a predicted value. For example, you could use OLS to predict the proportion mean income at each age. If you do this, you should report the predicted value of the summary statistic, not the coefficients of the model.\nAggregation. Your data must begin with units (e.g., people) who you aggregate into subgroups (e.g., age groups). Your data might come pre-aggregated, such as data where each row contains data for all students in a particular college or university. Then you would need to aggregate further, such as to produce summaries for private versus public universities.\nDropped cases. As you move from raw data to the data that produce your graph, you might drop cases on the way. For example, some cases may have missing values on key predictors. Report how many are dropped, and why. Our goal here is transparent, open science.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Project"
+    ]
+  },
+  {
+    "objectID": "assignments/project.html#have-fun",
+    "href": "assignments/project.html#have-fun",
+    "title": "Final Project",
+    "section": "Have fun",
+    "text": "Have fun\nAs a teaching team, the project is our favorite part of the course. Preparing you to succeed in the project has been (in some sense) the entire goal of all that precedes the project in the course. We hope you will find joy in answering questions with data, as we do.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Project"
+    ]
+  },
+  {
+    "objectID": "assignments/pset4.html",
+    "href": "assignments/pset4.html",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "",
+    "text": "Due: 5pm on Friday, Feb 28.\nThis problem set has not yet been posted.\n\n\n\n Back to top",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 4"
+    ]
+  },
+  {
+    "objectID": "office_hours.html",
+    "href": "office_hours.html",
+    "title": "Office Hours",
+    "section": "",
+    "text": "Person\nTime\nLocation\n\n\n\n\nNathan\nT 1:30–2:30pm\nHaines A55\n\n\nIan\nTh 1–2pm\nHaines 241C\n\n\nChristina\nTh 2–3pm\nHaines A58-C\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "slides/m_discussion_sailing.html",
+    "href": "slides/m_discussion_sailing.html",
+    "title": "Untitled",
+    "section": "",
+    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
+  },
+  {
+    "objectID": "slides/m_discussion_sailing.html#a-sailing-class",
+    "href": "slides/m_discussion_sailing.html#a-sailing-class",
+    "title": "Untitled",
+    "section": "",
+    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
+  },
+  {
+    "objectID": "topics/interventions.html",
+    "href": "topics/interventions.html",
+    "title": "Causal Interventions",
+    "section": "",
+    "text": "If we want to reduce inequality, we want to know the effect of an intervention: what would happen if some treatment went differently?\nAs a running illustration, this section considers the rapid expansion of higher education over the 20th century. We will discuss how completion of a college degree causally increases economic outcomes, especially for students unlikely to finish college.\nThis material draws on the following book:\n\nBrand, Jennie E. 2023. Overcoming the Odds: The Benefits of Completing College for Unlikely Graduates. Russell Sage Foundation.\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Randomized experiments",
+      "Causal Interventions"
+    ]
+  },
+  {
+    "objectID": "who_we_are.html",
+    "href": "who_we_are.html",
+    "title": "Who We Are",
+    "section": "",
+    "text": "Get to know a little bit about our teaching team! For office hours, see the Syllabus.\n\n\n\n\n\n\n\n\nIan Lundberg\nianlundberg@ucla.edu\n(he / him)\nWorking with data to understand inequality brings me joy and meaning, as I first discovered as a college student years ago. I hope to share that joy with you! Other joys of mine include hiking, surfing, and oatmeal with blueberries.\n\n\n\n\n\n\n\n\nChristina Wilmot\ncwilmot@ucla.edu (she / they)\nI am interested in studying the many ways that technology and society interact. My background is in computer science and software engineering, so I really enjoy bringing those tools to sociologists. Outside of work I enjoy crafting, gaming, and obsessing over my two adorable cats.\n\n\n\n\n\nNathan Hoffmann\nnathanihoff@g.ucla.edu (he / him)\nI’m a PhD candidate in sociology who uses statistics and machine learning to study international migration, education, and sexuality. I also like cooking, biking, and concerts."
+  },
+  {
+    "objectID": "assignments/pset0.html",
+    "href": "assignments/pset0.html",
+    "title": "Problem Set 0: Computing environment",
+    "section": "",
+    "text": "Due: 5pm on Friday, January 10.\nTo complete the problem set, download pset0.qmd. Add these four lines of code to the top if they do not appear in your download,\n---\ntitle: \"Problem Set 0: Computing environment\"\nformat: pdf\n---\nand render to a PDF. You will then submit two things:",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 0"
+    ]
+  },
+  {
+    "objectID": "assignments/pset0.html#help-with-gettinng-started",
+    "href": "assignments/pset0.html#help-with-gettinng-started",
+    "title": "Problem Set 0: Computing environment",
+    "section": "Help with gettinng started",
+    "text": "Help with gettinng started\nIf you are stuck, make sure that you first follow the installation instructions in setting up your computer.\nOpen the downloaded problem set in RStudio. You should then click the “Render” button as shown in the image below.\n This will run the R code and combine the output with the text in the document into a PDF. By default, this PDF will be output in the same directory that you saved pset0.qmd in. You will then submit the PDF on Canvas.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 0"
+    ]
+  },
+  {
+    "objectID": "assignments/pset0.html#issues",
+    "href": "assignments/pset0.html#issues",
+    "title": "Problem Set 0: Computing environment",
+    "section": "Issues",
+    "text": "Issues\nIf you run into issues while attempting to render the Problem Set, be sure to open a question on Piazza!",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 0"
+    ]
+  },
+  {
+    "objectID": "topics/r_basics.html",
+    "href": "topics/r_basics.html",
+    "title": "Setting up your computer",
+    "section": "",
+    "text": "This topic is covered on Jan 7.\nIn order to begin producing objective evidence about inequality, you will first need to prepare your computer to analyze data.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Setting up your computer"
+    ]
+  },
+  {
+    "objectID": "topics/r_basics.html#install-statistical-software-r",
+    "href": "topics/r_basics.html#install-statistical-software-r",
+    "title": "Setting up your computer",
+    "section": "Install statistical software: R",
+    "text": "Install statistical software: R\nWe will write code in the R programming language. R is available as open-source software at https://cran.r-project.org/. The first step to set up your computer is to install R.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Setting up your computer"
+    ]
+  },
+  {
+    "objectID": "topics/r_basics.html#install-the-interface-rstudio",
+    "href": "topics/r_basics.html#install-the-interface-rstudio",
+    "title": "Setting up your computer",
+    "section": "Install the interface RStudio",
+    "text": "Install the interface RStudio\nWe will work with R using an interface called RStudio, which makes it easy to write code and see results all in one place. You should install RStudio Desktop, which is available to download here: https://posit.co/download/rstudio-desktop/",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Setting up your computer"
+    ]
+  },
+  {
+    "objectID": "topics/r_basics.html#install-the-tidyverse-package",
+    "href": "topics/r_basics.html#install-the-tidyverse-package",
+    "title": "Setting up your computer",
+    "section": "Install the tidyverse package",
+    "text": "Install the tidyverse package\nMany R functions are made freely available in open-source packages that contain sets of functions designed to carry out common tasks. One package we will use often is the tidyverse, which contains functions to manipulate and visualize data. To install tidyverse, first open RStudio. Find the Console, which is a place where you can type code to immediately execute.\n\nIn the console type,\n\ninstall.packages(\"tidyverse\")\n\nand press enter or return on your keyboard. This runs a line of code to install a set of software packages.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Setting up your computer"
+    ]
+  },
+  {
+    "objectID": "topics/r_basics.html#install-tinytex-to-produce-pdf-reports",
+    "href": "topics/r_basics.html#install-tinytex-to-produce-pdf-reports",
+    "title": "Setting up your computer",
+    "section": "Install tinytex to produce PDF reports",
+    "text": "Install tinytex to produce PDF reports\nHomework assignments will be submitted in PDF form. We will learn how to use RStudio to produce a PDF documents that embed your code, results, and written responses. In order to do so, your computer needs to have some version of LaTeX, which is software that typesets documents. Some versions of LaTeX are large and difficult to install. If you have never used LaTeX on your computer, we recommend that you install as follows: paste the code below into your R console and press enter or return to install a minimal version of the software.\n\ninstall.packages(\"tinytex\")\ntinytex::install_tinytex()\n\nStudents often find this step confusing, and computers present various errors. If you have an error, look on Piazza to see if anyone else has encountered your error. If not, then post a screenshot of your error on Piazza so we can help you to resolve the problem.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Setting up your computer"
+    ]
+  },
+  {
+    "objectID": "topics/r_basics.html#support-and-guidance",
+    "href": "topics/r_basics.html#support-and-guidance",
+    "title": "Setting up your computer",
+    "section": "Support and guidance",
+    "text": "Support and guidance\nCongratulations on preparing your computing environment!\nThroughout the first part of the course, we will often use the online textbook R for Data Science by Hadley Wickham as a reference. The book will introduce how to work with data using R and RStudio. If you want additional guidance for setting up the software, see the Prerequisites section of R4DS. To learn more about RStudio, visit the RStudio User Guide.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Setting up your computer"
+    ]
+  },
+  {
+    "objectID": "assignments/pset3.html",
+    "href": "assignments/pset3.html",
+    "title": "Problem Set 3: Causal Inference",
+    "section": "",
+    "text": "Due: 5pm on Friday, February 14.\nStudent identifer: [type your anonymous identifier here]",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 3"
+    ]
+  },
+  {
+    "objectID": "assignments/pset3.html#potential-outcomes-in-a-hypothetical-setting",
+    "href": "assignments/pset3.html#potential-outcomes-in-a-hypothetical-setting",
+    "title": "Problem Set 3: Causal Inference",
+    "section": "1. Potential outcomes in a hypothetical setting",
+    "text": "1. Potential outcomes in a hypothetical setting\nJose says that coming to UCLA caused him to discover sociology, and it became his major! He says that if he had gone to UCSD, he would have stuck with biology.\n1.1 (5 points)\nIn Jose’s claim, what is the treatment?\nAnswer. Your answer here\n1.2 (5 points)\nUsing the mathematical notation we discussed in class, define the two potential outcomes to which Jose is referring.\nAnswer. Your answer here\n1.3 (5 points) \nIn a sentence or two, say how the Fundamental Problem of Causal Inference applies to Jose’s claim.\nAnswer. Your answer here\n1.4 (5 points) \nUsing conditional expectations or probabilities, write the following in math: the probability of majoring in sociology is higher among students who attend UCLA than among students who attend UCSD.\nAnswer. Your answer here\n1.5 (5 points) \nUsing conditional expectations or probabilities, write the following in math: the probability of majoring in sociology would be higher if we intervened to send students to UCLA than if we intervened to send them to UCSD.\nAnswer. Your answer here",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 3"
+    ]
+  },
+  {
+    "objectID": "assignments/pset3.html#potential-outcomes-in-a-real-experiment",
+    "href": "assignments/pset3.html#potential-outcomes-in-a-real-experiment",
+    "title": "Problem Set 3: Causal Inference",
+    "section": "2. Potential outcomes in a real experiment",
+    "text": "2. Potential outcomes in a real experiment\nThis problem is based on:\nBertrand, M & Mullainathan, S. 2004. “Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination.” American Economic Review 94(4):991–1013.\nRead the first 10 pages of the paper (through the end of section 2). In this paper,\n\nthe unit of analysis is a resume submitted to a job opening\nthe treatment is the name at the top of the resume\nthe outcome is whether the employer called or emailed back for an interview\n\n2.1. (5 points) Fundamental Problem \nOne submitted resume had the name “Emily Baker.” It yielded a callback. The same resume could have had the name “Lakisha Washington.” Explain how the Fundamental Problem of Causal Inference applies to this case (1–2 sentences).\n2.2. (5 points) Exchangeability \nIn a sentence, what is the exchangeability assumption in this study? For concreteness, for this question you may suppose that the only names in the study were “Emily Baker” and “Lakisha Washington.” Be sure to explicitly state the treatment and the potential outcomes.\n2.3 (15 points) Analyzing the experimental data \nLoad packages that our code will use.\n\nlibrary(tidyverse)\nlibrary(haven)\n\nDownload the study’s data from OpenICPSR: https://www.openicpsr.org/openicpsr/project/116023/version/V1/view. This will require creating an account and agreeing to terms for using the data ethically. Put the data in the folder on your computer where this .Rmd is located. Read the data into R using read_dta.\n\nd &lt;- read_dta(\"lakisha_aer.dta\")\n\n\nIf you have an error, you might need to set your working directory first. This tells R where to look for data files. At the top of RStudio, click Session -&gt; Set Working Directory -&gt; To Source File Location.\n\nYou will now see d in your Global Environment at the top right of RStudio.\nWe will use two variables:\n\n\n\nName\nRole\nValues\n\n\n\n\ncall\noutcome\n1 if resume submission yielded a callback\n\n\n\n\n0 if not\n\n\nrace\ncategory of treatments\nb if first name signals Black\n\n\n\n\nw if first name signals white\n\n\n\nThe top of Table 1 reports callback rates: 9.65% for white names and 6.45% for Black names. Reproduce those numbers. Write code that reproduces these numbers.",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 3"
+    ]
+  },
+  {
+    "objectID": "topics/learning_exercise.html",
+    "href": "topics/learning_exercise.html",
+    "title": "Learning Exercise",
+    "section": "",
+    "text": "Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women1 with a 1-year-old child at home. Our data include those with at least one child age 0–18.",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
+    ]
+  },
+  {
+    "objectID": "topics/learning_exercise.html#synthetic-data",
+    "href": "topics/learning_exercise.html#synthetic-data",
+    "title": "Learning Exercise",
+    "section": "Synthetic data",
+    "text": "Synthetic data\nTo speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010–2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated synthetic data: we created a new dataset for you to use with simulated people using these known probabilities.\nSynthetic data is good in our setting for two reasons\n\nwe know the answer\nyou can download the synthetic data right from this website\n\nFor transparency, here is the code with which we created the synthetic data. The line below will load the synthetic data.\n\nparents &lt;- read_csv(\"https://info3370.github.io/data/parents.csv\")\n\nYour synthetic data intentionally omits any parents with child age 1! Here is a graph showing the averages in your data, grouped by child age and sex.",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
+    ]
+  },
+  {
+    "objectID": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
+    "href": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
+    "title": "Learning Exercise",
+    "section": "Your task: Predict at child age 1",
+    "text": "Your task: Predict at child age 1\nYour task is to answer the question: what proportion are employed among female respondents whose youngest child is 1 year old?\n\nyou can use a model with the other ages\nyou can use strategies from the statistical learning page\nyou can use the male respondents if you think they are helpful\n\nNear the end of discussion, we will ask every table to make one estimate. Then we will reveal the truth and see who is closest!",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
+    ]
+  },
+  {
+    "objectID": "topics/learning_exercise.html#one-approach-to-the-task",
+    "href": "topics/learning_exercise.html#one-approach-to-the-task",
+    "title": "Learning Exercise",
+    "section": "One approach to the task",
+    "text": "One approach to the task\nOne approach is to estimate a linear regression model with child_age interacted with sex. We would first create a fitted model object,\n\nmodel &lt;- lm(at_work ~ sex * child_age, data = parents)\n\nthen define the target population to predict\n\ntarget_population &lt;- tibble(sex = \"female\", child_age = 0)\n\nand report a predicted value for the employment rate of female respondents with a 1-year-old youngest child.\n\npredict(model, newdata = target_population)\n\n        1 \n0.5468421",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
+    ]
+  },
+  {
+    "objectID": "topics/learning_exercise.html#footnotes",
+    "href": "topics/learning_exercise.html#footnotes",
+    "title": "Learning Exercise",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nEach married pair need not be of different sex. The data include same-sex couples.↩︎",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
     ]
   },
   {

@@ -2,7 +2,7 @@
 title: "Problem Set 2: Data Transformation"
 ---
 
-**Due: 5pm on Wednesday, February 14.**
+**Due: 5pm on Friday, Jan 31.**
 
 ::: {.callout-note}
 Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link)

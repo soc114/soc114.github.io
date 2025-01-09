@@ -2,7 +2,7 @@
 title: "Problem Set 1: Visualization"
 ---
 
-**Due: 5pm on Friday, January 24.**
+**Due: 5pm on Friday, January 17.**
 
 <!-- ::: {.callout-note} -->
 <!-- Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfZDC4zNsn4aKboRiFDKGtQysgMYgcWnKkSxboz9ORKkUJHbg/viewform?usp=sf_link) -->
