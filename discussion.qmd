@@ -10,6 +10,12 @@ In this discussion, we will introduce ourselves and ensure our computers are pre
 
 ## Jan 14--16
 
+On Thursday, lecture will use data simulated to resemble the Current Population Survey. In this discussion, you will register for an account to access the actual data. Click [here for detailed instructions](topics/data_transformation.qmd#accessing-actual-data).
+
+Your TA may walk through how to look at the survey documentation for one or more of the variables. If time allows, we will break into small groups to look for other variables that might be interesting in a project, and then come back together to tell the class about them.
+
+## Jan 21--23
+
 Last week's lecture introduced visualization with the `ggplot()` function in the `tidyverse` package. This discussion explores more of what `ggplot()` can do.
 
 * Form groups of about 4 students
@@ -20,11 +26,85 @@ Last week's lecture introduced visualization with the `ggplot()` function in the
    * Choose someone to present to the class
 * At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class
 
-## Jan 21--23
+## Jan 28--30
 
-There are two options for this discussion section. The teaching team will discuss and choose one of the options.
+You should read the following paper before this discussion:
 
-### Option A: Write a function
+> England, Paula, Andrew Levine, and Emma Mishel. 2020. [Progress toward gender equality in the United States has slowed or stalled,](https://www.pnas.org/doi/full/10.1073/pnas.1918891117) PNAS 117(13):6990–6997.
+
+The problem set reproduces findings from this paper. The discussion will focus on conceptual questions from the reading. The questions below are only guidelines, and your TA might have other topics to discuss.
+
+**1.** The authors write that "change in the gender system has been deeply asymmetric." Explain this in a sentence or two to someone who hasn’t read the article.
+
+**2.** The authors discuss cultural changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about cultural changes.
+
+::: callout-tip
+If you are not sure how to word a survey question, here are some examples from the [American Time Use Survey](https://www.atusdata.org/atus-action/variables/RCVPDLV#questionnaire_text_section), [Current Population Survey](https://cps.ipums.org/cps-action/variables/PENSION#questionnaire_text_section), and [General Social Survey](https://gssdataexplorer.norc.org/variables/706/vshow).
+:::
+
+**3.** The authors discuss institutional changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about institutional changes.
+
+**4.** What was one fact presented in this paper that most surprised you?
+
+**5.** What about the graphs in this paper is compelling? What would you improve or change if you were producing these graphs?
+
+## Feb 4--6
+
+Your TA will introduce the final project, which will be carried out in groups of about 5 students within your discussion section. Your TA will help you to form groups with common interest areas.
+
+Possible topics include (but are not limited to) inequality by race or gender, trends in poverty or inequality over time, and the causal effect of education or other life experiences on subsequent outcomes. Another possibility is to form groups centered on a particular dataset, with the topic to be decided later.
+
+All subsequent discussions are devoted to group work on the final project.
+
+## Feb 11--13
+
+By the end of this discussion, your group should select a dataset for the final project. If you aren't sure where to start, we suggest the options at [ipums.org](https://www.ipums.org/).
+
+If you finish early, you are always welcome to move on to the tasks below.
+
+## Feb 18--20
+
+By the end of this discussion, your group should
+
+* select an outcome variable
+* define the unit of analysis (e.g., a person, a school, a state) for which that outcome variable is defined
+* determine how you plan to aggregate the outcome variable across units (e.g., by a mean, median, proportion)
+
+If you finish early, you are always welcome to move on to the tasks below.
+
+## Feb 25--27
+
+By the end of this discussion, your group should discuss the target population and whether you will need to use sampling weights in your analysis.
+
+If you finish early, you are always welcome to move on to the tasks below.
+
+## Mar 4--6
+
+This discussion is open for your group to work on any remaining tasks to finish up your final project. Recall that PDF slides and writeup are due by 5pm on Mar 7, with one submission per group.
+
+## Mar 11--13
+
+Your group will present your final project in this discussion. During each presentation by a group that is not your own, you will be asked to note something you appreciated about their presentation.
+
+
+## Other discussion possibilities
+
+This part of the page has other possibilities for discussion topics. We may use these in one of the discussions depending on how the course material is progressing over the quarter.
+
+### Explain a function
+
+This discussion explores more of what the `tidyverse` can do.
+
+* Form groups of about 4 students
+* Introduce yourself to your group members
+* Choose a function in [Ch 3 of R For Data Science](https://r4ds.hadley.nz/data-transform) that we did not cover explicitly in class.
+    * Possibilities include: `arrange()`, `distinct()`, `rename()`, `relocate()`, the `slice_` functions, `ungroup()`
+    * Find an example of the function in the chapter.
+    * Discuss how the code works.
+    * Prepare to explain to the class.
+* At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class
+
+### Write a function
 
 Now that we have worked with functions in R, it is time to understand them on a deeper level. In this exercise, we will write our own functions.
 
@@ -108,79 +188,6 @@ estimator <- function(data) {
 ```
 
 and apply the estimator to `sample_a`, `sample_b`, and `sample_c`.
-
-### Option B: Explain a function
-
-Last week's lecture introduced data transformation with the `tidyverse` package. This discussion explores more of what the `tidyverse` can do.
-
-* Form groups of about 4 students
-* Introduce yourself to your group members
-* Choose a function in [Ch 3 of R For Data Science](https://r4ds.hadley.nz/data-transform) that we did not cover explicitly in class.
-    * Possibilities include: `arrange()`, `distinct()`, `rename()`, `relocate()`, the `slice_` functions, `ungroup()`
-    * Find an example of the function in the chapter.
-    * Discuss how the code works.
-    * Prepare to explain to the class.
-* At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class
-
-## Jan 28--30
-
-You should read the following paper before this discussion:
-
-> England, Paula, Andrew Levine, and Emma Mishel. 2020. [Progress toward gender equality in the United States has slowed or stalled,](https://www.pnas.org/doi/full/10.1073/pnas.1918891117) PNAS 117(13):6990–6997.
-
-The problem set reproduces findings from this paper. The discussion will focus on conceptual questions from the reading. The questions below are only guidelines, and your TA might have other topics to discuss.
-
-**1.** The authors write that "change in the gender system has been deeply asymmetric." Explain this in a sentence or two to someone who hasn’t read the article.
-
-**2.** The authors discuss cultural changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about cultural changes.
-
-::: callout-tip
-If you are not sure how to word a survey question, here are some examples from the [American Time Use Survey](https://www.atusdata.org/atus-action/variables/RCVPDLV#questionnaire_text_section), [Current Population Survey](https://cps.ipums.org/cps-action/variables/PENSION#questionnaire_text_section), and [General Social Survey](https://gssdataexplorer.norc.org/variables/706/vshow).
-:::
-
-**3.** The authors discuss institutional changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about institutional changes.
-
-**4.** What was one fact presented in this paper that most surprised you?
-
-**5.** What about the graphs in this paper is compelling? What would you improve or change if you were producing these graphs?
-
-## Feb 4--6
-
-Your TA will introduce the final project, which will be carried out in groups of about 5 students within your discussion section. Your TA will help you to form groups with common interest areas.
-
-Possible topics include (but are not limited to) inequality by race or gender, trends in poverty or inequality over time, and the causal effect of education or other life experiences on subsequent outcomes. Another possibility is to form groups centered on a particular dataset, with the topic to be decided later.
-
-All subsequent discussions are devoted to group work on the final project.
-
-## Feb 11--13
-
-By the end of this discussion, your group should select a dataset for the final project. If you aren't sure where to start, we suggest the options at [ipums.org](https://www.ipums.org/).
-
-If you finish early, you are always welcome to move on to the tasks below.
-
-## Feb 18--20
-
-By the end of this discussion, your group should
-
-* select an outcome variable
-* define the unit of analysis (e.g., a person, a school, a state) for which that outcome variable is defined
-* determine how you plan to aggregate the outcome variable across units (e.g., by a mean, median, proportion)
-
-If you finish early, you are always welcome to move on to the tasks below.
-
-## Feb 25--27
-
-By the end of this discussion, your group should discuss the target population and whether you will need to use sampling weights in your analysis.
-
-If you finish early, you are always welcome to move on to the tasks below.
-
-## Mar 4--6
-
-This discussion is open for your group to work on any remaining tasks to finish up your final project. Recall that PDF slides and writeup are due by 5pm on Mar 7, with one submission per group.
-
-## Mar 11--13
-
-Your group will present your final project in this discussion. During each presentation by a group that is not your own, you will be asked to note something you appreciated about their presentation.
 
 
 
