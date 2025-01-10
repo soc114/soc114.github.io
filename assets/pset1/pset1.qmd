@@ -3,11 +3,6 @@ title: "Problem Set 1: Visualization"
 format: pdf
 ---
 
----
-title: "Problem Set 1: Visualization"
-format: pdf
----
-
 **Due: 5pm on Friday, January 24.**
 
 Student identifer: [type your anonymous identifier here]
