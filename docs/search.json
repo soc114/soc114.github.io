@@ -1010,11 +1010,11 @@
     ]
   },
   {
-    "objectID": "assignments/pset0.html#help-with-gettinng-started",
-    "href": "assignments/pset0.html#help-with-gettinng-started",
+    "objectID": "assignments/pset0.html#help-with-getting-started",
+    "href": "assignments/pset0.html#help-with-getting-started",
     "title": "Problem Set 0: Computing environment",
-    "section": "Help with gettinng started",
-    "text": "Help with gettinng started\nIf you are stuck, make sure that you first follow the installation instructions in setting up your computer.\nOpen the downloaded problem set in RStudio. You should then click the “Render” button as shown in the image below.\n This will run the R code and combine the output with the text in the document into a PDF. By default, this PDF will be output in the same directory that you saved pset0.qmd in. You will then submit the PDF on Canvas.",
+    "section": "Help with getting started",
+    "text": "Help with getting started\nIf you are stuck, make sure that you first follow the installation instructions in setting up your computer.\nOpen the downloaded problem set in RStudio. You should then click the “Render” button as shown in the image below.\n This will run the R code and combine the output with the text in the document into a PDF. By default, this PDF will be output in the same directory that you saved pset0.qmd in. You will then submit the PDF on Canvas.",
     "crumbs": [
       " ",
       "Assignments",
