@@ -4,9 +4,9 @@ title: "Problem Set 1: Visualization"
 
 **Due: 5pm on Friday, January 17.**
 
-<!-- ::: {.callout-note} -->
-<!-- Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfZDC4zNsn4aKboRiFDKGtQysgMYgcWnKkSxboz9ORKkUJHbg/viewform?usp=sf_link) -->
-<!-- ::: -->
+::: {.callout-note}
+Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfZDC4zNsn4aKboRiFDKGtQysgMYgcWnKkSxboz9ORKkUJHbg/viewform?usp=sf_link)
+:::
 
 Student identifer: [type your anonymous identifier here]
 
@@ -41,7 +41,7 @@ The data contain five variables.
 4. `age` is the age at which earnings were measured: `r min(lifeCourse$age)`--`r max(lifeCourse$age)`
 5. `income` is the value for the given earnings percentile in the given subgroup. Income values are provided in 2022 dollars
 
-## 1. Visualize (25 points)
+## 1. Visualize (40 points)
 
 Use `ggplot` to visualize these data. To denote the different trajectories,
 
@@ -76,48 +76,48 @@ D) A person
 
 For 2.1--2.4, write the letter of the corresponding component of the research question.
 
-**2.1 (2 points)** What is the unit of analysis?
+**2.1 (2.5 points)** What is the unit of analysis?
 
-**2.2 (2 points)** What is the outcome variable?
+**2.2 (2.5 points)** What is the outcome variable?
 
-**2.3 (2 points)** What are the target populations?
+**2.3 (2.5 points)** What are the target populations?
 
-**2.4 (2 points)** What are the summary statistics?
+**2.4 (2.5 points)** What are the summary statistics?
 
-## 3. Interpret the graph
+<!-- ## 3. Interpret the graph -->
 
-Write 2-3 sentences summarizing what your figure shows.
+<!-- Write 2-3 sentences summarizing what your figure shows. -->
 
-**3.1 (3 points).** Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course?
+<!-- **3.1 (3 points).** Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course? -->
 
-> Type your answer here.
+<!-- > Type your answer here. -->
 
-**3.2 (3 points).** Focus on those born in 1970. How does the pattern in the 90th percentile differ for those with and without college degrees?
+<!-- **3.2 (3 points).** Focus on those born in 1970. How does the pattern in the 90th percentile differ for those with and without college degrees? -->
 
-> Type your answer here.
+<!-- > Type your answer here. -->
 
 
-## 4. Connect to reading
+<!-- ## 4. Connect to reading -->
 
-Read p. 1--7 of following paper. Stop before the section "Analytic Framework for Decomposing Inequality."
+<!-- Read p. 1--7 of following paper. Stop before the section "Analytic Framework for Decomposing Inequality." -->
 
-> Cheng, Siwei. 2021. [The shifting life course patterns of wage inequality.](https://doi.org/10.1093/sf/soab003). _Social Forces_ 100(1):1--28.
+<!-- > Cheng, Siwei. 2021. [The shifting life course patterns of wage inequality.](https://doi.org/10.1093/sf/soab003). _Social Forces_ 100(1):1--28. -->
 
-Our data are not the same as Cheng's. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less.
+<!-- Our data are not the same as Cheng's. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less. -->
 
-Cheng discusses period trends, cohort trends, and age trends. 
+<!-- Cheng discusses period trends, cohort trends, and age trends.  -->
 
-**4.1 (3 points)** Describe a cohort trend that you see in your graph.
+<!-- **4.1 (3 points)** Describe a cohort trend that you see in your graph. -->
 
-> Type your answer here.
+<!-- > Type your answer here. -->
 
-**4.2 (3 points)** Describe an age trend that you see in your graph.
+<!-- **4.2 (3 points)** Describe an age trend that you see in your graph. -->
 
-> Type your answer here.
+<!-- > Type your answer here. -->
 
-**4.3 (5 points)** Describe two ways that our results align with the arguments in the paper.
+<!-- **4.3 (5 points)** Describe two ways that our results align with the arguments in the paper. -->
 
-> Type your answer here.
+<!-- > Type your answer here. -->
 
 ## Recap and connections to your project
 
