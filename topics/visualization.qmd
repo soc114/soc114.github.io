@@ -17,6 +17,8 @@ Visualizing data is an essential skill for data science. We will write our first
 
 ## A motivating question: Economic output and inequality
 
+{{< video https://www.youtube.com/embed/3Xi8dw426lQ >}}
+
 Is economic output higher in countries with higher levels of income inequality? Some argue that this would be the case, for example if high levels of income inequality provide an incentive for hard work and innovation. But is it true?
 
 ```{r, echo = F, fig.height = 2.5}
@@ -147,6 +149,8 @@ A higher value of the 90/10 ratio corresponds to higher inequality. In our hypot
 
 ## Prepare the environment
 
+{{< video https://www.youtube.com/embed/M5qdJRwC-pY >}}
+
 Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking `File -> Save` from the menu at the very top of your screen.
 
 ![How to create a new R script in RStudio.](../assets/r_script_screenshot.png)
@@ -186,6 +190,8 @@ There is one row for each country. For details on the data, see Jencks (2002) Ta
 To visualize data, we will use the `ggplot()` function which you have already loaded into your R session as part of the `tidyverse` package.
 
 ### Begin with an empty graph
+
+{{< video https://www.youtube.com/embed/gU34bo4P7F0 >}}
 
 A function in R takes in **arguments** and returns an **object**. The arguments are the inputs that we give to the function. The function then returns something back to us.
 
@@ -231,6 +237,8 @@ ggplot(
 
 ### Customize in many ways
 
+{{< video https://www.youtube.com/embed/OsrDakjkyV0 >}}
+
 There are many ways to customize the graph. For example, the code below
 
 * loads the `ggrepel` package in order to add country labels to the points
@@ -259,5 +267,3 @@ table1 |>
   scale_x_continuous(name = "Inequality: 90th percentile / 10th percentile of household income") +
   theme(legend.position = "none")
 ```
-
-{{< video https://www.youtube.com/embed/YWTZ6xxRiP8 >}}

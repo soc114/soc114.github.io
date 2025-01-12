@@ -52,7 +52,7 @@
     "href": "topics/data_transformation.html#filter-to-cases-of-interest",
     "title": "Data transformation",
     "section": "filter() to cases of interest",
-    "text": "filter() to cases of interest\n\nIn this step, you will use filter() to convert your cps_data object to a new object called filtered.\n\nThe filter() function keeps only rows in our dataset that correspond to those we want to study. The examples on the documentation page are especially helpful. The R4DS section is also helpful.\nHere are two ways to use filter() to restrict to people working 50+ weeks per year. One way is to call the filter() function and hand it two arguments\n\n.data = cps_data is the dataset\nyear == 1962 is a logical condition coded TRUE for observations in 1962\n\n\nfilter(.data = cps_data, year == 1962)\n\nThe result of this call is a tibble with only the observations from 1962. Another way to do the same operation is with the pipe operator |&gt;\n\ncps_data |&gt;\n  filter(year == 1962)\n\nThis approach begins with the data set cps_data. The pipe operator |&gt; hands this data set on as the first argument to the filter() function in the next line. As before, the second argument is the logical condition year == 1962.\nThe piping approach is often preferable because it reads like a sentence: begin with data, then filter to cases with a given condition. The pipe is also useful\nThe pipe operator |&gt; takes what is on the first line and hands it on as the first argument to the function in the next line. This reads in a sentence: begin with the cps_data tibble and then filter() to cases with year == 1962. The pipe can also string together many operations, with comments allowed between them:\n\ncps_data |&gt;\n  # Restrict to 1962\n  filter(year == 1962) |&gt;\n  # Restrict to ages 40-44\n  filter(age &gt;= 40 & age &lt;= 44)\n\nYour turn. Begin with the cps_data dataset. Filter to\n\npeople working 50+ weeks per year (check documentation for wkswork2)\nvalid report of incwage greater than 0 and less than 99999998\n\n\n\nShow the code answer\nfiltered &lt;- cps_data |&gt;\n  # Subset to cases working full year\n  filter(wkswork2 == 6) |&gt;\n  # Subset to cases with valid income\n  filter(incwage &gt; 0 & incwage &lt; 99999998)\n\n\n\n\n\n\n\n\nNote\n\n\n\nFiltering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.\n\n\n\n\n\nfilter() without the pipe\n\n\n\n\nfilter() with the pipe",
+    "text": "filter() to cases of interest\n\nIn this step, you will use filter() to convert your cps_data object to a new object called filtered.\n\nThe filter() function keeps only rows in our dataset that correspond to those we want to study. The examples on the documentation page are especially helpful. The R4DS section is also helpful.\nHere are two ways to use filter() to restrict to people working 50+ weeks per year. One way is to call the filter() function and hand it two arguments\n\n.data = cps_data is the dataset\nyear == 1962 is a logical condition coded TRUE for observations in 1962\n\n\nfilter(.data = cps_data, year == 1962)\n\nThe result of this call is a tibble with only the observations from 1962. Another way to do the same operation is with the pipe operator |&gt;\n\ncps_data |&gt;\n  filter(year == 1962)\n\nThis approach begins with the data set cps_data. The pipe operator |&gt; hands this data set on as the first argument to the filter() function in the next line. As before, the second argument is the logical condition year == 1962.\nThe piping approach is often preferable because it reads like a sentence: begin with data, then filter to cases with a given condition. The pipe is also useful\nThe pipe operator |&gt; takes what is on the first line and hands it on as the first argument to the function in the next line. This reads in a sentence: begin with the cps_data tibble and then filter() to cases with year == 1962. The pipe can also string together many operations, with comments allowed between them:\n\ncps_data |&gt;\n  # Restrict to 1962\n  filter(year == 1962) |&gt;\n  # Restrict to ages 40-44\n  filter(age &gt;= 40 & age &lt;= 44)\n\nYour turn. Begin with the cps_data dataset. Filter to\n\npeople working 50+ weeks per year (check documentation for wkswork2)\nvalid report of incwage greater than 0 and less than 99999998\n\n\n\nShow the code answer\nfiltered &lt;- cps_data |&gt;\n  # Subset to cases working full year\n  filter(wkswork2 == 6) |&gt;\n  # Subset to cases with valid income\n  filter(incwage &gt; 0 & incwage &lt; 99999998)\n\n\n\n\n\n\n\n\nNote\n\n\n\nFiltering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.",
     "crumbs": [
       " ",
       "Working with Data",
@@ -64,7 +64,7 @@
     "href": "topics/data_transformation.html#group_by-and-summarize-for-subpopulation-summaries",
     "title": "Data transformation",
     "section": "group_by() and summarize() for subpopulation summaries",
-    "text": "group_by() and summarize() for subpopulation summaries\n\nIn this step, you will use group_by() and summarize() to convert your mutated object to a new object called summarized.\n\nEach row in our dataset is a person. We want a dataset where each row is a year. To get there, we will group our data by year and then summarize each group by a set of summary statistics.\n\nIntroducing summarize() with the sample mean\nTo see how summarize() works, let’s first summarize the sample mean income within each year. The input has one row per person. The result has one row per group. For each year, it records the sample mean income.\n\nfiltered |&gt;\n  group_by(year) |&gt;\n  summarize(mean_income = mean(incwage))\n\n# A tibble: 62 × 2\n    year mean_income\n   &lt;dbl&gt;       &lt;dbl&gt;\n 1  1962       6383.\n 2  1963       5831.\n 3  1964       6688.\n 4  1965       6066.\n 5  1966       6438.\n 6  1967       6745.\n 7  1968       7244.\n 8  1969       8465.\n 9  1970       9198.\n10  1971       8490.\n# ℹ 52 more rows\n\n\n\n\nUsing summarize() with weighted quantiles\nInstead of the mean, we plan to use three other summary statistics: the 10th, 50th, and 90th percentiles of income. We also want to incorporate the sampling weights provided with the Current Population Survey, in order to summarize the population instead of the sample.\nWe will use the wtd.quantile function to create weighted quantiles. This function is available in the Hmisc package. If you don’t have that package, install it with install.packages(\"Hmisc\"). Using the Hmisc package is tricky, because it has some functions with the same name as functions that we use in the tidyverse. Instead of loading the whole package, we will only load the functions we are using at the time we use them. Whenever we want to calculate a weighted quantile, we will call it with the code packagename::functionname() which in this case is Hmisc::wtd.quantile().\nThe wtd.quantile function will take three arguments:\n\nx is the variable to be summarized\nweights is the variable containing sampling weights\nprobs is the probability cutoffs for the quantiles. For the 10th, 50th, and 90th percentiles we want 0.1, 0.5, and 0.9.\n\nThe code below produces weighted quantile summaries.\n\nsummarized &lt;- filtered |&gt;\n  group_by(year) |&gt;\n  summarize(\n    p10 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.1),\n    p50 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.5),\n    p90 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.9),\n    .groups = \"drop\"\n  )\n\n\n\n\nSample summaries\n\n\n\n\nWeighted sample summaries",
+    "text": "group_by() and summarize() for subpopulation summaries\n\nIn this step, you will use group_by() and summarize() to convert your mutated object to a new object called summarized.\n\nEach row in our dataset is a person. We want a dataset where each row is a year. To get there, we will group our data by year and then summarize each group by a set of summary statistics.\n\nIntroducing summarize() with the sample mean\nTo see how summarize() works, let’s first summarize the sample mean income within each year. The input has one row per person. The result has one row per group. For each year, it records the sample mean income.\n\nfiltered |&gt;\n  group_by(year) |&gt;\n  summarize(mean_income = mean(incwage))\n\n# A tibble: 62 × 2\n    year mean_income\n   &lt;dbl&gt;       &lt;dbl&gt;\n 1  1962       6383.\n 2  1963       5831.\n 3  1964       6688.\n 4  1965       6066.\n 5  1966       6438.\n 6  1967       6745.\n 7  1968       7244.\n 8  1969       8465.\n 9  1970       9198.\n10  1971       8490.\n# ℹ 52 more rows\n\n\n\n\n\nUsing summarize() with weighted quantiles\nInstead of the mean, we plan to use three other summary statistics: the 10th, 50th, and 90th percentiles of income. We also want to incorporate the sampling weights provided with the Current Population Survey, in order to summarize the population instead of the sample.\nWe will use the wtd.quantile function to create weighted quantiles. This function is available in the Hmisc package. If you don’t have that package, install it with install.packages(\"Hmisc\"). Using the Hmisc package is tricky, because it has some functions with the same name as functions that we use in the tidyverse. Instead of loading the whole package, we will only load the functions we are using at the time we use them. Whenever we want to calculate a weighted quantile, we will call it with the code packagename::functionname() which in this case is Hmisc::wtd.quantile().\nThe wtd.quantile function will take three arguments:\n\nx is the variable to be summarized\nweights is the variable containing sampling weights\nprobs is the probability cutoffs for the quantiles. For the 10th, 50th, and 90th percentiles we want 0.1, 0.5, and 0.9.\n\nThe code below produces weighted quantile summaries.\n\nsummarized &lt;- filtered |&gt;\n  group_by(year) |&gt;\n  summarize(\n    p10 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.1),\n    p50 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.5),\n    p90 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.9),\n    .groups = \"drop\"\n  )",
     "crumbs": [
       " ",
       "Working with Data",
@@ -452,66 +452,6 @@
       "Inference with Models",
       "Models for description",
       "Sample Splitting"
-    ]
-  },
-  {
-    "objectID": "topics/visualization.html",
-    "href": "topics/visualization.html",
-    "title": "Visualization",
-    "section": "",
-    "text": "This topic is covered on Jan 14.\nVisualizing data is an essential skill for data science. We will write our first code to visualize how countries’ level of economic output is related to their level of inequality. We will use data reported in tabular form in Jencks 2002 Table 1, made available in digital form in jencks_table1.csv.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Visualization"
-    ]
-  },
-  {
-    "objectID": "topics/visualization.html#a-motivating-question-economic-output-and-inequality",
-    "href": "topics/visualization.html#a-motivating-question-economic-output-and-inequality",
-    "title": "Visualization",
-    "section": "A motivating question: Economic output and inequality",
-    "text": "A motivating question: Economic output and inequality\nIs economic output higher in countries with higher levels of income inequality? Some argue that this would be the case, for example if high levels of income inequality provide an incentive for hard work and innovation. But is it true?\n\n\n\n\n\n\n\n\n\nTo begin answering this question, we first have to define measures of economic output (the \\(y\\)-axis) and inequality (the \\(x\\)-axis).\n\nMeasuring economic output\nWe use Gross Domestic Product (GDP) Per Capita as a measure of economic output. This measure captures the total economic production of a country divided by the population of the country. For ease of comparison, our data normalizes GDP per capita by dividing by the U.S. GDP per capita. In our data, Sweden’s GDP per capita is recorded as 0.68, indicating that Sweden’s GDP per capita was 68% as high as the U.S. GDP per capita at the time the data were collected.\n\n\nMeasuring inequality\nTo measure inequality, we consider a measure that asks how many times higher an income at the top of the distribution is compared with an income at the bottom of the distribution. Our measure is called the 90/10 income ratio. We will illustrate this concept using the 2022 U.S. household income distribution, visualized below.\n\n\n\n\n\n\n\n\n\nThis graph is a histogram. The width of each bar in the histogram is $25k. The height of each bar shows the number of households with incomes falling within the range of household incomes (x-axis) that correspond to the width of the bar.\nThere are two summary statistics: the 90th percentile in blue and the 10th percentile in green. The 90th percentile is the income value such that 90% of households have incomes that are lower. 90% of the gray mass is to the left of the blue line. The 10th percentile is the income value such that 10% of households have incomes that are lower. We can think of the 90th percentile as a measure of a high income in the distribution and the 10th percentile as a measure of a low income in the distribution.\nThe 90/10 income ratio is the 90th percentile divided by the 10th percentile. For U.S. household incomes in 2022, this works out as\n\\[\n\\text{90/10 ratio} = \\frac{\\text{90th percentile}}{\\text{10th percentile}} = \\frac{$212,110}{$15,640} = 13.6\n\\]\nA higher value of the 90/10 ratio corresponds to higher inequality. In our hypothetical case, a household at the 90th percentile has an income that is 13.6 times as high as the income of a household at the 10th percentile.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Visualization"
-    ]
-  },
-  {
-    "objectID": "topics/visualization.html#prepare-the-environment",
-    "href": "topics/visualization.html#prepare-the-environment",
-    "title": "Visualization",
-    "section": "Prepare the environment",
-    "text": "Prepare the environment\nOpen a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking File -&gt; Save from the menu at the very top of your screen.\n Paste the code below into your R Script. Place your cursor within the line and hit CMD + Return or CTRL + Enter to run the code and load the tidyverse package.\n\nlibrary(tidyverse)\n\nYou will see action in the console. You have added some functionality to R for this session!\nThe data can be loaded from the course website with the line below.\n\ntable1 &lt;- read_csv(file = \"https://soc114.github.io/data/jencks_table1.csv\")\n\nWhen you run this code, the object table1 will appear in your environment pane.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Visualization"
-    ]
-  },
-  {
-    "objectID": "topics/visualization.html#explore-the-data",
-    "href": "topics/visualization.html#explore-the-data",
-    "title": "Visualization",
-    "section": "Explore the data",
-    "text": "Explore the data\nType table1 in your console. You can see the data!\n\nThe data contain four variables (columns):\n\ncountry country name\nratio ratio is the 90/10 income ratio in the country\ngdp is GDP per capita in the country, expressed as a proportion of U.S. GDP\nlife_expectancy life expectancy at birth\n\nThere is one row for each country. For details on the data, see Jencks (2002) Table 1.",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Visualization"
-    ]
-  },
-  {
-    "objectID": "topics/visualization.html#produce-a-visualization",
-    "href": "topics/visualization.html#produce-a-visualization",
-    "title": "Visualization",
-    "section": "Produce a visualization",
-    "text": "Produce a visualization\nTo visualize data, we will use the ggplot() function which you have already loaded into your R session as part of the tidyverse package.\n\nBegin with an empty graph\nA function in R takes in arguments and returns an object. The arguments are the inputs that we give to the function. The function then returns something back to us.\nThe ggplot() function takes two arguments:\n\ndata = table1 says that data will come from the object table1\nmapping = aes(x = ratio, y = gdp) maps the data to the aesthetics of the graph. This line says that the ratio variable will be placed on the \\(x\\)-axis and the gdp variable will be on the \\(y\\)-axis.\n\nWhen you run this code, the function returns an object which is the resulting plot. The plot will appear in the Plots pane in RStudio.\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n)\n\n\n\n\n\n\n\n\n\n\nAdd a layer to the graph\nOnce we have an empty graph, we can add elements to the graph in layers. ggplot() is set up to add layers connected by a + symbol between lines. For example, we can add points to the graph by adding the layer geom_point().\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\nImprove labels\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n) +\n  geom_point() +\n  labs(\n    x = \"Inequality: 90th percentile / 10th percentile of household income\",\n    y = \"GDP as a Fraction of U.S. GDP\"\n  )\n\n\n\n\n\n\n\n\n\n\nCustomize in many ways\nThere are many ways to customize the graph. For example, the code below\n\nloads the ggrepel package in order to add country labels to the points\nuses geom_smooth to add a trend line\nuses scale_y_continuous to convert the \\(y\\)-axis labels from decimals to percentages\n\n\nlibrary(ggrepel)\ntable1 |&gt;\n  ggplot(aes(x = ratio, y = gdp)) +\n  geom_point() +\n  geom_smooth(\n    formula = 'y ~ x',\n    method = \"lm\", \n    se = F, \n    color = \"black\"\n  ) +\n  geom_text_repel(\n    aes(label = country),\n    size = 3\n  ) +\n  scale_y_continuous(\n    labels = scales::label_percent(),\n    name = \"GDP as a Percent of U.S.\"\n  ) +\n  scale_x_continuous(name = \"Inequality: 90th percentile / 10th percentile of household income\") +\n  theme(legend.position = \"none\")",
-    "crumbs": [
-      " ",
-      "Working with Data",
-      "Visualization"
     ]
   },
   {
@@ -1209,6 +1149,66 @@
       "Inference with Models",
       "Models for description",
       "Learning Exercise"
+    ]
+  },
+  {
+    "objectID": "topics/visualization.html",
+    "href": "topics/visualization.html",
+    "title": "Visualization",
+    "section": "",
+    "text": "This topic is covered on Jan 14.\nVisualizing data is an essential skill for data science. We will write our first code to visualize how countries’ level of economic output is related to their level of inequality. We will use data reported in tabular form in Jencks 2002 Table 1, made available in digital form in jencks_table1.csv.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Visualization"
+    ]
+  },
+  {
+    "objectID": "topics/visualization.html#a-motivating-question-economic-output-and-inequality",
+    "href": "topics/visualization.html#a-motivating-question-economic-output-and-inequality",
+    "title": "Visualization",
+    "section": "A motivating question: Economic output and inequality",
+    "text": "A motivating question: Economic output and inequality\n\nIs economic output higher in countries with higher levels of income inequality? Some argue that this would be the case, for example if high levels of income inequality provide an incentive for hard work and innovation. But is it true?\n\n\n\n\n\n\n\n\n\nTo begin answering this question, we first have to define measures of economic output (the \\(y\\)-axis) and inequality (the \\(x\\)-axis).\n\nMeasuring economic output\nWe use Gross Domestic Product (GDP) Per Capita as a measure of economic output. This measure captures the total economic production of a country divided by the population of the country. For ease of comparison, our data normalizes GDP per capita by dividing by the U.S. GDP per capita. In our data, Sweden’s GDP per capita is recorded as 0.68, indicating that Sweden’s GDP per capita was 68% as high as the U.S. GDP per capita at the time the data were collected.\n\n\nMeasuring inequality\nTo measure inequality, we consider a measure that asks how many times higher an income at the top of the distribution is compared with an income at the bottom of the distribution. Our measure is called the 90/10 income ratio. We will illustrate this concept using the 2022 U.S. household income distribution, visualized below.\n\n\n\n\n\n\n\n\n\nThis graph is a histogram. The width of each bar in the histogram is $25k. The height of each bar shows the number of households with incomes falling within the range of household incomes (x-axis) that correspond to the width of the bar.\nThere are two summary statistics: the 90th percentile in blue and the 10th percentile in green. The 90th percentile is the income value such that 90% of households have incomes that are lower. 90% of the gray mass is to the left of the blue line. The 10th percentile is the income value such that 10% of households have incomes that are lower. We can think of the 90th percentile as a measure of a high income in the distribution and the 10th percentile as a measure of a low income in the distribution.\nThe 90/10 income ratio is the 90th percentile divided by the 10th percentile. For U.S. household incomes in 2022, this works out as\n\\[\n\\text{90/10 ratio} = \\frac{\\text{90th percentile}}{\\text{10th percentile}} = \\frac{$212,110}{$15,640} = 13.6\n\\]\nA higher value of the 90/10 ratio corresponds to higher inequality. In our hypothetical case, a household at the 90th percentile has an income that is 13.6 times as high as the income of a household at the 10th percentile.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Visualization"
+    ]
+  },
+  {
+    "objectID": "topics/visualization.html#prepare-the-environment",
+    "href": "topics/visualization.html#prepare-the-environment",
+    "title": "Visualization",
+    "section": "Prepare the environment",
+    "text": "Prepare the environment\n\nOpen a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking File -&gt; Save from the menu at the very top of your screen.\n Paste the code below into your R Script. Place your cursor within the line and hit CMD + Return or CTRL + Enter to run the code and load the tidyverse package.\n\nlibrary(tidyverse)\n\nYou will see action in the console. You have added some functionality to R for this session!\nThe data can be loaded from the course website with the line below.\n\ntable1 &lt;- read_csv(file = \"https://soc114.github.io/data/jencks_table1.csv\")\n\nWhen you run this code, the object table1 will appear in your environment pane.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Visualization"
+    ]
+  },
+  {
+    "objectID": "topics/visualization.html#explore-the-data",
+    "href": "topics/visualization.html#explore-the-data",
+    "title": "Visualization",
+    "section": "Explore the data",
+    "text": "Explore the data\nType table1 in your console. You can see the data!\n\nThe data contain four variables (columns):\n\ncountry country name\nratio ratio is the 90/10 income ratio in the country\ngdp is GDP per capita in the country, expressed as a proportion of U.S. GDP\nlife_expectancy life expectancy at birth\n\nThere is one row for each country. For details on the data, see Jencks (2002) Table 1.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Visualization"
+    ]
+  },
+  {
+    "objectID": "topics/visualization.html#produce-a-visualization",
+    "href": "topics/visualization.html#produce-a-visualization",
+    "title": "Visualization",
+    "section": "Produce a visualization",
+    "text": "Produce a visualization\nTo visualize data, we will use the ggplot() function which you have already loaded into your R session as part of the tidyverse package.\n\nBegin with an empty graph\n\nA function in R takes in arguments and returns an object. The arguments are the inputs that we give to the function. The function then returns something back to us.\nThe ggplot() function takes two arguments:\n\ndata = table1 says that data will come from the object table1\nmapping = aes(x = ratio, y = gdp) maps the data to the aesthetics of the graph. This line says that the ratio variable will be placed on the \\(x\\)-axis and the gdp variable will be on the \\(y\\)-axis.\n\nWhen you run this code, the function returns an object which is the resulting plot. The plot will appear in the Plots pane in RStudio.\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n)\n\n\n\n\n\n\n\n\n\n\nAdd a layer to the graph\nOnce we have an empty graph, we can add elements to the graph in layers. ggplot() is set up to add layers connected by a + symbol between lines. For example, we can add points to the graph by adding the layer geom_point().\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\nImprove labels\n\nggplot(\n  data = table1,\n  mapping = aes(x = ratio, y = gdp)\n) +\n  geom_point() +\n  labs(\n    x = \"Inequality: 90th percentile / 10th percentile of household income\",\n    y = \"GDP as a Fraction of U.S. GDP\"\n  )\n\n\n\n\n\n\n\n\n\n\nCustomize in many ways\n\nThere are many ways to customize the graph. For example, the code below\n\nloads the ggrepel package in order to add country labels to the points\nuses geom_smooth to add a trend line\nuses scale_y_continuous to convert the \\(y\\)-axis labels from decimals to percentages\n\n\nlibrary(ggrepel)\ntable1 |&gt;\n  ggplot(aes(x = ratio, y = gdp)) +\n  geom_point() +\n  geom_smooth(\n    formula = 'y ~ x',\n    method = \"lm\", \n    se = F, \n    color = \"black\"\n  ) +\n  geom_text_repel(\n    aes(label = country),\n    size = 3\n  ) +\n  scale_y_continuous(\n    labels = scales::label_percent(),\n    name = \"GDP as a Percent of U.S.\"\n  ) +\n  scale_x_continuous(name = \"Inequality: 90th percentile / 10th percentile of household income\") +\n  theme(legend.position = \"none\")",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Visualization"
     ]
   },
   {

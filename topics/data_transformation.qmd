@@ -135,13 +135,13 @@ cps_data <- read_dta("your_downloaded_file_name.dta")
 
 {{< video https://www.youtube.com/embed/JTsFJtlLOrY >}}
 
-{{< video https://www.youtube.com/embed/LjO15pvVmNg >}}
+<!-- {{< video https://www.youtube.com/embed/LjO15pvVmNg >}} -->
   
 ## Explore the data
 
 Type `cps_data` in the console. Some columns such as [`educ`](https://cps.ipums.org/cps-action/variables/educ#codes_section) have a numeric code and a label. The code is how IPUMS has stored the data. The label is what the code means. You can always find more documentation explaining the labels on the [IPUMS-CPS website](https://cps.ipums.org/cps-action/variables/educ#codes_section).
 
-{{< video https://www.youtube.com/embed/f9IeokvW8HM >}}
+<!-- {{< video https://www.youtube.com/embed/f9IeokvW8HM >}} -->
 
 ## filter() to cases of interest
 
@@ -198,19 +198,19 @@ filtered <- cps_data |>
 Filtering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.
 :::
 
-::: columns
-::: {.column width="50%"}
+<!-- ::: columns -->
+<!-- ::: {.column width="50%"} -->
 
-#### filter() without the pipe
-{{< video https://www.youtube.com/embed/mbnFNwuQbCM >}}
-:::
+<!-- #### filter() without the pipe (TO UPDATE) -->
+<!-- {{< video https://www.youtube.com/embed/mbnFNwuQbCM >}} -->
+<!-- ::: -->
 
-::: {.column width="50%"}
+<!-- ::: {.column width="50%"} -->
 
-#### filter() with the pipe
-{{< video https://www.youtube.com/embed/OtBEsiaTnYQ >}}
-:::
-:::
+<!-- #### filter() with the pipe TO UPDATE -->
+<!-- {{< video https://www.youtube.com/embed/loOJDf1aF-w >}} -->
+<!-- ::: -->
+<!-- ::: -->
 
 ## group_by() and summarize() for subpopulation summaries
 
@@ -227,6 +227,8 @@ filtered |>
   group_by(year) |>
   summarize(mean_income = mean(incwage))
 ```
+
+{{< video https://www.youtube.com/embed/loOJDf1aF-w >}}
 
 ### Using summarize() with weighted quantiles
 
@@ -253,19 +255,7 @@ summarized <- filtered |>
   )
 ```
 
-::: columns
-::: {.column width="50%"}
-
-#### Sample summaries
-{{< video https://www.youtube.com/embed/s7g0bcmtarA >}}
-:::
-
-::: {.column width="50%"}
-
-#### Weighted sample summaries
-{{< video https://www.youtube.com/embed/7cAZjqEmsaY >}}
-:::
-:::
+{{< video https://www.youtube.com/embed/IOMbo_3ynKU >}}
 
 ## pivot_longer() to reshape data
 
@@ -313,7 +303,7 @@ pivoted <- summarized %>%
   )
 ```
 
-{{< video https://www.youtube.com/embed/v5QJaMjO53o >}}
+{{< video https://www.youtube.com/embed/DRuPHsX6GlM >}}
 
 ## left_join() an inflation adjustment
 
@@ -355,7 +345,7 @@ joined <- pivoted |>
   )
 ```
 
-{{< video https://www.youtube.com/embed/gKnG8nSc-Go >}}
+{{< video https://www.youtube.com/embed/EptsO1HLBs4 >}}
 
 ## mutate() to adjust for inflation
 
@@ -378,7 +368,7 @@ mutated <- joined |>
   mutate(income = income * inflation_factor)
 ```
 
-{{< video https://www.youtube.com/embed/1RAMjEcqsT4 >}}
+{{< video https://www.youtube.com/embed/H0vxvCYDuzU >}}
 
 ## ggplot() to visualize
 
@@ -402,8 +392,6 @@ joined |>
                        labels = function(x) paste0(gsub("p","",x),"th")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
-{{< video https://www.youtube.com/embed/QI6TdgrxyXo >}}
 
 ## All together
 
@@ -446,6 +434,8 @@ cps_data |>
                        labels = function(x) paste0(gsub("p","",x),"th")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+{{< video https://www.youtube.com/embed/fgQe7BaZEMQ >}}
 
 ## Want to do more?
 
