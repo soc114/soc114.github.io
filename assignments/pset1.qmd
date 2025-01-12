@@ -43,15 +43,21 @@ The data contain five variables.
 
 ## 1. Visualize (40 points)
 
-Use `ggplot` to visualize these data. To denote the different trajectories,
+::: {.callout-tip}
+## Tip
 
-- make your plot using `geom_point()` or `geom_line()`
+Functions named in this problem are links to helper pages that provide documentation.
+:::
+
+Use [`ggplot`](https://ggplot2.tidyverse.org/) to visualize these data. To denote the different trajectories,
+
+- make your plot using [`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html) or [`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html)
 - use the x-axis for `age`
 - use the y-axis for `income`
-- use `color` for `quantity`
-- use `facet_grid` to make a panel of facets where each row is an education value and each column is a cohort value
+- use [`color`](https://r4ds.hadley.nz/data-visualize.html#sec-adding-aesthetics-layers) for `quantity`
+- use [`facet_grid`](https://ggplot2-book.org/facet#facet-grid) to make a panel of facets where each row is an education value and each column is a cohort value
 
-You should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Try using the `label_dollar()` function from the `scales` package so that the y-axis uses dollar values.
+You should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Optionally, try using the [`label_currency()`](https://scales.r-lib.org/reference/label_currency.html) function from the `scales` package so that the y-axis uses dollar values.
 
 Your code should be well-formatted as defined by [R4DS](https://r4ds.hadley.nz/workflow-style.html). In your produced PDF, no lines of code should run off the page.
 

@@ -47,6 +47,8 @@ library(tidyverse)
 library(haven)
 ```
 
+{{< video https://www.youtube.com/embed/eqcC7Aag80Y >}}
+
 ## Data access
 
 This exercise uses data from the [Current Population Survey](https://cps.ipums.org/cps/), provided via IPUMS. We have two versions of the data:
@@ -196,21 +198,9 @@ filtered <- cps_data |>
 
 ::: {.callout-note}
 Filtering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.
-:::
 
-<!-- ::: columns -->
-<!-- ::: {.column width="50%"} -->
+{{< video https://www.youtube.com/embed/OE2gE_3DLf8 >}}
 
-<!-- #### filter() without the pipe (TO UPDATE) -->
-<!-- {{< video https://www.youtube.com/embed/mbnFNwuQbCM >}} -->
-<!-- ::: -->
-
-<!-- ::: {.column width="50%"} -->
-
-<!-- #### filter() with the pipe TO UPDATE -->
-<!-- {{< video https://www.youtube.com/embed/loOJDf1aF-w >}} -->
-<!-- ::: -->
-<!-- ::: -->
 
 ## group_by() and summarize() for subpopulation summaries
 

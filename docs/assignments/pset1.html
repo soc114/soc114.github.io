@@ -473,15 +473,28 @@ Note
 </section>
 <section id="visualize-40-points" class="level2">
 <h2 class="anchored" data-anchor-id="visualize-40-points">1. Visualize (40 points)</h2>
-<p>Use <code>ggplot</code> to visualize these data. To denote the different trajectories,</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Functions named in this problem are links to helper pages that provide documentation.</p>
+</div>
+</div>
+<p>Use <a href="https://ggplot2.tidyverse.org/"><code>ggplot</code></a> to visualize these data. To denote the different trajectories,</p>
 <ul>
-<li>make your plot using <code>geom_point()</code> or <code>geom_line()</code></li>
+<li>make your plot using <a href="https://ggplot2.tidyverse.org/reference/geom_point.html"><code>geom_point()</code></a> or <a href="https://ggplot2.tidyverse.org/reference/geom_path.html"><code>geom_line()</code></a></li>
 <li>use the x-axis for <code>age</code></li>
 <li>use the y-axis for <code>income</code></li>
-<li>use <code>color</code> for <code>quantity</code></li>
-<li>use <code>facet_grid</code> to make a panel of facets where each row is an education value and each column is a cohort value</li>
+<li>use <a href="https://r4ds.hadley.nz/data-visualize.html#sec-adding-aesthetics-layers"><code>color</code></a> for <code>quantity</code></li>
+<li>use <a href="https://ggplot2-book.org/facet#facet-grid"><code>facet_grid</code></a> to make a panel of facets where each row is an education value and each column is a cohort value</li>
 </ul>
-<p>You should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Try using the <code>label_dollar()</code> function from the <code>scales</code> package so that the y-axis uses dollar values.</p>
+<p>You should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Optionally, try using the <a href="https://scales.r-lib.org/reference/label_currency.html"><code>label_currency()</code></a> function from the <code>scales</code> package so that the y-axis uses dollar values.</p>
 <p>Your code should be well-formatted as defined by <a href="https://r4ds.hadley.nz/workflow-style.html">R4DS</a>. In your produced PDF, no lines of code should run off the page.</p>
 <p>Many different graphs can be equally correct. You will be evaluated by</p>
 <ul>
