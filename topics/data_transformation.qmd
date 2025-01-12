@@ -58,7 +58,7 @@ In lecture, we will use simulated data. In discussion, your TA will walk through
 
 ### Accessing simulated data
 
-The simulated data are designed to have the same statistical properties as the actual data. To access the simulated data, copy the following line of code into your R script and run it. This line loads the data and stores it in an object called `cps_data`.
+The [simulated data](../data/simulated_cps_data.dta) are designed to have the same statistical properties as the actual data. To access the simulated data, copy the following line of code into your R script and run it. This line loads the data and stores it in an object called `cps_data`.
 
 <!-- The [`haven`](https://haven.tidyverse.org/) package allows us to load data in the `.dta` format. Use [`read_dta()`](https://haven.tidyverse.org/reference/read_dta.html)) and store the data in an object called `cps_data`. By default, these data are stored in a [`tibble`](https://tibble.tidyverse.org/). -->
 

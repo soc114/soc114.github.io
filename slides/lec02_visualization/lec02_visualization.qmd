@@ -1,34 +1,56 @@
 ---
-title: "Visualization"
+title: "Visualization: Motivating a question"
+subtitle: "UCLA Soc 114"
 format: beamer
 editor: visual
 header-includes:
   - \usepackage{tikz}
 ---
 
-## Does inequality make people better off?
+```{r, echo = F, message = F, warning = F, comment = F}
+library(tidyverse)
+library(scales)
+```
 
-An argument that it does:
+## Can inequality make people better off?
 
-1. unequal rewards motivate work and innovation
-2. work and innovation make everyone better off
+An argument that it does:\pause
 
-An empirical prediction from that argument:
+1. unequal rewards motivate work and innovation \pause
+2. work and innovation make everyone better off \pause
 
-* Countries with higher income inequality will have higher economic output
+What kind of data might support (or contradict) this argument?
 
-## Defining concepts: Income inequality
+## Can inequality make people better off?
 
-We will measure inequality using **quantiles**
+```{r, fig.height = 2.5, fig.width = 4}
+set.seed(91784)
+tibble(x = runif(14)) |>
+  mutate(y_responsive = x + runif(n(), min = -.1, max = .1),
+         y_unresponsive = sample(y_responsive)) |>
+  ggplot(aes(x = x, y = y_responsive)) +
+  geom_point() +
+  xlab("Income Inequality") +
+  ylab("Economic Output") +
+  theme_minimal() +
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank()) +
+  ggtitle("Each dot is a country (hypothetical data)") +
+  theme(text = element_text(size = 12))
+```
 
-* The 0.1 quantile (or 10th percentile)\
-  is the value such that 10\% of households earn less
-* The 0.5 quantile (or 50th percentile or median)\
-  is the value such that 50\% of households earn less
-* The 0.9 quantile (or 90th percentile)\
-  is the value such that 90\% of households earn less
-  
-The 90/10 ratio is (90th percentile) / (10th percentile)
+<!-- ## Defining concepts: Income inequality -->
+
+<!-- We will measure inequality using **quantiles** -->
+
+<!-- * The 0.1 quantile (or 10th percentile)\ -->
+<!--   is the value such that 10\% of households earn less -->
+<!-- * The 0.5 quantile (or 50th percentile or median)\ -->
+<!--   is the value such that 50\% of households earn less -->
+<!-- * The 0.9 quantile (or 90th percentile)\ -->
+<!--   is the value such that 90\% of households earn less -->
+
+<!-- The 90/10 ratio is (90th percentile) / (10th percentile) -->
 
 ## Defining concepts: Income inequality
 
@@ -36,130 +58,188 @@ The 90/10 ratio is (90th percentile) / (10th percentile)
 
 \begin{tikzpicture}
 \node<1> at (0,0) {\includegraphics[width = \textwidth]{figures/us2022_hh_dist_big}};
-\node<2> at (0,0) {\includegraphics[width = \textwidth]{figures/us2022_hh_dist_median}};
-\node<3> at (0,0) {\includegraphics[width = \textwidth]{figures/us2022_hh_dist_9010}};
+\node<2> at (0,0) {\includegraphics[width = \textwidth]{figures/us2022_hh_dist_9010}};
 \end{tikzpicture}
+
+## Defining concepts: Income inequality
+
+2022 Annual Social and Economic Supplement to the Current Population Survey (U.S. households)
+
+$$
+\text{90/10 income ratio} = \frac{\text{90th percentile}}{\text{10th percentile}} = \frac{\text{212,110}}{\text{15,640}} = 13.6
+$$
+
 
 ## Defining concepts: Economic productivity
 
-* Gross Domestic Product Per Capita\
-  = (Total Economic Production) / (Number of People)
+\pause 
 
-  
+Gross Domestic Product Per Capita
 
+= (Total Economic Production) / (Number of People)
 
+## Two theories: Two possible graphs
 
+Theory 1)\
+Countries with more inequality have more economic output
 
+Theory 2)\
+Inequality and economic output are unrelated
 
+## Two theories: Two possible graphs
 
-
-> Prerequisites. You should first install R, RStudio, and the `tidyverse` package as described in the [previous page](topics/r_basics).
-
-Visualizing data is an essential skill for data science. We will write our first code to visualize how countries' level of economic output is related to their level of inequality. We will use data reported in tabular form in [Jencks 2002](https://www.jstor.org/stable/20027737) Table 1, made available in digital form in [jencks_table1.csv](../data/jencks_table1.csv).
-
-## Prepare the environment
-
-Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking `File -> Save` from the menu at the very top of your screen.
-
-![How to create a new R script in RStudio.](../../assets/r_script_screenshot.png)
-Paste the code below into your R Script. Place your cursor within the line and hit `CMD + Return` or `CTRL + Enter` to run the code and load the `tidyverse` package.
-
-```{r, message = F, warning = F}
-library(tidyverse)
+```{r, fig.height = 3, fig.width = 5}
+set.seed(91784)
+tibble(x = runif(14)) |>
+  mutate(y_responsive = x + runif(n(), min = -.1, max = .1),
+         y_unresponsive = sample(y_responsive)) |>
+  pivot_longer(cols = starts_with("y")) |>
+  mutate(
+    name = case_when(name == "y_responsive" ~ "Theory 1",
+                     name == "y_unresponsive" ~ "Theory 2")
+  ) |>
+  ggplot(aes(x = x, y = value)) +
+  geom_point() +
+  facet_wrap(~name) +
+  xlab("Income Inequality") +
+  ylab("Economic Output") +
+  theme_grey() +
+  theme(
+    strip.text = element_text(hjust = 0),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    text = element_text(size = 16)
+  ) +
+  ggtitle("Each dot is a country")
 ```
 
-You will see action in the console. You have added some functionality to R for this session!
+## Real data: [Jencks 2002](https://www.jstor.org/stable/20027737) Table 1
 
-The [data](../data/jencks_table1.csv) can be loaded from the course website with the line below.
-
-```{r, comment = F, message = F}
-table1 <- read_csv(file = "https://soc114.github.io/data/jencks_table1.csv")
-```
-
-When you run this code, the object `table1` will appear in your environment pane.
-
-## Explore the data
-
-Type `table1` in your console. You can see the data!
-
-![](../../assets/data_screenshot.png){width=30%}
-
-The data contain four variables (columns):
-
-- `country` country name
-- `ratio` ratio of 90th to 10th percentile of household income. You can think of this as how many dollars a high-income household receives for each dollar that a low-income household receives
-- `gdp` Gross Domestic Product Per Capita, expressed as a proportion of U.S. GDP
-- `life_expectancy` life expectancy at birth
-
-There is one row for each country. For details on the data, see Jencks (2002) Table 1.
-
-## Produce a visualization
-
-To visualize data, we will use the `ggplot()` function which you have already loaded into your R session as part of the `tidyverse` package.
-
-### Begin with an empty graph
-
-A function in R takes in **arguments** and returns an **object**. The arguments are the inputs that we give to the function. The function then returns something back to us.
-
-The `ggplot()` function takes two arguments:
-
-* `data = table1` says that data will come from the object `table1`
-* `mapping = aes(x = ratio, y = gdp)` maps the data to the aesthetics of the graph. This line says that the `ratio` variable will be placed on the $x$-axis and the `gdp` variable will be on the $y$-axis.
-
-When you run this code, the function returns an object which is the resulting plot. The plot will appear in the `Plots` pane in RStudio.
-
-```{r}
-ggplot(
-  data = table1,
-  mapping = aes(x = ratio, y = gdp)
+```{r, echo = T}
+table1 <- read_csv(
+  "https://soc114.github.io/data/jencks_table1.csv"
 )
 ```
 
-### Add a layer to the graph
-
-Once we have an empty graph, we can add elements to the graph in layers. `ggplot()` is set up to add layers connected by a `+` symbol between lines. For example, we can add points to the graph by adding the layer `geom_point()`.
-
-```{r}
-ggplot(
-  data = table1,
-  mapping = aes(x = ratio, y = gdp)
-) +
-  geom_point()
-```
-
-## Customizing your graph
-
-Now it is your turn! Create additional layers with additional lines connected by `+`. Be creative! Here are some ideas:
-
-* add a `geom_smooth()` layer to show the trend in the data
-* add a `geom_text()` layer to label the points with country names. To do so, you will need to add the aesthetic mapping `label = country`.
-     * Pro tip: If you want text to be far from points, install and load the [`ggrepel`](https://ggrepel.slowkow.com/) package and use `geom_text_repel`.
-* add [labels](https://ggplot2.tidyverse.org/reference/labs.html) to your visualization for axes and titles
-* label the axes with `scale_x_continuous(name = "your text here")` and `scale_y_continuous(name = "your text here")`
-
-There are many possible graphs to make. An example is below.
+## Real data: [Jencks 2002](https://www.jstor.org/stable/20027737) Table 1
 
 ```{r, echo = F}
-table1 |>
-  ggplot(aes(x = ratio, y = gdp)) +
-  geom_point() +
-  geom_smooth(formula = 'y ~ x',
-              method = "lm", 
-              se = F, 
-              color = "black") +
-  ggrepel::geom_text_repel(aes(label = country),
-                           size = 3) +
-  scale_y_continuous(labels = scales::label_percent(),
-                     name = "GDP as a Percent of U.S.") +
-  scale_x_continuous(name = "Inequality\n90th percentile / 10th percentile\nof household income") +
-  theme(legend.position = "none")
+table1 |> print()
 ```
 
-## Interpret your graph
 
-Once you are happy with your graph,
+<!-- ##  -->
 
-- write a few sentences explaining your graph
-- discuss what questions you would like to ask next
 
-{{< video https://www.youtube.com/embed/YWTZ6xxRiP8 >}}
+
+
+<!-- > Prerequisites. You should first install R, RStudio, and the `tidyverse` package as described in the [previous page](topics/r_basics). -->
+
+<!-- Visualizing data is an essential skill for data science. We will write our first code to visualize how countries' level of economic output is related to their level of inequality. We will use data reported in tabular form in [Jencks 2002](https://www.jstor.org/stable/20027737) Table 1, made available in digital form in [jencks_table1.csv](../data/jencks_table1.csv). -->
+
+<!-- ## Prepare the environment -->
+
+<!-- Open a new R Script by clicking the button at the top left of RStudio. Save your R Script in a folder you will use for this exercise by clicking `File -> Save` from the menu at the very top of your screen. -->
+
+<!-- ![How to create a new R script in RStudio.](../../assets/r_script_screenshot.png) -->
+<!-- Paste the code below into your R Script. Place your cursor within the line and hit `CMD + Return` or `CTRL + Enter` to run the code and load the `tidyverse` package. -->
+
+<!-- ```{r, message = F, warning = F} -->
+<!-- library(tidyverse) -->
+<!-- ``` -->
+
+<!-- You will see action in the console. You have added some functionality to R for this session! -->
+
+<!-- The [data](../data/jencks_table1.csv) can be loaded from the course website with the line below. -->
+
+<!-- ```{r, comment = F, message = F} -->
+<!-- table1 <- read_csv(file = "https://soc114.github.io/data/jencks_table1.csv") -->
+<!-- ``` -->
+
+<!-- When you run this code, the object `table1` will appear in your environment pane. -->
+
+<!-- ## Explore the data -->
+
+<!-- Type `table1` in your console. You can see the data! -->
+
+<!-- ![](../../assets/data_screenshot.png){width=30%} -->
+
+<!-- The data contain four variables (columns): -->
+
+<!-- - `country` country name -->
+<!-- - `ratio` ratio of 90th to 10th percentile of household income. You can think of this as how many dollars a high-income household receives for each dollar that a low-income household receives -->
+<!-- - `gdp` Gross Domestic Product Per Capita, expressed as a proportion of U.S. GDP -->
+<!-- - `life_expectancy` life expectancy at birth -->
+
+<!-- There is one row for each country. For details on the data, see Jencks (2002) Table 1. -->
+
+<!-- ## Produce a visualization -->
+
+<!-- To visualize data, we will use the `ggplot()` function which you have already loaded into your R session as part of the `tidyverse` package. -->
+
+<!-- ### Begin with an empty graph -->
+
+<!-- A function in R takes in **arguments** and returns an **object**. The arguments are the inputs that we give to the function. The function then returns something back to us. -->
+
+<!-- The `ggplot()` function takes two arguments: -->
+
+<!-- * `data = table1` says that data will come from the object `table1` -->
+<!-- * `mapping = aes(x = ratio, y = gdp)` maps the data to the aesthetics of the graph. This line says that the `ratio` variable will be placed on the $x$-axis and the `gdp` variable will be on the $y$-axis. -->
+
+<!-- When you run this code, the function returns an object which is the resulting plot. The plot will appear in the `Plots` pane in RStudio. -->
+
+<!-- ```{r} -->
+<!-- ggplot( -->
+<!--   data = table1, -->
+<!--   mapping = aes(x = ratio, y = gdp) -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- ### Add a layer to the graph -->
+
+<!-- Once we have an empty graph, we can add elements to the graph in layers. `ggplot()` is set up to add layers connected by a `+` symbol between lines. For example, we can add points to the graph by adding the layer `geom_point()`. -->
+
+<!-- ```{r} -->
+<!-- ggplot( -->
+<!--   data = table1, -->
+<!--   mapping = aes(x = ratio, y = gdp) -->
+<!-- ) + -->
+<!--   geom_point() -->
+<!-- ``` -->
+
+<!-- ## Customizing your graph -->
+
+<!-- Now it is your turn! Create additional layers with additional lines connected by `+`. Be creative! Here are some ideas: -->
+
+<!-- * add a `geom_smooth()` layer to show the trend in the data -->
+<!-- * add a `geom_text()` layer to label the points with country names. To do so, you will need to add the aesthetic mapping `label = country`. -->
+<!--      * Pro tip: If you want text to be far from points, install and load the [`ggrepel`](https://ggrepel.slowkow.com/) package and use `geom_text_repel`. -->
+<!-- * add [labels](https://ggplot2.tidyverse.org/reference/labs.html) to your visualization for axes and titles -->
+<!-- * label the axes with `scale_x_continuous(name = "your text here")` and `scale_y_continuous(name = "your text here")` -->
+
+<!-- There are many possible graphs to make. An example is below. -->
+
+<!-- ```{r, echo = F} -->
+<!-- table1 |> -->
+<!--   ggplot(aes(x = ratio, y = gdp)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth(formula = 'y ~ x', -->
+<!--               method = "lm",  -->
+<!--               se = F,  -->
+<!--               color = "black") + -->
+<!--   ggrepel::geom_text_repel(aes(label = country), -->
+<!--                            size = 3) + -->
+<!--   scale_y_continuous(labels = scales::label_percent(), -->
+<!--                      name = "GDP as a Percent of U.S.") + -->
+<!--   scale_x_continuous(name = "Inequality\n90th percentile / 10th percentile\nof household income") + -->
+<!--   theme(legend.position = "none") -->
+<!-- ``` -->
+
+<!-- ## Interpret your graph -->
+
+<!-- Once you are happy with your graph, -->
+
+<!-- - write a few sentences explaining your graph -->
+<!-- - discuss what questions you would like to ask next -->
+
+<!-- {{< video https://www.youtube.com/embed/YWTZ6xxRiP8 >}} -->
