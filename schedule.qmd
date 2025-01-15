@@ -23,7 +23,7 @@ Each date will be a link to the slides for that lecture.
 | [Jan 7](slides/lec01_asking_questions/lec01_asking_questions.pdf)	| [Welcome](index.qmd) |
 | | [Asking questions](topics/asking_questions.qmd) |
 | | [Setting up your computer](topics/r_basics.qmd) |
-| Jan 9	| [Visualization](topics/visualization.qmd) |
+| [Jan 9](slides/lec02_visualization/lec02_visualization.pdf)	| [Visualization](topics/visualization.qmd) |
 | Jan 14 & Jan 16	| [Data transformation](topics/data_transformation.qmd) |
 | Thu, Jan 16	| Data transformation |
 | Tue, Jan 21	| Population sampling |
