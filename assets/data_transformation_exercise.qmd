@@ -1,144 +1,25 @@
 ---
 title: "Data transformation"
+format: pdf
 ---
 
-> This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use [data_transformation_exercise.qmd](../assets/data_transformation_exercise.qmd).
+> This topic is covered on Jan 16.
 
 This exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.^[Thanks to past TA Abby Sachar for designing the base of this exercise.] The goal is to produce a graph like this one.
 
-```{r, echo = F, message = F, warning = F}
-library(tidyverse)
-library(haven)
-```
-```{r, echo = F, message = F, warning = F, fig.height = 3}
-read_dta("../data_raw/cps_00077.dta") |>
-  # Subset to cases working full year
-  filter(wkswork2 == 6) |>
-  # Subset to cases with valid income
-  filter(incwage > 0 & incwage < 99999998) |>
-  group_by(year) |>
-  summarize(p10 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.1),
-            p50 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.5),
-            p90 = Hmisc::wtd.quantile(x = incwage, weights = asecwt, probs = 0.9),
-            .groups = "drop") |>
-  pivot_longer(cols = c("p10","p50","p90"),
-               names_to = "quantity",
-               values_to = "income") |>
-  left_join(read_csv("../data/inflation.csv"),
-            by = join_by(year)) |>
-  mutate(income = income * inflation_factor) |>
-  # Produce a ggplot
-  ggplot(aes(x = year, y = income, color = quantity)) +
-  geom_line() +
-  xlab("Year") +
-  scale_y_continuous(name = "Annual Wage and Salary Income\n(2023 dollars)",
-                     labels = scales::label_dollar()) +
-  scale_color_discrete(name = "Percentile of\nDistribution",
-                       labels = function(x) paste0(gsub("p","",x),"th")) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-## Prepare your R environment
-
-In RStudio, create a Quarto document. Save it in your working directory. Run the following code to load two packages we will use. If you do not have these packages, first run `install.packages("tidyverse")` and `install.packages("haven")` to install the packages.
-
-```{r, message = F, warning = F}
+```{r}
 library(tidyverse)
 library(haven)
 ```
 
-{{< video https://www.youtube.com/embed/eqcC7Aag80Y >}}
+If you don't have `haven`, you will need to install with `install.packages("haven")` in your console.
 
-## Data access
+The course website talks about where you can access data. For now, we will use simulated data.
 
-This exercise uses data from the [Current Population Survey](https://cps.ipums.org/cps/), provided via IPUMS. We have two versions of the data:
-
-* simulated data made available to you via the course website
-* actual data, for which you will register with the data provider
-
-In lecture, we will use simulated data. In discussion, your TA will walk through the process to access the actual data. You will ultimately need to access the actual data for future assignments in this class.
-
-### Accessing simulated data
-
-The [simulated data](../data/simulated_cps_data.dta) are designed to have the same statistical properties as the actual data. To access the simulated data, copy the following line of code into your R script and run it. This line loads the data and stores it in an object called `cps_data`.
-
-<!-- The [`haven`](https://haven.tidyverse.org/) package allows us to load data in the `.dta` format. Use [`read_dta()`](https://haven.tidyverse.org/reference/read_dta.html)) and store the data in an object called `cps_data`. By default, these data are stored in a [`tibble`](https://tibble.tidyverse.org/). -->
-
-```{r, echo = F, message = F, warning = F, comment = F}
-cps_data <- read_dta("../data_raw/cps_00077.dta") |> select(-uhrsworkly)
-# This code generates simulated data we can post
-set.seed(90095)
-strata_summaries <- cps_data |>
-  select(year, age, wkswork2, incwage, asecwt) |>
-  group_by(year, age, wkswork2) |>
-  mutate(
-    stratum_size = n(),
-    p_0 = mean(incwage == 0), 
-    p_99999998 = mean(incwage == 99999998),
-    p_99999999 = mean(incwage == 99999999),
-    log_incwage = case_when(incwage > 0 & incwage < 99999998 ~ log(incwage)),
-    meanlog = weighted.mean(log_incwage, w = asecwt, na.rm = T),
-    sdlog = sqrt(weighted.mean((log_incwage - meanlog) ^ 2, w = asecwt, na.rm = T)),
-    asecwt = mean(asecwt)
-  )
-
-simulated <- strata_summaries |>
-  ungroup() |>
-  slice_sample(
-    n = 100e3, #nrow(cps_data), 
-    weight_by = stratum_size, 
-    replace = TRUE
-  ) |>
-  mutate(
-    random = runif(n()),
-    incwage = case_when(
-      random < p_0 ~ 0,
-      random < (p_0 + p_99999998) ~ 99999998,
-      random < (p_0 + p_99999998 + p_99999999) ~ 99999999,
-      T ~ rlnorm(n(), meanlog = meanlog, sdlog = sdlog)
-    )
-  ) |>
-  select(year, age, wkswork2, incwage, asecwt)
-
-write_dta(simulated, path = "../data/simulated_cps_data.dta")
-```
-
-```{r, echo = F}
-cps_data <- read_dta("../data/simulated_cps_data.dta")
-```
-```{r, eval = F}
+```{r}
 cps_data <- read_dta("https://soc114.github.io/data/simulated_cps_data.dta")
 ```
 
-### Accessing actual data
-
-Accessing the actual data is important for future assignments. You may also use these data in your project. Here are instructions to access the data:
-
-1. Register for an account at [cps.ipums.org](https://cps.ipums.org/cps/)
-2. Log in
-3. Click "Get Data"
-4. Add the following variables to your cart: [`incwage`](https://cps.ipums.org/cps-action/variables/incwage), [`educ`](https://cps.ipums.org/cps-action/variables/educ), [`wkswork2`](https://cps.ipums.org/cps-action/variables/wkswork2), [`age`](https://cps.ipums.org/cps-action/variables/age), [`asecwt`](https://cps.ipums.org/cps-action/variables/asecwt)
-5. Add the 1962--2023 ASEC samples to your cart. Exclude the basic monthly samples
-6. Create a data extract
-	- Select cases to only download people ages 30--45
-	- Choose to download in Stata (.dta) format
-7. Submit your extract and download the data!
-
-Store your data in a **working directory**: a folder on your computer that will hold the data for this exercise. Load the data using the `read_dta` function in the `haven` package.
-
-```{r, eval = F}
-cps_data <- read_dta("your_downloaded_file_name.dta")
-```
-
-::: {.callout-tip}
-- Change the file name to the name of the file you downloaded
-- If R says the file does not exist in your current working directory, you may need to [set your working directory](https://support.posit.co/hc/en-us/articles/200711843-Working-Directories-and-Workspaces-in-the-RStudio-IDE) by clicking Session -> Set Working Directory -> To Source File Location on a Mac or Tools -> Change Working Directory on Windows.
-:::
-
-{{< video https://www.youtube.com/embed/JTsFJtlLOrY >}}
-
-<!-- {{< video https://www.youtube.com/embed/LjO15pvVmNg >}} -->
-  
 ## Explore the data
 
 Type `cps_data` in the console. Some columns such as [`educ`](https://cps.ipums.org/cps-action/variables/educ#codes_section) have a numeric code and a label. The code is how IPUMS has stored the data. The label is what the code means. You can always find more documentation explaining the labels on the [IPUMS-CPS website](https://cps.ipums.org/cps-action/variables/educ#codes_section).
@@ -198,6 +79,7 @@ filtered <- cps_data |>
 
 ::: {.callout-note}
 Filtering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.
+:::
 
 {{< video https://www.youtube.com/embed/OE2gE_3DLf8 >}}
 
@@ -299,14 +181,10 @@ pivoted <- summarized %>%
 
 > In this step, you will use [`left_join()`](https://r4ds.hadley.nz/joins#sec-mutating-joins) to merge in an inflation adjustment
 
-A dollar in 1962 bought a lot more than a dollar in 2022. We will adjust for inflation using the [Consumer Price Index](https://www.bls.gov/cpi/), which tracks the cost of a standard basket of market goods. We already took this index to create a file [`inflation.csv`](../data/inflation.csv),
+A dollar in 1962 bought a lot more than a dollar in 2022. We will adjust for inflation using the [Consumer Price Index](https://www.bls.gov/cpi/), which tracks the cost of a standard basket of market goods. We already took this index to create a file `inflation.csv`,
 
-```{r, eval = F}
+```{r}
 inflation <- read_csv("https://soc114.github.io/data/inflation.csv")
-```
-```{r, message = F, echo = F}
-inflation <- read_csv("../data/inflation.csv")
-inflation |> filter(year >= 1962) |> print(n = 3)
 ```
 
 The `inflation_factor` tells us that \$1 in 1962 could buy about as much as \$10.10 in 2023. To take a 1962 income and report it in 2023 dollars, we should multiple it by 10.1. We need to join our data

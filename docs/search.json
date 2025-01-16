@@ -4,7 +4,7 @@
     "href": "topics/data_transformation.html",
     "title": "Data transformation",
     "section": "",
-    "text": "This topic is covered on Jan 16.\nThis exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.1 The goal is to produce a graph like this one.",
+    "text": "This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use data_transformation_exercise.qmd.\nThis exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.1 The goal is to produce a graph like this one.",
     "crumbs": [
       " ",
       "Working with Data",
