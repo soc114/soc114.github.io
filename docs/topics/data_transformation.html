@@ -411,6 +411,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#explore-the-data" id="toc-explore-the-data" class="nav-link" data-scroll-target="#explore-the-data">Explore the data</a></li>
   <li><a href="#filter-to-cases-of-interest" id="toc-filter-to-cases-of-interest" class="nav-link" data-scroll-target="#filter-to-cases-of-interest">filter() to cases of interest</a></li>
+  <li><a href="#group_by-and-summarize-for-subpopulation-summaries" id="toc-group_by-and-summarize-for-subpopulation-summaries" class="nav-link" data-scroll-target="#group_by-and-summarize-for-subpopulation-summaries">group_by() and summarize() for subpopulation summaries</a>
+  <ul class="collapse">
+  <li><a href="#introducing-summarize-with-the-sample-mean" id="toc-introducing-summarize-with-the-sample-mean" class="nav-link" data-scroll-target="#introducing-summarize-with-the-sample-mean">Introducing summarize() with the sample mean</a></li>
+  <li><a href="#using-summarize-with-weighted-quantiles" id="toc-using-summarize-with-weighted-quantiles" class="nav-link" data-scroll-target="#using-summarize-with-weighted-quantiles">Using summarize() with weighted quantiles</a></li>
+  </ul></li>
+  <li><a href="#pivot_longer-to-reshape-data" id="toc-pivot_longer-to-reshape-data" class="nav-link" data-scroll-target="#pivot_longer-to-reshape-data">pivot_longer() to reshape data</a></li>
+  <li><a href="#left_join-an-inflation-adjustment" id="toc-left_join-an-inflation-adjustment" class="nav-link" data-scroll-target="#left_join-an-inflation-adjustment">left_join() an inflation adjustment</a></li>
+  <li><a href="#mutate-to-adjust-for-inflation" id="toc-mutate-to-adjust-for-inflation" class="nav-link" data-scroll-target="#mutate-to-adjust-for-inflation">mutate() to adjust for inflation</a></li>
+  <li><a href="#ggplot-to-visualize" id="toc-ggplot-to-visualize" class="nav-link" data-scroll-target="#ggplot-to-visualize">ggplot() to visualize</a></li>
+  <li><a href="#all-together" id="toc-all-together" class="nav-link" data-scroll-target="#all-together">All together</a></li>
+  <li><a href="#want-to-do-more" id="toc-want-to-do-more" class="nav-link" data-scroll-target="#want-to-do-more">Want to do more?</a></li>
   </ul>
 </nav>
     </div>
@@ -437,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <blockquote class="blockquote">
-<p>This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use <a href="../assets/data_transformation_exercise.qmd">data_transformation_exercise.qmd</a>.</p>
+<p>This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use <a href="https://soc114.github.io/assets/data_transformation_exercise.qmd">data_transformation_exercise.qmd</a>.</p>
 </blockquote>
 <p>This exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The goal is to produce a graph like this one.</p>
 <div class="cell">
@@ -574,7 +585,10 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p>Filtering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.</p>
+</div>
+</div>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/OE2gE_3DLf8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
 <section id="group_by-and-summarize-for-subpopulation-summaries" class="level2">
 <h2 class="anchored" data-anchor-id="group_by-and-summarize-for-subpopulation-summaries">group_by() and summarize() for subpopulation summaries</h2>
 <blockquote class="blockquote">
@@ -827,9 +841,6 @@ Note
 </ul>
 
 
-</section>
-</div>
-</div>
 </section>
 
 

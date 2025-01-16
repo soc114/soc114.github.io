@@ -2,7 +2,7 @@
 title: "Data transformation"
 ---
 
-> This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use [data_transformation_exercise.qmd](../assets/data_transformation_exercise.qmd).
+> This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use [data_transformation_exercise.qmd](https://soc114.github.io/assets/data_transformation_exercise.qmd).
 
 This exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.^[Thanks to past TA Abby Sachar for designing the base of this exercise.] The goal is to produce a graph like this one.
 
@@ -198,6 +198,7 @@ filtered <- cps_data |>
 
 ::: {.callout-note}
 Filtering can be a dangerous business! For example, above we dropped people with missing values of income. But what if the lowest-income people refuse to answer the income question? We often have no choice but to filter to those with valid responses, but you should always read the documentation to be sure you understand who you are dropping and why.
+:::
 
 {{< video https://www.youtube.com/embed/OE2gE_3DLf8 >}}
 
