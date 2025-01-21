@@ -26,7 +26,7 @@ Each date will be a link to the slides for that lecture.
 | [Jan 9](slides/lec02_visualization/lec02_visualization.pdf)	| [Visualization](topics/visualization.qmd) |
 | Jan 14 & Jan 16	| [Data transformation](topics/data_transformation.qmd) |
 | Thu, Jan 16	| Data transformation |
-| Tue, Jan 21	| Population sampling |
+| Tue, [Jan 21](slides/lec05_sampling/lec05_sampling.pdf)	| Population sampling |
 | Thu, Jan 23	| Population sampling |
 | Tue, Jan 28	| Defining counterfactuals |
 | Thu, Jan 30	| Exchangeability and experiments |
