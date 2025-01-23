@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{A Known Population}{3}{0}{1}
+\beamer@sectionintoc {2}{Draw Samples}{8}{0}{2}
+\beamer@sectionintoc {3}{Apply an Estimator}{17}{0}{3}
+\beamer@sectionintoc {4}{Evaluate Performance}{18}{0}{4}
+\beamer@sectionintoc {5}{Danger of One Sample}{20}{0}{5}
+\beamer@sectionintoc {6}{The Future}{42}{0}{6}

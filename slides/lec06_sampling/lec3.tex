@@ -60,9 +60,8 @@
 \newcommand{\goalsframe}{\begin{frame}{Learning goals for today}
 By the end of class, you will be able to
 \begin{itemize}
-    \item sample from a population in R
-    \item write an estimator function
-    \item apply the function to your sample
+    \item explain a stratified sample
+    \item explain a clustered sample
     \item connect sampling to the replication crisis
     \item discuss the future of sampling
  \end{itemize} 
@@ -92,7 +91,7 @@ By the end of class, you will be able to
 \node at (0,0) {};
 \node at (1,1) {};
 \node[anchor = north west, align = left, font = \huge] at (0,.9) {Studying\\Social Inequality\\with Data Science};
-\node[anchor = north east, align = right] (number) at (1,.9) {INFO 3370 / 5371\\Spring 2024};
+\node[anchor = north east, align = right] (number) at (1,.9) {Soc 114\\Winter 2025};
 \node[anchor = north, font = \Large, align = center] at (.5,.5) {Sampling: Stratified, Clustered, and the Future};
 \end{tikzpicture}
 \end{frame}
@@ -130,26 +129,51 @@ By the end of class, you will be able to
 %\node (graph) at (0,0) {\includegraphics[width = .6\textwidth]{baseball_histogram}};
 %\node[anchor = west, align = left] at (graph.center) {944 players\\on 30 teams};
 %\node[anchor = north west, align = left] at (graph.north east) {Stuck?\\See last week's \bref{https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm}{reading}!};
-\node[anchor = north west, font = \scriptsize, fill = gray, fill opacity = .2, text opacity = 1, rounded corners] at (0,0) {\texttt{baseball <- read\_csv("https://info3370.github.io/data/baseball.csv")}};
-\end{tikzpicture} \vskip .1in
-How would you design:
-\begin{itemize}
-\item Simple random sample of 60 players
-\item Random sample stratified by team
-\item Random sample clustered by team
-\end{itemize}
-and why would you do it each way? \vskip .4in
-Stuck? See last week's \bref{https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm}{reading}
+\node[anchor = north west, font = \scriptsize, fill = gray, fill opacity = .2, text opacity = 1, rounded corners] at (0,0) {\texttt{baseball <- read\_csv("https://soc114.github.io/data/baseball.csv")}};
+\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Draw a Sample to Estimate the Mean Salary}
-\begin{center}
-\begin{tabular}{rl}
-simple random sampling & 60 players chosen at random \\
-stratified sampling & 2 players on each of the 30 teams \\
-clustered sampling & 20 players on 3 sampled teams
-\end{tabular}
-\end{center}
+\begin{frame}{How to sample baseball players}
+
+Players are grouped in 30 teams.
+\begin{itemize}
+\item Suppose it is costly to contact a team
+\item It is cheap to gather salary for many players on the team
+\item How would you draw a survey of 150 players?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{How to sample baseball players}
+
+Players are grouped in 30 teams.
+\begin{itemize}
+\item Suppose salary varies a lot across teams
+\item You want a sample that represents the salary distribution well
+\item How would you draw a survey of 60 players?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Three types of sampling} \pause
+\begin{itemize}
+\item Simple random sample: 60 players at random \pause
+\item Stratified sampling by team: 2 players per team \pause
+\onslide<5->{
+\begin{itemize}
+\item stratification makes our sample better
+\item rules out unlucky bad draws that miss whole teams
+\end{itemize}
+}
+\item Random sample clustered by team: 20 players on each of 3 sampled teams
+\onslide<6->{
+\begin{itemize}
+\item clustering makes our sample cheaper
+\item sample is not as high quality---the 3 teams may be unusual
+\end{itemize}
+}
+\end{itemize}
+For reference:  \bref{https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm}{reading}
 \end{frame}
 
 \section{Apply an Estimator}
@@ -253,22 +277,6 @@ Sampling often involves a tradeoff between cost and quality
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Your turn}
-
-\begin{itemize}
-\item load the data
-\item take a sample of size 40
-\item group by position
-\item summarize the mean salary
-\end{itemize} \vskip .2in
-
-Who has higher average salary in your sample?
-\begin{itemize}
-\item \texttt{RHP}: right-handed pitchers
-\item \texttt{LHP}: left-handed pitchers
-\end{itemize}
-
-\end{frame}
 
 \begin{frame}
 \large
@@ -296,12 +304,6 @@ I did this 1,000 times
 
 \end{columns}
 
-\end{frame}
-
-\begin{frame}
-\includegraphics[width = \textwidth]{bemTitle} \vskip .1in %\pause
-\includegraphics[width = \textwidth]{bemSlate}
-\bref{https://capture.dropbox.com/ph9Higb0JopbMQe1}{Slate link.}
 \end{frame}
 
 \begin{frame}
@@ -377,9 +379,7 @@ provide code so that someone else who has your sample\\can produce your result
 
 What is a typical salary in the three highest-paying teams in American baseball? \vskip .1in
 \begin{itemize}
-\item use the whole population
-\item summarize \texttt{salary} grouped by \texttt{team}
-\item be ready to tell use your estimates and how you got them
+\item how would you answer this question with data?
 \end{itemize}
 
 \end{frame}
