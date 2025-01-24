@@ -442,7 +442,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link">rubric</a></p>
+<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfl7t-b4nPRIzIy9C3KBjTnBUGSfwTo7gW8-l2BjyQN3sZwdQ/viewform?usp=dialog">rubric</a></p>
 </div>
 </div>
 <p>Student identifer: [type your anonymous identifier here]</p>
@@ -455,12 +455,11 @@ Note
 <blockquote class="blockquote">
 <p>England, Paula, Andrew Levine, and Emma Mishel. 2020. <a href="https://www.pnas.org/doi/full/10.1073/pnas.1918891117">Progress toward gender equality in the United States has slowed or stalled,</a> PNAS 117(13):6990–6997.</p>
 </blockquote>
-<p><strong>A note about sex and gender</strong>. As we have discussed in class, sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.</p>
+<p><strong>A note about sex and gender</strong>. Sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.</p>
 <section id="data-analysis-existing-question" class="level2">
 <h2 class="anchored" data-anchor-id="data-analysis-existing-question">1. Data analysis: Existing question</h2>
 <p><strong>25 points.</strong> Reproduce Figure 1 from the paper.</p>
-<p>Visit <a href="https://cps.ipums.org/cps/">cps.ipums.org</a> to download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. Include these variables in your cart: <a href="https://cps.ipums.org/cps-action/variables/SEX">sex</a>, <a href="https://cps.ipums.org/cps-action/variables/AGE">age</a>, <a href="https://cps.ipums.org/cps-action/variables/ASECWT">asecwt</a>, <a href="https://cps.ipums.org/cps-action/variables/EMPSTAT">empstat</a>.</p>
-<p>To reduce extract size, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.</p>
+<p>Visit <a href="https://cps.ipums.org/cps/">cps.ipums.org</a> to download data. Include these variables in your cart: <a href="https://cps.ipums.org/cps-action/variables/SEX">sex</a>, <a href="https://cps.ipums.org/cps-action/variables/AGE">age</a>, <a href="https://cps.ipums.org/cps-action/variables/ASECWT">asecwt</a>, <a href="https://cps.ipums.org/cps-action/variables/EMPSTAT">empstat</a>. One way to find them is to click “Select Data” and then use the “Search” button under “Select Variables.”</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -474,6 +473,8 @@ Tip
 <p>Look ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.</p>
 </div>
 </div>
+<p>Once you select your variables, click “Select Samples.” We will download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. To achieve this, under the ASEC tab you can click “Select All Samples.” Under the Basic Monthly tab, you can click and then unclick “Select All Samples” to remove these samples that we will not use.</p>
+<p>Once you have selected variables and selected samples, you can click “View Cart.” Optionally, reduce the size of your extract by un-checking any variables that have been automatically added which you won’t be using. Then click “Create Data Extract.” On the next page, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.</p>
 <p>On your computer, analyze these data.</p>
 <ul>
 <li>filter to <code>asecwt &gt; 0</code> (see paper footnote on p.&nbsp;6995 about negative weights)</li>
@@ -482,7 +483,7 @@ Tip
 <li>group by <code>sex</code> and <code>year</code></li>
 <li>summarize the proportion employed: use <code>weighted.mean</code> to take the mean of <code>employed</code> using the weight <code>asecwt</code></li>
 </ul>
-<p>Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels. For example, it would be more accurate to the data to label the legend “Sex” with values “Male” and “Female.”</p>
+<p>Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>

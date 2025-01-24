@@ -4,6 +4,8 @@ title: "Population Sampling"
 
 > This topic is covered on Jan 21 and 23.
 
+<!-- Note from W25. In lecture 2, stratified and clustered sampling without them doing any coding followed by future of sample surveys would be enough for a whole class. Replication crisis could be moved to its own class. As it was, future of sample surveys was squeezed into about 10 minutes. -->
+
 ```{r, echo = F, message = F, warning = F}
 library(tidyverse)
 library(scales)
@@ -100,7 +102,7 @@ We will be using the CPS in discussion. This video introduces the CPS and points
 As one example where full-count enumeration is possible, we will examine the salaries of all 944 Major League Baseball Players who were on active rosters, injured lists, and restricted lists on Opening Day 2023. These data were compiled by [USA Today](https://databases.usatoday.com/major-league-baseball-salaries-2023/) and are available in [baseball.csv](../data/baseball.csv).
 
 ```{r, eval = F}
-baseball <- read_csv("https://info3370.github.io/data/baseball.csv")
+baseball <- read_csv("https://soc114.github.io/data/baseball.csv")
 ```
 
 ```{r, echo = F, message = F, warning = F}

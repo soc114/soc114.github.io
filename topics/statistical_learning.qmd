@@ -32,7 +32,7 @@ library(scales)
 ```
 
 ```{r, eval = F}
-population <- read_csv("https://info3370.github.io/data/baseball_with_record.csv")
+population <- read_csv("https://soc114.github.io/data/baseball_with_record.csv")
 ```
 ```{r, message = F, warning = F, echo = F}
 population <- read_csv("../data/baseball_with_record.csv")

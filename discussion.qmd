@@ -10,21 +10,13 @@ In this discussion, we will introduce ourselves and ensure our computers are pre
 
 ## Jan 14--16
 
-On Thursday, lecture will use data simulated to resemble the Current Population Survey. In this discussion, you will register for an account to access the actual data. Click [here for detailed instructions](topics/data_transformation.qmd#accessing-actual-data).
-
-Your TA may walk through how to look at the survey documentation for one or more of the variables. If time allows, we will break into small groups to look for other variables that might be interesting in a project, and then come back together to tell the class about them.
+Due to the fires, this week's discussions became Zoom office hours.
 
 ## Jan 21--23
 
-Last week's lecture introduced visualization with the `ggplot()` function in the `tidyverse` package. This discussion explores more of what `ggplot()` can do.
+In this discussion, you will register for an account to access the Current Population Survey data. Click [here for detailed instructions](topics/data_transformation.qmd#accessing-actual-data).
 
-* Form groups of about 4 students
-* Introduce yourself to your group members
-* Choose a graph that your group likes in [Ch 1 of R For Data Science](https://r4ds.hadley.nz/data-visualize.html).
-   * Look at the code for that graph
-   * Discuss what each element of the code is doing
-   * Choose someone to present to the class
-* At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class
+Your TA may walk through how to look at the survey documentation for one or more of the variables. If time allows, we will break into small groups to look for other variables that might be interesting in a project, and then come back together to tell the class about them.
 
 ## Jan 28--30
 
@@ -91,7 +83,19 @@ Your group will present your final project in this discussion. During each prese
 
 This part of the page has other possibilities for discussion topics. We may use these in one of the discussions depending on how the course material is progressing over the quarter.
 
-### Explain a function
+### Explain a ggplot function
+
+Last week's lecture introduced visualization with the `ggplot()` function in the `tidyverse` package. This discussion explores more of what `ggplot()` can do.
+
+* Form groups of about 4 students
+* Introduce yourself to your group members
+* Choose a graph that your group likes in [Ch 1 of R For Data Science](https://r4ds.hadley.nz/data-visualize.html).
+   * Look at the code for that graph
+   * Discuss what each element of the code is doing
+   * Choose someone to present to the class
+* At the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class
+
+### Explain a tidyverse function
 
 This discussion explores more of what the `tidyverse` can do.
 

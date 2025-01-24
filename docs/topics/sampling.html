@@ -474,6 +474,7 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>This topic is covered on Jan 21 and 23.</p>
 </blockquote>
+<!-- Note from W25. In lecture 2, stratified and clustered sampling without them doing any coding followed by future of sample surveys would be enough for a whole class. Replication crisis could be moved to its own class. As it was, future of sample surveys was squeezed into about 10 minutes. -->
 <p>Claims about inequality are often claims about a population. Our data are typically only a sample! This module addresses the link between samples and populations.</p>
 <p>This page covers two lectures.</p>
 <ul>
@@ -562,7 +563,7 @@ Note
 <h2 class="anchored" data-anchor-id="sec-baseball">Example: Baseball players</h2>
 <p>As one example where full-count enumeration is possible, we will examine the salaries of all 944 Major League Baseball Players who were on active rosters, injured lists, and restricted lists on Opening Day 2023. These data were compiled by <a href="https://databases.usatoday.com/major-league-baseball-salaries-2023/">USA Today</a> and are available in <a href="../data/baseball.csv">baseball.csv</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>baseball <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://info3370.github.io/data/baseball.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>baseball <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/baseball.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -646,18 +647,18 @@ Note
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 60 × 6
-   player           team              position  salary p_sampled sampling_weight
-   &lt;chr&gt;            &lt;chr&gt;             &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
- 1 Alcala, Jorge    Minnesota         RHP       790000    0.0636            15.7
- 2 McGuire, Reese   Boston            C        1225000    0.0636            15.7
- 3 Lawrence, Justin Colorado          RHP       722000    0.0636            15.7
- 4 Loup, Aaron      L.A. Angels       LHP      7500000    0.0636            15.7
- 5 Suarez, Ranger*  Philadelphia      LHP      2950000    0.0636            15.7
- 6 Bummer, Aaron    Chicago White Sox LHP      3750000    0.0636            15.7
- 7 Rosario, Eddie   Atlanta           OF       9000000    0.0636            15.7
- 8 Keller, Mitch    Pittsburgh        RHP      2437500    0.0636            15.7
- 9 Turner, Justin   Boston            3B       8300000    0.0636            15.7
-10 Taylor, Blake*   Houston           LHP       830000    0.0636            15.7
+   player            team          position   salary p_sampled sampling_weight
+   &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
+ 1 Ramirez, Erasmo   Washington    RHP       1000000    0.0636            15.7
+ 2 Buehler, Walker*  L.A. Dodgers  RHP       8025000    0.0636            15.7
+ 3 Lopez, Jorge      Minnesota     RHP       3525000    0.0636            15.7
+ 4 Yastrzemski, Mike San Francisco OF        6100000    0.0636            15.7
+ 5 Singer, Brady     Kansas City   RHP       2950000    0.0636            15.7
+ 6 Garcia, Yimi      Toronto       RHP       5500000    0.0636            15.7
+ 7 Wells, Tyler      Baltimore     RHP        732400    0.0636            15.7
+ 8 Trout, Mike       L.A. Angels   OF       37116667    0.0636            15.7
+ 9 Laureano, Ramon   Oakland       OF        3550000    0.0636            15.7
+10 Stephenson, Tyler Cincinnati    C          740000    0.0636            15.7
 # ℹ 50 more rows</code></pre>
 </div>
 </div>
@@ -729,7 +730,7 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_example <span class="ot">&lt;-</span> <span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimator</span>(<span class="at">sample =</span> sample_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4776927</code></pre>
+<pre><code>[1] 4129978</code></pre>
 </div>
 </div>
 <p>Try it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?</p>

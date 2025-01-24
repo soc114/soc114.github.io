@@ -5,7 +5,7 @@ title: "Problem Set 2: Data Transformation"
 **Due: 5pm on Friday, Jan 31.**
 
 ::: {.callout-note}
-Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link)
+Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSfl7t-b4nPRIzIy9C3KBjTnBUGSfwTo7gW8-l2BjyQN3sZwdQ/viewform?usp=dialog)
 :::
 
 Student identifer: [type your anonymous identifier here]
@@ -21,19 +21,21 @@ This problem set draws on the following paper.
 > stalled,](https://www.pnas.org/doi/full/10.1073/pnas.1918891117) PNAS
 > 117(13):6990–6997.
 
-**A note about sex and gender**. As we have discussed in class, sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is "sex," coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses "gender" to refer to this construct.
+**A note about sex and gender**. Sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is "sex," coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses "gender" to refer to this construct.
 
 ## 1. Data analysis: Existing question
 
 **25 points.** Reproduce Figure 1 from the paper.
 
-Visit [cps.ipums.org](https://cps.ipums.org/cps/) to download data from the 1962--2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the "ASEC" tab and none of the samples in the "Basic Monthly" tab. Include these variables in your cart: [sex](https://cps.ipums.org/cps-action/variables/SEX), [age](https://cps.ipums.org/cps-action/variables/AGE), [asecwt](https://cps.ipums.org/cps-action/variables/ASECWT), [empstat](https://cps.ipums.org/cps-action/variables/EMPSTAT).
-
-To reduce extract size, select cases to those ages 25--54. Before submitting your extract, we recommend changing the data format to "Stata (.dta)" so that you get value labels.
+Visit [cps.ipums.org](https://cps.ipums.org/cps/) to download data. Include these variables in your cart: [sex](https://cps.ipums.org/cps-action/variables/SEX), [age](https://cps.ipums.org/cps-action/variables/AGE), [asecwt](https://cps.ipums.org/cps-action/variables/ASECWT), [empstat](https://cps.ipums.org/cps-action/variables/EMPSTAT). One way to find them is to click "Select Data" and then use the "Search" button under "Select Variables."
 
 ::: {.callout-tip}
 Look ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.
 :::
+
+Once you select your variables, click "Select Samples." We will download data from the 1962--2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the "ASEC" tab and none of the samples in the "Basic Monthly" tab. To achieve this, under the ASEC tab you can click "Select All Samples." Under the Basic Monthly tab, you can click and then unclick "Select All Samples" to remove these samples that we will not use.
+
+Once you have selected variables and selected samples, you can click "View Cart." Optionally, reduce the size of your extract by un-checking any variables that have been automatically added which you won't be using. Then click "Create Data Extract." On the next page, select cases to those ages 25--54. Before submitting your extract, we recommend changing the data format to "Stata (.dta)" so that you get value labels.
 
 On your computer, analyze these data.
 
@@ -43,7 +45,7 @@ On your computer, analyze these data.
 - group by `sex` and `year`
 - summarize the proportion employed: use `weighted.mean` to take the mean of `employed` using the weight `asecwt`
 
-Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels. For example, it would be more accurate to the data to label the legend "Sex" with values "Male" and "Female."
+Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels.
 
 ```{r, comment = F, message = F}
 library(tidyverse)
