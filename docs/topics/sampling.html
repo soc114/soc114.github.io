@@ -649,20 +649,20 @@ Note
 <pre><code># A tibble: 60 × 6
    player            team          position   salary p_sampled sampling_weight
    &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
- 1 Ramirez, Erasmo   Washington    RHP       1000000    0.0636            15.7
- 2 Buehler, Walker*  L.A. Dodgers  RHP       8025000    0.0636            15.7
- 3 Lopez, Jorge      Minnesota     RHP       3525000    0.0636            15.7
- 4 Yastrzemski, Mike San Francisco OF        6100000    0.0636            15.7
- 5 Singer, Brady     Kansas City   RHP       2950000    0.0636            15.7
- 6 Garcia, Yimi      Toronto       RHP       5500000    0.0636            15.7
- 7 Wells, Tyler      Baltimore     RHP        732400    0.0636            15.7
- 8 Trout, Mike       L.A. Angels   OF       37116667    0.0636            15.7
- 9 Laureano, Ramon   Oakland       OF        3550000    0.0636            15.7
-10 Stephenson, Tyler Cincinnati    C          740000    0.0636            15.7
+ 1 Glasnow, Tyler*   Tampa Bay     RHP       5350000    0.0636            15.7
+ 2 Brito, Jhony      N.Y. Yankees  RHP        720000    0.0636            15.7
+ 3 Murfee, Penn      Seattle       RHP        727000    0.0636            15.7
+ 4 Weaver, Luke*     Cincinnati    RHP       2000000    0.0636            15.7
+ 5 Alexander, Tyler  Detroit       LHP       1875000    0.0636            15.7
+ 6 Matzek, Tyler*    Atlanta       LHP       1200000    0.0636            15.7
+ 7 Nevin, Tyler*     Detroit       3B         723000    0.0636            15.7
+ 8 Rainey, Tanner*   Washington    RHP       1500000    0.0636            15.7
+ 9 Crawford, Brandon San Francisco SS       16000000    0.0636            15.7
+10 Canning, Griffin* L.A. Angels   RHP        850000    0.0636            15.7
 # ℹ 50 more rows</code></pre>
 </div>
 </div>
-<p>In a <strong>stratified random sample</strong> by team, we sample 2 players on each of 30 teams.</p>
+<p>In a <strong>stratified random sample</strong> by team, we sample 2 players on each of 30 teams. A stratified random sample is often a higher-quality sample, because it eliminates the possibility of an unlucky draw that completely omits a few teams. All teams are equally represented no matter what happens in the randomization. The downside of a stratified random sample is that it is costly.</p>
 <p>Each player’s probability of sample inclusion is <span class="math inline">\(\frac{2}{n}\)</span> where <span class="math inline">\(n\)</span> is the number on that player’s team (which ranges from 28 to 35).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stratified_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(population) {</span>
@@ -679,7 +679,7 @@ Note
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In a sample <strong>clustered by team</strong>, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams.</p>
+<p>In a sample <strong>clustered by team</strong>, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams. But this type of sample is lower quality, because there is some chance that one will randomly select a few teams that all have particularly high or low average salaries. A clustered random sample is less expensive but is more susceptible to random error based on the clusters chosen.</p>
 <p>Each player’s probability of sample inclusion is P(Team Chosen) <span class="math inline">\(\times\)</span> P(Chosen Within Team) = <span class="math inline">\(\frac{3}{30}\times\frac{20}{n}\)</span> where <span class="math inline">\(n\)</span> is the number on that player’s team (which ranges from 28 to 35).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>clustered_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(population) {</span>
@@ -730,7 +730,7 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_example <span class="ot">&lt;-</span> <span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimator</span>(<span class="at">sample =</span> sample_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4129978</code></pre>
+<pre><code>[1] 4097722</code></pre>
 </div>
 </div>
 <p>Try it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?</p>

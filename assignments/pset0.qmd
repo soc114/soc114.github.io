@@ -4,6 +4,8 @@ title: "Problem Set 0: Computing environment"
 
 **Due: 5pm on Friday, January 10.**
 
+This problem set is a Quarto document, which embeds code, results, and written work. You will edit it and then create a PDF. If you are new to Quarto, see the [Quarto tutorial](https://quarto.org/docs/get-started/hello/rstudio.html) for additional information.
+
 To complete the problem set, download <a href="../assets/pset0/pset0.qmd" download>pset0.qmd</a>. Add these four lines of code to the top if they do not appear in your download,
 
 ```{r, eval = F}

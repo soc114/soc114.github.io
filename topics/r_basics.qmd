@@ -45,4 +45,6 @@ Congratulations on preparing your computing environment!
 
 Throughout the first part of the course, we will often use the online textbook [R for Data Science](https://r4ds.hadley.nz/) by Hadley Wickham as a reference. The book will introduce how to work with data using R and RStudio. If you want additional guidance for setting up the software, see the [Prerequisites](https://r4ds.hadley.nz/intro#prerequisites) section of R4DS. To learn more about RStudio, visit the [RStudio User Guide](https://docs.posit.co/ide/user).
 
+Problem sets will be completed in Quarto documents, which enable you to embed code and results within a written PDF document. You will learn about this in the problem sets. See the [Quarto tutorial](https://quarto.org/docs/get-started/hello/rstudio.html) for additional information.
+
 {{< video https://www.youtube.com/embed/YmYcw2aTqKE >}}

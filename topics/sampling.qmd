@@ -211,7 +211,7 @@ To use this function, we give it the `baseball` data as the population and it re
 simple_sample(population = baseball)
 ```
 
-In a **stratified random sample** by team, we sample 2 players on each of 30 teams.
+In a **stratified random sample** by team, we sample 2 players on each of 30 teams. A stratified random sample is often a higher-quality sample, because it eliminates the possibility of an unlucky draw that completely omits a few teams. All teams are equally represented no matter what happens in the randomization. The downside of a stratified random sample is that it is costly.
 
 Each player's probability of sample inclusion is $\frac{2}{n}$ where $n$ is the number on that player's team (which ranges from `r baseball |> group_by(team) |> count() |> pull(n) |> range() |> paste(collapse = " to ")`).
 
@@ -231,7 +231,7 @@ stratified_sample <- function(population) {
 }
 ```
 
-In a sample **clustered by team**, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams.
+In a sample **clustered by team**, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams. But this type of sample is lower quality, because there is some chance that one will randomly select a few teams that all have particularly high or low average salaries. A clustered random sample is less expensive but is more susceptible to random error based on the clusters chosen.
 
 Each player's probability of sample inclusion is P(Team Chosen) $\times$ P(Chosen Within Team) = $\frac{3}{30}\times\frac{20}{n}$ where $n$ is the number on that player's team (which ranges from `r baseball |> group_by(team) |> count() |> pull(n) |> range() |> paste(collapse = " to ")`).
 

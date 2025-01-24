@@ -10,7 +10,7 @@ Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.
 
 Student identifer: [type your anonymous identifier here]
 
-- Use this [.qmd template](../assets/pset2/pset2.qmd) to complete the problem set
+- Use this <a href="../assets/pset2/pset2.qmd" download>pset2.qmd</a> template to complete the problem set
 - In Canvas, you will upload the PDF produced by your .qmd file
 - Put your identifier above, not your name! We want anonymous grading to be possible
 
