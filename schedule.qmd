@@ -28,7 +28,7 @@ Each date will be a link to the slides for that lecture.
 | Thu, Jan 16	| Data transformation |
 | Tue, [Jan 21](slides/lec05_sampling/lec05_sampling.pdf)	| Population sampling |
 | Thu, [Jan 23](slides/lec06_sampling/lec06_sampling.pdf)	| Population sampling |
-| Tue, Jan 28	| Defining counterfactuals |
+| Tue, [Jan 28](slides/lec07_define_causal/lec07.pdf)	| Defining counterfactuals |
 | Thu, Jan 30	| Exchangeability and experiments |
 | Tue, Feb 4	| Exchangeability and observational studies |
 | Thu, Feb 6	| Exchangeability and observational studies |
