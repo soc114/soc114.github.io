@@ -50,11 +50,8 @@ website:
             contents:
               - topics/sampling.qmd
               - topics/weights.qmd
-          - section: "Randomized experiments"
-            contents:
-              - topics/interventions.qmd
-          - section: "Observational studies"
-            contents:
+          - topics/define_causal.qmd
+          - topics/exchangeability.qmd
       - section: "Inference with Models"
         contents:
           - section: "Models for description"

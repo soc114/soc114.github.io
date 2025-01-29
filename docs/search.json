@@ -745,70 +745,122 @@
     ]
   },
   {
-    "objectID": "topics/asking_questions.html",
-    "href": "topics/asking_questions.html",
-    "title": "Asking questions with data",
+    "objectID": "topics/define_causal.html",
+    "href": "topics/define_causal.html",
+    "title": "Defining causal effects",
     "section": "",
-    "text": "slides\nAsking your own research question is fun, and it is also daunting. There is no formula for asking a good question, and much research involves trial and error. In this lecture, we will discuss together what makes a good research question.",
+    "text": "slides\nThe course so far has focused on descriptive claims. For example, we have estimated the average value of an outcome in the population, or among population subgroups. This lecture pivots to causal claims: what would happen if a population were exposed to a hypothetical intervention.",
     "crumbs": [
       " ",
-      "Working with Data",
-      "Asking questions with data"
+      "Inference Without Models",
+      "Defining causal effects"
     ]
   },
   {
-    "objectID": "topics/asking_questions.html#some-characteristics-of-a-good-question",
-    "href": "topics/asking_questions.html#some-characteristics-of-a-good-question",
-    "title": "Asking questions with data",
-    "section": "Some characteristics of a good question",
-    "text": "Some characteristics of a good question\nWhile good questions come in many forms, good research questions often has a few characteristics.\n\nA unit of analysis\nThe unit of analysis is the bedrock of a good research question. What will a row of your dataset represent? While the answer may seem straightforward, many units of analysis are possible: a person, a school, a neighborhood, a country, etc. In settings with repeated observations, the unit of analysis might be a person observed at a particular age: Jose at age 29 may be one row of your dataset and Jose at age 30 may be another row. The unit of analysis is the unit at which the outcome is defined, so getting it right is important.\n\n\nA clear population\nA good research question addresses a population that is relevant to the author’s argument. A well-defined population could be a set of units, such as American residents in a certain age range. It could be the set of all students at Cornell. It could also be a set of aggregate entities, such as the population of all four-year colleges and universities in the U.S., where each unit in the population is a college or university.\nWhen the population is well-defined, a reader should be able to imagine making a list of all the units in that population. When presented with a new unit and asked whether that unit is part of the population, you should be able to confidently answer “yes” or “no” and not “maybe.”\nIt is rarely satisfying to answer the question “who is being studied?” with the answer “the people in my sample.” While full-count enumerations of interesting populations exist, usually your sample is a subset of a broader population of interest. Good research tells us who that population is.\n\n\nA precise outcome\nFor each unit in the population, there is an outcome. This might be the income of an individual person, or the graduation rate of an individual college. A good research question tells you what the outcome is, and why it matters.\n\n\nThe potential for surprising results\nThis may be the hardest to pin down. Before you work with data, try to tell a story about why the results might go one way or another way. Perhaps you study a particular population of employed people where there is one set of reasons to expect men to earn more and another set of reasons to expect women to earn more. Try to convince yourself that the results could go either way! This builds excitement about the empirical answer, because it shows that the answer is really unknown before data analysis. Write down your arguments because they will also help readers be excited about your questions.\nQuestions where only one answer is plausible are often tedious. Questions that are exciting are often the ones where results could surprise you by going several possible directions.",
+    "objectID": "topics/define_causal.html#fundamental-problem-of-causal-inference",
+    "href": "topics/define_causal.html#fundamental-problem-of-causal-inference",
+    "title": "Defining causal effects",
+    "section": "Fundamental problem of causal inference",
+    "text": "Fundamental problem of causal inference\nHealth professionals often advise people to eat a Mediterranean diet high in healthy fats such as olive oil, whole grains, and fruits. There is descriptive evidence that lifespans are longer among people who eat a Mediterranean diet compared with among people who eat a standard diet. But does eating a Mediterranean diet cause longer lifespan? The figure below visualizes this question in the potential outcomes framework.\n\nIn this hypothetical example, each row corresponds to a person. Person 1 follows a Mediterranean diet and is observed to have a lifespan indicated in blue. Person 2 does not follow a Mediterranean diet and is observed to have a lifespan indicated in green. The descriptive evidence is that lifespans are longer among those eating a Mediterranean diet (blue outcomes on the left) compared with those eating standard diets (green outcomes on the left).\nThe right side of the figure corresponds to the causal claim, which is different. Person 1 has two potential outcomes: a lifespan that would be realized under a Mediterranean diet and a lifespan that would be realized under a standard diet. The causal effect for Person 1 is the difference between the lifespans that would be realized for that person under each of the two diets. But there is a fundamental problem: person 1 ate a Mediterranean diet, and we did not get to observe their outcome under a standard diet. The fundamental problem of causal inference (Holland 1986) is that causal claims involve a contrast between potential outcomes, but for each unit only one of these potential outcomes is realized. The other is counterfactual and cannot be directly observed.\nWe will need additional argument and assumptions to use the factual data (left side of the figure) in order to produce answers about causal effects (right side of the figure). Causal inference is a missing data problem insofar as many of the potential outcomes we need are missing.",
     "crumbs": [
       " ",
-      "Working with Data",
-      "Asking questions with data"
+      "Inference Without Models",
+      "Defining causal effects"
     ]
   },
   {
-    "objectID": "slides/m_discussion_poststratification_dag.html",
-    "href": "slides/m_discussion_poststratification_dag.html",
-    "title": "m_discussion_poststratification_dag",
-    "section": "",
-    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
+    "objectID": "topics/define_causal.html#mathematical-notation",
+    "href": "topics/define_causal.html#mathematical-notation",
+    "title": "Defining causal effects",
+    "section": "Mathematical notation",
+    "text": "Mathematical notation\nBecause each person has more than one potential outcome, we need new mathematical notation to formalize causal claims. We will use subscripts to indicate units (rows of our data). Let \\(Y_i\\) be the outcome for person \\(i\\), such as whether person \\(i\\) survived. Let \\(A_i\\) be the treatment of person \\(i\\), for example taking the value or the value . To refer more abstractly to a value the treatment could take, we use the lower case notation \\(a\\) for a treatment value. Define potential outcomes \\(Y_i^\\text{MediterraneanDiet}\\) and \\(Y_i^\\text{StandardDiet}\\) as the lifespan outcomes that person \\(i\\) would realize under each of the treatment conditions. More generally, let \\(Y_i^a\\) denote the potential outcome for unit \\(i\\) that would be realized if assigned to treatment value \\(a\\).\nThe causal effect is a contrast across potential outcomes. For example, the causal effect on Ian’s lifespan of eating a Mediterranean diet versus a standard diet is \\[Y_\\text{Ian}^\\text{MediterraneanDiet} - Y_\\text{Ian}^\\text{StandardDiet}\\]\nTo connect causal claims to ideas we have already covered from sampling, we will adopt a framework in which potential outcomes are fixed quantities with randomness arising from sampling and/or from random treatment assignment. Each person has a fixed outcome \\(Y_i^\\text{MediterraneanDiet}\\) that would be observed if they were sampled and assigned a Mediterranean diet. This is just like how every baseball player from last week had a salary that would be observed if they were sampled. We will sometimes omit the \\(i\\) subscript to refer to the random variable for the potential outcome of a randomly-sampled person from the population, \\(Y^\\text{MediterraneanDiet}\\).",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Defining causal effects"
+    ]
   },
   {
-    "objectID": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
-    "href": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
-    "title": "m_discussion_poststratification_dag",
-    "section": "",
-    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
+    "objectID": "topics/define_causal.html#the-consistency-assumption",
+    "href": "topics/define_causal.html#the-consistency-assumption",
+    "title": "Defining causal effects",
+    "section": "The consistency assumption",
+    "text": "The consistency assumption\nWe want to make causal claims about potential outcomes \\(Y_i^a\\), but what we observe are factually realized outcome \\(Y_i\\). To draw the connection, we need to assume that the factual outcomes are consistent with what would be observed if the person in question were assigned to the treatment condition that factually observed. Using \\(A_i\\) to denote the factual treatment for person \\(i\\), we assume\n\\[\nY_i^{A_i} = Y_i \\qquad\\text{(consistency assumption)}\n\\] This assumption is often obviously true, but we will see later examples where it is violated. One example is when person \\(i\\)’s outcome depends not only on their own treatment but also on the treatment of some neighboring person \\(j\\). In many of our initial examples, we will simply assume the consistency assumption holds.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Defining causal effects"
+    ]
   },
   {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Schedule",
-    "section": "",
-    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining counterfactuals\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
+    "objectID": "topics/define_causal.html#potential-outcomes-in-math-and-in-words",
+    "href": "topics/define_causal.html#potential-outcomes-in-math-and-in-words",
+    "title": "Defining causal effects",
+    "section": "Potential outcomes in math and in words",
+    "text": "Potential outcomes in math and in words\nWe will often use potential outcomes within mathematical statements. For example, we might write about the expected outcome if assigned to a Mediterranean diet, \\(E(Y^\\text{MediterraneanDiet})\\). Recall that the expectation operator \\(E()\\) says to take the population mean of the random variable within the parentheses. We will also use conditional expectations, such as \\(E(Y\\mid A = \\text{MediterraneanDiet})\\) which reads “the expected value of \\(Y\\) given that \\(A\\) took the value .” The vertical bar says that we are taking the expected value of the variable on the left of the bar within the subgroup defined on the right side of the bar.\nIn class, we practiced writing statements in math and in English. For example, the mathematical statement \\[\nE(\\text{Earning} \\mid \\text{CollegeDegree} = \\texttt{TRUE}) &gt; E(\\text{Earning} \\mid \\text{CollegeDegree} = \\texttt{FALSE})\n\\] is a descriptive statement that says the expected value of earnings is higher among the subgroup with college degrees than among those without college degrees. We made these kinds of descriptive claims already in code by using group_by() and summarize().\nThe mathematical statement \\[\nE\\left(\\text{Earning}^{\\text{CollegeDegree} = \\texttt{TRUE}}\\right) &gt; E\\left(\\text{Earning}^{\\text{CollegeDegree} = \\texttt{FALSE}}\\right)\n\\] is a causal claim that the expected value of earnings that a random person would realize if assigned to a college degree is higher than the expected value if a random person were assigned to no college degree. Because there is no vertical bar (\\(\\mid\\)), the causal claim is an average over the entire population on both sides of the inequality. The descriptive claim, by contrast, is an average over two different sets of units. The figure below visualizes the difference between these descriptive and causal claims using a visual analogous to the one used to introduce a Mediterranean diet.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Defining causal effects"
+    ]
   },
   {
-    "objectID": "schedule.html#lecture-topics",
-    "href": "schedule.html#lecture-topics",
-    "title": "Schedule",
-    "section": "",
-    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining counterfactuals\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
+    "objectID": "topics/define_causal.html#closing-thoughts",
+    "href": "topics/define_causal.html#closing-thoughts",
+    "title": "Defining causal effects",
+    "section": "Closing thoughts",
+    "text": "Closing thoughts\nThe fundamental problem of causal inference is a deep challenge; causal claims will always involve outcomes that are missing and which can only be learned through assumptions and argument. The next class will introduce randomized experiments and show how they provide one setting in which the assumptions required for causal inference are especially tenable.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Defining causal effects"
+    ]
   },
   {
-    "objectID": "schedule.html#assignments",
-    "href": "schedule.html#assignments",
-    "title": "Schedule",
-    "section": "Assignments",
-    "text": "Assignments\n\n\n\nDue Date\nAssignment\n\n\n\n\nFri, Jan 10 at 5pm\nProblem Set 0\n\n\nFri, Jan 17 at 5pm\nProblem Set 1\n\n\nFri, Jan 24 at 5pm\nPeer Review 1\n\n\nFri, Jan 31 at 5pm\nProblem Set 2\n\n\nFri, Feb 07 at 5pm\nPeer Review 2\n\n\nFri, Feb 14 at 5pm\nProblem Set 3\n\n\nFri, Feb 21 at 5pm\nPeer Review 3\n\n\nFri, Feb 28 at 5pm\nProblem Set 4\n\n\nFri, Mar 07 at 5pm\nProject\n\n\nFri, Mar 14 at 5pm\nProject Peer Review"
+    "objectID": "topics/define_causal.html#what-to-read",
+    "href": "topics/define_causal.html#what-to-read",
+    "title": "Defining causal effects",
+    "section": "What to read",
+    "text": "What to read\nNo reading is required after this class, but if you would like to learn more about causal inference, there are a few places to look. We will repeatedly use college completion as an example of a causal treatment, drawing on examples from the following book.\n\nBrand, Jennie E. 2023. Overcoming the Odds: The Benefits of Completing College for Unlikely Graduates. Russell Sage Foundation. Here is a link to read online through the UCLA Library.\n\nFor a mathematical introduction with examples from epidemiology, see Chapter 1 of this book.\n\nHern'an, Miguel A. and James M. Robins. Causal Inference: What If?. Boca Raton: Chapman & Hall / CRC.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Defining causal effects"
+    ]
   },
   {
-    "objectID": "forms.html",
-    "href": "forms.html",
-    "title": "Forms",
+    "objectID": "slides/m_discussion_sailing.html",
+    "href": "slides/m_discussion_sailing.html",
+    "title": "Untitled",
     "section": "",
-    "text": "Assignment extension form. If you are experiencing an exceptional circumstance that may warrant an extension, use this to request one.\nRegrade request form. If you think we have graded something wrong, you can report it on this form. Responses are only accepted for within 72 hours of grade post.\nExcused absence form. To request an excused absence from lecture or discussion.\n\n\n\n\n Back to top"
+    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
+  },
+  {
+    "objectID": "slides/m_discussion_sailing.html#a-sailing-class",
+    "href": "slides/m_discussion_sailing.html#a-sailing-class",
+    "title": "Untitled",
+    "section": "",
+    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
+  },
+  {
+    "objectID": "office_hours.html",
+    "href": "office_hours.html",
+    "title": "Office Hours",
+    "section": "",
+    "text": "Person\nTime\nLocation\n\n\n\n\nNathan\nT 1:30–2:30pm\nHaines A55\n\n\nIan\nTh 1–2pm\nHaines 241C\n\n\n\nthis week only F 11:30–12:30pm\nZoom, see Piazza\n\n\nChristina\nTh 2–3pm\nHaines A58-C\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "assignments/pset4.html",
+    "href": "assignments/pset4.html",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "",
+    "text": "Due: 5pm on Friday, Feb 28.\nThis problem set has not yet been posted.\n\n\n\n Back to top",
+    "crumbs": [
+      " ",
+      "Assignments",
+      "Problem Sets",
+      "Problem Set 4"
+    ]
   },
   {
     "objectID": "assignments/project.html",
@@ -883,50 +935,81 @@
     ]
   },
   {
-    "objectID": "assignments/pset4.html",
-    "href": "assignments/pset4.html",
-    "title": "Problem Set 4: Statistical Learning",
+    "objectID": "forms.html",
+    "href": "forms.html",
+    "title": "Forms",
     "section": "",
-    "text": "Due: 5pm on Friday, Feb 28.\nThis problem set has not yet been posted.\n\n\n\n Back to top",
+    "text": "Assignment extension form. If you are experiencing an exceptional circumstance that may warrant an extension, use this to request one.\nRegrade request form. If you think we have graded something wrong, you can report it on this form. Responses are only accepted for within 72 hours of grade post.\nExcused absence form. To request an excused absence from lecture or discussion.\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining causal effects\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
+  },
+  {
+    "objectID": "schedule.html#lecture-topics",
+    "href": "schedule.html#lecture-topics",
+    "title": "Schedule",
+    "section": "",
+    "text": "The course is divided into three broad sections:\n\nJan 7–16: Working with data\nJan 21–Feb 6: Inference without models\nFeb 11 onward: Inference with models\n\nEach date will be a link to the slides for that lecture.\n\n\n\nDate\nCourse Section\nWebsite Page\n\n\n\n\nJan 7\nWelcome\n\n\n\n\nAsking questions\n\n\n\n\nSetting up your computer\n\n\n\nJan 9\nVisualization\n\n\n\nJan 14 & Jan 16\nData transformation\n\n\n\nThu, Jan 16\nData transformation\n\n\n\nTue, Jan 21\nPopulation sampling\n\n\n\nThu, Jan 23\nPopulation sampling\n\n\n\nTue, Jan 28\nDefining causal effects\n\n\n\nThu, Jan 30\nExchangeability and experiments\n\n\n\nTue, Feb 4\nExchangeability and observational studies\n\n\n\nThu, Feb 6\nExchangeability and observational studies\n\n\n\nTue, Feb 11\nWhy model?\n\n\n\nThu, Feb 13\nProperties of estimators\n\n\n\nTue, Feb 18\nEstimating the properties of estimators\n\n\n\nThu, Feb 20\nModeling for causal inference: Outcome model\n\n\n\nTue, Feb 25\nModeling for causal inference: IPTW\n\n\n\nThu, Feb 27\nMachine learning as a plug-in: Descriptive and causal\n\n\n\nTue, Mar 4\nMachine learning: Penalized regression\n\n\n\nThu, Mar 6\nMachine learning: Trees and forests\n\n\n\nTue, Mar 11\nMachine learning vs regression: A case study (FF Challenge)\n\n\n\nThu, Mar 13\nCourse recap"
+  },
+  {
+    "objectID": "schedule.html#assignments",
+    "href": "schedule.html#assignments",
+    "title": "Schedule",
+    "section": "Assignments",
+    "text": "Assignments\n\n\n\nDue Date\nAssignment\n\n\n\n\nFri, Jan 10 at 5pm\nProblem Set 0\n\n\nFri, Jan 17 at 5pm\nProblem Set 1\n\n\nFri, Jan 24 at 5pm\nPeer Review 1\n\n\nFri, Jan 31 at 5pm\nProblem Set 2\n\n\nFri, Feb 07 at 5pm\nPeer Review 2\n\n\nFri, Feb 14 at 5pm\nProblem Set 3\n\n\nFri, Feb 21 at 5pm\nPeer Review 3\n\n\nFri, Feb 28 at 5pm\nProblem Set 4\n\n\nFri, Mar 07 at 5pm\nProject\n\n\nFri, Mar 14 at 5pm\nProject Peer Review"
+  },
+  {
+    "objectID": "slides/m_discussion_poststratification_dag.html",
+    "href": "slides/m_discussion_poststratification_dag.html",
+    "title": "m_discussion_poststratification_dag",
+    "section": "",
+    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
+  },
+  {
+    "objectID": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
+    "href": "slides/m_discussion_poststratification_dag.html#using-dags-in-a-new-context",
+    "title": "m_discussion_poststratification_dag",
+    "section": "",
+    "text": "DAGs are not just useful for causal inference: they can be useful whenever we need to know whether one variable is statistically independent of another. This is true, for example, when drawing inference about a population from a sample.\nA researcher uses an opt-in online web survey to draw inference about support for President Biden. They ask respondents: ``Do you approve of President Biden’s performance in office?’’ with the answer choices Yes/No. The researcher also gathers data on two demographic characteristics: whether the respondent completed college and current employment. They write:\n\nMy sample is not representative. Suppose for every person in the population, \\(S\\) denotes whether they are included in my sample. Then \\(S\\) is related to their approval of President Biden (\\(Y\\)).\nHowever, I believe my sample is representative when I look at a set of people who all take the same value along college completion and employment, such as those who finished college and are currently employed. If these variables are \\(X_1,X_2\\), I believe this independence statement: \\(S\\) is independent of \\(Y\\) given \\(X_1,X_2\\). I will therefore get population estimates by a procedure with several steps: use my sample to estimate the mean outcome \\(E(Y\\mid \\vec{X} = \\vec{x})\\) in each stratum, then use Census data to estimate the size of each stratum \\(P(\\vec{X} = \\vec{x})\\) in the population, then estimate \\(E(Y) = \\sum_{\\vec{x}}E(Y\\mid \\vec{X} = \\vec{x})P(\\vec{X} = \\vec{x})\\).\n\nThis researcher’s reasoning is a common strategy known as post-stratification. This question is about formalizing a set of conditions under which the researcher is right and wrong.\nBefore you begin, we want to emphasize one aspect of the researcher’s assumption that is different from the exchangeability assumption for causal inference.\n\nfor causal claims, we assume conditional exchangeability: \\(A\\) independent of \\(Y^a\\) given \\(\\vec{X}\\)\n\ninvolves the potential outcome \\(Y^a\\)\nholds if the only unblocked paths between \\(A\\) and \\(Y\\) are causal paths\n\nfor sample-to-population inference, we assume conditionally independent sampling \\(S\\) independent of \\(Y\\) given \\(\\vec{X}\\)\n\ninvolves the factual outcome \\(Y\\); there is no intervention here\nholds if there are no unblocked paths between \\(S\\) and \\(Y\\)\n\n\nAlthough the assumption is different, the principles of DAGs are still relevant.\n\n\nDraw a DAG under which the researcher’s claim is valid. Use \\(S,Y,X_1,X_2\\).\n\n\n\nIn a sentence or two, explain your DAG from 3.1 to the researcher. Tell us in words what is meant by each edge in your DAG.\n\n\n\nDraw a DAG showing a counterexample under which the researcher’s claim is invalid.\n\n\n\nIn a sentence or two, explain your DAG from 3.3 to the researcher. Tell us particularly about the path that creates a statistical dependence between \\(S\\) and \\(Y\\)."
+  },
+  {
+    "objectID": "topics/asking_questions.html",
+    "href": "topics/asking_questions.html",
+    "title": "Asking questions with data",
+    "section": "",
+    "text": "slides\nAsking your own research question is fun, and it is also daunting. There is no formula for asking a good question, and much research involves trial and error. In this lecture, we will discuss together what makes a good research question.",
     "crumbs": [
       " ",
-      "Assignments",
-      "Problem Sets",
-      "Problem Set 4"
+      "Working with Data",
+      "Asking questions with data"
     ]
   },
   {
-    "objectID": "office_hours.html",
-    "href": "office_hours.html",
-    "title": "Office Hours",
-    "section": "",
-    "text": "Person\nTime\nLocation\n\n\n\n\nNathan\nT 1:30–2:30pm\nHaines A55\n\n\nIan\nTh 1–2pm\nHaines 241C\n\n\n\nthis week only F 11:30–12:30pm\nZoom, see Piazza\n\n\nChristina\nTh 2–3pm\nHaines A58-C\n\n\n\n\n\n\n Back to top"
+    "objectID": "topics/asking_questions.html#some-characteristics-of-a-good-question",
+    "href": "topics/asking_questions.html#some-characteristics-of-a-good-question",
+    "title": "Asking questions with data",
+    "section": "Some characteristics of a good question",
+    "text": "Some characteristics of a good question\nWhile good questions come in many forms, good research questions often has a few characteristics.\n\nA unit of analysis\nThe unit of analysis is the bedrock of a good research question. What will a row of your dataset represent? While the answer may seem straightforward, many units of analysis are possible: a person, a school, a neighborhood, a country, etc. In settings with repeated observations, the unit of analysis might be a person observed at a particular age: Jose at age 29 may be one row of your dataset and Jose at age 30 may be another row. The unit of analysis is the unit at which the outcome is defined, so getting it right is important.\n\n\nA clear population\nA good research question addresses a population that is relevant to the author’s argument. A well-defined population could be a set of units, such as American residents in a certain age range. It could be the set of all students at Cornell. It could also be a set of aggregate entities, such as the population of all four-year colleges and universities in the U.S., where each unit in the population is a college or university.\nWhen the population is well-defined, a reader should be able to imagine making a list of all the units in that population. When presented with a new unit and asked whether that unit is part of the population, you should be able to confidently answer “yes” or “no” and not “maybe.”\nIt is rarely satisfying to answer the question “who is being studied?” with the answer “the people in my sample.” While full-count enumerations of interesting populations exist, usually your sample is a subset of a broader population of interest. Good research tells us who that population is.\n\n\nA precise outcome\nFor each unit in the population, there is an outcome. This might be the income of an individual person, or the graduation rate of an individual college. A good research question tells you what the outcome is, and why it matters.\n\n\nThe potential for surprising results\nThis may be the hardest to pin down. Before you work with data, try to tell a story about why the results might go one way or another way. Perhaps you study a particular population of employed people where there is one set of reasons to expect men to earn more and another set of reasons to expect women to earn more. Try to convince yourself that the results could go either way! This builds excitement about the empirical answer, because it shows that the answer is really unknown before data analysis. Write down your arguments because they will also help readers be excited about your questions.\nQuestions where only one answer is plausible are often tedious. Questions that are exciting are often the ones where results could surprise you by going several possible directions.",
+    "crumbs": [
+      " ",
+      "Working with Data",
+      "Asking questions with data"
+    ]
   },
   {
-    "objectID": "slides/m_discussion_sailing.html",
-    "href": "slides/m_discussion_sailing.html",
-    "title": "Untitled",
+    "objectID": "topics/exchangeability.html",
+    "href": "topics/exchangeability.html",
+    "title": "Exchangeability",
     "section": "",
-    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
-  },
-  {
-    "objectID": "slides/m_discussion_sailing.html#a-sailing-class",
-    "href": "slides/m_discussion_sailing.html#a-sailing-class",
-    "title": "Untitled",
-    "section": "",
-    "text": "You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.\n2.1 (5 points) \nLast year, there was a survey of students who did and did not take the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class.\nAnswer. Your answer here\n2.2 (5 points) \nLast year, there was a survey of students before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.\nAnswer. Your answer here\n2.3 (5 points) \nOn average, the students in this class emerged more prepared to sail than they would have been without the class.\nAnswer. Your answer here"
-  },
-  {
-    "objectID": "topics/interventions.html",
-    "href": "topics/interventions.html",
-    "title": "Causal Interventions",
-    "section": "",
-    "text": "If we want to reduce inequality, we want to know the effect of an intervention: what would happen if some treatment went differently?\nAs a running illustration, this section considers the rapid expansion of higher education over the 20th century. We will discuss how completion of a college degree causally increases economic outcomes, especially for students unlikely to finish college.\nThis material draws on the following book:\n\nBrand, Jennie E. 2023. Overcoming the Odds: The Benefits of Completing College for Unlikely Graduates. Russell Sage Foundation.\n\n\n\n\n\n\n\n Back to top",
+    "text": "To be written.\n\n\n\n Back to top",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Randomized experiments",
-      "Causal Interventions"
+      "Exchangeability"
     ]
   },
   {
