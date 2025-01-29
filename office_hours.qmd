@@ -9,5 +9,6 @@ format:
 | Person | Time | Location |
 |---|---|---|
 | Nathan | T 1:30--2:30pm | Haines A55 |
-| Ian | Th 1--2pm | Haines 241C |
+| Ian | ~~Th 1--2pm~~ | ~~Haines 241C~~ |
+| | this week only F 11:30--12:30pm | Zoom, see Piazza |
 | Christina | Th 2--3pm | Haines A58-C | 

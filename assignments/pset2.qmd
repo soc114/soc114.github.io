@@ -35,7 +35,7 @@ Look ahead: you will later study a new outcome of your own choosing. You could a
 
 Once you select your variables, click "Select Samples." We will download data from the 1962--2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the "ASEC" tab and none of the samples in the "Basic Monthly" tab. To achieve this, under the ASEC tab you can click "Select All Samples." Under the Basic Monthly tab, you can click and then unclick "Select All Samples" to remove these samples that we will not use.
 
-Once you have selected variables and selected samples, you can click "View Cart." Optionally, reduce the size of your extract by un-checking any variables that have been automatically added which you won't be using. Then click "Create Data Extract." On the next page, select cases to those ages 25--54. Before submitting your extract, we recommend changing the data format to "Stata (.dta)" so that you get value labels.
+Once you have selected variables and selected samples, you can click "View Cart." Optionally, reduce the size of your extract by un-checking any variables that have been automatically added which you won't be using. Note that one automatically-added variable is `year`, which you should keep because you will be using it. Then click "Create Data Extract." On the next page, select cases to those ages 25--54. Before submitting your extract, we recommend changing the data format to "Stata (.dta)" so that you get value labels.
 
 On your computer, analyze these data.
 
