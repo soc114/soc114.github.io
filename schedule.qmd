@@ -29,7 +29,7 @@ Each date will be a link to the slides for that lecture.
 | Tue, [Jan 21](slides/lec05_sampling/lec05_sampling.pdf)	| [Population sampling](topics/sampling.qmd) |
 | Thu, [Jan 23](slides/lec06_sampling/lec06_sampling.pdf)	| [Population sampling](topics/sampling.qmd) |
 | Tue, [Jan 28](slides/lec07_define_causal/lec07.pdf)	| [Defining causal effects](topics/define_causal.qmd) |
-| Thu, Jan 30	| Exchangeability and experiments |
+| Thu, [Jan 30](slides/lec08_experiments/lec08_experiments.pdf)	| Exchangeability and experiments |
 | Tue, Feb 4	| Exchangeability and observational studies |
 | Thu, Feb 6	| Exchangeability and observational studies |
 | Tue, Feb 11	| Why model? |

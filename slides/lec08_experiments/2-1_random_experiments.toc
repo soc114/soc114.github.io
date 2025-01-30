@@ -1,2 +1,0 @@
-\beamer@sectionintoc {1}{Quick Refresher}{4}{0}{1}
-\beamer@sectionintoc {2}{Randomized experiments: Two key benefits}{8}{0}{2}

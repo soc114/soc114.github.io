@@ -1,0 +1,754 @@
+\documentclass{beamer}
+\usecolortheme{dove}
+\setbeamertemplate{navigation symbols}{}
+\usepackage{amsmath,amssymb,amsfonts,amsthm, multicol, subfigure, color}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\definecolor{seagreen}{RGB}{46, 139, 87}
+\definecolor{ucla}{RGB}{39, 116, 174}
+\definecolor{darkestblue}{RGB}{0, 59, 92}
+\definecolor{gold}{RGB}{255, 209, 0}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\log{\text{log}}
+\newcommand\logit{\text{logit}}
+\newcommand\iid{\stackrel{\text{iid}}{\sim}}
+\newcommand\E{\text{E}}
+\newcommand\V{\text{V}}
+\renewcommand\P{\text{P}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\Cor}{\text{Cor}}
+\newcommand\doop{\text{do}}
+
+
+\usepackage{stackrel}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
+\newcommand\slideref[1]{\vskip .1cm \tiny \textcolor{gray}{{#1}}}
+\newcommand\red[1]{\color{red}#1}
+\newcommand\blue[1]{\color{blue}#1}
+\newcommand\gray[1]{\color{gray}#1}
+\newcommand\seagreen[1]{\color{seagreen}#1}
+\newcommand\purple[1]{\color{purple}#1}
+\newcommand\orange[1]{\color{orange}#1}
+\newcommand\black[1]{\color{black}#1}
+\newcommand\white[1]{\color{white}#1}
+\newcommand\teal[1]{\color{teal}#1}
+\newcommand\magenta[1]{\color{magenta}#1}
+\newcommand\Fuchsia[1]{\color{Fuchsia}#1}
+\newcommand\BlueGreen[1]{\color{BlueGreen}#1}
+\newcommand\bblue[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand\bred[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand\bgray[1]{\textcolor{gray}{\textbf{#1}}}
+\newcommand\bgreen[1]{\textcolor{seagreen}{\textbf{#1}}}
+\newcommand\bref[2]{\href{#1}{\color{blue}{#2}}}
+\colorlet{lightgray}{gray!40}
+\pgfdeclarelayer{bg}    % declare background layer for tikz
+\pgfsetlayers{bg,main} % order layers for tikz
+\newcommand\mycite[1]{\begin{scriptsize}\textcolor{darkgray}{(#1)}\end{scriptsize}}
+\newcommand{\tcframe}{\frame{
+%\small{
+\only<1|handout:0>{\tableofcontents}
+\only<2|handout:1>{\tableofcontents[currentsection]}}
+%}
+}
+
+\setbeamertemplate{footline}[frame number]
+
+
+\usepackage[round]{natbib}
+\bibliographystyle{humannat-mod}
+\setbeamertemplate{enumerate items}[default]
+\usepackage{mathtools}
+
+\newcommand{\goalsframe}{\begin{frame}{Learning goals for today}
+At the end of class, you will be able to:
+\begin{enumerate}
+\item Explain exchangeability in randomized experiments
+\item Make arguments about why exchangeability may not hold in particular cases when a treatment is not randomized
+\end{enumerate} \vskip .2in
+\end{frame}}
+
+\title{Randomized Experiments\footnote{Some material in this lecture draws on past materials by Sam Wang at Cornell University. Thanks Sam!}}
+\author{Sociol 114}
+\date{30 Jan 2025}
+
+\begin{document}
+
+\maketitle
+
+\goalsframe
+
+\begin{frame}{Exchangeable sampling from a population}
+\pause
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1) {Population\\Outcomes};
+\foreach \i in {.3,.4,.5,.6,.7,.8} {
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.5) {$Y_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.4) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.3) {$Y_\text{Jes\'us}$};
+\pause
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Sampling};
+%\foreach \i in {.3,.4,.5,.6,.7,.8} {
+%	\draw[fill = ucla, draw = white] (.4,\i) rectangle (6,\i + .1) {};
+%}
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$S_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$S_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$S_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.5) {$S_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.4) {$S_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.3) {$S_\text{Jes\'us} = 1$};
+\pause
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Sampled\\Outcomes};
+\foreach \i in {.3,.5,.8} {
+	\draw[fill = ucla, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.62,.8) {$Y_\text{Maria}$};
+%\node[font = {\bf}, white] at (.75,.75) {$Y_\text{William}$};
+%\node[font = {\bf}, white] at (.75,.65) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.62,.5) {$Y_\text{Sarah}$};
+%\node[font = {\bf}, white] at (.75,.45) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.62,.3) {$Y_\text{Jes\'us}$};
+%\draw[fill = darkgray] (.75,0) rectangle (2,1);
+\pause
+\node[anchor = north west, align = left] at (.75,1) {\textbf{Estimator:}\\Estimate the\\population mean\\by the sample mean};
+\node[anchor = north west, align = left] at (.75,.65) {\textbf{Key assumption}:\\Sampled and\\unsampled units\\are \textbf{exchangeable}\\due to random\\sampling};
+\node[anchor = north west, align = left] at (.75,.27) {$Y\indep S$};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+Now suppose our population all participate\\in a randomized experiment with\\treatment ($A = 1$) and control ($A = 0$) conditions
+\end{frame}
+
+
+\begin{frame}{Exchangeable treatment assignment} %Y1
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1.05) {Population\\Potential\\Outcomes};
+\foreach \i in {.3,.4,.5,.6,.7,.8} {
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y^1_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y^1_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y^1_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.5) {$Y^1_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.4) {$Y^1_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.3) {$Y^1_\text{Jes\'us}$};
+\pause
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Treatment};
+%\foreach \i in {.3,.4,.5,.6,.7,.8} {
+%	\draw[fill = ucla, draw = white] (.4,\i) rectangle (6,\i + .1) {};
+%}
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$A_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$A_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$A_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.5) {$A_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.4) {$A_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.3) {$A_\text{Jes\'us} = 1$};
+\pause
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Observed\\Outcomes};
+\foreach \i in {.3,.5,.8} {
+	\draw[fill = ucla, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.62,.8) {$Y^1_\text{Maria}$};
+%\node[font = {\bf}, white] at (.75,.75) {$Y_\text{William}$};
+%\node[font = {\bf}, white] at (.75,.65) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.62,.5) {$Y^1_\text{Sarah}$};
+%\node[font = {\bf}, white] at (.75,.45) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.62,.3) {$Y^1_\text{Jes\'us}$};
+%\draw[fill = darkgray] (.75,0) rectangle (2,1);
+\pause
+\node[anchor = north west, align = left] at (.75,1) {\textbf{Estimator:}\\Estimate the\\population mean\\$\E(Y^1)$ by the\\untreated sample mean};
+\node[anchor = north west, align = left] at (.75,.65) {\textbf{Key assumption}:\\Treated and\\untreated units\\are \textbf{exchangeable}\\due to random\\treatment assignment};
+\node[anchor = north west, align = left] at (.75,.27) {$Y^1\indep A$};
+\end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}{Exchangeable treatment assignment} %Y0
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1.05) {Population\\Potential\\Outcomes};
+\foreach \i in {.3,.4,.5,.6,.7,.8} {
+	\draw[fill = gold, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, darkestblue] at (.15,.8) {$Y^0_\text{Maria}$};
+\node[font = {\bf}, darkestblue] at (.15,.7) {$Y^0_\text{William}$};
+\node[font = {\bf}, darkestblue] at (.15,.6) {$Y^0_\text{Rich}$};
+\node[font = {\bf}, darkestblue] at (.15,.5) {$Y^0_\text{Sarah}$};
+\node[font = {\bf}, darkestblue] at (.15,.4) {$Y^0_\text{Alondra}$};
+\node[font = {\bf}, darkestblue] at (.15,.3) {$Y^0_\text{Jes\'us}$};
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Treatment};
+%\foreach \i in {.3,.4,.5,.6,.7,.8} {
+%	\draw[fill = ucla, draw = white] (.4,\i) rectangle (6,\i + .1) {};
+%}
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$A_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$A_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$A_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.5) {$A_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.4) {$A_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.3) {$A_\text{Jes\'us} = 1$};
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Observed\\Outcomes};
+\foreach \i in {.4,.6,.7} {
+	\draw[fill = gold, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+%\node[font = {\bf}, white] at (.62,.8) {$Y^1_\text{Maria}$};
+\node[font = {\bf}, darkestblue] at (.62,.7) {$Y^0_\text{William}$};
+\node[font = {\bf}, darkestblue] at (.62,.6) {$Y^0_\text{Rich}$};
+%\node[font = {\bf}, white] at (.62,.5) {$Y^1_\text{Sarah}$};
+\node[font = {\bf}, darkestblue] at (.62,.4) {$Y^0_\text{Alondra}$};
+%\node[font = {\bf}, white] at (.62,.3) {$Y^1_\text{Jes\'us}$};
+\node[anchor = north west, align = left] at (.75,1) {\textbf{Estimator:}\\Estimate the\\population mean\\$\E(Y^0)$ by the\\untreated sample mean};
+\node[anchor = north west, align = left] at (.75,.65) {\textbf{Key assumption}:\\Treated and\\untreated units\\are \textbf{exchangeable}\\due to random\\treatment assignment};
+\node[anchor = north west, align = left] at (.75,.27) {$Y^0\indep A$};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Exchangeable treatment assignment} %Y0 AND Y1
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.23,1.05) {Population\\Potential\\Outcomes};
+\foreach \i in {.3,.4,.5,.6,.7,.8} {
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+	\draw[fill = gold, draw = white] (.24,\i - .05) rectangle (.38,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y^1_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y^1_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y^1_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.5) {$Y^1_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.4) {$Y^1_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.3) {$Y^1_\text{Jes\'us}$};
+\node[font = {\bf}, darkestblue] at (.31,.8) {$Y^0_\text{Maria}$};
+\node[font = {\bf}, darkestblue] at (.31,.7) {$Y^0_\text{William}$};
+\node[font = {\bf}, darkestblue] at (.31,.6) {$Y^0_\text{Rich}$};
+\node[font = {\bf}, darkestblue] at (.31,.5) {$Y^0_\text{Sarah}$};
+\node[font = {\bf}, darkestblue] at (.31,.4) {$Y^0_\text{Alondra}$};
+\node[font = {\bf}, darkestblue] at (.31,.3) {$Y^0_\text{Jes\'us}$};
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.51,1) {Randomized\\Treatment};
+%\foreach \i in {.3,.4,.5,.6,.7,.8} {
+%	\draw[fill = ucla, draw = white] (.4,\i) rectangle (6,\i + .1) {};
+%}
+\node[font = {\bf}, anchor = east, ucla] at (.61,.8) {$A_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.61,.7) {$A_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.61,.6) {$A_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.61,.5) {$A_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.61,.4) {$A_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.61,.3) {$A_\text{Jes\'us} = 1$};
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.83,1) {Observed\\Outcomes};
+\foreach \i in {.3,.5,.8} {
+	\draw[fill = ucla, draw = white] (.68,\i - .05) rectangle (.82,\i + .05) {};
+}
+\foreach \i in {.4,.6,.7} {
+	\draw[fill = gold, draw = white] (.84,\i - .05) rectangle (.98,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.75,.8) {$Y^1_\text{Maria}$};
+\node[font = {\bf}, darkestblue] at (.91,.7) {$Y^0_\text{William}$};
+\node[font = {\bf}, darkestblue] at (.91,.6) {$Y^0_\text{Rich}$};
+\node[font = {\bf}, white] at (.75,.5) {$Y^1_\text{Sarah}$};
+\node[font = {\bf}, darkestblue] at (.91,.4) {$Y^0_\text{Alondra}$};
+\node[font = {\bf}, white] at (.75,.3) {$Y^1_\text{Jes\'us}$};
+%\node[anchor = north west, align = left] at (.75,1) {\textbf{Estimator:}\\Estimate the\\population mean\\$\E(Y^0)$ by the\\untreated sample mean};
+%\node[anchor = north west, align = left] at (.75,.65) {\textbf{Key assumption}:\\Treated and\\untreated units\\are \textbf{exchangeable}\\due to random\\treatment assignment};
+%\node[anchor = north west, align = left] at (.75,.27) {$Y^0\indep A$};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Exchangeable treatment assignment}
+\textbf{Causal Estimand:}\\(expected outcome if assigned to treatment) \\
+${}-{}$ (expected outcome if assigned to control)
+$$
+\E\left(Y^1\right) - \E\left(Y^0\right)
+$$ \vskip .1in
+\textbf{Exchangeability Assumption}:\\
+Potential outcomes are independent of treatment assignment \\
+$$\{Y^0,Y^1\}\indep A$$ \vskip .1in
+\textbf{Empirical Estimand:}\\
+(expected outcome among the treated)\\
+$-$ (expected outcome among the untreated)
+$$\E(Y\mid A = 1) - \E(Y\mid A = 0)$$
+\end{frame}
+
+\begin{frame}{Exchangeable treatment assignment: Proof}
+$$\begin{aligned}
+&\E\left(Y^1\right) - \E\left(Y^0\right) \\
+&= \E\left(Y^1\mid A = 1\right) - \E\left(Y^0\mid A = 0\right) &\onslide<3->{\text{by exchangeability}}\\
+&= \E\left(Y\mid A = 1\right) - \E\left(Y\mid A = 0\right) &\onslide<2->{\text{by consistency}}
+\end{aligned}$$ \vskip .2in \pause \pause \pause
+This is an example of \textbf{causal identification}: \\
+using assumptions to arrive at an empirical quantity\\(involving only factual random variables, no potential outcomes)\\that equals our causal estimand if the assumptions hold \vskip .2in
+The causal estimand $\E(Y^1) - \E(Y^0)$ is \textbf{identified} by the empirical estimand $\E(Y\mid A = 1) - \E(Y\mid A = 0)$
+\end{frame}
+
+\begin{frame}{Potential outcome exercise: Covid vaccines} \pause
+% from Sam
+Suppose we know the following pieces of information:
+{\small
+\begin{itemize}
+\item Martha was vaccinated against Covid.\\Martha tested negative 6 months later.
+\item Ezra was not vaccinated against Covid.\\Ezra tested positive 6 months later.
+\end{itemize} \pause
+Which cells have known values? What are the values?
+}
+
+\begin{table}
+  \renewcommand*{\arraystretch}{2}
+\begin{tabular}[t]{c|c|c| c|c}
+  & $A_i$ & $Y_i$ & $Y_i^{\text{Vaccinated}}$ & $Y_i^{\text{Unvaccinated}}$\\
+\hline
+Martha & \qquad \qquad \qquad & \qquad \qquad \qquad & \qquad & \qquad\\ \hline
+Ezra & \qquad \qquad & \qquad \qquad & \qquad & \qquad\\
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Experiments vs observational studies}
+Suppose we gathered data by surveying individuals in Fall of 2021
+    \begin{itemize}
+        \item Vaccinated for covid ($A_i = 1$) or not ($A_i = 0$)
+        \item Tested positive for Covid in 2021: yes ($Y_i = 1$) or no ($Y_i=0$)
+     \end{itemize}
+\end{frame}
+
+\begin{frame}{Experiments vs observational studies}
+We observe evidence
+     \begin{itemize}
+         \item Of the individuals who are \textbf{vaccinated} ($A_i = 1$),\\50\% had a positive Covid test ($Y_i = 1$)
+         \item Of the individuals who are \textbf{not vaccinated} ($A_i = 0$),\\70\% had a positive Covid test ($Y_i = 1$) 
+\end{itemize} \pause
+How might a vaccine skeptic explain the data? 
+\end{frame}
+
+\begin{frame}{Experiments vs observational studies}
+Experiment designed by Pfizer \textbf{randomly assign} each individual (43,000 total) into two groups\footnote{Polack et. al. NEJM 2020}:
+\begin{itemize}
+        \item Two doses of BNT162b2 vaccine 21 days apart
+        \item Two doses of placebo 21 days apart
+        \item Whether a positive Covid test was recorded between 7 days and 14 weeks after the injection
+\end{itemize}
+\vspace{1em}
+
+\pause
+     \begin{itemize}
+         \item Of the individuals who were given the vaccine ($A_i = 1$), 0.04\% had a positive Covid test ($Y_i = 1$)
+         \item Of the individuals who were given the placebo ($A_i = 0$), 0.9\% had a positive Covid test ($Y_i = 1$)
+         \item Individuals who received the placebo were $\approx 20$ times more likely to get Covid 
+     \end{itemize}
+
+\pause \vspace{1em}
+\textbf{Do the skeptic's objections still hold?}
+
+\end{frame}
+
+\begin{frame}{Why experiments ``work'': Exchangeability}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale = .18]{figures/pfizer_balance.jpg}
+\end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}{Why experiments ``work'': Exchangeability}
+
+In random experiments, the distribution of \textbf{potential outcomes} for those who are treated and those who are not treated (control group) are identically distributed!
+
+$$\{Y^1,Y^0\}\indep A$$
+
+\vspace{2em}
+This is \textbf{exchangeability} \vskip .2in
+
+\textbf{Question.} Does exchangeability imply $Y\indep A$?
+
+\end{frame}
+
+\begin{frame}{Why experiments ``work'': Exchangeability}
+
+Exchangeability is about \textbf{potential} rather than \textbf{observed} outcomes
+$$\{Y^0,Y^1\}\indep A\qquad\text{rather than}\qquad Y\not\indep A$$
+ \pause
+\begin{itemize}
+\item Potential outcomes are independent of treatment $\{Y^0,Y^1\}\indep A$
+\begin{itemize}
+\item Example: Risk of covid under no vaccine ($Y^0$) is the same for those with and without a vaccine
+\end{itemize} \pause
+\item Observed outcomes are not independent of treatment $Y\not\indep A$
+\begin{itemize}
+\item Example: Risk of covid is lower for those with the vaccine
+\item Why? Because for them $Y = Y^1$. For others, $Y = Y^0$.
+\item If $A$ affects $Y$, then $Y\not\indep A$
+\end{itemize}
+\end{itemize} \pause
+Under exchangeability, the only reason $Y\not\indep A$ is if $A$ causes $Y$.
+\end{frame}
+
+\begin{frame}{Design a hypothetical experiment}
+
+\begin{itemize}
+\item Define a treatment and an outcome
+\item Design a randomized experiment
+\begin{itemize}
+\item Who would you enroll?
+\item How would you randomize the treatment?
+\item When and how would you measure the outcome?
+\end{itemize}
+\item Think of a criticism that could be levied against you if you had not randomized the treatment, which is overcome by randomization
+\end{itemize}
+
+\end{frame}
+
+\goalsframe
+
+\end{document}
+
+
+\begin{frame}{Randomized experiments}
+\begin{figure}
+    \centering
+    \includegraphics[scale = .3]{figures/goldStandard.png}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}{Fundamental problem of causal inference}
+\begin{itemize}
+     \item Randomized experiments are the gold standard for estimating causal effects
+    \item Fundamental problem of causal inference is that we don't observe counterfactual outcomes
+    \item Data is still missing in random experiments
+\end{itemize}
+
+\begin{table}\footnotesize
+    \centering
+
+\begin{tabular}[t]{c|c| c|c|c}
+\toprule
+  & A & $Y^{a=1}$ & $Y^{a=0}$ & $Y^{a=1} - Y^{a=0}$\\
+\midrule
+Ind 1 & 0 & ? & 0 & ?\\
+Ind 2 & 0 & ? & 1 & ?\\
+Ind 3 & 0  & ? & 0 & ?\\
+Ind 4 &1 & 1 & ? & ?\\
+Ind 5 & 1 & 0 & ? & ?\\
+Ind 6 & 1 & 1 & ? & ?\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\pause 
+\begin{itemize}
+    \item Why do randomized experiments ``work''?
+\end{itemize}
+    
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{\only<1-3>{The fundamental problem of causal inference}\only<4->{Preview: Solving the problem by assumptions}}
+\begin{tikzpicture}[x = \textwidth, y = .8\textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node<1-3>[anchor = south east, gray, font = \bf] at (1,0) {\href{https://www.tandfonline.com/doi/abs/10.1080/01621459.1986.10478354}{Holland 1986}};
+% Individual outcomes
+\node[anchor = north west, font = \bf] at (.05,1) {The data};
+\foreach \i in {.5,.7,.8} {
+	\draw[fill = blue, opacity = .3, color = blue] (.05,\i) rectangle (.25,\i + .1) {};
+}
+\foreach \i in {.3,.4,.6} {
+	\draw[fill = seagreen, opacity = .3, color = seagreen] (.25,\i) rectangle (.45,\i + .1) {};
+}
+\node[font = \footnotesize] at (.15,.85) {$Y_\text{Nick}^\text{College}$};
+\node[font = \footnotesize] at (.15,.75) {$Y_\text{William}^\text{College}$};
+\node[font = \footnotesize] at (.35,.65) {$Y_\text{Rich}^\text{Non-college}$};
+\node[font = \footnotesize] at (.15,.55) {$Y_\text{Diego}^\text{College}$};
+\node[font = \footnotesize] at (.35,.45) {$Y_\text{Javier}^\text{Non-college}$};
+\node[font = \footnotesize] at (.35,.35) {$Y_\text{Jes\'us}^\text{Non-college}$};
+\node[anchor = north, align = center, font = \footnotesize, blue] at (.15, .3) {Outcome\\under\\treatment};
+\node[anchor = north, align = center, font = \footnotesize, seagreen] at (.35, .3) {Outcome\\under\\control};
+\node[anchor = south, rotate = 90, align = center] at (.05, .6) {Each Row is a Person};
+% The claim
+\onslide<2->{
+\node[anchor = north west, font = \bf] at (.55,1) {The claim};
+\foreach \i in {.3,.4,.5,.6,.7,.8} {
+	\draw[fill = blue, opacity = .3, color = blue] (.55,\i) rectangle (.75,\i + .1) {};
+	\draw[fill = seagreen, opacity = .3, color = seagreen] (.75,\i) rectangle (.95,\i + .1) {};
+	\draw[<->, thick] (.73,\i + .05) -- (.77,\i + .05);
+}
+\node[font = \footnotesize] at (.65,.85) {$Y_\text{Nick}^\text{College}$};
+\node[font = \footnotesize] at (.85,.85) {$Y_\text{Nick}^\text{Non-college}$};
+\node[font = \footnotesize] at (.65,.75) {$Y_\text{William}^\text{College}$};
+\node[font = \footnotesize] at (.85,.75) {$Y_\text{William}^\text{Non-college}$};
+\node[font = \footnotesize] at (.65,.65) {$Y_\text{Rich}^\text{College}$};
+\node[font = \footnotesize] at (.85,.65) {$Y_\text{Rich}^\text{Non-college}$};
+\node[font = \footnotesize] at (.65,.55) {$Y_\text{Diego}^\text{College}$};
+\node[font = \footnotesize] at (.85,.55) {$Y_\text{Diego}^\text{Non-college}$};
+\node[font = \footnotesize] at (.65,.45) {$Y_\text{Javier}^\text{College}$};
+\node[font = \footnotesize] at (.85,.45) {$Y_\text{Javier}^\text{Non-college}$};
+\node[font = \footnotesize] at (.65,.35) {$Y_\text{Jes\'us}^\text{College}$};
+\node[font = \footnotesize] at (.85,.35) {$Y_\text{Jes\'us}^\text{Non-college}$};
+\node[anchor = north, align = center, font = \footnotesize, blue] at (.65, .3) {Outcome\\under\\treatment};
+\node[anchor = north, align = center, font = \footnotesize, seagreen] at (.85, .3) {Outcome\\under\\control};
+}
+\node<3>[anchor = north west] at (0,.06) {Counterfactuals are \textbf{not observed}};
+\onslide<3->{
+\node[font = \footnotesize] at (.35,.85) {?};
+\node[font = \footnotesize] at (.35,.75) {?};
+\node[font = \footnotesize] at (.15,.65) {?};
+\node[font = \footnotesize] at (.35,.55) {?};
+\node[font = \footnotesize] at (.15,.45) {?};
+\node[font = \footnotesize] at (.15,.35) {?};
+}
+\draw<5-> (.05,.6) rectangle (.45,.9);
+\draw<5-> (.05,.3) rectangle (.45,.6);
+\draw<6->[->, thick] (.3, .68) to[out = 90, in = 215] (.33,.73);
+\draw<6->[->, thick] (.3, .68) to[out = 90, in = 215] (.33,.83);
+\draw<7->[->, thick] (.1, .83) to[out = 215, in = 150] (.13,.65);
+\draw<7->[->, thick] (.1, .73) to[out = 215, in = 150] (.13,.65);
+\draw<8->[->, thick] (.116, .53) to[out = 270, in = 150] (.14,.47);
+\draw<8->[->, thick] (.116, .53) to[out = 270, in = 150] (.14,.37);
+\draw<9->[->, thick] (.3, .47) to[out = 115, in = 210] (.33,.53);
+\draw<9->[->, thick] (.28, .37) to[out = 145, in = 210] (.33,.53);
+\end{tikzpicture}
+\end{frame}
+
+\section{Quick Refresher}
+
+\begin{frame}{Potential outcome notation review}
+\begin{itemize}
+\item We typically use $i$ to denote a generic unit in our study
+\item $Y_i$ is the observed outcome for unit $i$
+\item $A_i$ is treatment received by unit $i$
+\item We typically use $a$ to denote a generic treatment in our study
+\item $Y^a_i$ denotes the outcome we would have observed for unit $i$ if assigned treatment value $a$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Potential outcome exercise}
+\begin{itemize}
+\item We observe that Martha ate a Mediterranean diet, and we observe that Martha survived.
+\\ Suppose Martha had eaten a standard diet, we would have observed that Martha survived. 
+\item We observe that Ezra ate a standard diet, and we observe that Ezra did not survive
+\\ Suppose Ezra had eaten a Mediterranean diet, we would have observed that Ezra survived. 
+\end{itemize}
+\pause
+
+\vspace{1em}
+
+Assuming \emph{consistency}, what is $A_i$, $Y_i$, $Y_i^{\texttt{MedDiet}}$ and $Y_i^{\texttt{StanDiet}}$
+\begin{itemize}
+\item When $i = \text{Martha}$?
+\item When $i = \text{Ezra}$? 
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+\section{Randomized experiments: Two key benefits}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{Exchangeability}
+\textbf{Definition:} Exchangeability means that the potential outcomes, $Y^{a=1}$ and $Y^{a = 0}$, are independent of the observed treatment ($A$)
+\pause
+\vspace{1em}
+
+{\small 
+\begin{itemize}
+    \item Two random variables are \textbf{independent} if the outcome of one does not give any information about the outcome of the other
+    \pause 
+    \item What we would have observed if an individual was given the treatment ($Y^{a = 1}$) is independent of whether or not the individual actually received treatment 
+    \item What we would have observed if an individual was not given the treatment ($Y^{a = 0}$) is independent of whether or not the individual actually received treatment  
+    \pause 
+     \item Exchangeability means that the \textbf{potential} outcomes $Y^a$ are independent of the observed treatment
+    \item Exchangeability does \textbf{not} mean that the \textbf{observed} outcome $Y$ is independent of the observed treatment!
+\end{itemize}
+}
+
+
+\end{frame}
+
+
+\begin{frame}{Exchangeability}
+$A = 1$ means vaccinated; $A = 0$ means unvaccinated\\
+$Y = 1$ means covid; $Y = 0$ means no covid;
+
+\begin{table}
+\begin{tabular}[t]{c|c| c|c|c}
+\toprule
+& $Y^{a=1}$ & $Y^{a=0}$ & $A$ & $Y$\\
+\midrule
+Low Risk 1 & 0 & 0 & ? & ?\\
+Low Risk 2 & 0 & 0 & ? & ?\\
+High Risk 3 & 0 & 1 & ? & ?\\
+High Risk 4 & 0 & 1 & ? & ?\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\pause 
+\[\text{Average Causal Effect} =\underbrace{\E(Y^{a = 1})}_{0} - \underbrace{\E(Y^{a = 0})}_{1/2} = -1/2 \]
+    
+
+\end{frame}
+
+
+
+\begin{frame}{Exchangeability}
+$A = 1$ means vaccinated; $A = 0$ means unvaccinated\\
+$Y = 1$ means covid; $Y = 0$ means no covid;
+\begin{table}
+\begin{tabular}[t]{c|c| c|c|c}
+\toprule
+& $Y^{a=1}$ & $Y^{a=0}$ & $A$ & $Y$\\
+\midrule
+Low Risk 1 & {\color{lightgray}0} & 0 & 0 & 0\\
+Low Risk 2 &{\color{lightgray}0} & 0 & 0 & 0\\
+High Risk 3 & 0 & {\color{lightgray}1} & 1 & 0\\
+High Risk 4 & 0 & {\color{lightgray}1} & 1 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\[\text{Average Causal Effect} =\underbrace{\E(Y^{a = 1})}_{0} - \underbrace{\E(Y^{a = 0})}_{1/2} = -1/2 \]
+
+Suppose Low Risk choose $A_i = 0$ and High Risk choose $A_i = 1$ so the potential outcomes are not independent of the observed treatment
+\[\underbrace{\E(Y \mid A = 1)}_{\text{observed unvac}} - \underbrace{\E(Y \mid A = 0)}_{\text{observed unvac}} = 0 \]
+
+\end{frame}
+
+
+\begin{frame}{Exchangeability}
+$A = 1$ means vaccinated; $A = 0$ means unvaccinated\\
+$Y = 1$ means covid; $Y = 0$ means no covid;
+\begin{table}
+\begin{tabular}[t]{c|c| c|c|c}
+\toprule
+& $Y^{a=1}$ & $Y^{a=0}$ & $A$ & $Y$\\
+\midrule
+Low Risk 1 & {\color{lightgray}0} & 0 & 1 & 0\\
+Low Risk 2 & 0 & {\color{lightgray}0} & 0 & 0\\
+High Risk 3 & {\color{lightgray}0} & 1 & 1 & 1\\
+High Risk 4 & 0 & {\color{lightgray}1} & 0 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\[\text{Average Causal Effect} =\underbrace{\E(Y^{a = 1})}_{0} - \underbrace{\E(Y^{a = 0})}_{1/2} = -1/2 \]
+\pause 
+\[\underbrace{\E(Y \mid A = 1)}_{\text{observed vac}} - \underbrace{\E(Y \mid A = 0)}_{\text{observed unvac}} = -1/2 \]
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}{Exchangeability}
+In mathematical notation, exchangeability means
+
+\vspace{1em}
+
+\[\underbrace{Y^{a = 1}, Y^{a = 0}}_{\text{potential outcomes}} \indep \underbrace{A}_{\text{observed treatment}} \]
+
+
+
+
+\end{frame}
+
+\begin{frame}{Why is exchangeability good?}
+The average causal effect (ACE) is the difference in average outcome that would occur if everyone is treated compared to the average outcome that would occur if no-one is treated   
+
+\vspace{1em}
+
+\[
+        \text{ACE} = 
+        \underbrace{\E(Y^{a = 1})}_{\text{if everyone is treated}} - \underbrace{\E(Y^{a = 0} )}_{\text{if no-one is treated}} \] 
+\pause
+
+\vspace{1em}
+
+The problem is, we only know
+\begin{itemize}
+    \item  $\E(Y^{a=1} \mid A = 1)$, the average $Y^{a=1}$ among individuals who are actually treated
+    \item $\E(Y^{a=0} \mid A = 0)$, the average $Y^{a=0}$ among individuals who are actually not treated
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Why is exchangeability good?}
+When exchangeability is true, it implies
+
+\[\underbrace{\E(Y^{a = 1}  \mid A = 1)}_{\text{Within treated}} = \underbrace{\E(Y^{a = 1}  \mid A = 0)}_{\text{Within not treated}} = \underbrace{\E(Y^{a = 1} )}_{\text{everyone}}  \]
+
+
+\pause
+
+\vspace{2em}
+This allows us to identify the average causal effect (ACE)
+\[
+        \text{ATE} = 
+        \underbrace{\E(Y^{a = 1} )}_{\text{if everyone is treated}} - \underbrace{\E(Y^{a = 0} )}_{\text{if no-one is treated}} \] because we can plug-in 
+        \[\underbrace{\E(Y^{a = 1} \mid A = 1)}_{\substack{\text{outcomes for people who} \\ \text{are \textbf{actually} treated}}} \quad \text{ 
+        and } \quad  \underbrace{\E(Y^{a = 0} \mid A = 0)}_{\substack{\text{outcomes for people who} \\ \text{are \textbf{actually} not treated}}}\]
+
+\end{frame}
+
+
+
+
+
+\goalsframe
+
+\end{document}
+
