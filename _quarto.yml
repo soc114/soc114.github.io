@@ -46,12 +46,13 @@ website:
           - topics/data_transformation.qmd
       - section: "Inference Without Models"
         contents:
-          - section: "Probability samples"
-            contents:
-              - topics/sampling.qmd
-              - topics/weights.qmd
+          - topics/sampling.qmd
+          - topics/weights.qmd
           - topics/define_causal.qmd
           - topics/exchangeability.qmd
+          - topics/conditional_exchangeability.qmd
+          - topics/DAGs.qmd
+          - topics/nonparametric_estimation.qmd
       - section: "Inference with Models"
         contents:
           - section: "Models for description"

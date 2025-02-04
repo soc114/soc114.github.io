@@ -1,0 +1,26 @@
+---
+title: "Models for causal inference"
+---
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(scales)
+```
+
+<!-- As a setting, we consider... -->
+
+<!-- ```{r} -->
+<!-- simulated_nlsy97 <- readRDS("data_raw/simulated_nlsy97.RDS") -->
+<!-- ``` -->
+
+<!-- ## Linear outcome model -->
+
+<!-- ```{r} -->
+
+<!-- ``` -->
+
+<!-- ## Logistic treatment model -->
+
+<!-- ```{r} -->
+
+<!-- ``` -->

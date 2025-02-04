@@ -1,0 +1,15 @@
+{
+  "hash": "c5bf6d923b75f22f8e0facdf44123030",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Models for causal inference\"\n---\n\n::: {.cell}\n\n:::\n\n\n\n<!-- As a setting, we consider... -->\n\n<!-- ```{r} -->\n<!-- simulated_nlsy97 <- readRDS(\"data_raw/simulated_nlsy97.RDS\") -->\n<!-- ``` -->\n\n<!-- ## Linear outcome model -->\n\n<!-- ```{r} -->\n\n<!-- ``` -->\n\n<!-- ## Logistic treatment model -->\n\n<!-- ```{r} -->\n\n<!-- ``` -->\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -29,7 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../topics/statistical_learning.html" rel="next">
+<link href="../topics/conditional_exchangeability.html" rel="next">
 <link href="../topics/define_causal.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -70,6 +70,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -131,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Inference Without Models</li><li class="breadcrumb-item"><a href="../topics/exchangeability.html">Exchangeability</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/sampling.html">Inference Without Models</a></li><li class="breadcrumb-item"><a href="../topics/exchangeability.html">Exchangeability</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -201,29 +230,18 @@ ul.task-list li input[type="checkbox"] {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Probability samples</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/sampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Population Sampling</span></a>
+ <span class="menu-text">Population sampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/weights.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Weights</span></a>
+ <span class="menu-text">Using weights</span></a>
   </div>
 </li>
-      </ul>
-  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/define_causal.html" class="sidebar-item-text sidebar-link">
@@ -236,26 +254,44 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Exchangeability</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/conditional_exchangeability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conditional exchangeability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/DAGs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Directed Acyclic Graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/nonparametric_estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nonparametric estimation</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Inference with Models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Models for description</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/statistical_learning.html" class="sidebar-item-text sidebar-link">
@@ -294,22 +330,22 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Assignments</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">Problem Sets</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/pset0.html" class="sidebar-item-text sidebar-link">
@@ -355,13 +391,21 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exchangeability-in-simple-random-samples" id="toc-exchangeability-in-simple-random-samples" class="nav-link active" data-scroll-target="#exchangeability-in-simple-random-samples">Exchangeability in simple random samples</a></li>
+  <li><a href="#exchangeability-in-randomized-experiments" id="toc-exchangeability-in-randomized-experiments" class="nav-link" data-scroll-target="#exchangeability-in-randomized-experiments">Exchangeability in randomized experiments</a></li>
+  <li><a href="#causal-identification" id="toc-causal-identification" class="nav-link" data-scroll-target="#causal-identification">Causal identification</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Inference Without Models</li><li class="breadcrumb-item"><a href="../topics/exchangeability.html">Exchangeability</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/sampling.html">Inference Without Models</a></li><li class="breadcrumb-item"><a href="../topics/exchangeability.html">Exchangeability</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Exchangeability</h1>
 </div>
@@ -380,9 +424,49 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>To be written.</p>
+<p>Causal effects involve both factual and counterfactual outcomes, yet data that we can observe involve only factual outcomes. To learn about causal effects from data that can be observed requires assumptions about the data that are not observed. This page introduces exchangeability, which is an assumption that can identify causal effects.</p>
+<section id="exchangeability-in-simple-random-samples" class="level2">
+<h2 class="anchored" data-anchor-id="exchangeability-in-simple-random-samples">Exchangeability in simple random samples</h2>
+<p>The figure below illustrates a population of 6 people. Each person has an outcome <span class="math inline">\(Y_i\)</span>, which for example might be that person’s employment at age 40. A researcher draws a random sample without replacement with equal sampling probabilities and records the sampled outcomes. The researcher uses the average of the sampled outcomes as an estimator for the population mean.</p>
+<p><img src="../assets/illustrations/exchangeability_sampling.png" width="60%" height="60%"></p>
+<p>Why do probability samples like this work? They work because selection into the sample (<span class="math inline">\(S = 1\)</span>) is completely randomized and thus independent of the outcome <span class="math inline">\(Y\)</span>. In other words, the people who are sampled (<span class="math inline">\(S = 1\)</span>) and the people who are unsampled (<span class="math inline">\(S = 0\)</span>) have the same distribution of outcomes (at least in expectation over samples). We might say that the sampled and the unsampled units are <strong>exchangeable</strong> in the sense that they follow the same distribution in terms of <span class="math inline">\(Y\)</span>. In math, exchangeable sampling can be written as follows.</p>
+<p><span class="math display">\[
+\underbrace{Y}_\text{Outcome}\quad \underbrace{\mathrel{\unicode{x2AEB}}}_{\substack{\text{Is}\\\text{Independent}\\\text{of}}} \quad \underbrace{S}_{\substack{\text{Sample}\\\text{Inclusion}}}
+\]</span></p>
+<p>Exchangeability holds in simple random samples because sampling is completely independent of all outcomes by design. In other types of sampling, such as convenience samples that enroll anyone who is interested, exchangeability may hold but is far from guaranteed. Perhaps people who are employed are more likely to answer a survey about employment, so that the employment rate in a convenience sample might far exceed the population mean employment rate. Exchangeability is one condition under which reliable population estimates can be made from samples, and probability samples are good because they make exchangeability hold by design.</p>
+</section>
+<section id="exchangeability-in-randomized-experiments" class="level2">
+<h2 class="anchored" data-anchor-id="exchangeability-in-randomized-experiments">Exchangeability in randomized experiments</h2>
+<p>The figure below illustrates our population if they all enrolled in a hypothetical randomized experiment. In this experiment, we imagine that each unit is either randomized to attain a four-year college degree (<span class="math inline">\(A = 1)\)</span> or to finish education with a high school diploma (<span class="math inline">\(A = 0\)</span>).</p>
+<p><img src="../assets/illustrations/exchangeability_treatment.png" class="img-fluid"></p>
+<p>In this randomization, Maria, Sarah, and Jes'us were randomized to attain a four-year college degree. We observe their outcomes under this treatment condition (<span class="math inline">\(Y^1\)</span>). Because treatment was randomized with equal probabilities, these three units form a simple random sample from the full population of 6 people. We could use the sample mean of <span class="math inline">\(Y^1\)</span> among the treated units (Maria, Sarah, Jes'us) as an estimator of the population mean of <span class="math inline">\(Y^1\)</span> among all 6 units.</p>
+<p>William, Rich, and Alondra were randomized to finish their education with a high school diploma. We see their outcomes under this control condition <span class="math inline">\(Y^0\)</span>. Their treatment assignment (<span class="math inline">\(A = 0\)</span>) is analogous to being sampled from the population of <span class="math inline">\(Y^0\)</span> values. We can use their sample mean outcome as an estimator of the population mean of <span class="math inline">\(Y^0\)</span>.</p>
+<p>Formally, we can write the exchangeability assumption for treatment assignments as requiring that the set of potential outcomes are independent of treatment assignment.</p>
+<p><span class="math display">\[
+\underbrace{\{Y^1,Y^0\}}_{\substack{\text{Potential}\\\text{Outcomes}}}\quad\underbrace{\mathrel{\unicode{x2AEB}}}_{\substack{\text{Are}\\\text{Independent}\\\text{of}}}\quad  \underbrace{A}_\text{Treatment}
+\]</span> Exchangeability holds in randomized experiments because treatment is completely independent of all potential outcomes by design. In observational studies, where treatment values are observed but are not assigned randomly by the researcher, exchangeability may hold but is far from guaranteed. In the coming classes, we will talk about generalizations of the exchangeability assumption that one can argue might hold in some observational settings.</p>
+</section>
+<section id="causal-identification" class="level2">
+<h2 class="anchored" data-anchor-id="causal-identification">Causal identification</h2>
+<p>A population-average causal effect could take many possible values. Using data alone, it is impossible to identify which of these many possible values is the correct one. By pairing data together with causal assumptions, however, one can <strong>identify</strong> the average causal effect by equating it with a statistical quantity that only involves observable random variables.</p>
+<blockquote class="blockquote">
+<p><strong>Causal identification.</strong> A mathematical proof linking a causal estimand (involving potential outcomes) to a statistical quantity involving only factual random variables.</p>
+</blockquote>
+<p>In a randomized experiment, the average causal effect is identified by the assumptions of consistency and exchangeability. A short proof can yield insight about the goals and how these assumptions are used.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\overbrace{\text{E}\left(Y^1\right) - \text{E}\left(Y^0\right)}^{\substack{\text{Average}\\\text{causal effect}\\\text{(among everyone)}}} \\
+&amp;= \text{E}\left(Y^1\mid A = 1\right) - \text{E}\left(Y^0\mid A = 0\right) &amp;\text{by exchangeability}\\
+&amp;= \underbrace{\text{E}\left(Y\mid A = 1\right)}_{\substack{\text{Mean outcome}\\\text{among the treated}}} - \underbrace{\text{E}\left(Y\mid A = 0\right)}_{\substack{\text{Mean outcome}\\\text{among the untreated}}} &amp;\text{by consistency}
+\end{aligned}
+\]</span></p>
+<p>The proof begins with the average causal effect and equates it to a statistical estimand: the mean outcome among the treated minus the mean outcome among the untreated. The first quantity involves potential outcomes (with superscripts), whereas the last quantity involves only factual random variables.</p>
+<p>The exchangeability assumption allows us to move from the first line to the second line. Under exchangeability, the mean outcome that would be realized under treatment (<span class="math inline">\(\text{E}(Y^1)\)</span>) equals the mean outcome under treatment among those who were actually treated (<span class="math inline">\(\text{E}(Y^0)\)</span>). Likewise for outcomes under no treatment. This line is true because the treated (<span class="math inline">\(A = 1\)</span>) and the untreated (<span class="math inline">\(A = 0\)</span>) are both simple random samples from the full population.</p>
+<p>The consistency assumption allows us to move from the second line to the third. Among the treated, (<span class="math inline">\(A = 1\)</span>), the outcome that is realized is <span class="math inline">\(Y = Y^1\)</span>. Among the untreated (<span class="math inline">\(A = 0\)</span>), the outcome that is realized is <span class="math inline">\(Y = Y^0\)</span>. Under the assumption that factual outcomes are consistent with the potential outcomes under the assigned treatment, the second line equal the third.</p>
+<p>Something nice about a causal identification proof is that there is no room for error: it is mathematically true that the premise and the assumptions together yield the result. As long as the assumptions hold, the statistical estimand equals the causal estimand. Causal inference thus boils down to research designs and arguments that can lend credibility to the assumptions that let us draw causal claims from data that are observed.</p>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -956,8 +1040,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../topics/statistical_learning.html" class="pagination-link" aria-label="Statistical Learning">
-        <span class="nav-page-text">Statistical Learning</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../topics/conditional_exchangeability.html" class="pagination-link" aria-label="Conditional exchangeability">
+        <span class="nav-page-text">Conditional exchangeability</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

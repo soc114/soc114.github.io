@@ -1,5 +1,5 @@
 ---
-title: "Weights"
+title: "Using weights"
 ---
 
 ```{r, message = F, echo = F, warning = F}

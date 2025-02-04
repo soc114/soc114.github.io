@@ -1,5 +1,5 @@
 ---
-title: "Population Sampling"
+title: "Population sampling"
 ---
 
 > This topic is covered on Jan 21 and 23.

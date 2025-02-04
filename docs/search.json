@@ -158,209 +158,193 @@
   {
     "objectID": "topics/sampling.html",
     "href": "topics/sampling.html",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "",
     "text": "This topic is covered on Jan 21 and 23.\nClaims about inequality are often claims about a population. Our data are typically only a sample! This module addresses the link between samples and populations.\nThis page covers two lectures.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#full-count-enumeration",
     "href": "topics/sampling.html#full-count-enumeration",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "Full count enumeration",
     "text": "Full count enumeration\nWhat proportion of our class prefers to sit in the front of the room?\nWe answered this question in class using full count enumeration: list the entire target population and ask them the question. Full count enumeration is ideal because it removes all statistical sources of error. But in settings with a larger target population, the high cost of full count enumeration may be prohibitive.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#simple-random-sample",
     "href": "topics/sampling.html#simple-random-sample",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "Simple random sample",
     "text": "Simple random sample\nWe carried out a simple random sample1 in class.\n\neveryone generated a random number between 0 and 1\nthose with values less than 0.1 were sampled\nour sample estimate was the proportion of those sampled to prefer the front of the room\n\nIn a simple random sample, each person in the population is sampled with equal probabilities. Because the probabilities are known, a simple random sample is a probability sample.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#unequal-probability-sample",
     "href": "topics/sampling.html#unequal-probability-sample",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "Unequal probability sample",
     "text": "Unequal probability sample\nSuppose we want to make subgroup estimates:\n\nwhat proportion prefer the front, among those sitting in the first 3 rows?\nwhat proportion prefer the front, among those sitting in the back 17 rows?\n\nIn a simple random sample, we might only get a few or even zero people in the first 3 rows! To reduce the chance of this bad sample, we could draw an unequal probability sample:\n\nthose in rows 1–3 are selected with probability 0.5\nthose in rows 4–20 are selected with probability 0.1\n\nOur unequal probability sample will over-represent the first three rows, thus creating a large enough sample in this subgroup to yield precise estimates.\n\nHaving drawn an unequal probability sample, suppose we now want to estimate the class-wide proportion who prefer sitting in the front. We will have a problem: those who prefer the front may be more likely to sit there, and they are also sampled with a higher probability! Sample inclusion is related to the value of our outcome.\nBecause the sampling probabilities are known, we can correct for this by applying sampling weights, which for each person equals the inverse of the known probability of inclusion for that person.\nFor those in rows 1–3,\n\nwe sampled with probability 50%\non average 1 in every 2 people is sampled\neach person in the sample represents 2 people in the population\n\\(w_i = \\frac{1}{\\text{P}(\\text{Sampled}_i)} = \\frac{1}{.5} = 2\\)\n\nFor those in rows 4–20,\n\nwe sampled with probability 10%\non average 1 in every 10 people is sampled\neach person in the sample represents 10 people in the population\n\\(w_i = \\frac{1}{\\text{P}(\\text{Sampled}_i)} = \\frac{1}{.1} = 10\\)\n\nTo estimate the population mean, we can use the weighted sample mean,\n\\[\\frac{\\sum_i y_iw_i}{\\sum_i w_i}\\]",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#stratified-random-sample",
     "href": "topics/sampling.html#stratified-random-sample",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "Stratified random sample",
     "text": "Stratified random sample\nWe could also draw a stratified random sample by first partitioning the population into subgroups (called strata) and then drawing samples within each subgroup. For instance,\n\nsample 10 of the 20 people in rows 1–3\nsample 10 of the 130 people in rows 4–17\n\nIn simple random or unequal probability sampling, it is always possible that by random chance we sample no one in the front of the room. Stratified random sampling rules this out: we know in advance how our sample will be balanced across the two strata.\n\n\n\n\n\n\nNote\n\n\n\nIn our real-data example at the end of this page, the Current Population Survey is stratified by state so that the Bureau of Labor Statistics knows in advance that they will gather a sufficient sample to estimate unemployment in each state.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#sec-cps",
     "href": "topics/sampling.html#sec-cps",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "A real case: The Current Population Survey",
     "text": "A real case: The Current Population Survey\nEvery month, the Bureau of Labor Statistics in collaboration with the U.S. Census Bureau collects data on unemployment in the Current Population Survey (CPS). The CPS is a probability sample designed to estimate the unemployment rate in the U.S. and in each state.\nWe will be using the CPS in discussion. This video introduces the CPS and points you toward where you can access the data via IPUMS-CPS.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#sec-baseball",
     "href": "topics/sampling.html#sec-baseball",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "Example: Baseball players",
-    "text": "Example: Baseball players\nAs one example where full-count enumeration is possible, we will examine the salaries of all 944 Major League Baseball Players who were on active rosters, injured lists, and restricted lists on Opening Day 2023. These data were compiled by USA Today and are available in baseball.csv.\n\nbaseball &lt;- read_csv(\"https://soc114.github.io/data/baseball.csv\")\n\n\n\n# A tibble: 944 × 4\n  player            team         position   salary\n  &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;\n1 Scherzer, Max     N.Y. Mets    RHP      43333333\n2 Verlander, Justin N.Y. Mets    RHP      43333333\n3 Judge, Aaron      N.Y. Yankees OF       40000000\n4 Rendon, Anthony   L.A. Angels  3B       38571429\n5 Trout, Mike       L.A. Angels  OF       37116667\n# ℹ 939 more rows\n\n\nSalaries are high, and income inequality is also high among baseball players\n\n4% were paid the league minimum of $720,000\n53% were paid less than $2,000,000\nthe highest-paid players—Max Scherzer and Justin Verlander—each earned $43,333,333\nthe highest-paid half of players take home 92% of the total pay\n\n\n\n\n\n\n\n\n\n\nPay also varies widely across teams!\n\n\n\n\n\n\n\n\n\n\nConceptualize the sampling strategy\nSuppose you did not have the whole population. You still want to learn the population mean salary! How could you learn that in a sample of 60 out of the 944 players?\nBefore reading on, think through three questions:\n\nWhat would it mean to use each of these strategies?\n\n\na simple random sample of 60 players\na sample stratified by the 30 MLB teams\na sample clustered by the 30 MLB teams\n\n\nWhich strategies have advantages in terms of\n\n\nbeing least expensive?\nhaving the best statistical properties?\n\n\nGiven that you already have the population, how would you write some R code to carry out the sampling strategies? You might use sample_n() and possibly group_by().\n\n\n\nSampling strategies in code\nIn a simple random sample, we draw 60 players from the entire league. Each player’s probability of sample inclusion is \\(\\frac{60}{n}\\) where \\(n\\) is the number of players in the league (944).\n\nsimple_sample &lt;- function(population) {\n  population |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 60 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 60 players\n    sample_n(size = 60)\n}\n\nTo use this function, we give it the baseball data as the population and it returns a tibble containing a sample of 60 players.\n\nsimple_sample(population = baseball)\n\n# A tibble: 60 × 6\n   player            team          position   salary p_sampled sampling_weight\n   &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;\n 1 Glasnow, Tyler*   Tampa Bay     RHP       5350000    0.0636            15.7\n 2 Brito, Jhony      N.Y. Yankees  RHP        720000    0.0636            15.7\n 3 Murfee, Penn      Seattle       RHP        727000    0.0636            15.7\n 4 Weaver, Luke*     Cincinnati    RHP       2000000    0.0636            15.7\n 5 Alexander, Tyler  Detroit       LHP       1875000    0.0636            15.7\n 6 Matzek, Tyler*    Atlanta       LHP       1200000    0.0636            15.7\n 7 Nevin, Tyler*     Detroit       3B         723000    0.0636            15.7\n 8 Rainey, Tanner*   Washington    RHP       1500000    0.0636            15.7\n 9 Crawford, Brandon San Francisco SS       16000000    0.0636            15.7\n10 Canning, Griffin* L.A. Angels   RHP        850000    0.0636            15.7\n# ℹ 50 more rows\n\n\nIn a stratified random sample by team, we sample 2 players on each of 30 teams. A stratified random sample is often a higher-quality sample, because it eliminates the possibility of an unlucky draw that completely omits a few teams. All teams are equally represented no matter what happens in the randomization. The downside of a stratified random sample is that it is costly.\nEach player’s probability of sample inclusion is \\(\\frac{2}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nstratified_sample &lt;- function(population) {\n  population |&gt;\n    # Draw sample within each team\n    group_by(team) |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 2 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Within each team, sample 2 players\n    sample_n(size = 2) |&gt;\n    ungroup()\n}\n\nIn a sample clustered by team, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams. But this type of sample is lower quality, because there is some chance that one will randomly select a few teams that all have particularly high or low average salaries. A clustered random sample is less expensive but is more susceptible to random error based on the clusters chosen.\nEach player’s probability of sample inclusion is P(Team Chosen) \\(\\times\\) P(Chosen Within Team) = \\(\\frac{3}{30}\\times\\frac{20}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nclustered_sample &lt;- function(population) {\n  \n  # First, sample 3 teams\n  sampled_teams &lt;- population |&gt;\n    # Make one row per team\n    distinct(team) |&gt;\n    # Sample 3 teams\n    sample_n(3) |&gt;\n    # Store those 3 team names in a vector\n    pull()\n  \n  # Then load data on those teams and sample 20 per team\n  population |&gt;\n    filter(team %in% sampled_teams) |&gt;\n    # Define sampling probability and weight\n    group_by(team) |&gt;\n    mutate(\n      p_sampled = (3 / 30) * (20 / n()),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 20 players\n    sample_n(20) |&gt;\n    ungroup()\n}\n\n\n\nWeighted mean estimator\nGiven a sample, how do we estimate the population mean? The weighted mean estimator can also be placed in a function\n\nwe hand our sample to the function\nwe get a numeric estimate back\n\n\nestimator &lt;- function(sample) {\n  sample |&gt;\n    summarize(estimate = weighted.mean(\n      x = salary, \n      w = sampling_weight\n    )) |&gt;\n    pull(estimate)\n}\n\nHere is what it looks like to use the estimator.\n\nsample_example &lt;- simple_sample(population = baseball)\nestimator(sample = sample_example)\n\n[1] 4097722\n\n\nTry it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?\n\n\nEvaluating performance: Many samples\nWe might like to know something about performance across many repeated samples. The replicate function will carry out a set of code many times.\n\nsample_estimates &lt;- replicate(\n  n = 1000,\n  expr = {\n    a_sample &lt;- simple_sample(population = baseball)\n    estimator(sample = a_sample)\n  }\n)\n\nSimulate many samples. Which one is the best? Strategy A, B, or C?\n\n\n\nThe danger of one sample\nIn actual science, we typically have only one sample. Any estimate we produce from that sample involves some signal about the population quantities, and also some noise. Herein is the danger: researchers are very good at telling stories about why their sample evidence tells something about the population, even when it may be random noise. We illustrate this with an example.\nDoes salary differ between left- and right-handed pitchers? To address this question, I create a tibble with only the pitchers(those for whom the position variable takes the value LHP or RHP).\n\npitchers &lt;- baseball |&gt;\n  filter(position == \"LHP\" | position == \"RHP\")\n\nTo illustrate what can happen with a sample, we now draw a sample. Let’s first set our computer’s random number seed so we get the same sample each time.\n\nset.seed(1599)\n\nThen draw a sample of 40 pitchers\n\npitchers_sample &lt;- pitchers |&gt;\n  sample_n(size = 40)\n\nand examine the mean difference in salary.\n\npitchers_sample |&gt;\n  group_by(position) |&gt;\n  summarize(salary_mean = mean(salary))\n\n# A tibble: 2 × 2\n  position salary_mean\n  &lt;chr&gt;          &lt;dbl&gt;\n1 LHP         9677309.\n2 RHP         3182428.\n\n\nThe left-handed pitchers make millions of dollars more per year! You can probably tell many stories why this might be the case. Maybe left-handed pitchers are needed by all teams, and there just aren’t many available because so few people are left-handed!\nWhat happens if we repeat this process many times? The figure below shows many repeated samples of size 40 from the population of pitchers.\n\n\n\n\n\n\n\n\n\nOur original result was really random noise: we happened by chance to draw a sample with some highly-paid left-handed pitchers!\nThis exercise illustrates what is known as the replication crisis: findings that are surprising in one sample may not hold in other repeated samples from the same population, or in the population as a whole. The replication crisis has many sources. One principal source is the one we illustrated above: sample-based estimates involve some randomness, and well-meaning researchers are (unfortunately) very good at telling interesting stories.\nOne solution to the replication crisis is to pay close attention to the statistical uncertainty in our estimates, such as that from random sampling. Another solution is to re-evaluate findings that are of interest on new samples. In any case, both the roots of the problem and the solutions are closely tied to sources of randomness in estimates, such as those generated using samples from a population.",
+    "text": "Example: Baseball players\nAs one example where full-count enumeration is possible, we will examine the salaries of all 944 Major League Baseball Players who were on active rosters, injured lists, and restricted lists on Opening Day 2023. These data were compiled by USA Today and are available in baseball.csv.\n\nbaseball &lt;- read_csv(\"https://soc114.github.io/data/baseball.csv\")\n\n\n\n# A tibble: 944 × 4\n  player            team         position   salary\n  &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;\n1 Scherzer, Max     N.Y. Mets    RHP      43333333\n2 Verlander, Justin N.Y. Mets    RHP      43333333\n3 Judge, Aaron      N.Y. Yankees OF       40000000\n4 Rendon, Anthony   L.A. Angels  3B       38571429\n5 Trout, Mike       L.A. Angels  OF       37116667\n# ℹ 939 more rows\n\n\nSalaries are high, and income inequality is also high among baseball players\n\n4% were paid the league minimum of $720,000\n53% were paid less than $2,000,000\nthe highest-paid players—Max Scherzer and Justin Verlander—each earned $43,333,333\nthe highest-paid half of players take home 92% of the total pay\n\n\n\n\n\n\n\n\n\n\nPay also varies widely across teams!\n\n\n\n\n\n\n\n\n\n\nConceptualize the sampling strategy\nSuppose you did not have the whole population. You still want to learn the population mean salary! How could you learn that in a sample of 60 out of the 944 players?\nBefore reading on, think through three questions:\n\nWhat would it mean to use each of these strategies?\n\n\na simple random sample of 60 players\na sample stratified by the 30 MLB teams\na sample clustered by the 30 MLB teams\n\n\nWhich strategies have advantages in terms of\n\n\nbeing least expensive?\nhaving the best statistical properties?\n\n\nGiven that you already have the population, how would you write some R code to carry out the sampling strategies? You might use sample_n() and possibly group_by().\n\n\n\nSampling strategies in code\nIn a simple random sample, we draw 60 players from the entire league. Each player’s probability of sample inclusion is \\(\\frac{60}{n}\\) where \\(n\\) is the number of players in the league (944).\n\nsimple_sample &lt;- function(population) {\n  population |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 60 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 60 players\n    sample_n(size = 60)\n}\n\nTo use this function, we give it the baseball data as the population and it returns a tibble containing a sample of 60 players.\n\nsimple_sample(population = baseball)\n\n# A tibble: 60 × 6\n   player            team          position   salary p_sampled sampling_weight\n   &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;\n 1 Bader, Harrison*  N.Y. Yankees  OF        5200000    0.0636            15.7\n 2 Murfee, Penn      Seattle       RHP        727000    0.0636            15.7\n 3 Henriquez, Ronny* Minnesota     RHP        720900    0.0636            15.7\n 4 Fried, Max        Atlanta       LHP      13500000    0.0636            15.7\n 5 Cobb, Alex        San Francisco RHP       9000000    0.0636            15.7\n 6 Castro, Rodolfo   Pittsburgh    2B         725000    0.0636            15.7\n 7 Kirby, George     Seattle       RHP        758300    0.0636            15.7\n 8 Guillorme, Luis   N.Y. Mets     SS        1600000    0.0636            15.7\n 9 Kreidler, Ryan    Detroit       SS         721600    0.0636            15.7\n10 Jameson, Drey     Arizona       RHP        723600    0.0636            15.7\n# ℹ 50 more rows\n\n\nIn a stratified random sample by team, we sample 2 players on each of 30 teams. A stratified random sample is often a higher-quality sample, because it eliminates the possibility of an unlucky draw that completely omits a few teams. All teams are equally represented no matter what happens in the randomization. The downside of a stratified random sample is that it is costly.\nEach player’s probability of sample inclusion is \\(\\frac{2}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nstratified_sample &lt;- function(population) {\n  population |&gt;\n    # Draw sample within each team\n    group_by(team) |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 2 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Within each team, sample 2 players\n    sample_n(size = 2) |&gt;\n    ungroup()\n}\n\nIn a sample clustered by team, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams. But this type of sample is lower quality, because there is some chance that one will randomly select a few teams that all have particularly high or low average salaries. A clustered random sample is less expensive but is more susceptible to random error based on the clusters chosen.\nEach player’s probability of sample inclusion is P(Team Chosen) \\(\\times\\) P(Chosen Within Team) = \\(\\frac{3}{30}\\times\\frac{20}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nclustered_sample &lt;- function(population) {\n  \n  # First, sample 3 teams\n  sampled_teams &lt;- population |&gt;\n    # Make one row per team\n    distinct(team) |&gt;\n    # Sample 3 teams\n    sample_n(3) |&gt;\n    # Store those 3 team names in a vector\n    pull()\n  \n  # Then load data on those teams and sample 20 per team\n  population |&gt;\n    filter(team %in% sampled_teams) |&gt;\n    # Define sampling probability and weight\n    group_by(team) |&gt;\n    mutate(\n      p_sampled = (3 / 30) * (20 / n()),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 20 players\n    sample_n(20) |&gt;\n    ungroup()\n}\n\n\n\nWeighted mean estimator\nGiven a sample, how do we estimate the population mean? The weighted mean estimator can also be placed in a function\n\nwe hand our sample to the function\nwe get a numeric estimate back\n\n\nestimator &lt;- function(sample) {\n  sample |&gt;\n    summarize(estimate = weighted.mean(\n      x = salary, \n      w = sampling_weight\n    )) |&gt;\n    pull(estimate)\n}\n\nHere is what it looks like to use the estimator.\n\nsample_example &lt;- simple_sample(population = baseball)\nestimator(sample = sample_example)\n\n[1] 4768428\n\n\nTry it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?\n\n\nEvaluating performance: Many samples\nWe might like to know something about performance across many repeated samples. The replicate function will carry out a set of code many times.\n\nsample_estimates &lt;- replicate(\n  n = 1000,\n  expr = {\n    a_sample &lt;- simple_sample(population = baseball)\n    estimator(sample = a_sample)\n  }\n)\n\nSimulate many samples. Which one is the best? Strategy A, B, or C?\n\n\n\nThe danger of one sample\nIn actual science, we typically have only one sample. Any estimate we produce from that sample involves some signal about the population quantities, and also some noise. Herein is the danger: researchers are very good at telling stories about why their sample evidence tells something about the population, even when it may be random noise. We illustrate this with an example.\nDoes salary differ between left- and right-handed pitchers? To address this question, I create a tibble with only the pitchers(those for whom the position variable takes the value LHP or RHP).\n\npitchers &lt;- baseball |&gt;\n  filter(position == \"LHP\" | position == \"RHP\")\n\nTo illustrate what can happen with a sample, we now draw a sample. Let’s first set our computer’s random number seed so we get the same sample each time.\n\nset.seed(1599)\n\nThen draw a sample of 40 pitchers\n\npitchers_sample &lt;- pitchers |&gt;\n  sample_n(size = 40)\n\nand examine the mean difference in salary.\n\npitchers_sample |&gt;\n  group_by(position) |&gt;\n  summarize(salary_mean = mean(salary))\n\n# A tibble: 2 × 2\n  position salary_mean\n  &lt;chr&gt;          &lt;dbl&gt;\n1 LHP         9677309.\n2 RHP         3182428.\n\n\nThe left-handed pitchers make millions of dollars more per year! You can probably tell many stories why this might be the case. Maybe left-handed pitchers are needed by all teams, and there just aren’t many available because so few people are left-handed!\nWhat happens if we repeat this process many times? The figure below shows many repeated samples of size 40 from the population of pitchers.\n\n\n\n\n\n\n\n\n\nOur original result was really random noise: we happened by chance to draw a sample with some highly-paid left-handed pitchers!\nThis exercise illustrates what is known as the replication crisis: findings that are surprising in one sample may not hold in other repeated samples from the same population, or in the population as a whole. The replication crisis has many sources. One principal source is the one we illustrated above: sample-based estimates involve some randomness, and well-meaning researchers are (unfortunately) very good at telling interesting stories.\nOne solution to the replication crisis is to pay close attention to the statistical uncertainty in our estimates, such as that from random sampling. Another solution is to re-evaluate findings that are of interest on new samples. In any case, both the roots of the problem and the solutions are closely tied to sources of randomness in estimates, such as those generated using samples from a population.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#the-future-of-sample-surveys",
     "href": "topics/sampling.html#the-future-of-sample-surveys",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "The future of sample surveys",
     "text": "The future of sample surveys\nSample surveys served as a cornerstone of social science research from the 1950s to the present. But there are concerns about their future:\n\nsome sampling frames, such as landline telephones, have become obsolete\nresponse rates have been falling for decades\nsample surveys are slower and more expensive than digital data\n\nWhat is the future for sample surveys? How can they be combined with other data?\nWe will close with a discussion of these questions, which you can also engage with in the Groves 2011 reading that follows this module.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/sampling.html#footnotes",
     "href": "topics/sampling.html#footnotes",
-    "title": "Population Sampling",
+    "title": "Population sampling",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nTechnically, a simple random sample draws units independently with equal probabilities, and with replacement. Our sample is actually drawn without replacement. In an infinite population, the two are equivalent.↩︎",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Population Sampling"
+      "Population sampling"
     ]
   },
   {
     "objectID": "topics/weights.html",
     "href": "topics/weights.html",
-    "title": "Weights",
+    "title": "Using weights",
     "section": "",
     "text": "When studying population-level inequality, our goal is to draw inference about all units in the population. We want to know about the people in the U.S., not just the people who answer the Current Population Survey. Drawing inference from a sample to a population is most straightforward for a simple random sample: when people are chosen at random with equal probabilities. For simple random samples, the sample average of any variable is an unbiased and consistent estimator of the population average.\nBut the Current Population Survey is not a simple random sample. Neither are most labor force samples! These samples still begin with a sampling frame, but people are chosen with unequal probabilities. We need sample weights to address this fact.\nIn the CPS, a key goal is to estimate unemployment in each state. Every state needs to have enough sample size—even tiny states like Wyoming. In order to make those estimates, the CPS oversamples people who live in small states.\nTo draw good population inference, our analysis must incorporate what we know about how the data were collected. If we ignore the weights, our sample will have too many people from Wyoming and too few people from California. Weights correct for this.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Weights"
+      "Using weights"
     ]
   },
   {
     "objectID": "topics/weights.html#how-survey-designers-create-weights",
     "href": "topics/weights.html#how-survey-designers-create-weights",
-    "title": "Weights",
+    "title": "Using weights",
     "section": "How survey designers create weights",
     "text": "How survey designers create weights\nTo calculate sampling weight on person \\(i\\), those who design survey samples take the ratio \\[\\text{weight on unit }i = \\frac{1}{\\text{probability of including person }i\\text{ in the sample}}\\] You can think of the sampling weight as the number of population members a given sample member represents. If there are 100 people with a 1% chance of inclusion, then on average 1 of them will be in the sample. That person represents \\(\\frac{1}{.01}=100\\) people.\n\n\n\n\n\n\nExample redux: California and Wyoming\n\n\n\nSuppose Californians are sampled with probability 0.0004. Then each Californian represents 1 / 0.0004 = 2,500 people. Each Californian should receive a weight of 2,500. Working out the same math for Wyoming, each Wyoming resident should receive a weight of 250. The total weight on these two samples will then be proportional to the sizes of these two populations.\n\n\nIn practice, weighting is more complicated: survey administrators adjust weights for differential nonresponse across population subgroups (a method called post-stratification). How to construct weights is beyond the scope of this course, and could be a whole course in itself!",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Weights"
+      "Using weights"
     ]
   },
   {
     "objectID": "topics/weights.html#point-estimates",
     "href": "topics/weights.html#point-estimates",
-    "title": "Weights",
+    "title": "Using weights",
     "section": "Point estimates",
     "text": "Point estimates\nWhen we download data, we typically download a column of weights. For simplicity, suppose we are given a sample of four people. The weight column tells us how many people in the population each person represents. The employed column tells us whether each person employed.\n\n\n     name weight employed\n1    Luis      4        1\n2 William      1        0\n3   Susan      1        0\n4  Ayesha      4        1\n\n\nIf we take an unweighted mean, we would conclude that only 50% of the population is employed. But with a weighted mean, we would conclude that 80% of the population is employed! This might be the case if the sample was designed to oversample people at a high risk of unemployment.\n\n\n\n\n\n\n\n\n\nEstimator\nMath\nExample\nResult\n\n\n\n\nUnweighted mean\n\\(=\\frac{\\sum_{i=1}^n Y_i}{n}\\)\n\\(=\\frac{1 + 0 + 0 + 1}{4}\\)\n= 50% employed\n\n\nWeighted mean\n\\(=\\frac{\\sum_{i=1}^n w_iY_i}{\\sum_{i=1}^n w_i}\\)\n\\(=\\frac{4*1 + 1*0 + 1*0 + 4*1}{4 + 1 + 1 + 4}\\)\n= 80% employed\n\n\n\nIn R, the weighted.mean(x, w) function will calculate weighted means where x is an argument for the outcome variable and w is an argument for the weight variable.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Weights"
+      "Using weights"
     ]
   },
   {
     "objectID": "topics/weights.html#standard-errors",
     "href": "topics/weights.html#standard-errors",
-    "title": "Weights",
+    "title": "Using weights",
     "section": "Standard errors",
     "text": "Standard errors\nAs you know from statistics, our sample mean is unlikely to equal the population mean. There is random variation in which people were chosen for inclusion in our sample, and this means that across hypothetical repeated samples we would get different sample means! You likely learned formulas to create a standard errors, which quantifies how much a sample estimator would move around across repeated samples.\nUnfortunately, the formula you learned doesn’t work for complex survey samples! Simple random samples (for which those formulas hold) are actually quite rare. When you face a complex survey sample, those who administer the survey might provide\n\na vector of \\(n\\) weights for making a point estimate\na matrix of \\(n\\times k\\) replicate weights for making standard errors\n\nBy providing \\(k\\) different ways to up- and down-weight various observations, the replicate weights enable you to generate \\(k\\) estimates that vary in a way that mimics how the estimator might vary if applied to different samples from the population. For instance, our employment sample might come with 3 replicate weights.\n\n\n     name weight employed repwt1 repwt2 repwt3\n1    Luis      4        1      3      5      3\n2 William      1        0      1      2      2\n3   Susan      1        0      3      1      1\n4  Ayesha      4        1      5      3      4\n\n\nThe procedure to use replicate weights depends on how they are constructed. Often, it is relatively straightforward:\n\nuse weight to create a point estimate \\(\\hat\\tau\\)\nuse repwt* to generate \\(k\\) replicate estimates \\(\\hat\\tau^*_1,\\dots,\\hat\\tau^*_k\\)\ncalculate the standard error of \\(\\hat\\tau\\) using the replicate estimates \\(\\hat\\tau^*\\). The formula will depend on how the replicate weights were constructed, but it will likely involve the standard deviation of the \\(\\hat\\tau^*\\) multiplied by some factor\nconstruct a confidence interval1 by a normal approximation \\[(\\text{point estimate}) \\pm 1.96 * (\\text{standard error estimate})\\]\n\nIn our concrete example, the point estimate is 80% employed. The replicate estimates are 0.67, 0.73, 0.70. Variation across the replicate estimates tells us something about how the estimate would vary across hypothetical repeated samples from the population.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Weights"
+      "Using weights"
     ]
   },
   {
     "objectID": "topics/weights.html#computational-strategy-for-replicate-weights",
     "href": "topics/weights.html#computational-strategy-for-replicate-weights",
-    "title": "Weights",
+    "title": "Using weights",
     "section": "Computational strategy for replicate weights",
     "text": "Computational strategy for replicate weights\nUsing replicate weights can be computationally tricky! It becomes much easier if you write an estimator() function. Your function accepts two arguments\n\ndata is the tibble containing the data\nweight_name is the name of a column containing the weight to be used (e.g., “repwt1”)\n\nExample. If our estimator is the weighted mean of employment,\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    summarize(\n      estimate = weighted.mean(\n        x = employed,\n        # extract the weight column\n        w = sim_rep |&gt; pull(weight_name)\n      )\n    ) |&gt; \n    # extract the scalar estimate\n    pull(estimate)\n}\n\nIn the code above, sim_rep |&gt; pull(weight_name) takes the data frame sim_rep and extracts the weight variable that is named weight_name. There are other ways to do this also.\nWe can now apply our estimator to get a point estimate with the main sampling weight,\n\nestimate &lt;- estimator(data = sim_rep, weight_name = \"weight\")\n\nwhich yields the point estimate 0.80. We can use the same function to produce the replicate estimates,\n\nreplicate_estimates &lt;- c(\n  estimator(data = sim_rep, weight_name = \"repwt1\"),\n  estimator(data = sim_rep, weight_name = \"repwt2\"),\n  estimator(data = sim_rep, weight_name = \"repwt3\")\n)\n\nyielding the three estimates: 0.67, 0.73, 0.70. In real data, you will want to apply this in a loop because there may be dozens of replicate weights.\nThe standard error of the estimator will be some function of the replicate estimates, likely involving the standard deviation of the replicate estimates. Check with the data distributor for a formula for your case. Once you estimate the standard error, a 95% confidence interval can be constructed with a Normal approximation, as discussed above.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Weights"
+      "Using weights"
     ]
   },
   {
     "objectID": "topics/weights.html#application-in-the-cps",
     "href": "topics/weights.html#application-in-the-cps",
-    "title": "Weights",
+    "title": "Using weights",
     "section": "Application in the CPS",
     "text": "Application in the CPS\nStarting in 2005, the CPS-ASEC samples include 160 replicate weights. If you download replicate weights for many years, the file size will be enormous. We illustrate the use of replicate weights with a question that can be explored with only one year of data: among 25-year olds in 2023, how did the proportion holding four-year college degrees differ across those identifying as male and female?\nWe first load some packages, including the foreach package which will be helpful when looping through replicate weights.\n\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(foreach)\n\nTo answer our research question, we download 2023 CPS-ASEC data including the variables sex, educ, age, the weight variable asecwt, and the replicate weights repwtp*.\n\ncps_data &lt;- read_dta(\"../data_raw/cps_00079.dta\")\n\nWe then define an estimator to use with these data. It accepts a tibble data and a character weight_name identifying the name of the weight variable, and it returns a tibble with two columns: sex and estimate for the estimated proportion with a four-year degree.\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    # Define focal_weight to hold the selected weight\n    mutate(focal_weight = data |&gt; pull(weight_name)) |&gt;\n    # Restrict to those age 25+\n    filter(age &gt;= 25) |&gt;\n    # Restrict to valid reports of education\n    filter(educ &gt; 1 & educ &lt; 999) |&gt;\n    # Define a binary outcome: a four-year degree\n    mutate(college = educ &gt;= 110) |&gt;\n    # Estimate weighted means by sex\n    group_by(sex) |&gt;\n    summarize(estimate = weighted.mean(\n      x = college,\n      w = focal_weight\n    ))\n}\n\nWe produce a point estimate by applying that estimator with the asecwt.\n\nestimate &lt;- estimator(data = cps_data, weight_name = \"asecwt\")\n\n\n\n# A tibble: 2 × 2\n  sex        estimate\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;\n1 1 [male]      0.369\n2 2 [female]    0.397\n\n\nUsing the foreach package, we apply the estimator 160 times—once with each replicate weight—and use the argument .combine = \"rbind\" to stitch results together by rows.\n\nlibrary(foreach)\nreplicate_estimates &lt;- foreach(r = 1:160, .combine = \"rbind\") %do% {\n  estimator(data = cps_data, weight_name = paste0(\"repwtp\",r))\n}\n\n\n\n# A tibble: 320 × 2\n   sex        estimate\n   &lt;dbl+lbl&gt;     &lt;dbl&gt;\n 1 1 [male]      0.368\n 2 2 [female]    0.396\n 3 1 [male]      0.371\n 4 2 [female]    0.400\n 5 1 [male]      0.371\n 6 2 [female]    0.397\n 7 1 [male]      0.369\n 8 2 [female]    0.397\n 9 1 [male]      0.370\n10 2 [female]    0.398\n# ℹ 310 more rows\n\n\nWe estimate the standard error of our estimator by a formula \\[\\text{StandardError}(\\hat\\tau) = \\sqrt{\\frac{4}{160}\\sum_{r=1}^{160}\\left(\\hat\\tau^*_r - \\hat\\tau\\right)^2}\\] where the formula comes from the survey documentation. We carry out this procedure within groups defined by sex, since we are producing estimate for each sex.\n\nstandard_error &lt;- replicate_estimates |&gt;\n  # Denote replicate estimates as estimate_star\n  rename(estimate_star = estimate) |&gt;\n  # Merge in the point estimate\n  left_join(estimate,\n            by = join_by(sex)) |&gt;\n  # Carry out within groups defined by sex\n  group_by(sex) |&gt;\n  # Apply the formula from survey documentation\n  summarize(standard_error = sqrt(4 / 160 * sum((estimate_star - estimate) ^ 2)))\n\n\n\n# A tibble: 2 × 2\n  sex        standard_error\n  &lt;dbl+lbl&gt;           &lt;dbl&gt;\n1 1 [male]          0.00280\n2 2 [female]        0.00291\n\n\nFinally, we combine everything and construct a 95% confidence interval by a Normal approximation.\n\nresult &lt;- estimate |&gt;\n  left_join(standard_error, by = \"sex\") |&gt;\n  mutate(ci_min = estimate - 1.96 * standard_error,\n         ci_max = estimate + 1.96 * standard_error)\n\n\n\n# A tibble: 2 × 5\n  sex        estimate standard_error ci_min ci_max\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 1 [male]      0.369        0.00280  0.364  0.375\n2 2 [female]    0.397        0.00291  0.391  0.403\n\n\nWe use ggplot() to visualize the result.\n\nresult |&gt;\n  mutate(sex = as_factor(sex)) |&gt;\n  ggplot(aes(\n    x = sex, \n    y = estimate,\n    ymin = ci_min, \n    ymax = ci_max,\n    label = scales::percent(estimate)\n  )) +\n  geom_errorbar(width = .2) +\n  geom_label() +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = str_to_title\n  ) +\n  scale_y_continuous(name = \"Proportion with 4-Year College Degree\") +\n  ggtitle(\n    \"Sex Disparities in College Completion\",\n    subtitle = \"Estimates from the 2023 CPS-ASEC among those age 25+\"\n  )\n\n\n\n\n\n\n\n\nWe conclude that those identifying as female are more likely to hold a college degree. Because we can see the confidence intervals generated using the replicate weights, we are reasonably confident in the statistical precision of our point estimates.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Weights"
+      "Using weights"
     ]
   },
   {
     "objectID": "topics/weights.html#footnotes",
     "href": "topics/weights.html#footnotes",
-    "title": "Weights",
+    "title": "Using weights",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nIf we hypothetically drew many complex survey samples from the population in this way, an interval generated this way would contain the true population mean 95% of the time.↩︎",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Probability samples",
-      "Weights"
+      "Using weights"
     ]
   },
   {
@@ -455,135 +439,68 @@
     ]
   },
   {
-    "objectID": "discussion.html",
-    "href": "discussion.html",
-    "title": "Discussion Meetings",
+    "objectID": "topics/learning_exercise.html",
+    "href": "topics/learning_exercise.html",
+    "title": "Learning Exercise",
     "section": "",
-    "text": "This page contains a general plan for the topics of the 10 discussion section meetings that will occur this quarter.",
+    "text": "Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women1 with a 1-year-old child at home. Our data include those with at least one child age 0–18.",
     "crumbs": [
       " ",
-      "Discussion Meetings"
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
     ]
   },
   {
-    "objectID": "discussion.html#jan-79",
-    "href": "discussion.html#jan-79",
-    "title": "Discussion Meetings",
-    "section": "Jan 7–9",
-    "text": "Jan 7–9\nIn this discussion, we will introduce ourselves and ensure our computers are prepared for the class. This will involve checking that we have R, RStudio, tinytex, and tidyverse installed. See R basics.",
+    "objectID": "topics/learning_exercise.html#synthetic-data",
+    "href": "topics/learning_exercise.html#synthetic-data",
+    "title": "Learning Exercise",
+    "section": "Synthetic data",
+    "text": "Synthetic data\nTo speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010–2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated synthetic data: we created a new dataset for you to use with simulated people using these known probabilities.\nSynthetic data is good in our setting for two reasons\n\nwe know the answer\nyou can download the synthetic data right from this website\n\nFor transparency, here is the code with which we created the synthetic data. The line below will load the synthetic data.\n\nparents &lt;- read_csv(\"https://info3370.github.io/data/parents.csv\")\n\nYour synthetic data intentionally omits any parents with child age 1! Here is a graph showing the averages in your data, grouped by child age and sex.",
     "crumbs": [
       " ",
-      "Discussion Meetings"
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
     ]
   },
   {
-    "objectID": "discussion.html#jan-1416",
-    "href": "discussion.html#jan-1416",
-    "title": "Discussion Meetings",
-    "section": "Jan 14–16",
-    "text": "Jan 14–16\nDue to the fires, this week’s discussions became Zoom office hours.",
+    "objectID": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
+    "href": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
+    "title": "Learning Exercise",
+    "section": "Your task: Predict at child age 1",
+    "text": "Your task: Predict at child age 1\nYour task is to answer the question: what proportion are employed among female respondents whose youngest child is 1 year old?\n\nyou can use a model with the other ages\nyou can use strategies from the statistical learning page\nyou can use the male respondents if you think they are helpful\n\nNear the end of discussion, we will ask every table to make one estimate. Then we will reveal the truth and see who is closest!",
     "crumbs": [
       " ",
-      "Discussion Meetings"
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
     ]
   },
   {
-    "objectID": "discussion.html#jan-2123",
-    "href": "discussion.html#jan-2123",
-    "title": "Discussion Meetings",
-    "section": "Jan 21–23",
-    "text": "Jan 21–23\nIn this discussion, you will register for an account to access the Current Population Survey data. Click here for detailed instructions.\nYour TA may walk through how to look at the survey documentation for one or more of the variables. If time allows, we will break into small groups to look for other variables that might be interesting in a project, and then come back together to tell the class about them.",
+    "objectID": "topics/learning_exercise.html#one-approach-to-the-task",
+    "href": "topics/learning_exercise.html#one-approach-to-the-task",
+    "title": "Learning Exercise",
+    "section": "One approach to the task",
+    "text": "One approach to the task\nOne approach is to estimate a linear regression model with child_age interacted with sex. We would first create a fitted model object,\n\nmodel &lt;- lm(at_work ~ sex * child_age, data = parents)\n\nthen define the target population to predict\n\ntarget_population &lt;- tibble(sex = \"female\", child_age = 0)\n\nand report a predicted value for the employment rate of female respondents with a 1-year-old youngest child.\n\npredict(model, newdata = target_population)\n\n        1 \n0.5468421",
     "crumbs": [
       " ",
-      "Discussion Meetings"
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
     ]
   },
   {
-    "objectID": "discussion.html#jan-2830",
-    "href": "discussion.html#jan-2830",
-    "title": "Discussion Meetings",
-    "section": "Jan 28–30",
-    "text": "Jan 28–30\nYou should read the following paper before this discussion:\n\nEngland, Paula, Andrew Levine, and Emma Mishel. 2020. Progress toward gender equality in the United States has slowed or stalled, PNAS 117(13):6990–6997.\n\nThe problem set reproduces findings from this paper. The discussion will focus on conceptual questions from the reading. The questions below are only guidelines, and your TA might have other topics to discuss.\n1. The authors write that “change in the gender system has been deeply asymmetric.” Explain this in a sentence or two to someone who hasn’t read the article.\n2. The authors discuss cultural changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about cultural changes.\n\n\n\n\n\n\nTip\n\n\n\nIf you are not sure how to word a survey question, here are some examples from the American Time Use Survey, Current Population Survey, and General Social Survey.\n\n\n3. The authors discuss institutional changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about institutional changes.\n4. What was one fact presented in this paper that most surprised you?\n5. What about the graphs in this paper is compelling? What would you improve or change if you were producing these graphs?",
+    "objectID": "topics/learning_exercise.html#footnotes",
+    "href": "topics/learning_exercise.html#footnotes",
+    "title": "Learning Exercise",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nEach married pair need not be of different sex. The data include same-sex couples.↩︎",
     "crumbs": [
       " ",
-      "Discussion Meetings"
-    ]
-  },
-  {
-    "objectID": "discussion.html#feb-46",
-    "href": "discussion.html#feb-46",
-    "title": "Discussion Meetings",
-    "section": "Feb 4–6",
-    "text": "Feb 4–6\nYour TA will introduce the final project, which will be carried out in groups of about 5 students within your discussion section. Your TA will help you to form groups with common interest areas.\nPossible topics include (but are not limited to) inequality by race or gender, trends in poverty or inequality over time, and the causal effect of education or other life experiences on subsequent outcomes. Another possibility is to form groups centered on a particular dataset, with the topic to be decided later.\nAll subsequent discussions are devoted to group work on the final project.",
-    "crumbs": [
-      " ",
-      "Discussion Meetings"
-    ]
-  },
-  {
-    "objectID": "discussion.html#feb-1113",
-    "href": "discussion.html#feb-1113",
-    "title": "Discussion Meetings",
-    "section": "Feb 11–13",
-    "text": "Feb 11–13\nBy the end of this discussion, your group should select a dataset for the final project. If you aren’t sure where to start, we suggest the options at ipums.org.\nIf you finish early, you are always welcome to move on to the tasks below.",
-    "crumbs": [
-      " ",
-      "Discussion Meetings"
-    ]
-  },
-  {
-    "objectID": "discussion.html#feb-1820",
-    "href": "discussion.html#feb-1820",
-    "title": "Discussion Meetings",
-    "section": "Feb 18–20",
-    "text": "Feb 18–20\nBy the end of this discussion, your group should\n\nselect an outcome variable\ndefine the unit of analysis (e.g., a person, a school, a state) for which that outcome variable is defined\ndetermine how you plan to aggregate the outcome variable across units (e.g., by a mean, median, proportion)\n\nIf you finish early, you are always welcome to move on to the tasks below.",
-    "crumbs": [
-      " ",
-      "Discussion Meetings"
-    ]
-  },
-  {
-    "objectID": "discussion.html#feb-2527",
-    "href": "discussion.html#feb-2527",
-    "title": "Discussion Meetings",
-    "section": "Feb 25–27",
-    "text": "Feb 25–27\nBy the end of this discussion, your group should discuss the target population and whether you will need to use sampling weights in your analysis.\nIf you finish early, you are always welcome to move on to the tasks below.",
-    "crumbs": [
-      " ",
-      "Discussion Meetings"
-    ]
-  },
-  {
-    "objectID": "discussion.html#mar-46",
-    "href": "discussion.html#mar-46",
-    "title": "Discussion Meetings",
-    "section": "Mar 4–6",
-    "text": "Mar 4–6\nThis discussion is open for your group to work on any remaining tasks to finish up your final project. Recall that PDF slides and writeup are due by 5pm on Mar 7, with one submission per group.",
-    "crumbs": [
-      " ",
-      "Discussion Meetings"
-    ]
-  },
-  {
-    "objectID": "discussion.html#mar-1113",
-    "href": "discussion.html#mar-1113",
-    "title": "Discussion Meetings",
-    "section": "Mar 11–13",
-    "text": "Mar 11–13\nYour group will present your final project in this discussion. During each presentation by a group that is not your own, you will be asked to note something you appreciated about their presentation.",
-    "crumbs": [
-      " ",
-      "Discussion Meetings"
-    ]
-  },
-  {
-    "objectID": "discussion.html#other-discussion-possibilities",
-    "href": "discussion.html#other-discussion-possibilities",
-    "title": "Discussion Meetings",
-    "section": "Other discussion possibilities",
-    "text": "Other discussion possibilities\nThis part of the page has other possibilities for discussion topics. We may use these in one of the discussions depending on how the course material is progressing over the quarter.\n\nExplain a ggplot function\nLast week’s lecture introduced visualization with the ggplot() function in the tidyverse package. This discussion explores more of what ggplot() can do.\n\nForm groups of about 4 students\nIntroduce yourself to your group members\nChoose a graph that your group likes in Ch 1 of R For Data Science.\n\nLook at the code for that graph\nDiscuss what each element of the code is doing\nChoose someone to present to the class\n\nAt the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class\n\n\n\nExplain a tidyverse function\nThis discussion explores more of what the tidyverse can do.\n\nForm groups of about 4 students\nIntroduce yourself to your group members\nChoose a function in Ch 3 of R For Data Science that we did not cover explicitly in class.\n\nPossibilities include: arrange(), distinct(), rename(), relocate(), the slice_ functions, ungroup()\nFind an example of the function in the chapter.\nDiscuss how the code works.\nPrepare to explain to the class.\n\nAt the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class\n\n\n\nWrite a function\nNow that we have worked with functions in R, it is time to understand them on a deeper level. In this exercise, we will write our own functions.\n\nA basic function\nYou can store a function as an object in your environment, just like any other object. The function below accepts a numeric variable x and returns twice the value of x.\n\ndouble_x &lt;- function(x) {\n  doubled &lt;- 2 * x\n  return(doubled)\n}\n\nThere are a few pieces to the code above\n\nWe created a function that has a name: double_x\nOur function that takes one argument named x\nThe body of the function is the lines within the {}. These lines take the argument, do some things, and then return() a result. The object within return() is what R sends back after running the function.\n\nOnce you create that function, you can run it just like any other function.\n\ndouble_x(x = 2)\n\n[1] 4\n\n\n\n\nA function with two arguments\nA function can also take multiple arguments, such as one that adds x and y.\n\nadd_x_y &lt;- function(x, y) {\n  added &lt;- x + y\n  return(added)\n}\n\nwhich works as follows.\n\nadd_x_y(x = 2, y = 3)\n\n[1] 5\n\n\n\n\nChallenge: Write your own function\nA function does not have to just take numbers as an argument. It can also take a dataset as an argument. Sometimes, we might want an estimator(data) function that takes data as an argument and applies an estimator() to that data, to return an estimate of something. You will create one such function here.\nAs an example, suppose three surveys ask people if they prefer chocolate ice cream (prefers_chocolate = TRUE) or vanilla ice cream (prefers_chocolate = FALSE). The survey also records whether the respondent is a child age = \"child\" or an adult age = \"adult\".\n\nlibrary(tidyverse)\nsample_a &lt;- tibble(\n  age = c(\"child\",\"child\",\"child\",\"adult\",\"adult\"),\n  prefers_chocolate = c(T,T,F,F,F)\n)\nsample_b &lt;- tibble(\n  age = c(\"child\",\"child\",\"adult\",\"adult\"),\n  prefers_chocolate = c(T,F,T,F)\n)\nsample_c &lt;- tibble(\n  age = c(\"child\",\"child\",\"child\",\"adult\",\"adult\",\"adult\"),\n  prefers_chocolate = c(T,T,F,F,F,T)\n)\n\nWe want to know the proportion preferring chocolate among children and adults in each sample. To estimate in sample_a, we would write\n\nestimate &lt;- sample_a |&gt;\n  group_by(age) |&gt;\n  summarize(prefers_chocolate = mean(prefers_chocolate))\n\nNow write that within a function.\n\nestimator &lt;- function(data) {\n  # do some things to data\n  # return() your estimate\n}\n\nand apply the estimator to sample_a, sample_b, and sample_c.",
-    "crumbs": [
-      " ",
-      "Discussion Meetings"
+      "Inference with Models",
+      "Models for description",
+      "Learning Exercise"
     ]
   },
   {
@@ -657,6 +574,66 @@
       "Assignments",
       "Problem Sets",
       "Problem Set 1"
+    ]
+  },
+  {
+    "objectID": "topics/conditional_exchangeability.html",
+    "href": "topics/conditional_exchangeability.html",
+    "title": "Conditional exchangeability",
+    "section": "",
+    "text": "Conditional exchangeability is an assumption that exchangeability holds within population subgroups. This assumption holds by design in a conditionally randomized experiment (discussed on this page), and may hold under certain causal beliefs in observational settings where the treatment is not randomized (next page).",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Conditional exchangeability"
+    ]
+  },
+  {
+    "objectID": "topics/conditional_exchangeability.html#a-conditionally-randomized-experiment",
+    "href": "topics/conditional_exchangeability.html#a-conditionally-randomized-experiment",
+    "title": "Conditional exchangeability",
+    "section": "A conditionally randomized experiment",
+    "text": "A conditionally randomized experiment\nSuppose we were to carry out an experiment on a simple random sample of U.S. high school students. Among those performing in the top 25% of their high school class, we randomize 80% to attain a four-year college degree. Among those performing in the bottom 75% of their high school class, we randomize 20% to attain a four-year college degree. We are interested in effects on employment at age 40 (\\(Y\\)).\n\n\n\n\n\n\n\n\n\nThis experiment is conditionally randomized because the probability of treatment (four-year degree) is different among the higher- and lower-performing high school students.\n\nConditionally randomized experiment. An experiment in which the probability of treatment assignment depends on the values of pre-treatment covariates. \\(\\text{P}(A = 1\\mid\\vec{X} = \\vec{x})\\) depends on the value \\(\\vec{x}\\).",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Conditional exchangeability"
+    ]
+  },
+  {
+    "objectID": "topics/conditional_exchangeability.html#conditional-exchangeability",
+    "href": "topics/conditional_exchangeability.html#conditional-exchangeability",
+    "title": "Conditional exchangeability",
+    "section": "Conditional exchangeability",
+    "text": "Conditional exchangeability\nIn a conditionally randomized experiment, exchangeability is not likely to hold. People who are treated (assigned to a four-year degree) are more likely to have come from the top 25% of their high school class. They might be especially hard-working people. The treated and untreated might have had different employment at age 40 even if none of them had been treated.\nEven though exchangeability does not hold marginally (across everyone), in a conditionally randomized experiment exchangeability does hold within subgroups. If we focus on those in the top 25% of the class, the 90% who are assigned to finish college are a simple random sample of the entire higher-performing subgroup. If we focus on those in the bottom 75% of the class, the 10% who are assigned to finish college are a simple random sample of the entire lower-performing subgroup.\nFormally, conditional exchangeability takes the exchangeability assumption (\\(\\{Y^0,Y^1\\}\\unicode{x2AEB}A\\)) and adds a conditioning bar \\(\\mid\\vec{X}\\), meaning that this assumption holds within subgroups defined by one or more pre-treatment variables \\(\\vec{X}\\).\n\nConditional exchangeability. The assumption that potential outcomes \\(\\{Y^0,Y^1\\}\\) are independent of treatment \\(A\\) among subpopulations that are identical along a set of pre-treatment covariates \\(\\vec{X}\\). Formally, \\(\\{Y^0,Y^1\\} \\unicode{x2AEB} A \\mid \\vec{X}\\).\n\nConditional exchangeability holds by design in conditionally randomized experiments: the probability of treatment assignment differs across subgroups, but within each subgroup we have a simple randomized experiment where each unit has an equal probability of being treated.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Conditional exchangeability"
+    ]
+  },
+  {
+    "objectID": "topics/conditional_exchangeability.html#conditional-average-treatment-effects",
+    "href": "topics/conditional_exchangeability.html#conditional-average-treatment-effects",
+    "title": "Conditional exchangeability",
+    "section": "Conditional average treatment effects",
+    "text": "Conditional average treatment effects\nIn our conditionally randomized experiment, we could identify conditional average treatment effects: the average effects of college on employment at age 40 (1) among those in the top 25% of their high school class, and the and (2) among those in the bottom 75% of their high school class.\n\nConditional average treatment effect (CATE). The average causal effect within a population subgroup, \\(\\tau(x) = \\text{E}\\left(Y^1\\mid\\vec{X} = \\vec{x}\\right) - \\text{E}\\left(Y^0\\mid \\vec{X} = \\vec{x}\\right)\\).\n\nOnce we assume conditional exchangeability and consistency, CATEs are causally identified by working within a subgroup defined by \\(\\vec{X} = \\vec{x}\\) and taking the difference in means across subgroups of units assigned to treatment and control.\n\\[\n\\begin{aligned}\n&\\text{E}\\left(Y^1\\mid\\vec{X} = \\vec{x}\\right) -  \\text{E}\\left(Y^0\\mid\\vec{X} = \\vec{x}\\right)\\\\\n&= \\text{E}\\left(Y\\mid\\vec{X} = \\vec{x}, A = 1\\right) - \\text{E}\\left(Y\\mid\\vec{X} = \\vec{x}, A = 0\\right)\n\\end{aligned}\n\\]\nIn our concrete example, this means that we could first focus on the subgroup for whom \\(\\vec{X} = (\\text{Top 25\\% of high school class})\\). Within this subgroup, we can compare employment at age 40 among those randomized to a 4-year college degree to employment at age 40 among those randomized to finish education after high school. This mean difference identifies the CATE: the average causal effect of college among those in the top 25% of their high school class.\nLikewise, our experiment would also identify the CATE among those in the bottom 75% of their high school class.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Conditional exchangeability"
+    ]
+  },
+  {
+    "objectID": "topics/conditional_exchangeability.html#effect-heterogeneity",
+    "href": "topics/conditional_exchangeability.html#effect-heterogeneity",
+    "title": "Conditional exchangeability",
+    "section": "Effect heterogeneity",
+    "text": "Effect heterogeneity\nThere are often good reasons to expect the Conditional Average Treatment Effect (CATE) to differ across subpopulations. In our example, suppose that those from the top 25% of the high school class are very creative and hard-working, and would find ways to be employed at age 40 regardless of whether they finished college. The average causal effect of college on employment in this subgroup might be small. Meanwhile, the average causal effect of college on employment might be quite large among those from the bottom 75% of their high school class. This would be an example of effect heterogeneity,\n\nEffect heterogeneity. Differences in Conditional Average Treatment Effects (CATEs) across subpopulations. \\(\\tau(\\vec{x})\\neq\\tau(\\vec{x}')\\).\n\nAn advantage of analyzing randomized experiments conditionally (within subgroups) is that one can search for effect heterogeneity.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Conditional exchangeability"
     ]
   },
   {
@@ -1005,7 +982,43 @@
     "href": "topics/exchangeability.html",
     "title": "Exchangeability",
     "section": "",
-    "text": "To be written.\n\n\n\n Back to top",
+    "text": "Causal effects involve both factual and counterfactual outcomes, yet data that we can observe involve only factual outcomes. To learn about causal effects from data that can be observed requires assumptions about the data that are not observed. This page introduces exchangeability, which is an assumption that can identify causal effects.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Exchangeability"
+    ]
+  },
+  {
+    "objectID": "topics/exchangeability.html#exchangeability-in-simple-random-samples",
+    "href": "topics/exchangeability.html#exchangeability-in-simple-random-samples",
+    "title": "Exchangeability",
+    "section": "Exchangeability in simple random samples",
+    "text": "Exchangeability in simple random samples\nThe figure below illustrates a population of 6 people. Each person has an outcome \\(Y_i\\), which for example might be that person’s employment at age 40. A researcher draws a random sample without replacement with equal sampling probabilities and records the sampled outcomes. The researcher uses the average of the sampled outcomes as an estimator for the population mean.\n\nWhy do probability samples like this work? They work because selection into the sample (\\(S = 1\\)) is completely randomized and thus independent of the outcome \\(Y\\). In other words, the people who are sampled (\\(S = 1\\)) and the people who are unsampled (\\(S = 0\\)) have the same distribution of outcomes (at least in expectation over samples). We might say that the sampled and the unsampled units are exchangeable in the sense that they follow the same distribution in terms of \\(Y\\). In math, exchangeable sampling can be written as follows.\n\\[\n\\underbrace{Y}_\\text{Outcome}\\quad \\underbrace{\\mathrel{\\unicode{x2AEB}}}_{\\substack{\\text{Is}\\\\\\text{Independent}\\\\\\text{of}}} \\quad \\underbrace{S}_{\\substack{\\text{Sample}\\\\\\text{Inclusion}}}\n\\]\nExchangeability holds in simple random samples because sampling is completely independent of all outcomes by design. In other types of sampling, such as convenience samples that enroll anyone who is interested, exchangeability may hold but is far from guaranteed. Perhaps people who are employed are more likely to answer a survey about employment, so that the employment rate in a convenience sample might far exceed the population mean employment rate. Exchangeability is one condition under which reliable population estimates can be made from samples, and probability samples are good because they make exchangeability hold by design.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Exchangeability"
+    ]
+  },
+  {
+    "objectID": "topics/exchangeability.html#exchangeability-in-randomized-experiments",
+    "href": "topics/exchangeability.html#exchangeability-in-randomized-experiments",
+    "title": "Exchangeability",
+    "section": "Exchangeability in randomized experiments",
+    "text": "Exchangeability in randomized experiments\nThe figure below illustrates our population if they all enrolled in a hypothetical randomized experiment. In this experiment, we imagine that each unit is either randomized to attain a four-year college degree (\\(A = 1)\\) or to finish education with a high school diploma (\\(A = 0\\)).\n\nIn this randomization, Maria, Sarah, and Jes'us were randomized to attain a four-year college degree. We observe their outcomes under this treatment condition (\\(Y^1\\)). Because treatment was randomized with equal probabilities, these three units form a simple random sample from the full population of 6 people. We could use the sample mean of \\(Y^1\\) among the treated units (Maria, Sarah, Jes'us) as an estimator of the population mean of \\(Y^1\\) among all 6 units.\nWilliam, Rich, and Alondra were randomized to finish their education with a high school diploma. We see their outcomes under this control condition \\(Y^0\\). Their treatment assignment (\\(A = 0\\)) is analogous to being sampled from the population of \\(Y^0\\) values. We can use their sample mean outcome as an estimator of the population mean of \\(Y^0\\).\nFormally, we can write the exchangeability assumption for treatment assignments as requiring that the set of potential outcomes are independent of treatment assignment.\n\\[\n\\underbrace{\\{Y^1,Y^0\\}}_{\\substack{\\text{Potential}\\\\\\text{Outcomes}}}\\quad\\underbrace{\\mathrel{\\unicode{x2AEB}}}_{\\substack{\\text{Are}\\\\\\text{Independent}\\\\\\text{of}}}\\quad  \\underbrace{A}_\\text{Treatment}\n\\] Exchangeability holds in randomized experiments because treatment is completely independent of all potential outcomes by design. In observational studies, where treatment values are observed but are not assigned randomly by the researcher, exchangeability may hold but is far from guaranteed. In the coming classes, we will talk about generalizations of the exchangeability assumption that one can argue might hold in some observational settings.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Exchangeability"
+    ]
+  },
+  {
+    "objectID": "topics/exchangeability.html#causal-identification",
+    "href": "topics/exchangeability.html#causal-identification",
+    "title": "Exchangeability",
+    "section": "Causal identification",
+    "text": "Causal identification\nA population-average causal effect could take many possible values. Using data alone, it is impossible to identify which of these many possible values is the correct one. By pairing data together with causal assumptions, however, one can identify the average causal effect by equating it with a statistical quantity that only involves observable random variables.\n\nCausal identification. A mathematical proof linking a causal estimand (involving potential outcomes) to a statistical quantity involving only factual random variables.\n\nIn a randomized experiment, the average causal effect is identified by the assumptions of consistency and exchangeability. A short proof can yield insight about the goals and how these assumptions are used.\n\\[\n\\begin{aligned}\n&\\overbrace{\\text{E}\\left(Y^1\\right) - \\text{E}\\left(Y^0\\right)}^{\\substack{\\text{Average}\\\\\\text{causal effect}\\\\\\text{(among everyone)}}} \\\\\n&= \\text{E}\\left(Y^1\\mid A = 1\\right) - \\text{E}\\left(Y^0\\mid A = 0\\right) &\\text{by exchangeability}\\\\\n&= \\underbrace{\\text{E}\\left(Y\\mid A = 1\\right)}_{\\substack{\\text{Mean outcome}\\\\\\text{among the treated}}} - \\underbrace{\\text{E}\\left(Y\\mid A = 0\\right)}_{\\substack{\\text{Mean outcome}\\\\\\text{among the untreated}}} &\\text{by consistency}\n\\end{aligned}\n\\]\nThe proof begins with the average causal effect and equates it to a statistical estimand: the mean outcome among the treated minus the mean outcome among the untreated. The first quantity involves potential outcomes (with superscripts), whereas the last quantity involves only factual random variables.\nThe exchangeability assumption allows us to move from the first line to the second line. Under exchangeability, the mean outcome that would be realized under treatment (\\(\\text{E}(Y^1)\\)) equals the mean outcome under treatment among those who were actually treated (\\(\\text{E}(Y^0)\\)). Likewise for outcomes under no treatment. This line is true because the treated (\\(A = 1\\)) and the untreated (\\(A = 0\\)) are both simple random samples from the full population.\nThe consistency assumption allows us to move from the second line to the third. Among the treated, (\\(A = 1\\)), the outcome that is realized is \\(Y = Y^1\\). Among the untreated (\\(A = 0\\)), the outcome that is realized is \\(Y = Y^0\\). Under the assumption that factual outcomes are consistent with the potential outcomes under the assigned treatment, the second line equal the third.\nSomething nice about a causal identification proof is that there is no room for error: it is mathematically true that the premise and the assumptions together yield the result. As long as the assumptions hold, the statistical estimand equals the causal estimand. Causal inference thus boils down to research designs and arguments that can lend credibility to the assumptions that let us draw causal claims from data that are observed.",
     "crumbs": [
       " ",
       "Inference Without Models",
@@ -1057,6 +1070,13 @@
       "Problem Sets",
       "Problem Set 0"
     ]
+  },
+  {
+    "objectID": "topics/models_causal.html",
+    "href": "topics/models_causal.html",
+    "title": "Models for causal inference",
+    "section": "",
+    "text": "Back to top"
   },
   {
     "objectID": "topics/r_basics.html",
@@ -1170,68 +1190,327 @@
     ]
   },
   {
-    "objectID": "topics/learning_exercise.html",
-    "href": "topics/learning_exercise.html",
-    "title": "Learning Exercise",
+    "objectID": "topics/DAGs.html",
+    "href": "topics/DAGs.html",
+    "title": "Directed Acyclic Graphs",
     "section": "",
-    "text": "Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women1 with a 1-year-old child at home. Our data include those with at least one child age 0–18.",
+    "text": "Directed Acyclic Graphs (DAGs) formalize causal assumptions mathematically in graphs. One way DAGs are useful in observational studies is by helping us to identify a sufficient adjustment set (\\(\\vec{X}\\)) such that conditional exchangeability holds.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
     ]
   },
   {
-    "objectID": "topics/learning_exercise.html#synthetic-data",
-    "href": "topics/learning_exercise.html#synthetic-data",
-    "title": "Learning Exercise",
-    "section": "Synthetic data",
-    "text": "Synthetic data\nTo speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010–2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated synthetic data: we created a new dataset for you to use with simulated people using these known probabilities.\nSynthetic data is good in our setting for two reasons\n\nwe know the answer\nyou can download the synthetic data right from this website\n\nFor transparency, here is the code with which we created the synthetic data. The line below will load the synthetic data.\n\nparents &lt;- read_csv(\"https://info3370.github.io/data/parents.csv\")\n\nYour synthetic data intentionally omits any parents with child age 1! Here is a graph showing the averages in your data, grouped by child age and sex.",
+    "objectID": "topics/DAGs.html#nodes-edges-and-paths",
+    "href": "topics/DAGs.html#nodes-edges-and-paths",
+    "title": "Directed Acyclic Graphs",
+    "section": "Nodes, edges, and paths",
+    "text": "Nodes, edges, and paths\nThe previous page introduced a conditionally randomized experiment in which the researcher assigned participants to the treatment condition of (four-year college degree) vs (high school degree) with probabilities that depended on high school class rank. In this experiment, being in the top 25% of one’s high school class caused a higher chance of receiving the treatment. We will also assume that both high school performance and college completion may causally shape employment at age 40.\nWe can formalize these ideas in a graph where each node (a letter) is a variable and each edge (\\(\\rightarrow\\)) is a causal relationship.\n\n\n\n\n\n\n\n\n\nBetween each pair of nodes, you can enumerate every path or sequence of edges connecting the nodes.\n\nPath. A path between nodes \\(A\\) and \\(B\\) is any set of edges that starts at \\(A\\) and ends at \\(B\\). Paths can involve arrows in either direction.\n\nIn our DAG above, there are two paths between \\(A\\) and \\(Y\\).\n\n\\(A\\rightarrow Y\\)\n\\(A\\leftarrow X \\rightarrow Y\\)\n\nWe use paths to determine the reasons why \\(A\\) and \\(Y\\) might be statistically dependent or independent.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
     ]
   },
   {
-    "objectID": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
-    "href": "topics/learning_exercise.html#your-task-predict-at-child-age-1",
-    "title": "Learning Exercise",
-    "section": "Your task: Predict at child age 1",
-    "text": "Your task: Predict at child age 1\nYour task is to answer the question: what proportion are employed among female respondents whose youngest child is 1 year old?\n\nyou can use a model with the other ages\nyou can use strategies from the statistical learning page\nyou can use the male respondents if you think they are helpful\n\nNear the end of discussion, we will ask every table to make one estimate. Then we will reveal the truth and see who is closest!",
+    "objectID": "topics/DAGs.html#causal-paths",
+    "href": "topics/DAGs.html#causal-paths",
+    "title": "Directed Acyclic Graphs",
+    "section": "Causal paths",
+    "text": "Causal paths\nThe first type of path that we consider is a causal path.\n\nCausal path. A path in which all arrows point in the same direction. For example, \\(A\\) and \\(D\\) could be connected by a causal path \\(A\\rightarrow B \\rightarrow C \\rightarrow D\\).\n\nA causal path creates statistical depends between the nodes because the first node causes the last node, possibly through a sequence of other nodes.\nIn our example, there is a causal path \\(A\\rightarrow Y\\): being assigned to a four-year college degree affects employment at age 40. Because of this causal path, people who are assigned to a four-year degree have different rates of employment at age 40 than those who are not.\nA causal path can go through several variables. For example, if we listed the paths between \\(X\\) and \\(Y\\) we would include the path \\(X\\rightarrow A \\rightarrow Y\\). This is a causal path because being in the top 25% of one’s high school class increases the probability of assignment to a four-year degree in our experiment, which in turn increases the probability of employment at age 40.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
     ]
   },
   {
-    "objectID": "topics/learning_exercise.html#one-approach-to-the-task",
-    "href": "topics/learning_exercise.html#one-approach-to-the-task",
-    "title": "Learning Exercise",
-    "section": "One approach to the task",
-    "text": "One approach to the task\nOne approach is to estimate a linear regression model with child_age interacted with sex. We would first create a fitted model object,\n\nmodel &lt;- lm(at_work ~ sex * child_age, data = parents)\n\nthen define the target population to predict\n\ntarget_population &lt;- tibble(sex = \"female\", child_age = 0)\n\nand report a predicted value for the employment rate of female respondents with a 1-year-old youngest child.\n\npredict(model, newdata = target_population)\n\n        1 \n0.5468421",
+    "objectID": "topics/DAGs.html#fork-structures",
+    "href": "topics/DAGs.html#fork-structures",
+    "title": "Directed Acyclic Graphs",
+    "section": "Fork structures",
+    "text": "Fork structures\nTo reason about non-causal paths, we have to think about several structures that can exist along these paths. The first such structure is a fork structure.\n\nFork structure. A fork structure is a sequence of edges in which two variables (\\(A\\) and \\(B\\)) are both caused a third variable (\\(C\\)): \\(A\\leftarrow C \\rightarrow B\\).\n\nIn our example, the path \\(A\\leftarrow X \\rightarrow Y\\) involves a fork structure. being in the top 25% of one’s high school class causally affects both the treatment (college degree) and the outcome (employment at age 40).\nA fork structure creates statistical dependence between \\(A\\) and \\(Y\\) that does not correspond to a causal effect of \\(A\\) on \\(Y\\). In our example, people who are assigned to the treatment value (college degree) are more likely to have been in the top 25% of their high school class, since this high class rank affected treatment assignment in our experiment. A high class rank also affected employment at age 40. Thus, in our experiment the treatment would be associated with the outcome even if finishing college had no causal effect on employment.\nFork structures can be blocked by conditioning on the common cause. In our example, suppose we filter our data to only include those in the top 25% of their high school class. We sometimes use a box to denote conditioning on a variable, (\\(A\\leftarrow\\boxed{X}\\rightarrow Y\\)). Conditioning on \\(X\\) blocks the path because within this subgroup \\(X\\) does not vary, so it cannot cause the values of \\(A\\) and \\(Y\\) within the subgroup. In our example, if we looked among those in the top 25% of their high school classes the only reason college enrollment would be related to employment at age 40 would be the causal effect \\(A\\rightarrow Y\\).\nTo emphasize ideas, it is also helpful to consider a fork structure in an example where the variables have no causal relationship.\nSuppose a beach records for each day the number of ice cream cones sold and the number of rescues by lifeguards. There is no causal effect between these two variables; eating ice cream does not cause more lifeguard rescues and vice versa. But the two are correlated because they share a common cause: warm temperatures cause high ice cream sales and also high lifeguard rescues. A fork structure formalizes this notion: \\((\\text{ice cream sales}) \\leftarrow (\\text{warm temperature}) \\rightarrow (\\text{lifeguard rescues})\\).\nIn the population of days as a whole, this fork structure means that ice cream sales are related to lifeguard rescues. But if we condition on having a warm temperature by filtering to days when the temperature took a particular value, ice cream sales would be unrelated to lifeguard rescues across those days. This is the sense in which conditioning on the common cause variable blocks the statistical associations that would otherwise arise from a fork structure.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
     ]
   },
   {
-    "objectID": "topics/learning_exercise.html#footnotes",
-    "href": "topics/learning_exercise.html#footnotes",
-    "title": "Learning Exercise",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nEach married pair need not be of different sex. The data include same-sex couples.↩︎",
+    "objectID": "topics/DAGs.html#collider-structures",
+    "href": "topics/DAGs.html#collider-structures",
+    "title": "Directed Acyclic Graphs",
+    "section": "Collider structures",
+    "text": "Collider structures\nIn contrast to a fork structure where one variable affects two others (\\(\\bullet\\leftarrow\\bullet\\rightarrow\\bullet\\)), a collider structure is a structure where one variable is affected by two others.\n\nCollider structure. A collider structure is a sequence of edges in which two variables (\\(A\\) and \\(B\\)) both cause a third variable (\\(C\\)). We say that \\(C\\) is a collider on the path \\(A\\rightarrow C \\leftarrow B\\).\n\nFork and collider structures have very different properties, as we will illustrate through an example.\nSuppose that every day I observe whether the grass on my lawn is wet. I have sprinklers that turn on with a timer at the same time every day, regardless of the weather. It also sometimes rains. When the grass is wet, it is wet because either the sprinklers have been on or it has been raining.\n\\[\n(\\text{sprinklers on}) \\rightarrow (\\text{grass wet}) \\leftarrow (\\text{raining})\n\\]\nIf I look across all days, the variable (sprinklers on) is unrelated to the variable (raining). After all, the sprinklers are just on a timer! Formally, we say that even though (sprinklers on) and (raining) are connected by the path above, this path is blocked by the collider structure. A path does not create dependence between two variables when it contains a collider structure.\nIf I look only at the days when the grass is wet, a different pattern emerges. If the grass is wet and the sprinklers have not been on, then it must have been raining: the grass had to get wet somehow. If the grass is wet and it has not been raining, then the sprinklers must have been on. Once I look at days when the grass is wet (or condition on the grass being wet), the two input variables become statistically associated.\nA collider blocks a path when that collider is left unadjusted, but conditioning on the collider variable opens the path containing the collider.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "Models for description",
-      "Learning Exercise"
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
+    ]
+  },
+  {
+    "objectID": "topics/DAGs.html#open-and-blocked-paths",
+    "href": "topics/DAGs.html#open-and-blocked-paths",
+    "title": "Directed Acyclic Graphs",
+    "section": "Open and blocked paths",
+    "text": "Open and blocked paths\nA central purpose of a DAG is to connect causal assumptions to implications about associations that should be present (or absent) in data under those causal assumptions. To make this connection, we need a final concept of open and blocked paths.\n\nA path is blocked if it contains an unconditioned collider or a conditioned non-collider. Otherwise, the path is open. An open path creates statistical dependence between its terminal nodes whereas a blocked path does not.\n\nAs examples for a path with no colliders,\n\n\\(A\\leftarrow B \\rightarrow C \\rightarrow D\\) is an open path because no variables are conditioned and it contains no colliders.\n\\(A\\leftarrow \\boxed{B}\\rightarrow C \\rightarrow D\\) is a blocked path because we have conditioned on the non-collider \\(B\\).\n\\(A\\leftarrow  B\\rightarrow \\boxed{C} \\rightarrow D\\) is a blocked path because we have conditioned on the non-collider \\(C\\).",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
+    ]
+  },
+  {
+    "objectID": "topics/DAGs.html#determining-statistical-dependence",
+    "href": "topics/DAGs.html#determining-statistical-dependence",
+    "title": "Directed Acyclic Graphs",
+    "section": "Determining statistical dependence",
+    "text": "Determining statistical dependence\nWe are now ready to use DAGs to determine if \\(A\\) and \\(B\\) are statistically dependent. The process involves three steps.\n\nList all paths between \\(A\\) and \\(B\\).\nCross out any paths that are blocked.\nThe causal assumptions imply that \\(A\\) and \\(B\\) may be statistically dependent only if any open paths remain.\n\nAs an example, below we consider a hypothetical DAG.\n\n\n\n\n\n\n\n\n\n1. Marginal dependence\nMarginally without any adjustment, are \\(A\\) and \\(D\\) statistically dependent? We first write out all paths connecting \\(A\\) and \\(D\\).\n\n\\(A\\rightarrow B \\leftarrow C\\rightarrow D\\)\n\\(A\\leftarrow X\\rightarrow D\\)\n\nWe then cross out the paths that are blocked\n\n\\(\\cancel{A\\rightarrow B \\leftarrow C\\rightarrow D}\\) (blocked by unconditioned collider \\(B\\))\n\\(A\\leftarrow X\\rightarrow D\\)\n\nBecause an open path remains, \\(A\\) and \\(D\\) are statistically dependent.\n2. Dependence conditional on \\(X\\)\nIf we condition on \\(X\\), are \\(A\\) and \\(D\\) statistically dependent? We first write out all paths connecting \\(A\\) and \\(D\\).\n\n\\(A\\rightarrow B \\leftarrow C\\rightarrow D\\)\n\\(A\\leftarrow \\boxed{X}\\rightarrow D\\)\n\nWe then cross out the paths that are blocked\n\n\\(\\cancel{A\\rightarrow B \\leftarrow C\\rightarrow D}\\) (blocked by unconditioned collider \\(B\\))\n\\(\\cancel{A\\leftarrow \\boxed{X}\\rightarrow D}\\) (blocked by conditioned non-collider \\(X\\))\n\nBecause no open path remains, \\(A\\) and \\(D\\) are statistically independent.\n3. Dependence conditional on \\(\\{X,B\\}\\)\nIf we condition on \\(X\\) and \\(B\\), are \\(A\\) and \\(D\\) statistically dependent? We first write out all paths connecting \\(A\\) and \\(D\\).\n\n\\(A\\rightarrow B \\leftarrow C\\rightarrow D\\)\n\\(A\\leftarrow \\boxed{X}\\rightarrow D\\)\n\nWe then cross out the paths that are blocked\n\n\\(A\\rightarrow \\boxed{B} \\leftarrow C\\rightarrow D\\) (open since collider \\(B\\) is conditioned)\n\\(\\cancel{A\\leftarrow \\boxed{X}\\rightarrow D}\\) (blocked by conditioned non-collider \\(X\\))\n\nBecause an open path remains, \\(A\\) and \\(D\\) are statistically dependent.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
+    ]
+  },
+  {
+    "objectID": "topics/DAGs.html#causal-identification-with-dags",
+    "href": "topics/DAGs.html#causal-identification-with-dags",
+    "title": "Directed Acyclic Graphs",
+    "section": "Causal identification with DAGs",
+    "text": "Causal identification with DAGs\nWhen our aim is to identify the average causal effect of \\(A\\) on \\(Y\\), we want to choose a set of variables for adjustment so that all remaining paths are causal paths. We call this a sufficient adjustment set.\n\nA sufficient adjustment set for the causal effect of \\(A\\) on \\(Y\\) is a set of nodes that, when conditioned, block all non-causal paths between \\(A\\) and \\(Y\\).\n\nIn our example from the top of this page, there were two paths between \\(A\\) and \\(Y\\):\n\n\\((A\\text{: college degree})\\rightarrow (Y\\text{: employed at age 40})\\)\n\\((A\\text{: college degree})\\leftarrow (X\\text{: top 25\\% of high school class})\\rightarrow (Y\\text{: employed at age 40})\\)\n\nIn this example, \\(X\\) is a sufficient adjustment set. Once we condition on \\(X\\) by e.g. filtering to those in the top 25% of their high school class, the only remaining path between \\(A\\) and \\(Y\\) is the causal path \\(A\\rightarrow Y\\). Thus, the difference in means in \\(Y\\) across \\(A\\) within subgroups defined by \\(X\\) identifies the conditional average causal effect of \\(A\\) on \\(Y\\).\nA more difficult example.\nSufficient adjustment sets can be much more complicated. As an example, consider the DAG below.\n\n\n\n\n\n\n\n\n\nWe first list all paths between \\(A\\) and \\(Y\\).\n\n\\(A\\rightarrow Y\\)\n\\(A\\rightarrow M\\rightarrow Y\\)\n\\(A\\leftarrow X_1\\rightarrow X_3 \\rightarrow Y\\)\n\\(A\\leftarrow X_1\\rightarrow X_3 \\leftarrow X_2\\rightarrow Y\\)\n\\(A\\leftarrow X_3 \\rightarrow Y\\)\n\\(A\\leftarrow X_3\\leftarrow X_2 \\rightarrow Y\\)\n\nThe first two paths are causal, and the others are non-causal. We want to find a sufficient adjustment set to block all the non-causal paths.\nIn order to block paths (3), (5), and (6) we might condiiton on \\(X_3\\). But doing so opens path (2), which was otherwise blocked by the collider \\(X_3\\). In order to also block path (2), we might additionally condition on \\(X_1\\). In this case, our sufficient adjustment set is \\(\\{X_1,X_3\\}\\).\n\n\\(A\\rightarrow Y\\)\n\\(A\\rightarrow M\\rightarrow Y\\)\n\\(\\cancel{A\\leftarrow \\boxed{X_1}\\rightarrow \\boxed{X_3} \\rightarrow Y}\\)\n\\(\\cancel{A\\leftarrow \\boxed{X_1}\\rightarrow \\boxed{X_3} \\leftarrow X_2\\rightarrow Y}\\)\n\\(\\cancel{A\\leftarrow \\boxed{X_3} \\rightarrow Y}\\)\n\\(\\cancel{A\\leftarrow \\boxed{X_3}\\leftarrow X_2 \\rightarrow Y}\\)\n\nThen the only open paths are paths (1) and (2), both of which are causal paths from \\(A\\) to \\(Y\\).\nSometimes there are several sufficient adjustment sets. In this example, sufficient adjustment sets include:\n\n\\(\\{X_1,X_3\\}\\)\n\\(\\{X_2,X_3\\}\\)\n\\(\\{X_1,X_2,X_3\\}\\)\n\nWe sometimes call the first two minimal sufficient adjustment sets because they are the smallest.\n\nA minimal sufficient adjustment set is an adjustment set that achieves causal identification by conditioning on the fewest number of variables possible.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
+    ]
+  },
+  {
+    "objectID": "topics/DAGs.html#how-to-drawing-a-dag",
+    "href": "topics/DAGs.html#how-to-drawing-a-dag",
+    "title": "Directed Acyclic Graphs",
+    "section": "How to drawing a DAG",
+    "text": "How to drawing a DAG\nSo far, we have focused on causal identification with a DAG that has been given. But how do you draw one for yourself?\nWhen drawing a DAG, there is an important rule: any node that would have edges pointing into any two nodes already represented in the DAG must be included. This is because what you omit from the DAG is far more important than what you include in the DAG. Many of your primary assumptions are about the nodes and edges that you leave out.\nFor example, suppose we are estimating the causal effect of a college degree on employment at age 40. After beginning our DAG with only these variables, we have to think about any other variables that might affect these two. High school performance is one example. Then we have to include any nodes that affect any two of {high school performance, college degree, employment at age 40}. Perhaps a person’s parents’ education affects that person’s high school performance and college degree attainment. Then parents’ education should be included as an additional node. The cycle continues, so that in observational causal inference settings you are likely to have a DAG with many nodes.\nIn practice, you may not have data on all the nodes that comprise the sufficient adjustment set in your graph. In this case, we recommend that you first draw a graph under which you can form a sufficient adjustment set with the measured variables. This allows you to state one set of causal beliefs under which your analysis can answer your causal question. Then, also draw a second DAG that includes the other variables you think are relevant. This will enable you to reason about the sense in which your results could be misleading because of omitting important variables.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
+    ]
+  },
+  {
+    "objectID": "topics/DAGs.html#closing-thoughts",
+    "href": "topics/DAGs.html#closing-thoughts",
+    "title": "Directed Acyclic Graphs",
+    "section": "Closing thoughts",
+    "text": "Closing thoughts\nDAGs are a powerful tool for causal inference, because they are both visually intuitive and mathematically precise. They translate our theories about the world into a formal language with implications for causal identification.\nIf you’d like to learn more about DAGs, here are a few good resources:\n\nPearl, Judea, and Dana Mackenzie. 2018. The Book of Why: The New Science of Cause and Effect. New York: Basic Books.\nPearl, Judea, Madelyn Glymour, and Nicholas P. Jewell. 2016. Causal Inference in Statistics: A Primer. New York: Wiley.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Directed Acyclic Graphs"
+    ]
+  },
+  {
+    "objectID": "discussion.html",
+    "href": "discussion.html",
+    "title": "Discussion Meetings",
+    "section": "",
+    "text": "This page contains a general plan for the topics of the 10 discussion section meetings that will occur this quarter.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#jan-79",
+    "href": "discussion.html#jan-79",
+    "title": "Discussion Meetings",
+    "section": "Jan 7–9",
+    "text": "Jan 7–9\nIn this discussion, we will introduce ourselves and ensure our computers are prepared for the class. This will involve checking that we have R, RStudio, tinytex, and tidyverse installed. See R basics.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#jan-1416",
+    "href": "discussion.html#jan-1416",
+    "title": "Discussion Meetings",
+    "section": "Jan 14–16",
+    "text": "Jan 14–16\nDue to the fires, this week’s discussions became Zoom office hours.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#jan-2123",
+    "href": "discussion.html#jan-2123",
+    "title": "Discussion Meetings",
+    "section": "Jan 21–23",
+    "text": "Jan 21–23\nIn this discussion, you will register for an account to access the Current Population Survey data. Click here for detailed instructions.\nYour TA may walk through how to look at the survey documentation for one or more of the variables. If time allows, we will break into small groups to look for other variables that might be interesting in a project, and then come back together to tell the class about them.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#jan-2830",
+    "href": "discussion.html#jan-2830",
+    "title": "Discussion Meetings",
+    "section": "Jan 28–30",
+    "text": "Jan 28–30\nYou should read the following paper before this discussion:\n\nEngland, Paula, Andrew Levine, and Emma Mishel. 2020. Progress toward gender equality in the United States has slowed or stalled, PNAS 117(13):6990–6997.\n\nThe problem set reproduces findings from this paper. The discussion will focus on conceptual questions from the reading. The questions below are only guidelines, and your TA might have other topics to discuss.\n1. The authors write that “change in the gender system has been deeply asymmetric.” Explain this in a sentence or two to someone who hasn’t read the article.\n2. The authors discuss cultural changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about cultural changes.\n\n\n\n\n\n\nTip\n\n\n\nIf you are not sure how to word a survey question, here are some examples from the American Time Use Survey, Current Population Survey, and General Social Survey.\n\n\n3. The authors discuss institutional changes that could lead to greater equality. Propose a question that could (hypothetically) be included in the CPS-ASEC questionnaire to help answer questions about institutional changes.\n4. What was one fact presented in this paper that most surprised you?\n5. What about the graphs in this paper is compelling? What would you improve or change if you were producing these graphs?",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#feb-46",
+    "href": "discussion.html#feb-46",
+    "title": "Discussion Meetings",
+    "section": "Feb 4–6",
+    "text": "Feb 4–6\nYour TA will introduce the final project, which will be carried out in groups of about 5 students within your discussion section. Your TA will help you to form groups with common interest areas.\nPossible topics include (but are not limited to) inequality by race or gender, trends in poverty or inequality over time, and the causal effect of education or other life experiences on subsequent outcomes. Another possibility is to form groups centered on a particular dataset, with the topic to be decided later.\nAll subsequent discussions are devoted to group work on the final project.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#feb-1113",
+    "href": "discussion.html#feb-1113",
+    "title": "Discussion Meetings",
+    "section": "Feb 11–13",
+    "text": "Feb 11–13\nBy the end of this discussion, your group should select a dataset for the final project. If you aren’t sure where to start, we suggest the options at ipums.org.\nIf you finish early, you are always welcome to move on to the tasks below.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#feb-1820",
+    "href": "discussion.html#feb-1820",
+    "title": "Discussion Meetings",
+    "section": "Feb 18–20",
+    "text": "Feb 18–20\nBy the end of this discussion, your group should\n\nselect an outcome variable\ndefine the unit of analysis (e.g., a person, a school, a state) for which that outcome variable is defined\ndetermine how you plan to aggregate the outcome variable across units (e.g., by a mean, median, proportion)\n\nIf you finish early, you are always welcome to move on to the tasks below.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#feb-2527",
+    "href": "discussion.html#feb-2527",
+    "title": "Discussion Meetings",
+    "section": "Feb 25–27",
+    "text": "Feb 25–27\nBy the end of this discussion, your group should discuss the target population and whether you will need to use sampling weights in your analysis.\nIf you finish early, you are always welcome to move on to the tasks below.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#mar-46",
+    "href": "discussion.html#mar-46",
+    "title": "Discussion Meetings",
+    "section": "Mar 4–6",
+    "text": "Mar 4–6\nThis discussion is open for your group to work on any remaining tasks to finish up your final project. Recall that PDF slides and writeup are due by 5pm on Mar 7, with one submission per group.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#mar-1113",
+    "href": "discussion.html#mar-1113",
+    "title": "Discussion Meetings",
+    "section": "Mar 11–13",
+    "text": "Mar 11–13\nYour group will present your final project in this discussion. During each presentation by a group that is not your own, you will be asked to note something you appreciated about their presentation.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "discussion.html#other-discussion-possibilities",
+    "href": "discussion.html#other-discussion-possibilities",
+    "title": "Discussion Meetings",
+    "section": "Other discussion possibilities",
+    "text": "Other discussion possibilities\nThis part of the page has other possibilities for discussion topics. We may use these in one of the discussions depending on how the course material is progressing over the quarter.\n\nExplain a ggplot function\nLast week’s lecture introduced visualization with the ggplot() function in the tidyverse package. This discussion explores more of what ggplot() can do.\n\nForm groups of about 4 students\nIntroduce yourself to your group members\nChoose a graph that your group likes in Ch 1 of R For Data Science.\n\nLook at the code for that graph\nDiscuss what each element of the code is doing\nChoose someone to present to the class\n\nAt the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class\n\n\n\nExplain a tidyverse function\nThis discussion explores more of what the tidyverse can do.\n\nForm groups of about 4 students\nIntroduce yourself to your group members\nChoose a function in Ch 3 of R For Data Science that we did not cover explicitly in class.\n\nPossibilities include: arrange(), distinct(), rename(), relocate(), the slice_ functions, ungroup()\nFind an example of the function in the chapter.\nDiscuss how the code works.\nPrepare to explain to the class.\n\nAt the end of discussion, we will regroup. Each group will present the code for their chosen graph to the class\n\n\n\nWrite a function\nNow that we have worked with functions in R, it is time to understand them on a deeper level. In this exercise, we will write our own functions.\n\nA basic function\nYou can store a function as an object in your environment, just like any other object. The function below accepts a numeric variable x and returns twice the value of x.\n\ndouble_x &lt;- function(x) {\n  doubled &lt;- 2 * x\n  return(doubled)\n}\n\nThere are a few pieces to the code above\n\nWe created a function that has a name: double_x\nOur function that takes one argument named x\nThe body of the function is the lines within the {}. These lines take the argument, do some things, and then return() a result. The object within return() is what R sends back after running the function.\n\nOnce you create that function, you can run it just like any other function.\n\ndouble_x(x = 2)\n\n[1] 4\n\n\n\n\nA function with two arguments\nA function can also take multiple arguments, such as one that adds x and y.\n\nadd_x_y &lt;- function(x, y) {\n  added &lt;- x + y\n  return(added)\n}\n\nwhich works as follows.\n\nadd_x_y(x = 2, y = 3)\n\n[1] 5\n\n\n\n\nChallenge: Write your own function\nA function does not have to just take numbers as an argument. It can also take a dataset as an argument. Sometimes, we might want an estimator(data) function that takes data as an argument and applies an estimator() to that data, to return an estimate of something. You will create one such function here.\nAs an example, suppose three surveys ask people if they prefer chocolate ice cream (prefers_chocolate = TRUE) or vanilla ice cream (prefers_chocolate = FALSE). The survey also records whether the respondent is a child age = \"child\" or an adult age = \"adult\".\n\nlibrary(tidyverse)\nsample_a &lt;- tibble(\n  age = c(\"child\",\"child\",\"child\",\"adult\",\"adult\"),\n  prefers_chocolate = c(T,T,F,F,F)\n)\nsample_b &lt;- tibble(\n  age = c(\"child\",\"child\",\"adult\",\"adult\"),\n  prefers_chocolate = c(T,F,T,F)\n)\nsample_c &lt;- tibble(\n  age = c(\"child\",\"child\",\"child\",\"adult\",\"adult\",\"adult\"),\n  prefers_chocolate = c(T,T,F,F,F,T)\n)\n\nWe want to know the proportion preferring chocolate among children and adults in each sample. To estimate in sample_a, we would write\n\nestimate &lt;- sample_a |&gt;\n  group_by(age) |&gt;\n  summarize(prefers_chocolate = mean(prefers_chocolate))\n\nNow write that within a function.\n\nestimator &lt;- function(data) {\n  # do some things to data\n  # return() your estimate\n}\n\nand apply the estimator to sample_a, sample_b, and sample_c.",
+    "crumbs": [
+      " ",
+      "Discussion Meetings"
+    ]
+  },
+  {
+    "objectID": "topics/nonparametric_estimation.html",
+    "href": "topics/nonparametric_estimation.html",
+    "title": "Nonparametric estimation",
+    "section": "",
+    "text": "Under the assumption of conditional exchangeability given a sufficient adjustment set \\(\\vec{X}\\), the average causal effect within subgroups defined by \\(\\vec{X}\\) is identified by the difference in means across the treatment \\(A\\) within this subgroup.\nThis page walks through how to estimate that difference in means and (optinally) re-aggregate the conditional average causal effects to average causal effect estimates. We illustrate in a simple case represented by the DAG below.\nIn our illustration, the treatment a is binary and the outcome y is numeric. The confounder x is a sufficient adjustment set and takes the value 0, 1, or 2.\nYou can simulate a dataset of 1,000 observations by running the code below.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Nonparametric estimation"
+    ]
+  },
+  {
+    "objectID": "topics/nonparametric_estimation.html#estimate-cates-by-subgroup-means",
+    "href": "topics/nonparametric_estimation.html#estimate-cates-by-subgroup-means",
+    "title": "Nonparametric estimation",
+    "section": "Estimate CATEs by subgroup means",
+    "text": "Estimate CATEs by subgroup means\nTo estimate the conditional average effect, we first group the data by the confounder x and treatment a. By conditional exchangeability, the rows with a == TRUE and the rows with a == FALSE are each a simple random sample of all rows within the subgroup defined by x, so we can estimate the mean outcome \\(\\E(Y^a\\mid X = x)\\) by the subgroup sample mean, \\(\\E(Y\\mid A = a, X = x)\\).\n\\[\n\\hat{\\text{E}}\\left(Y^a\\mid X = x\\right) = \\underbrace{\\frac{\\sum_{i:X_i=x,A_i=a}Y_i}{n_{x,a}}}_{\\substack{\\text{Sample mean}\\\\\\text{in subgroup}\\\\X = x, A = a}}\n\\]\n\naverage_potential_outcomes &lt;- simulated |&gt;\n  # Group by confounders and treatment\n  group_by(x,a) |&gt;\n  # Summarize weighted mean of Y, weighted by sampling weights\n  summarize(\n    mean_y = weighted.mean(y, w = sampling_weight), \n    .groups = \"drop\"\n  ) |&gt;\n  print()\n\n# A tibble: 6 × 3\n      x     a  mean_y\n  &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;\n1     0     0 -0.0543\n2     0     1  0.0619\n3     1     0  0.0104\n4     1     1  0.992 \n5     2     0  0.0855\n6     2     1  2.13  \n\n\nAs expected, the code above produces estimates for the mean of y within subgroups defined by x and a. The conditional average causal effect is difference in y across values of a, within subgroups defined by x. To take this difference, we pivot wider.\n\ncate &lt;- average_potential_outcomes |&gt;\n  # Pivot wider and difference over A to estimate CATE\n  pivot_wider(\n    names_from = a, \n    names_prefix = \"mean_y\", \n    values_from = \"mean_y\"\n  ) |&gt;\n  mutate(cate = mean_y1 - mean_y0) |&gt;\n  print()\n\n# A tibble: 3 × 4\n      x mean_y0 mean_y1  cate\n  &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;\n1     0 -0.0543  0.0619 0.116\n2     1  0.0104  0.992  0.982\n3     2  0.0855  2.13   2.05 \n\n\nAs expected, the code above estimates the Conditional Average Treatment Effect (CATE) within each population subgroup defined by the pre-treatment variable x.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Nonparametric estimation"
+    ]
+  },
+  {
+    "objectID": "topics/nonparametric_estimation.html#re-aggregating-to-ate",
+    "href": "topics/nonparametric_estimation.html#re-aggregating-to-ate",
+    "title": "Nonparametric estimation",
+    "section": "Re-aggregating to ATE",
+    "text": "Re-aggregating to ATE\nTo determine the overall average treatment effect, we can re-aggregated the CATE estimates weighted by the size of each stratum: how many people have x == 1, x == 2, and x == 3. First, determine the size of each stratum.\n\\[\n\\hat{\\text{P}}\\left(X = x\\right) = \\frac{1}{n}\\sum_i \\mathbb{I}(X_i = x)\n\\]\n\nstratum_sizes &lt;- simulated |&gt;\n  # Count sum of sampling weight in each stratum\n  count(x, wt = sampling_weight) |&gt;\n  # Convert count to a proportion of the population\n  mutate(stratum_size = n / sum(n)) |&gt;\n  print()\n\n# A tibble: 3 × 3\n      x     n stratum_size\n  &lt;int&gt; &lt;dbl&gt;        &lt;dbl&gt;\n1     0   235        0.235\n2     1   503        0.503\n3     2   262        0.262\n\n\nThen merge and take the weighted mean of CATE over the strata.\n\\[\n\\hat{\\text{E}}\\left(Y^1-Y^0\\right) = \\sum_x \\hat{\\text{P}}(X = x)\\left[\\hat{\\text{E}}\\left(Y^1\\mid X = x\\right) - \\hat{\\text{E}}\\left(Y^0\\mid X = x\\right)\\right]\n\\]\n\nate &lt;- cate |&gt;\n  left_join(stratum_sizes, by = join_by(x)) |&gt;\n  summarize(ate = weighted.mean(cate, w = stratum_size)) |&gt;\n  print()\n\n# A tibble: 1 × 1\n    ate\n  &lt;dbl&gt;\n1  1.06",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Nonparametric estimation"
+    ]
+  },
+  {
+    "objectID": "topics/nonparametric_estimation.html#estimate-by-treatment-weights",
+    "href": "topics/nonparametric_estimation.html#estimate-by-treatment-weights",
+    "title": "Nonparametric estimation",
+    "section": "Estimate by treatment weights",
+    "text": "Estimate by treatment weights\nOne can equivalently take a sampling view of causal inference. When I observe a unit \\(i\\) with outcome \\(Y_i = Y_i^{A_i}\\), the probability of observing this outcome is the product of the probability that the unit was sampled multiplied by the probability that the unit received treatment value \\(A_i\\), conditional on confounders. Just as one generates sampling weights for descriptive population inference by the inverse of the probability of sample inclusion, one can generate inverse probability of treatment weights for causal inference. The full weight for each unit \\(i\\) is then the product of these two weights:\n\\[\nw_i = \\text{SamplingWeight}_i\\times \\frac{1}{\\text{P}(A_i\\mid X_i)}\n\\]\nThe code below constructs these weights.\n\ndata_weighted &lt;- simulated |&gt;\n  # Within confounder subgroups, determine the probability\n  # of the observed treatment\n  group_by(x) |&gt;\n  mutate(probability_of_a = case_when(\n    # For treated units, proportion treated\n    a == 1 ~ mean(a),\n    # For untreated units, proportion untreated\n    a == 0 ~ mean(1 - a)\n  )) |&gt;\n  # Calculate the total weight as the product\n  # of the sampling weight and the inverse probability of treatment\n  mutate(\n    total_weight = sampling_weight * (1 / probability_of_a)\n  ) |&gt;\n  ungroup() |&gt;\n  print()\n\n# A tibble: 1,000 × 8\n      id     x    pi     a      y sampling_weight probability_of_a total_weight\n   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;\n 1     1     2   0.8     1  1.20                1            0.786         1.27\n 2     2     0   0.3     0  0.649               1            0.706         1.42\n 3     3     1   0.5     1  1.10                1            0.469         2.13\n 4     4     1   0.5     1  1.44                1            0.469         2.13\n 5     5     0   0.3     1 -1.37                1            0.294         3.41\n 6     6     1   0.5     0  0.853               1            0.531         1.88\n 7     7     0   0.3     1  0.612               1            0.294         3.41\n 8     8     1   0.5     0 -1.19                1            0.531         1.88\n 9     9     0   0.3     0  0.341               1            0.706         1.42\n10    10     1   0.5     0 -1.23                1            0.531         1.88\n# ℹ 990 more rows\n\n\nOnce we have weights, we can directly estimate the Average Treatment Effect (ATE) by the mean difference in the weighted average outcomes in each treatment group,\n\\[\n\\hat{\\text{E}}(Y^a) = \\frac{\\sum_{i:A_i=a} w_i Y_i}{\\sum_{i:A_i=a}w_i}\n\\] and report the difference in the estimated \\(\\hat{E}(Y^1)\\) and \\(\\hat{E}(Y^0)\\).\n\ndata_weighted |&gt;\n  # Summarize weighted mean outcomes within treatment groups\n  group_by(a) |&gt;\n  summarize(\n    estimate = weighted.mean(\n      y, \n      w = total_weight\n    )\n  ) |&gt;\n  # Difference across treatment groups and estimate the ATE\n  pivot_wider(names_from = a, names_prefix = \"mean_y\", values_from = estimate) |&gt;\n  mutate(ate = mean_y1 - mean_y0) |&gt;\n  print()\n\n# A tibble: 1 × 3\n  mean_y0 mean_y1   ate\n    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;\n1  0.0149    1.07  1.06",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Nonparametric estimation"
+    ]
+  },
+  {
+    "objectID": "topics/nonparametric_estimation.html#comparing-the-two-estimates",
+    "href": "topics/nonparametric_estimation.html#comparing-the-two-estimates",
+    "title": "Nonparametric estimation",
+    "section": "Comparing the two estimates",
+    "text": "Comparing the two estimates\nAbove, we illustrated two strategies to estimate the Average Treatment Effect.\n\nEstimate the CATE by subgroup means of \\(Y\\) within \\(X\\) and \\(A\\), then aggregate across strata weighted by size.\nEstimate the probability of treatment \\(A\\) given \\(X\\), then estimate the ATE by a weighted mean.\n\nYou may notice that the estimates by the two approaches are mathematically identical. At least under nonparametric estimation, one can show that these two estimators are two different ways of thinking about the exact same estimation process.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Nonparametric estimation"
+    ]
+  },
+  {
+    "objectID": "topics/nonparametric_estimation.html#concluding-thoughts",
+    "href": "topics/nonparametric_estimation.html#concluding-thoughts",
+    "title": "Nonparametric estimation",
+    "section": "Concluding thoughts",
+    "text": "Concluding thoughts\nNonparametric estimation is worth knowing because of its simplicity: estimate the conditional average causal effect within subgroups by taking the difference in mean outcomes within subgroups. However, nonparametric estimation only works in practice when the confounding variables take only a few discrete values (in this example, x was always 0, 1, or 2). In realistic settings, there are often many confounding variables that take many values each. For this reason, causal effects are most often estimated in practice by the model-based methods that we will learn next.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Nonparametric estimation"
     ]
   },
   {
