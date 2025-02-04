@@ -62,7 +62,7 @@ The top of Table 1 reports callback rates: 9.65\% for white names and 6.45\% for
 
 One submitted resume had the name "Emily Baker." It yielded a callback. The same resume could have had the name "Lakisha Washington." Explain how the Fundamental Problem of Causal Inference applies to this case (1--2 sentences).
 
-**2.2. (5 points) Potential outcomes**. Using math, write the following in potential outcomes notation: resume submission 5 would receive a callback if it signaled the name "Emily Baker". (There are several ways to write a correct answer.)
+**2.2. (5 points) Potential outcomes**. Using math, write the following in potential outcomes notation: resume submission 5 would receive a callback if it signaled the name "Emily Baker". (There are several ways to write a correct answer.) You can either type math or include a picture of handwritten math. See the bottom of this page for help.
 
 **2.3. (5 points) Exchangeability **
 
@@ -75,3 +75,24 @@ Suppose that instead of randomly assigning names to fictitious resumes, the auth
 **2.5 (5 points) Exchangeability violated**
 
 The descriptive estimand in the observational study (2.4) is different than the causal estimand in the experimental study (2.2). Suppose the researchers wanted to use the observational study to learn about the quantity in (2.2). Explain one way the exchangeability assumption would be violated.
+
+## How to type math
+
+There are two ways to type math within your .qmd file, outside of a code chunk.
+
+* To type in-line math surround your math in a single `$` at each side. Typing `$X = 1$` will produce $X = 1$.
+* To type math that goes on its own equation line, use `$$` before and after the math. Typing `$$X = 1$$` will produce
+$$ X = 1$$
+
+When typing math, there are a few things you will want to know.
+
+* `_` indicates the start of a subscript: `$Y_i$` becomes $Y_i$
+* `^` indicates the start of a superscript: `$Y^a$` becomes $Y^a$
+* `{}` will let you use several characters in a subscript or superscript: `$Y_{unit}^{treatment}$`becomes $Y_{unit}^{treatment}$
+* `\mid` is the vertical conditioning bar: `$E(Y\mid X)$` becomes $E(Y\mid X)$.
+
+## How to include hand-written math
+
+You are also welcome to handwrite math and take a picture of it. Put your picture in the folder where your .qmd document is located. To include the picture in your writeup, type
+
+`![](NameOfYourPictureFile.png)`
