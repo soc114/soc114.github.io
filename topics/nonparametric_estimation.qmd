@@ -2,7 +2,7 @@
 title: "Nonparametric estimation"
 ---
 
-> If time allows, this will be covered on Feb 4. Here are [slides]([slides](../slides/lec09b_nonparametric_estimation/lec09b_nonparametric_estimation.pdf)
+> If time allows, this will be covered on Feb 4. Here are [slides](../slides/lec09b_nonparametric_estimation/lec09b_nonparametric_estimation_slides.pdf)
 
 Under the assumption of conditional exchangeability given a sufficient adjustment set $\vec{X}$, the average causal effect within subgroups defined by $\vec{X}$ is identified by the difference in means across the treatment $A$ within this subgroup.
 
