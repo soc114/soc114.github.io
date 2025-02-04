@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistical Learning – Social Data Science</title>
+<title>Models for causal inference – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,8 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../topics/learning_exercise.html" rel="next">
-<link href="../topics/nonparametric_estimation.html" rel="prev">
+<link href="../discussion.html" rel="next">
+<link href="../topics/what_is_a_model.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -194,7 +194,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Inference with Models</li><li class="breadcrumb-item"><a href="../topics/statistical_learning.html">Models for description</a></li><li class="breadcrumb-item"><a href="../topics/statistical_learning.html">Statistical Learning</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/models_for_causal.html">Models for causal inference</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -317,39 +317,18 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Models for description</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/statistical_learning.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Statistical Learning</span></a>
+  <a href="../topics/what_is_a_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is a model?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/learning_exercise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Learning Exercise</span></a>
+  <a href="../topics/models_for_causal.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Models for causal inference</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/sample_splitting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sample Splitting</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Models for causal inference</span></span>
-  </li>
           <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
  <span class="menu-text">Machine learning</span></span>
@@ -364,22 +343,22 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Assignments</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Problem Sets</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/pset0.html" class="sidebar-item-text sidebar-link">
@@ -430,21 +409,29 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#prepare-our-data-environment" id="toc-prepare-our-data-environment" class="nav-link active" data-scroll-target="#prepare-our-data-environment">Prepare our data environment</a></li>
-  <li><a href="#ordinary-least-squares" id="toc-ordinary-least-squares" class="nav-link" data-scroll-target="#ordinary-least-squares">Ordinary least squares</a></li>
-  <li><a href="#penalized-regression" id="toc-penalized-regression" class="nav-link" data-scroll-target="#penalized-regression">Penalized regression</a></li>
-  <li><a href="#splines" id="toc-splines" class="nav-link" data-scroll-target="#splines">Splines</a></li>
-  <li><a href="#trees" id="toc-trees" class="nav-link" data-scroll-target="#trees">Trees</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#simulated-data" id="toc-simulated-data" class="nav-link active" data-scroll-target="#simulated-data">Simulated data</a></li>
+  <li><a href="#outcome-modeling" id="toc-outcome-modeling" class="nav-link" data-scroll-target="#outcome-modeling">Outcome modeling</a>
+  <ul class="collapse">
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">1) Model</a></li>
+  <li><a href="#predict" id="toc-predict" class="nav-link" data-scroll-target="#predict">2) Predict</a></li>
+  <li><a href="#aggregate" id="toc-aggregate" class="nav-link" data-scroll-target="#aggregate">3) Aggregate</a></li>
+  </ul></li>
+  <li><a href="#treatment-modeling" id="toc-treatment-modeling" class="nav-link" data-scroll-target="#treatment-modeling">Treatment modeling</a>
+  <ul class="collapse">
+  <li><a href="#model-1" id="toc-model-1" class="nav-link" data-scroll-target="#model-1">1) Model</a></li>
+  <li><a href="#predict-1" id="toc-predict-1" class="nav-link" data-scroll-target="#predict-1">2) Predict</a></li>
+  <li><a href="#aggregate-1" id="toc-aggregate-1" class="nav-link" data-scroll-target="#aggregate-1">3) Aggregate</a></li>
+  </ul></li>
+  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts">Concluding thoughts</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Inference with Models</li><li class="breadcrumb-item"><a href="../topics/statistical_learning.html">Models for description</a></li><li class="breadcrumb-item"><a href="../topics/statistical_learning.html">Statistical Learning</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/models_for_causal.html">Models for causal inference</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Statistical Learning</h1>
+<h1 class="title">Models for causal inference</h1>
 </div>
 
 
@@ -461,173 +448,285 @@ window.Quarto = {
 </header>
 
 
-<!-- [Slides](../slides/lec4/lec4.pdf) -->
-<blockquote class="blockquote">
-<p>The reading with this class is <a href="https://link.springer.com/book/10.1007/978-3-030-40189-4">Berk 2020 Ch 1</a> p.&nbsp;1–5, stopping at paragraph ending “…is nonlinear.” Then p.&nbsp;14–17 “Model misspecification…” through “…will always be in play.”</p>
-</blockquote>
-<p>Statistical learning is a term that captures a broad set of ideas in statistics and machine learning. This page focuses on one sense of statistical learning: using data on a sample to learn a subgroup mean in the population.</p>
-<div class="columns">
-<div class="column" style="width:30%;">
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/srf9eZ5lq68" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</div><div class="column" style="width:30%;">
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/3sHWUN-3pZE" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</div><div class="column" style="width:30%;">
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Pk6uNM74cKE" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</div>
-</div>
-<p>As an example, we continue to use the data on baseball salaries, with a small twist. The file <a href="../data/baseball_with_record.csv"><code>baseball_with_record.csv</code></a> contains the following variables</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/baseball_with_record.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<!-- To do: Why model? page comes before this -->
+<p>Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we need to estimate the mean outcome within subgroups defined by the treatment <span class="math inline">\(A\)</span> and the confounders <span class="math inline">\(\vec{X}\)</span>. Especially in observational data settings (anything that is not a randomized experiment), causal identification is most plausible when <span class="math inline">\(\vec{X}\)</span> includes many measured variables, many of which may take many values. For this reason, causal inference questions often require us to estimate the means in many subgroups that are sparsely populated.</p>
+<p>This page introduces models for causal inference in two general approaches: outcome models and treatment models. We illustrate with a simple simulated dataset.</p>
+<section id="simulated-data" class="level2">
+<h2 class="anchored" data-anchor-id="simulated-data">Simulated data</h2>
+<p>The code below will generate a dataset of <span class="math inline">\(n = 100\)</span> observations. Each observation contains several observed variables:</p>
 <ul>
-<li><code>player</code> is the player name</li>
-<li><code>team</code> is the team name</li>
-<li><code>salary</code> is the 2023 salary</li>
-<li><code>record</code> is the 2022 proportion of games won by that team</li>
-<li><code>target_subgroup</code> is coded <code>TRUE</code> for the L.A. Dodgers and <code>FALSE</code> for all others</li>
+<li><code>L1</code> A numeric confounder</li>
+<li><code>L2</code> A numeric confounder</li>
+<li><code>A</code> A binary treatment</li>
+<li><code>Y</code> A numeric outcome</li>
 </ul>
-<p>Our goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is $6.23m.</p>
-<p>A sparse sample will hinder our ability to accomplish the goal. We will work with samples containing many MLB players, but only a few Dodgers. We will use statistical learning strategies to pool information from those other teams’ players to help us make a better estimate of the Dodger mean salary.</p>
-<p>Our predictor will be the <code>record</code> from the previous year. We assume that teams with similar win percentages in 2022 might have similar salaries in 2023.</p>
-<section id="prepare-our-data-environment" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-our-data-environment">Prepare our data environment</h2>
-<p>For illustration, draw a sample of 5 players per team</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> population <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(team) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Construct a tibble with the observation to be predicted: the Dodgers.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>to_predict <span class="ot">&lt;-</span> population <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(target_subgroup) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(team, record)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="ordinary-least-squares" class="level2">
-<h2 class="anchored" data-anchor-id="ordinary-least-squares">Ordinary least squares</h2>
-<p>We could model salary next year as a linear function of team record by Ordinary Least Squares. In math, OLS produces a prediction <span class="math display">\[\hat{Y}_i = \hat\alpha + \hat\beta X_i\]</span> with <span class="math inline">\(\hat\alpha\)</span> and <span class="math inline">\(\hat\beta\)</span> chosen to minimize the sum of squared errors, <span class="math inline">\(\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2\)</span>. Visually, it minimizes all the line segments below.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="statistical_learning_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Here is how to estimate an OLS model using R.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> record, <span class="at">data =</span> sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then we could predict the mean salary for the Dodgers.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>to_predict <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  team         record predicted
-  &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;
-1 L.A. Dodgers  0.685  6668053.</code></pre>
-</div>
-</div>
-<p>Our model-based estimate compares to the true population mean of $6.23m.</p>
-</section>
-<section id="penalized-regression" class="level2">
-<h2 class="anchored" data-anchor-id="penalized-regression">Penalized regression</h2>
-<p>Penalized regression is just like OLS, except that it prefers coefficient estimates that are closer to 0. This can reduce sampling variability. One penalized regression is ridge regression, which penalizes the sum of squared coefficients. In our example, it estimates the parameters to minimize</p>
-<p><span class="math display">\[\underbrace{\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2}_\text{Squared Error} + \underbrace{\lambda\beta^2}_\text{Penalty}\]</span></p>
-<p>where the positive scalar penalty <span class="math inline">\(\lambda\)</span> encodes our preference for coefficients to be near zero. Otherwise, penalized regression is just like OLS!</p>
-<p>The <code>gam()</code> function in the <code>mgcv</code> package will allow you to fit a ridge regression as follows.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">gam</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  salary <span class="sc">~</span> <span class="fu">s</span>(record, <span class="at">bs =</span> <span class="st">"re"</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> sample</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Predict the Dodger mean salary just as before,</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>to_predict <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  team         record predicted
-  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl[1d]&gt;
-1 L.A. Dodgers  0.685  6252449.</code></pre>
-</div>
-</div>
-</section>
-<section id="splines" class="level2">
-<h2 class="anchored" data-anchor-id="splines">Splines</h2>
-<p>We may want to allow a nonlinear relationship between the predictor and the outcome. One way to do that is with splines, which estimate part of the model locally within regions of the predictor space separated by <strong>knots</strong>. The code below uses a linear spline with knots at 0.4 and 0.6.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(splines)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  salary <span class="sc">~</span> <span class="fu">bs</span>(record, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">knots =</span> <span class="fu">c</span>(.<span class="dv">4</span>,.<span class="dv">6</span>)),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> sample</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="statistical_learning_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>We can predict the Dodger mean salary just as before!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>to_predict <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  team         record predicted
-  &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;
-1 L.A. Dodgers  0.685  3269869.</code></pre>
-</div>
-</div>
-</section>
-<section id="trees" class="level2">
-<h2 class="anchored" data-anchor-id="trees">Trees</h2>
-<p>Perhaps our response surface is bumpy, and poorly approximated by a smooth function. Decision trees search the predictor space for discrete places where the outcome changes, and assume that the response is flat within those regions.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">rpart</span>(salary <span class="sc">~</span> record, <span class="at">data =</span> sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="statistical_learning_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Predict as in the other strategies.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>to_predict <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  team         record predicted
-  &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;
-1 L.A. Dodgers  0.685  4253845.</code></pre>
-</div>
-</div>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Statistical learning in this framing is all about</p>
+<p>Each observation also contains outcomes that we know only because the data are simulated. These variables are useful as ground truth in simulations.</p>
 <ul>
-<li>we have a subgroup with few sampled units (the Dodgers)</li>
-<li>we want to use other units to help us learn</li>
-<li>our goal is to predict the population mean in the subgroup</li>
+<li><code>propensity_score</code> The true propensity score <span class="math inline">\(P(A = 1 \mid \vec{L})\)</span></li>
+<li><code>Y0</code> The potential outcome under control</li>
+<li><code>Y1</code> The potential outcome under treatment</li>
 </ul>
+<p>To run this code, you will need the <code>dplyr</code> package. If you don’t have it, first run the line <code>install.packages("dplyr")</code> in your R console. Then, add this line to your R script to load the package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want your simulation to match our numbers exactly, add a line to set your seed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">90095</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">L1 =</span> <span class="fu">rnorm</span>(n),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">L2 =</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate potential outcomes as functions of L</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y0 =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="at">mean =</span> L1 <span class="sc">+</span> L2, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">Y1 =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="at">mean =</span> Y0 <span class="sc">+</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate treatment as a function of L</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">propensity_score =</span> <span class="fu">plogis</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">+</span> L1 <span class="sc">+</span> L2)) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="fu">rbinom</span>(<span class="fu">n</span>(), <span class="dv">1</span>, propensity_score)) <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate factual outcome</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y =</span> <span class="fu">case_when</span>(A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> Y0,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                       A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> Y1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A simulation is nice because the answer is known. In this simulation, the conditional average causal effect of <code>A</code> on <code>Y</code> equals 1 at any value of <code>L1</code> and <code>L_2</code>.</p>
+</section>
+<section id="outcome-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="outcome-modeling">Outcome modeling</h2>
+<p>Because the causal effect of <code>A</code> on <code>Y</code> is identified by adjusting for the confounders <code>L1</code> and <code>L2</code>, we can estimate by outcome modeling.</p>
+<ol type="1">
+<li>Model <span class="math inline">\(E(Y\mid A, L_1, L_2)\)</span>, the conditional mean of <span class="math inline">\(Y\)</span> given the treatment and confounders</li>
+<li>Predict potential outcomes
+<ul>
+<li>set <code>A = 1</code> for every unit. Predict <span class="math inline">\(Y^1\)</span></li>
+<li>set <code>A = 0</code> for every unit. Predict <span class="math inline">\(Y^0\)</span></li>
+</ul></li>
+<li>Aggregate to the average causal effect</li>
+</ol>
+<p>The code below assumes you have generated data as on the <a href="data.qmd">data</a> page.</p>
+<section id="model" class="level3">
+<h3 class="anchored" data-anchor-id="model">1) Model</h3>
+<p>The code below uses Ordinary Least Squares to estimate an outcome model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> A<span class="sc">*</span>(L1 <span class="sc">+</span> L2), <span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y ~ A * (L1 + L2), data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.1448 -0.7105  0.0097  0.6998  3.1743 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.01606    0.05699   0.282  0.77827    
+A            1.11555    0.18021   6.190 1.26e-09 ***
+L1           1.06333    0.05938  17.907  &lt; 2e-16 ***
+L2           1.11199    0.05951  18.685  &lt; 2e-16 ***
+A:L1        -0.39475    0.14279  -2.765  0.00591 ** 
+A:L2        -0.28935    0.13940  -2.076  0.03844 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.111 on 494 degrees of freedom
+Multiple R-squared:  0.6732,    Adjusted R-squared:  0.6699 
+F-statistic: 203.6 on 5 and 494 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>We chose a model where treatment <code>A</code> is interacted with an additive function of confounders <code>L1 + L2</code>. This is also known as a t-learner (<a href="https://www.pnas.org/doi/abs/10.1073/pnas.1804597116">Kunzel et al.&nbsp;2019</a>) because it is equivalent to estimating <strong>t</strong>wo separate regression models of outcome on confounders, one among those for whom <code>A == 1</code> and among those for whom <code>A == 0</code>.</p>
+</section>
+<section id="predict" class="level3">
+<h3 class="anchored" data-anchor-id="predict">2) Predict</h3>
+<p>The code below predicts the conditional average potential outcome under treatment and control at the confounder values of each observation.</p>
+<p>First, we create data with <code>A</code> set to the value <code>1</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 500 × 7
+        L1     L2      Y0    Y1 propensity_score     A       Y
+     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1  0.00304  1.03   0.677   1.59          0.276       1  0.677 
+2 -2.35    -1.66  -4.09   -3.53          0.00244     1 -4.09  
+3  0.104   -0.912  0.0659  1.31          0.0569      1  0.0659
+# ℹ 497 more rows</code></pre>
+</div>
+</div>
+<p>Then, we create data with <code>A</code> set to the value <code>0</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_0 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 500 × 7
+        L1     L2      Y0    Y1 propensity_score     A       Y
+     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1  0.00304  1.03   0.677   1.59          0.276       0  0.677 
+2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09  
+3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659
+# ℹ 497 more rows</code></pre>
+</div>
+</div>
+<p>We use our outcome model to predict the conditional mean of the potential outcome under each scenario.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y1_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_1),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y0_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_0),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect_predicted =</span> Y1_predicted <span class="sc">-</span> Y0_predicted</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 500 × 10
+        L1     L2      Y0    Y1 propensity_score     A       Y Y1_predicted
+     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+1  0.00304  1.03   0.677   1.59          0.276       0  0.677         1.98 
+2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09         -1.81 
+3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659        0.451
+# ℹ 497 more rows
+# ℹ 2 more variables: Y0_predicted &lt;dbl&gt;, effect_predicted &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="aggregate" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate">3) Aggregate</h3>
+<p>The final step is to aggregate to an average causal effect estimate.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>aggregated <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_effect_estimate =</span> <span class="fu">mean</span>(effect_predicted))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  average_effect_estimate
+                    &lt;dbl&gt;
+1                    1.13</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="treatment-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="treatment-modeling">Treatment modeling</h2>
+<p>Because the causal effect of <code>A</code> on <code>Y</code> is identified by adjusting for the confounders <code>L1</code> and <code>L2</code>, we can also estimate by inverse probability of treatment weighting. The intuition of this approach is that treated units (with <code>A == TRUE</code>) are a random sample of all units, within subgroups defined by <code>L1</code> and <code>L2</code>. We can infer the population-average outcome under treatment by the weighted mean outcome under treatment, with weights equal to the inverse probability of being treated.</p>
+<p>Treatment modeling proceeds in three steps:</p>
+<ol type="1">
+<li>Model <span class="math inline">\(P(A = 1\mid L_1, L_2)\)</span>, the conditional probability of treatment given confounders</li>
+<li>Predict the conditional probability <span class="math inline">\(\pi\)</span> of each unit’s observed treatment
+<ul>
+<li>if <code>A = 1</code>, predict <span class="math inline">\(\pi = P(A = 1 \mid L_1,L_2)\)</span></li>
+<li>if <code>A = 0</code>, predict <span class="math inline">\(\pi = P(A = 0 \mid L_1,L_2)\)</span></li>
+</ul></li>
+<li>Aggregate to the average causal effect
+<ul>
+<li>estimate the expected outcome under treatment <span class="math inline">\(E(Y^1)\)</span> by a weighted mean of treated units’ outcomes, weighted by <span class="math inline">\(\frac{1}{\pi}\)</span></li>
+<li>estimate the expected outcome under control <span class="math inline">\(E(Y^0)\)</span> by a weighted mean of untreated units’ outcomes, weighted by <span class="math inline">\(\frac{1}{\pi}\)</span></li>
+<li>estimate the average causal effect by the difference</li>
+</ul></li>
+</ol>
+<p>The code below assumes you have generated data as on the <a href="data.qmd">data</a> page.</p>
+<section id="model-1" class="level3">
+<h3 class="anchored" data-anchor-id="model-1">1) Model</h3>
+<p>The code below uses logistic regression to model the conditional probability of treatment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  A <span class="sc">~</span> L1 <span class="sc">+</span> L2, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = A ~ L1 + L2, family = binomial, data = data)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -2.0740     0.1737 -11.938  &lt; 2e-16 ***
+L1            1.0845     0.1639   6.618 3.65e-11 ***
+L2            1.1877     0.1548   7.673 1.68e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 474.41  on 499  degrees of freedom
+Residual deviance: 354.86  on 497  degrees of freedom
+AIC: 360.86
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+</section>
+<section id="predict-1" class="level3">
+<h3 class="anchored" data-anchor-id="predict-1">2) Predict</h3>
+<p>The code below predicts the conditional probability of each unit’s observed treatment value, also known as the propensity score.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predict the probabilities that A = 1 and A = 0</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_A_equals_1 =</span> <span class="fu">predict</span>(model, <span class="at">type =</span> <span class="st">"response"</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_A_equals_0 =</span> <span class="dv">1</span> <span class="sc">-</span> p_A_equals_1</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Assign the propensity score based on the observed treatment</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> <span class="fu">case_when</span>(</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> p_A_equals_1,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> p_A_equals_0</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 500 × 10
+        L1     L2      Y0    Y1 propensity_score     A       Y p_A_equals_1
+     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+1  0.00304  1.03   0.677   1.59          0.276       0  0.677       0.300  
+2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09        0.00136
+3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659      0.0455 
+# ℹ 497 more rows
+# ℹ 2 more variables: p_A_equals_0 &lt;dbl&gt;, pi &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="aggregate-1" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate-1">3) Aggregate</h3>
+<p>The final step is to aggregate to an average causal effect estimate.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>aggregated_Y1 <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Restrict to cases with A == 1</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the weighted mean outcome</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">weighted.mean</span>(Y, <span class="at">w =</span> <span class="dv">1</span> <span class="sc">/</span> pi))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>aggregated_Y0 <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Restrict to cases with A == 1</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the weighted mean outcome</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">weighted.mean</span>(Y, <span class="at">w =</span> <span class="dv">1</span> <span class="sc">/</span> pi))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>average_effect_estimate <span class="ot">&lt;-</span> aggregated_Y1 <span class="sc">-</span> aggregated_Y0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  estimate
+1 1.288555</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="concluding-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="concluding-thoughts">Concluding thoughts</h2>
+<p>Outcome modeling is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies where outcomes are modeled by parametric regression.</p>
+<p>Inverse probability of treatment weighting is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies from survey sampling where units from a population are sampled with known probabilities of inclusion. The analogy is that outcomes under treatment are sampled with estimated inclusion probabilities (the probability of treatment). Just as in a population sample we would need to think carefully about the probability of sampling, treatment modeling encourages us to model the probability of receiving the observed treatment.</p>
 
 
 </section>
@@ -1199,13 +1298,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../topics/nonparametric_estimation.html" class="pagination-link" aria-label="Nonparametric estimation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Nonparametric estimation</span>
+      <a href="../topics/what_is_a_model.html" class="pagination-link" aria-label="What is a model?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">What is a model?</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../topics/learning_exercise.html" class="pagination-link" aria-label="Learning Exercise">
-        <span class="nav-page-text">Learning Exercise</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../discussion.html" class="pagination-link" aria-label="Discussion Meetings">
+        <span class="nav-page-text">Discussion Meetings</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

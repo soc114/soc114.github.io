@@ -55,12 +55,12 @@ website:
           - topics/nonparametric_estimation.qmd
       - section: "Inference with Models"
         contents:
-          - section: "Models for description"
-            contents:
-              - topics/statistical_learning.qmd
-              - topics/learning_exercise.qmd
-              - topics/sample_splitting.qmd
-          - section: "Models for causal inference"
+          - topics/what_is_a_model.qmd
+          - topics/models_for_causal.qmd
+          # - section: "Models for description"
+          #   contents:
+          #     - topics/learning_exercise.qmd
+          #     - topics/sample_splitting.qmd
           - section: "Machine learning"
             contents:
       - href: discussion.qmd

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Models for causal inference – Social Data Science</title>
+<title>What is a model? – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,6 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../topics/models_for_causal.html" rel="next">
+<link href="../topics/nonparametric_estimation.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -129,7 +194,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Models for causal inference</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">What is a model?</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -252,39 +317,18 @@ ul.task-list li input[type="checkbox"] {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Models for description</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/statistical_learning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistical Learning</span></a>
+  <a href="../topics/what_is_a_model.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">What is a model?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/learning_exercise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Learning Exercise</span></a>
+  <a href="../topics/models_for_causal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models for causal inference</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/sample_splitting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sample Splitting</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Models for causal inference</span></span>
-  </li>
           <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
  <span class="menu-text">Machine learning</span></span>
@@ -299,22 +343,22 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Assignments</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Problem Sets</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/pset0.html" class="sidebar-item-text sidebar-link">
@@ -360,15 +404,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-simple-example" id="toc-a-simple-example" class="nav-link active" data-scroll-target="#a-simple-example">A simple example</a></li>
+  <li><a href="#ordinary-least-squares" id="toc-ordinary-least-squares" class="nav-link" data-scroll-target="#ordinary-least-squares">Ordinary least squares</a></li>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">What is a model?</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Models for causal inference</h1>
+<h1 class="title">What is a model?</h1>
 </div>
 
 
@@ -385,18 +437,237 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- As a setting, we consider... -->
-<!-- ```{r} -->
-<!-- simulated_nlsy97 <- readRDS("data_raw/simulated_nlsy97.RDS") -->
+<!-- [Slides](../slides/lec4/lec4.pdf) -->
+<!-- > The reading with this class is [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play." -->
+<p>What is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression. <!-- Then, we discuss why we would use a model. --></p>
+<p>At a high level, a model is a tool to share information across units with different <span class="math inline">\(\vec{X}\)</span> values when estimating subgroup summaries, such as the conditional mean <span class="math inline">\(\text{E}(Y\mid\vec{X} = \vec{x})\)</span> within the subgroup taking predictor value <span class="math inline">\(\vec{X} = \vec{x}\)</span>. By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren’t very many units observed in each subgroup.</p>
+<p>Later in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics.</p>
+<!-- ::: columns -->
+<!-- ::: {.column width="30%"} -->
+<!--  -->
+<!-- ::: -->
+<!-- ::: {.column width="30%"} -->
+<!--  -->
+<!-- ::: -->
+<!-- ::: {.column width="30%"} -->
+<!--  -->
+<!-- ::: -->
+<!-- ::: -->
+<section id="a-simple-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-simple-example">A simple example</h2>
+<p>As an example, we continue to use the data on baseball salaries, with a small twist. The file <a href="../data/baseball_population.csv"><code>baseball_population.csv</code></a> contains the following variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/baseball_population.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>player</code> is the player name</li>
+<li><code>team</code> is the team name</li>
+<li><code>salary</code> is the 2023 salary</li>
+<li><code>team_past_record</code> is the 2022 proportion of games won by that team</li>
+<li><code>team_past_salary</code> is the 2022 mean salary in that team</li>
+</ul>
+<p>Our goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is $6.23m. We will imagine that we don’t know this number. Instead of having the full population, we will imagine we have</p>
+<ul>
+<li>information on predictors for all players: position, team, team past record</li>
+<li>information on salary for a random sample of 5 players per team</li>
+</ul>
+<p>Our estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams’ players to help us make a better estimate of the Dodger mean salary.</p>
+<p>Our predictor will be the <code>team_past_salary</code> from the previous year. We assume that a team’s past salary in 2022 tells us something about their mean salary in 2023.</p>
+<p>For illustration, draw a sample of 5 players per team</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> population <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(team) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Construct a tibble with the observations to be predicted: the Dodgers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>to_predict <span class="ot">&lt;-</span> population <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(team <span class="sc">==</span> <span class="st">"L.A. Dodgers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ordinary-least-squares" class="level2">
+<h2 class="anchored" data-anchor-id="ordinary-least-squares">Ordinary least squares</h2>
+<p>We could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction <span class="math display">\[\hat{Y}_i = \hat\alpha + \hat\beta X_i\]</span> with <span class="math inline">\(\hat\alpha\)</span> and <span class="math inline">\(\hat\beta\)</span> chosen to minimize the sum of squared errors, <span class="math inline">\(\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2\)</span>. Visually, it minimizes all the line segments below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="what_is_a_model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here is how to estimate an OLS model using R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> team_past_salary, <span class="at">data =</span> sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we could predict the mean salary for the Dodgers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> to_predict <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We would report the mean predicted salary for the Dodgers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimated_Dodger_mean =</span> <span class="fu">mean</span>(predicted))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  estimated_Dodger_mean
+                  &lt;dbl&gt;
+1              7224025.</code></pre>
+</div>
+</div>
+<p>Our model-based estimate compares to the true population mean of $6.23m.</p>
+</section>
+<section id="logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h2>
+<p>Sometimes the outcome is binary (taking the values <code>{0,1}</code> or <code>{FALSE,TRUE}</code>). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (<code>position == "DH"</code>) as a linear function of player salary. For illustration, we do this on the full population.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ols_binary_outcome <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  position <span class="sc">==</span> <span class="st">"C"</span> <span class="sc">~</span> salary,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> population</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Catchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making $40 million is -2%! This prediction doesn’t make a lot of sense.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="what_is_a_model_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Logistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="what_is_a_model_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mathematically, logistic regression replaces <span class="math inline">\(\text{E}(Y\mid\vec{X})\)</span> on the left side of the equation with the logistic function.</p>
+<p><span class="math display">\[
+\underbrace{\log\left(\frac{\text{P}(Y\mid\vec{X})}{1 - \text{P}(Y\mid\vec{X})}\right)}_\text{Logistic Function} = \alpha + \vec{X}'\vec\beta
+\]</span></p>
+<p>In our example with the catchers, we can use logistic regression to model the probability of being a catcher using the <code>glm()</code> function. The <code>family = "binomial"</code> line tells the function that we want to estimate logistic regression (since “binomial” is a distribution for outcomes drawn at random with a given probability).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>logistic_regression <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  position <span class="sc">==</span> <span class="st">"C"</span> <span class="sc">~</span> salary,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> population,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can predict exactly as with OLS, except that we need to add the <code>type = "response"</code> argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined (<span class="math inline">\(-\inf,\inf\)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="what_is_a_model_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Below is code to make a prediction for the L.A. Dodgers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>predicted_logistic <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  logistic_regression,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> to_predict,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"response"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of <span class="math inline">\(\vec{X}\)</span> when estimating <span class="math inline">\(\text{E}(Y\mid \vec{X})\)</span> or <span class="math inline">\(\text{P}(Y = 1\mid\vec{X})\)</span>. This is especially useful any time when we do not get to observe many units at each value of <span class="math inline">\(\vec{X}\)</span>.</p>
+<!-- ## Why model? -->
+<!-- Why would we use a model? One case where the need for a model is especiall -->
+<!-- ## Penalized regression -->
+<!-- Penalized regression is just like OLS, except that it prefers coefficient estimates that are closer to 0. This can reduce sampling variability. One penalized regression is ridge regression, which penalizes the sum of squared coefficients. In our example, it estimates the parameters to minimize -->
+<!-- $$\underbrace{\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2}_\text{Squared Error} + \underbrace{\lambda\beta^2}_\text{Penalty}$$ -->
+<!-- where the positive scalar penalty $\lambda$ encodes our preference for coefficients to be near zero. Otherwise, penalized regression is just like OLS! -->
+<!-- The `gam()` function in the `mgcv` package will allow you to fit a ridge regression as follows. -->
+<!-- ```{r, message = F, warning = F} -->
+<!-- library(mgcv) -->
 <!-- ``` -->
-<!-- ## Linear outcome model -->
 <!-- ```{r} -->
+<!-- model <- gam( -->
+<!--   salary ~ s(record, bs = "re"), -->
+<!--   data = sample -->
+<!-- ) -->
 <!-- ``` -->
-<!-- ## Logistic treatment model -->
+<!-- Predict the Dodger mean salary just as before, -->
 <!-- ```{r} -->
+<!-- to_predict |> -->
+<!--   mutate(predicted = predict(model, newdata = to_predict)) -->
 <!-- ``` -->
+<!-- ## Splines -->
+<!-- We may want to allow a nonlinear relationship between the predictor and the outcome. One way to do that is with splines, which estimate part of the model locally within regions of the predictor space separated by **knots**. The code below uses a linear spline with knots at 0.4 and 0.6. -->
+<!-- ```{r} -->
+<!-- library(splines) -->
+<!-- model <- lm( -->
+<!--   salary ~ bs(record, degree = 1, knots = c(.4,.6)), -->
+<!--   data = sample -->
+<!-- ) -->
+<!-- ``` -->
+<!-- ```{r, echo = F, fig.height = 2} -->
+<!-- to_predict_all <- population |> -->
+<!--   distinct(team, record, target_subgroup) -->
+<!-- to_predict_all |> -->
+<!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> -->
+<!--   ggplot(aes(x = record, y = fitted)) + -->
+<!--   geom_line() + -->
+<!--   geom_point(aes(color = target_subgroup), size = 2) + -->
+<!--   scale_color_manual(values = c("black","dodgerblue")) + -->
+<!--   theme_classic() + -->
+<!--   theme(legend.position = "none") + -->
+<!--   scale_y_continuous( -->
+<!--     name = "Team Mean Salary", -->
+<!--     labels = label_dollar(scale = 1e-6, suffix = "m"), -->
+<!--     limits = c(0,10e6) -->
+<!--   ) + -->
+<!--   scale_x_continuous(name = "Past Team Win-Loss Record") -->
+<!-- ``` -->
+<!-- We can predict the Dodger mean salary just as before! -->
+<!-- ```{r} -->
+<!-- to_predict |> -->
+<!--   mutate(predicted = predict(model, newdata = to_predict)) -->
+<!-- ``` -->
+<!-- ## Trees -->
+<!-- Perhaps our response surface is bumpy, and poorly approximated by a smooth function. Decision trees search the predictor space for discrete places where the outcome changes, and assume that the response is flat within those regions. -->
+<!-- ```{r} -->
+<!-- library(rpart) -->
+<!-- model <- rpart(salary ~ record, data = sample) -->
+<!-- ``` -->
+<!-- ```{r, echo = F, fig.height = 2} -->
+<!-- to_predict_all |> -->
+<!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> -->
+<!--   ggplot(aes(x = record, y = fitted)) + -->
+<!--   geom_step() + -->
+<!--   geom_point(aes(color = target_subgroup), size = 2) + -->
+<!--   scale_color_manual(values = c("black","dodgerblue")) + -->
+<!--   theme_classic() + -->
+<!--   theme(legend.position = "none") + -->
+<!--   scale_y_continuous( -->
+<!--     name = "Team Mean Salary", -->
+<!--     labels = label_dollar(scale = 1e-6, suffix = "m"), -->
+<!--     limits = c(0,10e6) -->
+<!--   ) + -->
+<!--   scale_x_continuous(name = "Past Team Win-Loss Record") -->
+<!-- ``` -->
+<!-- Predict as in the other strategies. -->
+<!-- ```{r} -->
+<!-- to_predict |> -->
+<!--   mutate(predicted = predict(model, newdata = to_predict)) -->
+<!-- ``` -->
+<!-- ## Conclusion -->
+<!-- Statistical learning in this framing is all about -->
+<!-- - we have a subgroup with few sampled units (the Dodgers) -->
+<!-- - we want to use other units to help us learn -->
+<!-- - our goal is to predict the population mean in the subgroup -->
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -963,6 +1234,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../topics/nonparametric_estimation.html" class="pagination-link" aria-label="Nonparametric estimation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Nonparametric estimation</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../topics/models_for_causal.html" class="pagination-link" aria-label="Models for causal inference">
+        <span class="nav-page-text">Models for causal inference</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
