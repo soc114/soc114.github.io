@@ -2,6 +2,8 @@
 title: "Conditional exchangeability"
 ---
 
+> This topic is covered Feb 4. Here are [slides](../slides/lec09_conditional_exchangeability/lec09_conditional_exchangeability.pdf).
+
 ```{r, echo = F, comment = F, warning = F, output = F}
 library(tidyverse)
 ```

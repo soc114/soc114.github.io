@@ -1,0 +1,195 @@
+---
+title: "How to estimate in a conditionally randomized experiment"
+subtitle: "More formally: Nonparametric estimation by subgroup means under conditional exchangeability"
+author: "Soc 114"
+format: beamer
+execute:
+  echo: TRUE
+header-includes:
+  \def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+  \newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+---
+
+## Nonparametric estimation
+
+(a fancy words for model-free estimation, such as with `group_by` and `summarize()`)
+
+## Simulated setting: In math
+
+* Treatment `a` takes values `0` and `1`
+* Conditionally randomized within `x`, taking values `0`, `1` and `2`
+     * $\text{P}(A = 1 \mid X = 0) = .3$
+     * $\text{P}(A = 1 \mid X = 1) = .5$
+     * $\text{P}(A = 1 \mid X = 2) = .8$
+* Outcome $Y$ is numeric
+
+## Simulated setting: In data
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+simulated <- tibble(id = 1:1000) |>
+  mutate(
+    x = rbinom(n(), 2, .5),
+    pi = case_when(
+      x == 0 ~ .3,
+      x == 1 ~ .5,
+      x == 2 ~ .8
+    ),
+    a = rbinom(n(), 1, pi),
+    y = rnorm(n(), mean = x*a),
+    sampling_weight = 1
+  ) |>
+  select(id, x, a, y, sampling_weight) |>
+  print(n = 5)
+```
+
+## 1) Estimate within subgroups
+
+Estimate each mean potential outcome in each subgroup $\text{E}(Y^a\mid X = x)$ by the subgroup sample weighted mean among those with $X = x$ and $A = a$.
+
+$$
+\begin{aligned}
+\hat{\text{E}}\left(Y^a\mid X = x\right) &= \hat{\text{E}}(Y\mid X = x, A = a) \\
+&= \frac{\sum_{i:X_i=x,A_i=a}w_iY_i}{\sum_{i:X_i=x,A_i=a}w_i}
+\end{aligned}
+$$
+
+## 1) Estimate within subgroups
+
+\footnotesize
+```{r, warning = F, comment = F}
+average_potential_outcomes <- simulated |>
+  group_by(x,a) |>
+  summarize(mean_y = weighted.mean(y, w = sampling_weight))
+```
+```{r, echo = F}
+average_potential_outcomes |> print()
+```
+
+## 2) Pivot across treatment $A$ to take differences
+
+\footnotesize
+```{r}
+cate <- average_potential_outcomes |>
+  # Pivot wider and difference over A to estimate CATE
+  pivot_wider(
+    names_from = a, 
+    names_prefix = "mean_y", 
+    values_from = "mean_y"
+  ) |>
+  mutate(cate = mean_y1 - mean_y0) |>
+  print()
+```
+
+## 3) Re-aggregate to the Average Treatment Effect
+
+The average treatment effect (ATE) is the weighted average of the conditional average treatment effects (CATEs), weighted by size.
+
+$$
+\underbrace{\hat{\text{E}}\left(Y^1-Y^0\right)}_{\substack{\text{estimated overall}\\\text{average effect}}} = \underbrace{\sum_x}_{\substack{\text{sum over}\\\text{subgroups}}} \underbrace{\hat{\text{P}}(X = x)}_{\text{size of subgroup}}\underbrace{\hat{\text{E}}\left(Y^1 - Y^0\mid X = x\right)}_{\substack{\text{average effect}\\\text{within subgroup}}}
+$$
+
+## 3) Re-aggregate to the Average Treatment Effect
+
+First, determine the size of the subgroups:
+
+\footnotesize
+```{r}
+stratum_sizes <- simulated |>
+  # Count sum of sampling weight in each stratum
+  count(x, wt = sampling_weight) |>
+  # Convert count to a proportion of the population
+  mutate(stratum_size = n / sum(n)) |>
+  select(-n)
+```
+```{r, echo = F}
+stratum_sizes |> print()
+```
+
+## 3) Re-aggregate to the Average Treatment Effect
+
+Then, re-aggregate across subgroups:
+
+\footnotesize
+```{r}
+cate_with_stratum_size <- cate |>
+  left_join(stratum_sizes, by = join_by(x)) |>
+  ungroup()
+```
+```{r, echo = F}
+cate_with_stratum_size |> print()
+```
+```{r}
+ate <- cate_with_stratum_size |>
+  summarize(ate = weighted.mean(cate, w = stratum_size))
+```
+```{r, echo = F}
+ate |> print()
+```
+
+## Takeaways
+
+* In a **conditionally randomized experiment**, units are randomly assigned to treatment within subgroups of $X$.
+* We get **conditional exchangeability**:
+$$
+\underbrace{\{Y^1,Y^0\}}_{\substack{\text{Potential}\\\text{Outcomes}}} \underbrace{\indep}_{\substack{\text{Are}\\\text{Independent of}}} \underbrace{A}_\text{Treatment} \underbrace{\mid}_{\substack{\text{Within}\\\text{Subgroups}}} \underbrace{X}_\text{of X}
+$$
+* Under conditional exchangeability, causal effects within subgroups can be estimated by a difference in means
+
+## Bonus: Estimation by treatment weighting
+
+Treatment weighting is an approach that begins from a different angle but ends up at a mathematically equivalent estimator.
+
+For each unit, we obseve $Y^{A_i}$ with some probability
+$$\text{P}(A = A_i \mid X = x_i)$$
+We can estimate by the proportion within each subgroup to receive treatment $A = A_i$.
+
+* For units with $A_i = 1$, this is the subgroup mean of $A = 1$
+* For units with $A_i = 0$, this is the subgroup mean of $A = 0$
+
+## Bonus: Estimation by treatment weighting
+
+\footnotesize
+```{r}
+data_with_probabilities <- simulated |>
+  group_by(x) |>
+  mutate(probability_of_a = case_when(
+    # For treated units, proportion treated
+    a == 1 ~ mean(a),
+    # For untreated units, proportion untreated
+    a == 0 ~ mean(1 - a)
+  )) |>
+  ungroup() |>
+  print()
+```
+
+## Bonus: Estimation by treatment weighting
+
+Sampling weights are 1 divided by the probability of inclusion in the sample. Likewise, treatment weights are 1 divided by the probability of receiving a particular treatment.
+
+\footnotesize
+```{r}
+data_with_weights <- data_with_probabilities |>
+  mutate(
+    total_weight = sampling_weight * (1 / probability_of_a)
+  ) |>
+  print(n = 3)
+```
+
+## Bonus: Estimation by treatment weighting
+
+Once we have inverse probability of treatment weights, we can estimate by the sample weighted mean in each treatment group.
+
+\footnotesize
+```{r}
+ate <- data_with_weights |>
+  group_by(a) |>
+  summarize(estimate = weighted.mean(y, w = total_weight)) |>
+  pivot_wider(
+    names_from = a, 
+    names_prefix = "mean_y", 
+    values_from = estimate
+  ) |>
+  mutate(ate = mean_y1 - mean_y0) |>
+  print()
+```

@@ -1,0 +1,2 @@
+\beamer@sectionintoc {1}{Review of Exchangeability}{3}{0}{1}
+\beamer@sectionintoc {2}{Conditional Randomization}{6}{0}{2}

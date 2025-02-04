@@ -2,6 +2,8 @@
 title: "Nonparametric estimation"
 ---
 
+> If time allows, this will be covered on Feb 4. Here are [slides]([slides](../slides/lec09b_nonparametric_estimation/lec09b_nonparametric_estimation.pdf)
+
 Under the assumption of conditional exchangeability given a sufficient adjustment set $\vec{X}$, the average causal effect within subgroups defined by $\vec{X}$ is identified by the difference in means across the treatment $A$ within this subgroup.
 
 This page walks through how to estimate that difference in means and (optinally) re-aggregate the conditional average causal effects to average causal effect estimates. We illustrate in a simple case represented by the DAG below.
@@ -23,7 +25,7 @@ In our illustration, the treatment `a` is binary and the outcome `y` is numeric.
 
 You can simulate a dataset of 1,000 observations by running the code below.
 
-```{r, echo = F, message = F, warning = F}
+```{r, message = F, warning = F}
 library(tidyverse)
 simulated <- tibble(id = 1:1000) |>
   mutate(

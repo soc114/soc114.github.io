@@ -51,8 +51,8 @@ website:
           - topics/define_causal.qmd
           - topics/exchangeability.qmd
           - topics/conditional_exchangeability.qmd
-          - topics/DAGs.qmd
           - topics/nonparametric_estimation.qmd
+          - topics/DAGs.qmd
       - section: "Inference with Models"
         contents:
           - topics/what_is_a_model.qmd

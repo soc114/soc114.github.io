@@ -18,7 +18,7 @@ The course is divided into three broad sections:
 
 Each date will be a link to the slides for that lecture.
 
-| Date | Course Section | Website Page |
+| Date | Website Page |
 |---|---|---|
 | [Jan 7](slides/lec01_asking_questions/lec01_asking_questions.pdf)	| [Welcome](index.qmd) |
 | | [Asking questions](topics/asking_questions.qmd) |
@@ -30,17 +30,18 @@ Each date will be a link to the slides for that lecture.
 | Thu, [Jan 23](slides/lec06_sampling/lec06_sampling.pdf)	| [Population sampling](topics/sampling.qmd) |
 | Tue, [Jan 28](slides/lec07_define_causal/lec07.pdf)	| [Defining causal effects](topics/define_causal.qmd) |
 | Thu, [Jan 30](slides/lec08_experiments/lec08_experiments.pdf)	| Exchangeability and experiments |
-| Tue, Feb 4	| Exchangeability and observational studies |
-| Thu, Feb 6	| Exchangeability and observational studies |
-| Tue, Feb 11	| Why model? |
-| Thu, Feb 13	| Properties of estimators |
-| Tue, Feb 18	| Estimating the properties of estimators |
-| Thu, Feb 20	| Modeling for causal inference: Outcome model |
-| Tue, Feb 25	| Modeling for causal inference: IPTW |
-| Thu, Feb 27	| Machine learning as a plug-in: Descriptive and causal |
-| Tue, Mar 4	| Machine learning: Penalized regression |
-| Thu, Mar 6	| Machine learning: Trees and forests |
-| Tue, Mar 11	| Machine learning vs regression: A case study (FF Challenge) |
+| Tue, [Feb 4](slides/lec09_conditional_exchangeability/lec09_conditional_exchangeability.pdf)	| [Conditional exchangeability](topics/conditional_exchangeability.qmd) |
+| 	| [Nonparametric estimation](topics/nonparametric_estimation.qmd) |
+| Thu, Feb 6	| [Directed Acyclic Graphs (DAGs)](topics/DAGs.qmd) |
+| Tue, Feb 11	| [What is a model?](topics/what_is_a_model.qmd) |
+| Thu, Feb 13 | [Models for causal inference](topics/models_for_causal.qmd)
+| Tue, Feb 18	| Properties of estimators |
+| Thu, Feb 20	| Estimating the properties of estimators |
+| Tue, Feb 25	| Machine learning as a plug-in: Descriptive and causal |
+| Tue, Feb 27	| Machine learning as a plug-in: Descriptive and causal |
+| Thu, Mar 4	| Machine learning: Penalized regression |
+| Tue, Mar 6	| Machine learning: Trees and forests |
+| Thu, Mar 11	| Machine learning vs regression: A case study (FF Challenge) |
 | Thu, Mar 13	| Course recap |
 
 ## Assignments
