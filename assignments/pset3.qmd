@@ -4,13 +4,13 @@ title: "Problem Set 3: Causal Inference"
 
 **Due: 5pm on Friday, February 14.**
 
-::: {.callout-note}
-Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link)
-:::
+<!-- ::: {.callout-note} -->
+<!-- Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link) -->
+<!-- ::: -->
 
 Student identifer: [type your anonymous identifier here]
 
-- Use this [.qmd template](../assets/pset3/pset3.qmd) to complete the problem set
+- Use this <a href="../assets/pset3/pset3.qmd" download>pset3.qmd</a> to complete the problem set
 - In Canvas, you will upload the PDF produced by your .qmd file
 - Put your identifier above, not your name! We want anonymous grading to be possible
 
@@ -93,6 +93,8 @@ When typing math, there are a few things you will want to know.
 
 ## How to include hand-written math
 
-You are also welcome to handwrite math and take a picture of it. Put your picture in the folder where your .qmd document is located. To include the picture in your writeup, type
+You are also welcome to handwrite math and take a picture of it. Put your picture in the folder where your .qmd document is located. To include the picture in your writeup, type 
 
 `![](NameOfYourPictureFile.png)`
+
+(remove the backticks before and after to use this line)

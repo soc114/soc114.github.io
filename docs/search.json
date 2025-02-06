@@ -1128,7 +1128,7 @@
     "href": "assignments/pset3.html#how-to-include-hand-written-math",
     "title": "Problem Set 3: Causal Inference",
     "section": "How to include hand-written math",
-    "text": "How to include hand-written math\nYou are also welcome to handwrite math and take a picture of it. Put your picture in the folder where your .qmd document is located. To include the picture in your writeup, type\n![](NameOfYourPictureFile.png)",
+    "text": "How to include hand-written math\nYou are also welcome to handwrite math and take a picture of it. Put your picture in the folder where your .qmd document is located. To include the picture in your writeup, type\n![](NameOfYourPictureFile.png)\n(remove the backticks before and after to use this line)",
     "crumbs": [
       " ",
       "Assignments",

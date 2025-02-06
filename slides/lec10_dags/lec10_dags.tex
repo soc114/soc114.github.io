@@ -24,8 +24,6 @@
 \newcommand{\Cov}{\text{Cov}}
 \newcommand{\Cor}{\text{Cor}}
 \newcommand\doop{\text{do}}
-
-
 \usepackage{stackrel}
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
@@ -57,6 +55,7 @@
 \only<2|handout:1>{\tableofcontents[currentsection]}}
 %}
 }
+\usepackage{soul}
 
 \setbeamertemplate{footline}[frame number]
 
@@ -157,30 +156,29 @@ Between $A$ and $Y$, what are the two paths? \pause
 
 \end{frame}
 
-\begin{frame}{Causal paths}
+\begin{frame}{Causal path}{$\bullet\rightarrow\bullet\rightarrow\bullet$}
 
-In a \textbf{causal path}, all arrows point in the same direction.\\($\bullet\rightarrow\bullet\rightarrow\bullet$) \vskip .2in \pause
+A path in which arrows point in the same direction \vskip .2in \pause
 
 What three paths between $A$ and $Y$? \\
 Which two are causal paths? \\
 
 \begin{center}
-\begin{tikzpicture}[x = .3in, y = .3in]
-    \node at (-3,0) {};
-    \node at (3,0) {};
+\begin{tikzpicture}[x = .5in, y = .5in]
     \node (x) at (-2,-1) {$X$};
     \node (a) at (-2,0) {$A$};
     \node (m) at (0,0) {$M$};
     \node (y) at (2,0) {$Y$};
     \draw[->, thick] (x) -- (a);
-    \draw[->, thick] (a) to[bend left = 25] (y);
+    \draw[->, thick] (a) to[bend right = 25] (y);
     \draw[->, thick] (a) -- (m);
     \draw[->, thick] (m) -- (y);
     \draw[->, thick] (x) -- (a);
     \draw[->, thick] (x) to[out = 0, in = 270] (y);
         % Labels
     \node[anchor = north, font = \small, align = center] at (x.south) {In top 25\%\\of high school class?};
-    \node[anchor = south, font = \small, align = center] at (a.north) {Assigned to four-year\\college degree?};
+    \node[anchor = south, font = \small, align = center] at (a.north) {Enrolled in\\college};
+    \node[anchor = south, font = \small, align = center] at (m.north) {Completed\\college};
     \node[anchor = south, font = \small, align = center] at (y.north) {Employed at\\age 40?};
   \end{tikzpicture}
 \end{center} \pause \vskip .1in
@@ -192,28 +190,34 @@ $A\leftarrow X \rightarrow Y$ & \only<6->{not a causal path}
 
 \end{frame}
 
-\begin{frame}{Causal paths}
+\begin{frame}{Causal path: Marginal dependence}{$\bullet\rightarrow\bullet\rightarrow\bullet$}
 
-When two variables are connected by a causal path, those variables are statistically associated (because the first variable causes the second) unless you hold constant some variable along the path \vskip .2in \pause
+A causal path $A\rightarrow\cdots\rightarrow B$ will make the variables $A$ and $B$ statistically dependent \vskip .2in
 
-Example: Among people with a fever,\\
-($A$: friend offers Tylenol) $\rightarrow$ ($M$: person takes Tylenol)\\$\rightarrow$ ($Y$: Fever subsides quickly)
-\begin{itemize}
-\item Marginally, this causal path makes $A$ associated with $Y$
-\begin{itemize}
-\item Fevers subsided more quickly among those whose friend offered Tylenol
-\end{itemize}
-\item Conditional on $M = 0$, $A$ and $Y$ are unrelated
-\begin{itemize}
-\item Among those who didn't take Tylenol, it doesn't matter whether a friend offered them Tylenol or not. Fevers were the same.
-\end{itemize}
-\end{itemize}
+Example:
+$$(\text{visits grocery store}) \rightarrow (\text{buys ice cream}) \rightarrow (\text{eats ice cream})$$ \vskip .2in \pause
+
+What if we condition:\\filter to those with (buys ice cream = \texttt{FALSE})?
 
 \end{frame}
 
-\begin{frame}[t]{Fork structures}
+\begin{frame}{Causal path: Conditional independence}{$\bullet\rightarrow\bullet\rightarrow\bullet$}
 
-A \textbf{fork structure} is a sequence of edges within a path in which two variables are both caused by a third variable: $A\leftarrow C \rightarrow B$ \pause \vskip .1in
+A causal path $A\rightarrow\cdots\rightarrow B$ will not make the variables $A$ and $B$ statistically dependent if we condition on a variable along the path \vskip .2in
+
+Example:
+$$(\text{visits grocery store}) \rightarrow \boxed{(\text{buys ice cream})} \rightarrow (\text{eats ice cream})$$ \pause
+
+Among people who didn't buy ice cream today,\\
+those who went to the store and didn't\\
+are equally likely to be eating ice cream. \vskip .2in \pause
+Conditioning on (buys ice cream = \texttt{FALSE}) \textbf{blocks} this path.
+
+\end{frame}
+
+\begin{frame}[t]{Fork structure}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
+
+A sequence of edges within a path in which two variables are both caused by a third variable: $A\leftarrow C \rightarrow B$ \pause \vskip .1in
 
 In our initial graph, what path contains a fork structure?
 
@@ -240,10 +244,226 @@ Recall that there are two paths:
 \item $A\leftarrow X \rightarrow Y$ \onslide<3->{(this path contains a fork structure)}
 \end{enumerate}
 
+\end{frame}
+
+\begin{frame}{Fork structure: Marginal dependence}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
+
+A fork structure $A\leftarrow C \rightarrow B$ will make $A$ and $B$ statistically dependent (because $C$ causes both). \vskip .1in
+
+Example:
+$$(\text{completed college}) \leftarrow (\text{top 25\% of high school})\rightarrow (\text{employed at 40})$$
+
+\end{frame}
+
+\begin{frame}{Fork structure: Marginal dependence}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
+
+A fork structure $A\leftarrow C \rightarrow B$ will make $A$ and $B$ statistically dependent (because $C$ causes both). \vskip .1in
+
+Example:
+$$(\text{lifeguard rescues}) \leftarrow (\text{temperature})\rightarrow (\text{ice cream sales})$$ \pause
+
+On days with many lifeguard rescues,\\there are also many ice cream sales.\\Warm temperature causes both. \vskip .2in \pause
+What if we look only at days with a given temperature?
+
+\end{frame}
+
+\begin{frame}{Fork structure: Conditional independence}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
+
+A fork structure $A\leftarrow \boxed{C} \rightarrow B$ does not make $A$ and $B$ statistically dependent if we condition on $C$. \vskip .1in
+
+Example:
+$$(\text{lifeguard rescues}) \leftarrow \boxed{(\text{temperature})} \rightarrow (\text{ice cream sales})$$
+Among days with a given temperature,\\lifeguard rescues and ice cream sales are unrelated. \vskip .2in
+Conditioning on (temperature) blocks this path.
+
+\end{frame}
+
+\begin{frame}{Collider structure}{$\bullet\rightarrow\bullet\leftarrow\bullet$}
+
+A sequence of edges within a path in which two variables both cause a third variable: $A\rightarrow C \leftarrow B$ \pause \vskip .1in
+Example:
+\begin{itemize}
+\item sprinklers on a timer
+\item rain on random days
+\item either one can make the grass wet
+\end{itemize}
+
+$$
+(\text{sprinklers on}) \rightarrow (\text{grass wet}) \leftarrow (\text{raining})
+$$ \pause
+Are (sprinklers on) and (raining) statistically related?
+
+\end{frame}
+
+\begin{frame}{Collider structure: Marginal independence}{$\bullet\rightarrow\bullet\leftarrow\bullet$}
+
+In a collider structure $A\rightarrow C \leftarrow B$,\\
+$A$ and $B$ are marginally independent.
+$$
+(\text{sprinklers on}) \rightarrow (\text{grass wet}) \leftarrow (\text{raining})
+$$
+Knowing (sprinklers on = \texttt{TRUE}) tells me nothing about whether (raining = \texttt{TRUE}) \vskip .2in \pause
+
+What if I condition: look only at days when the grass is wet?
+
+\end{frame}
+
+\begin{frame}{Collider structure: Conditional dependence}{$\bullet\rightarrow\bullet\leftarrow\bullet$}
+
+$$
+(\text{sprinklers on}) \rightarrow \boxed{(\text{grass wet})} \leftarrow (\text{raining})
+$$ \vskip .2in \pause
+Among days when (grass wet = \texttt{TRUE}),\\
+if (sprinklers on = \texttt{FALSE})\\
+then it must be (raining = \texttt{TRUE}) \vskip .1in
+(grass had to get wet somehow!) \vskip .2in \pause
+
+In a collider structure $A\rightarrow \boxed{C} \leftarrow B$,\\
+$A$ and $B$ are conditionally dependent.
+
+\end{frame}
+
+\begin{frame}{Three structures}
+
+\begin{tabular}{llll}
+& & $A$ and $B$ & $A$ and $B$ \\
+& & marginally & conditionally \\
+Name & Structure & dependent? & dependent given $C$? \\
+\hline
+Causal path & $A\rightarrow C \rightarrow B$ & Yes & No \\
+Fork & $A\leftarrow C \rightarrow B$ & Yes & No \\
+Collider & $A \rightarrow C \leftarrow B$ & No & Yes \\
+\hline
+\end{tabular}
+
+\end{frame}
+
+\begin{frame}[t]{A path can involve forks, colliders, and causal paths}
+
+\begin{footnotesize}
+$$
+(\text{timer displays clock}) \leftarrow (\text{timer works}) \rightarrow (\text{sprinklers on}) \rightarrow (\text{grass wet}) \leftarrow (\text{raining})
+$$
+\end{footnotesize} \pause
+
+(timer displays clock) is statistically related to which variables? \vskip .05in
+
+\begin{tabular}{ll}
+timer works & \onslide<3->{yes} \\
+sprinklers on & \onslide<4->{yes} \\
+grass wet & \onslide<5->{yes} \\
+raining & \onslide<6->{no} \\
+\end{tabular} \vskip .2in
+
+\onslide<7->{We just learned: One collider can block an entire path}
+
+\end{frame}
+
+\begin{frame}[t]{A path can involve forks, colliders, and causal paths}
+
+\begin{footnotesize}
+$$
+(\text{timer displays clock}) \leftarrow (\text{timer works}) \rightarrow \boxed{(\text{sprinklers on})} \rightarrow (\text{grass wet}) \leftarrow (\text{raining})
+$$
+\end{footnotesize} \pause
+
+(timer displays clock) is statistically related to which variables? \vskip .05in
+
+\begin{tabular}{ll}
+timer works & \onslide<3->{yes} \\
+grass wet & \onslide<4->{no} \\
+raining & \onslide<5->{no} \\
+\end{tabular} \vskip .2in
+
+\onslide<6->{We just learned: One conditioned non-collider can block an entire path}
+
+\end{frame}
+
+\begin{frame}{Rules for whether paths are open or blocked}
+
+\begin{itemize}
+\item If a path contains an unconditioned collider, it is blocked
+\item If a path contains a conditioned non-collider, it is blocked
+\item Otherwise, the path is open
+\end{itemize} \vskip .1in
+
+Open paths create statistical dependence.\\Blocked paths do not.
+
+\end{frame}
+
+\begin{frame}[t]{Determining statistical dependence: A procedure}
+
+How do you know if two nodes are dependent?
+\begin{enumerate}
+\item List all paths between the two nodes
+\item Cross out any blocked paths that are blocked
+\item If any paths remain, the two nodes are dependent
+\end{enumerate} \vskip .2in \pause
+
+Practice: Are $A$ and \only<2-6>{$C$}\only<7-10>{$D$} statistically independent or dependent?
+
+  \begin{tikzpicture}[x = .5in, y = .4in]
+  \node at (-2,0) {};
+  \node at (5,0) {};
+  \node (x) at (0,-1) {$X$};
+  \node (a) at (0,0) {$A$};
+  \node (b) at (1,1) {$B$};
+  \node (c) at (2,0) {$C$};
+  \node (d) at (3,0) {$D$};
+  \draw[->, thick] (a) -- (b);
+  \draw[->, thick] (c) -- (b);
+  \draw[->, thick] (c) -- (d);
+  \draw[->, thick] (x) -- (a);
+  \draw[->, thick] (x) to[out = 0, in = 210] (d);
+  \end{tikzpicture}
+
+\only<3-6>{
+\begin{itemize}
+\item \only<4-6>{\st}{$A\rightarrow B \leftarrow C$}
+\item \only<5-6>{\st}{$A\leftarrow X \rightarrow D \leftarrow C$}
+\end{itemize}
+\only<6>{No unblocked paths. $A$ and $C$ are independent!}
+}
+\only<8-10>{
+\begin{itemize}
+\item \only<9-10>{\st}{$A\rightarrow B \leftarrow C \rightarrow D$}
+\item $A\leftarrow X \rightarrow D$
+\end{itemize}
+\only<10>{One remains. $A$ and $D$ are dependent!}
+}
 
 
 \end{frame}
 
+% CONDITIONAL
+
+\begin{frame}[t]{Determining statistical dependence: A procedure}
+
+How do you know if two nodes are dependent?
+\begin{enumerate}
+\item List all paths between the two nodes
+\item Cross out any blocked paths that are blocked
+\item If any paths remain, the two nodes are dependent
+\end{enumerate} \vskip .2in \pause
+
+Practice: Are $A$ and $D$ statistically independent or dependent, conditional on $X$ and $B$?
+
+  \begin{tikzpicture}[x = .5in, y = .4in]
+  \node at (-2,0) {};
+  \node at (5,0) {};
+  \node (x) at (0,-1) {$X$};
+  \node (a) at (0,0) {$A$};
+  \node (b) at (1,1) {$B$};
+  \node (c) at (2,0) {$C$};
+  \node (d) at (3,0) {$D$};
+  \draw[->, thick] (a) -- (b);
+  \draw[->, thick] (c) -- (b);
+  \draw[->, thick] (c) -- (d);
+  \draw[->, thick] (x) -- (a);
+  \draw[->, thick] (x) to[out = 0, in = 210] (d);
+  \end{tikzpicture}
+  
+  \end{frame}
 
 \goalsframe
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  4 FEB 2025 15:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  5 FEB 2025 15:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1063,12 +1063,38 @@ File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@layerbox@bg=\box150
 \pgf@layerboxsaved@bg=\box151
 
+(/usr/local/texlive/2023/texmf-dist/tex/generic/soul/soul.sty
+Package: soul 2023-02-18 v3.0 Permit use of UTF-8 characters in soul (HO)
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/soul/soul-ori.sty
+Package: soul-ori 2023-02-18 v3.0 letterspacing/underlining (mf)
+\SOUL@word=\toks52
+\SOUL@lasttoken=\toks53
+\SOUL@syllable=\toks54
+\SOUL@cmds=\toks55
+\SOUL@buffer=\toks56
+\SOUL@token=\toks57
+\SOUL@syllgoal=\dimen346
+\SOUL@syllwidth=\dimen347
+\SOUL@charkern=\dimen348
+\SOUL@hyphkern=\dimen349
+\SOUL@dimen=\dimen350
+\SOUL@dimeni=\dimen351
+\SOUL@minus=\count368
+\SOUL@comma=\count369
+\SOUL@apo=\count370
+\SOUL@grave=\count371
+\SOUL@spaceskip=\skip78
+\SOUL@ttwidth=\dimen352
+\SOUL@uldp=\dimen353
+\SOUL@ulht=\dimen354
+))
 (/usr/local/texlive/2023/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip78
-\bibsep=\skip79
+\bibhang=\skip79
+\bibsep=\skip80
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count368
+\c@NAT@ctr=\count372
 )
 (/usr/local/texlive/2023/texmf-dist/tex/latex/mathtools/mathtools.sty
 Package: mathtools 2022/06/29 v1.29 mathematical typesetting tools
@@ -1076,44 +1102,44 @@ Package: mathtools 2022/06/29 v1.29 mathematical typesetting tools
 (/usr/local/texlive/2023/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-\g_MT_multlinerow_int=\count369
-\l_MT_multwidth_dim=\dimen346
-\origjot=\skip80
-\l_MT_shortvdotswithinadjustabove_dim=\dimen347
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen348
-\l_MT_above_intertext_sep=\dimen349
-\l_MT_below_intertext_sep=\dimen350
-\l_MT_above_shortintertext_sep=\dimen351
-\l_MT_below_shortintertext_sep=\dimen352
+\g_MT_multlinerow_int=\count373
+\l_MT_multwidth_dim=\dimen355
+\origjot=\skip81
+\l_MT_shortvdotswithinadjustabove_dim=\dimen356
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen357
+\l_MT_above_intertext_sep=\dimen358
+\l_MT_below_intertext_sep=\dimen359
+\l_MT_above_shortintertext_sep=\dimen360
+\l_MT_below_shortintertext_sep=\dimen361
 \xmathstrut@box=\box152
-\xmathstrut@dim=\dimen353
+\xmathstrut@dim=\dimen362
 )
 (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count370
+\l__color_backend_stack_int=\count374
 \l__pdf_internal_box=\box153
 )
 (./lec10_dags.aux)
 \openout1 = `lec10_dags.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1151,17 +1177,17 @@ LaTeX Font Info:    ... okay on input line 89.
 
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count371
-\scratchdimen=\dimen354
+\scratchcounter=\count375
+\scratchdimen=\dimen363
 \scratchbox=\box154
-\nofMPsegments=\count372
-\nofMParguments=\count373
-\everyMPshowfont=\toks52
-\MPscratchCnt=\count374
-\MPscratchDim=\dimen355
-\MPnumerator=\count375
-\makeMPintoPDFobject=\count376
-\everyMPtoPDFconversion=\toks53
+\nofMPsegments=\count376
+\nofMParguments=\count377
+\everyMPshowfont=\toks58
+\MPscratchCnt=\count378
+\MPscratchDim=\dimen364
+\MPnumerator=\count379
+\makeMPintoPDFobject=\count380
+\everyMPtoPDFconversion=\toks59
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1171,66 +1197,66 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 89.
+Package hyperref Info: Link coloring OFF on input line 88.
 
 (./lec10_dags.out) (./lec10_dags.out)
 \@outlinefile=\write5
 \openout5 = `lec10_dags.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 89.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 88.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 89.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 88.
 \symnumbers=\mathgroup11
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 89.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 88.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/cmss/m/it on input line 8
-9.
+8.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/bx/sl --> OT1/cmss/m/it on input line 
-89.
+88.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 89.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 88.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 89.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 89.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 88.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 89.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 89.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 88.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 89.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 89.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 88.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 89.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 88.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 89.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 89.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 89.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 89.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 89.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 88.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 89.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 89.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 88.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 88.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
 (Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 8
-9.
+8.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 8
-9.
+8.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 89.
+ut line 88.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/translator/translator-basic-dicti
 onary-English.dict
@@ -1271,19 +1297,19 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 (./lec10_dags.nav) [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 93.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 92.
 
  (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 93.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 92.
 
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 93.
+ut line 92.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
@@ -1295,7 +1321,7 @@ thkerncmss.
 File: figures/conditional_randomization.pdf Graphic file (type pdf)
 <use figures/conditional_randomization.pdf>
 Package pdftex.def Info: figures/conditional_randomization.pdf  used on input l
-ine 99.
+ine 98.
 (pdftex.def)             Requested size: 307.28987pt x 174.10582pt.
  [3
 
@@ -1332,6 +1358,198 @@ ine 99.
 
 ] [19
 
+] [20
+
+] [21
+
+]
+Overfull \hbox (9.74316pt too wide) detected at line 256
+\OT1/cmss/m/n/10.95 ([]) \OMS/cmsy/m/n/10.95   \OT1/cmss/m/n/10.95 ([]) \OMS/cm
+sy/m/n/10.95 ! \OT1/cmss/m/n/10.95 ([])
+ []
+
+[22
+
+] [23
+
+] [24
+
+] [25
+
+] [26
+
+] [27
+
+] [28
+
+] [29
+
+] [30
+
+] [31
+
+] [32
+
+] [33
+
+] [34
+
+] [35
+
+]
+Overfull \hbox (17.18805pt too wide) detected at line 360
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+[36
+
+]
+Overfull \hbox (17.18805pt too wide) detected at line 360
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+[37
+
+]
+Overfull \hbox (17.18805pt too wide) detected at line 360
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+[38
+
+]
+Overfull \hbox (17.18805pt too wide) detected at line 360
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+[39
+
+]
+Overfull \hbox (17.18805pt too wide) detected at line 360
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+[40
+
+]
+Overfull \hbox (17.18805pt too wide) detected at line 360
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+[41
+
+]
+Overfull \hbox (17.18805pt too wide) detected at line 360
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+[42
+
+]
+Overfull \hbox (23.98804pt too wide) detected at line 380
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
+] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+[43
+
+]
+Overfull \hbox (23.98804pt too wide) detected at line 380
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
+] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+[44
+
+]
+Overfull \hbox (23.98804pt too wide) detected at line 380
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
+] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+[45
+
+]
+Overfull \hbox (23.98804pt too wide) detected at line 380
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
+] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+[46
+
+]
+Overfull \hbox (23.98804pt too wide) detected at line 380
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
+] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+[47
+
+]
+Overfull \hbox (23.98804pt too wide) detected at line 380
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
+] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+[48
+
+] [49
+
+] [50
+
+] [51
+
+] [52
+
+] [53
+
+] [54
+
+] [55
+
+] [56
+
+] [57
+
+] [58
+
+] [59
+
+] [60
+
+] [61
+
+] [62
+
+]
+[63
+
+] [64
+
+] [65
+
+] [66
+
+] [67
+
+] [68
+
+] [69
+
 ]
 \tf@nav=\write6
 \openout6 = `lec10_dags.nav'.
@@ -1347,26 +1565,28 @@ Package rerunfilecheck Info: File `lec10_dags.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29883 strings out of 476025
- 616075 string characters out of 5790016
+ 30319 strings out of 476025
+ 622219 string characters out of 5790016
  1863388 words of memory out of 5000000
- 49671 multiletter control sequences out of 15000+600000
- 532978 words of font info for 95 fonts, out of 8000000 for 9000
+ 49989 multiletter control sequences out of 15000+600000
+ 537064 words of font info for 108 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,11n,122p,405b,693s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><
 /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></u
-sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></
-usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></
-usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
-sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
->
-Output written on lec10_dags.pdf (19 pages, 109064 bytes).
+sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr
+/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
+/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/l
+ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/lo
+cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on lec10_dags.pdf (69 pages, 193958 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
- 39 named destinations out of 1000 (max. 500000)
+ 469 PDF objects out of 1000 (max. 8388607)
+ 364 compressed objects within 4 object streams
+ 139 named destinations out of 1000 (max. 500000)
  48 words of extra memory for PDF output out of 10000 (max. 10000000)
 
