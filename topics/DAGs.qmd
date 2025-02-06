@@ -2,6 +2,8 @@
 title: "Directed Acyclic Graphs"
 ---
 
+> This topic is covered Feb 6. Here are [slides](../slides/lec10_dags/lec10_dags.pdf).
+
 ```{r, echo = F, comment = F, warning = F, output = F}
 library(tidyverse)
 ```
@@ -244,7 +246,7 @@ We sometimes call the first two minimal sufficient adjustment sets because they 
 
 > A **minimal sufficient adjustment set** is an adjustment set that achieves causal identification by conditioning on the fewest number of variables possible.
 
-## How to drawing a DAG
+## How to draw a DAG
 
 So far, we have focused on causal identification with a DAG that has been given. But how do you draw one for yourself?
 

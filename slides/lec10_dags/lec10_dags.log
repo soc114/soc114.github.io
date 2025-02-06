@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  5 FEB 2025 15:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  6 FEB 2025 07:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -799,7 +799,7 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \sympureletters=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 6.
+ut line 7.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/bm.sty
 Package: bm 2022/01/05 v1.2f Bold Symbol Support (DPC/FMi)
@@ -1122,24 +1122,24 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 (./lec10_dags.aux)
 \openout1 = `lec10_dags.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1197,66 +1197,66 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 88.
+Package hyperref Info: Link coloring OFF on input line 87.
 
 (./lec10_dags.out) (./lec10_dags.out)
 \@outlinefile=\write5
 \openout5 = `lec10_dags.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 88.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 87.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 88.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 87.
 \symnumbers=\mathgroup11
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 88.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 87.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/cmss/m/it on input line 8
-8.
+7.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/bx/sl --> OT1/cmss/m/it on input line 
-88.
+87.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 88.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 88.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 88.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 87.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 87.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 88.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 88.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 88.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 87.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 88.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 88.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 88.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 87.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 88.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 88.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 87.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 88.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 87.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 88.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 88.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 88.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 88.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 88.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 87.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 88.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 88.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 87.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 87.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
 (Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 8
-8.
+7.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 8
-8.
+7.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 88.
+ut line 87.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/translator/translator-basic-dicti
 onary-English.dict
@@ -1294,261 +1294,919 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-(./lec10_dags.nav) [1
+(./lec10_dags.nav)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 87.
 
-{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 92.
 
- (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 92.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 87.
 
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 92.
+ut line 87.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-) [2
+)
+Overfull \hbox (45.98006pt too wide) detected at line 87
+$[]$ 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[1
+
+{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[2
 
 ]
-<figures/conditional_randomization.pdf, id=29, 354.32375pt x 200.75pt>
+<figures/conditional_randomization.pdf, id=85, 354.32375pt x 200.75pt>
 File: figures/conditional_randomization.pdf Graphic file (type pdf)
 <use figures/conditional_randomization.pdf>
 Package pdftex.def Info: figures/conditional_randomization.pdf  used on input l
-ine 98.
+ine 97.
 (pdftex.def)             Requested size: 307.28987pt x 174.10582pt.
- [3
 
- <./figures/conditional_randomization.pdf>] [4
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
 
-] [5
+[3
 
-] [6
+ <./figures/conditional_randomization.pdf>]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
 
-] [7
-
-] [8
+[4
 
 ]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[5
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[6
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[7
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[8
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
 [9
 
-] [10
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
 
-] [11
-
-] [12
-
-] [13
-
-] [14
-
-] [15
-
-] [16
-
-] [17
-
-] [18
-
-] [19
-
-] [20
-
-] [21
+[10
 
 ]
-Overfull \hbox (9.74316pt too wide) detected at line 256
-\OT1/cmss/m/n/10.95 ([]) \OMS/cmsy/m/n/10.95   \OT1/cmss/m/n/10.95 ([]) \OMS/cm
-sy/m/n/10.95 ! \OT1/cmss/m/n/10.95 ([])
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[11
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[12
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[13
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[14
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[15
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[16
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[17
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[18
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[19
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[20
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[21
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [22
 
-] [23
+]
+Overfull \hbox (9.74316pt too wide) detected at line 260
+\OT1/cmss/m/n/10.95 ([]) \OMS/cmsy/m/n/10.95   \OT1/cmss/m/n/10.95 ([]) \OMS/cm
+sy/m/n/10.95 ! \OT1/cmss/m/n/10.95 ([])
+ []
 
-] [24
 
-] [25
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
 
-] [26
-
-] [27
-
-] [28
-
-] [29
-
-] [30
-
-] [31
-
-] [32
-
-] [33
-
-] [34
-
-] [35
+[23
 
 ]
-Overfull \hbox (17.18805pt too wide) detected at line 360
-\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
-OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
-T1/cmss/m/n/9 ([])
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[24
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[25
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[26
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[27
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[28
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[29
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[30
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[31
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[32
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[33
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[34
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[35
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [36
 
 ]
-Overfull \hbox (17.18805pt too wide) detected at line 360
+Overfull \hbox (17.18805pt too wide) detected at line 368
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
 OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
 T1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [37
 
 ]
-Overfull \hbox (17.18805pt too wide) detected at line 360
+Overfull \hbox (17.18805pt too wide) detected at line 368
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
 OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
 T1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [38
 
 ]
-Overfull \hbox (17.18805pt too wide) detected at line 360
+Overfull \hbox (17.18805pt too wide) detected at line 368
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
 OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
 T1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [39
 
 ]
-Overfull \hbox (17.18805pt too wide) detected at line 360
+Overfull \hbox (17.18805pt too wide) detected at line 368
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
 OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
 T1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [40
 
 ]
-Overfull \hbox (17.18805pt too wide) detected at line 360
+Overfull \hbox (17.18805pt too wide) detected at line 368
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
 OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
 T1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [41
 
 ]
-Overfull \hbox (17.18805pt too wide) detected at line 360
+Overfull \hbox (17.18805pt too wide) detected at line 368
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
 OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
 T1/cmss/m/n/9 ([])
  []
 
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
 [42
 
 ]
-Overfull \hbox (23.98804pt too wide) detected at line 380
-\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
-] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+Overfull \hbox (17.18805pt too wide) detected at line 368
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \
+OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \O
+T1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [43
 
 ]
-Overfull \hbox (23.98804pt too wide) detected at line 380
+Overfull \hbox (23.98804pt too wide) detected at line 388
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
 ] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [44
 
 ]
-Overfull \hbox (23.98804pt too wide) detected at line 380
+Overfull \hbox (23.98804pt too wide) detected at line 388
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
 ] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [45
 
 ]
-Overfull \hbox (23.98804pt too wide) detected at line 380
+Overfull \hbox (23.98804pt too wide) detected at line 388
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
 ] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [46
 
 ]
-Overfull \hbox (23.98804pt too wide) detected at line 380
+Overfull \hbox (23.98804pt too wide) detected at line 388
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
 ] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
  []
 
 [47
 
 ]
-Overfull \hbox (23.98804pt too wide) detected at line 380
+Overfull \hbox (23.98804pt too wide) detected at line 388
 \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
 ] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
  []
 
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
 [48
 
-] [49
+]
+Overfull \hbox (23.98804pt too wide) detected at line 388
+\OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9 ! [
+] ! \OT1/cmss/m/n/9 ([]) \OMS/cmsy/m/n/9   \OT1/cmss/m/n/9 ([])
+ []
 
-] [50
 
-] [51
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
 
-] [52
-
-] [53
-
-] [54
-
-] [55
-
-] [56
-
-] [57
-
-] [58
-
-] [59
-
-] [60
-
-] [61
-
-] [62
+[49
 
 ]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[50
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[51
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[52
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[53
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[54
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[55
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 467--467
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[56
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 467--467
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[57
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 467--467
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[58
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 467--467
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[59
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 467--467
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[60
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 467--467
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[61
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 467--467
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[62
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 499--499
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
 [63
 
-] [64
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 499--499
+ [] 
+ []
 
-] [65
 
-] [66
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
 
-] [67
+[64
 
-] [68
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 499--499
+ [] 
+ []
 
-] [69
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[65
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 499--499
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[66
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 499--499
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[67
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 531--531
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[68
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 531--531
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[69
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 531--531
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[70
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 531--531
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[71
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[72
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 574--574
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[73
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 574--574
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[74
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 574--574
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[75
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 574--574
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[76
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 574--574
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[77
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 605--605
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[78
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 605--605
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[79
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 605--605
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[80
+
+]
+Overfull \hbox (3.54634pt too wide) in paragraph at lines 605--605
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[81
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[82
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[83
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[84
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[85
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[86
+
+]
+Overfull \hbox (64.77039pt too wide) in paragraph at lines 668--668
+ [] 
+ []
+
+LaTeX Font Info:    Trying to load font information for OMS+cmss on input line 
+668.
+LaTeX Font Info:    No file OMScmss.fd. on input line 668.
+
+LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 668.
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[87
+
+]
+Overfull \hbox (64.77039pt too wide) in paragraph at lines 668--668
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[88
+
+]
+Overfull \hbox (64.77039pt too wide) in paragraph at lines 668--668
+ [] 
+ []
+
+
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[89
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[90
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[91
+
+]
+Overfull \hbox (45.98006pt too wide) has occurred while \output is active
+$[]$ 
+ []
+
+[92
 
 ]
 \tf@nav=\write6
@@ -1561,32 +2219,36 @@ Overfull \hbox (23.98804pt too wide) detected at line 380
 \openout8 = `lec10_dags.snm'.
 
  (./lec10_dags.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 Package rerunfilecheck Info: File `lec10_dags.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: CA78BDE7D339FEA9E4783CEF128D9E16;834.
  ) 
 Here is how much of TeX's memory you used:
- 30319 strings out of 476025
- 622219 string characters out of 5790016
- 1863388 words of memory out of 5000000
- 49989 multiletter control sequences out of 15000+600000
- 537064 words of font info for 108 fonts, out of 8000000 for 9000
+ 30472 strings out of 476025
+ 623888 string characters out of 5790016
+ 1867388 words of memory out of 5000000
+ 50085 multiletter control sequences out of 15000+600000
+ 538000 words of font info for 112 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,11n,122p,405b,693s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,14n,122p,405b,766s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><
-/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></u
-sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr
-/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></us
-r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></us
-r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/l
-ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/lo
-cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on lec10_dags.pdf (69 pages, 193958 bytes).
+/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></
+usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/
+local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr
+/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr
+/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
+local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/lo
+cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/loc
+al/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on lec10_dags.pdf (92 pages, 275509 bytes).
 PDF statistics:
- 469 PDF objects out of 1000 (max. 8388607)
- 364 compressed objects within 4 object streams
- 139 named destinations out of 1000 (max. 500000)
- 48 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1292 PDF objects out of 1440 (max. 8388607)
+ 1147 compressed objects within 12 object streams
+ 192 named destinations out of 1000 (max. 500000)
+ 104 words of extra memory for PDF output out of 10000 (max. 10000000)
 

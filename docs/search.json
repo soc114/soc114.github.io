@@ -1141,7 +1141,7 @@
     "href": "topics/DAGs.html",
     "title": "Directed Acyclic Graphs",
     "section": "",
-    "text": "Directed Acyclic Graphs (DAGs) formalize causal assumptions mathematically in graphs. One way DAGs are useful in observational studies is by helping us to identify a sufficient adjustment set (\\(\\vec{X}\\)) such that conditional exchangeability holds.",
+    "text": "This topic is covered Feb 6. Here are slides.\nDirected Acyclic Graphs (DAGs) formalize causal assumptions mathematically in graphs. One way DAGs are useful in observational studies is by helping us to identify a sufficient adjustment set (\\(\\vec{X}\\)) such that conditional exchangeability holds.",
     "crumbs": [
       " ",
       "Inference Without Models",
@@ -1233,11 +1233,11 @@
     ]
   },
   {
-    "objectID": "topics/DAGs.html#how-to-drawing-a-dag",
-    "href": "topics/DAGs.html#how-to-drawing-a-dag",
+    "objectID": "topics/DAGs.html#how-to-draw-a-dag",
+    "href": "topics/DAGs.html#how-to-draw-a-dag",
     "title": "Directed Acyclic Graphs",
-    "section": "How to drawing a DAG",
-    "text": "How to drawing a DAG\nSo far, we have focused on causal identification with a DAG that has been given. But how do you draw one for yourself?\nWhen drawing a DAG, there is an important rule: any node that would have edges pointing into any two nodes already represented in the DAG must be included. This is because what you omit from the DAG is far more important than what you include in the DAG. Many of your primary assumptions are about the nodes and edges that you leave out.\nFor example, suppose we are estimating the causal effect of a college degree on employment at age 40. After beginning our DAG with only these variables, we have to think about any other variables that might affect these two. High school performance is one example. Then we have to include any nodes that affect any two of {high school performance, college degree, employment at age 40}. Perhaps a person’s parents’ education affects that person’s high school performance and college degree attainment. Then parents’ education should be included as an additional node. The cycle continues, so that in observational causal inference settings you are likely to have a DAG with many nodes.\nIn practice, you may not have data on all the nodes that comprise the sufficient adjustment set in your graph. In this case, we recommend that you first draw a graph under which you can form a sufficient adjustment set with the measured variables. This allows you to state one set of causal beliefs under which your analysis can answer your causal question. Then, also draw a second DAG that includes the other variables you think are relevant. This will enable you to reason about the sense in which your results could be misleading because of omitting important variables.",
+    "section": "How to draw a DAG",
+    "text": "How to draw a DAG\nSo far, we have focused on causal identification with a DAG that has been given. But how do you draw one for yourself?\nWhen drawing a DAG, there is an important rule: any node that would have edges pointing into any two nodes already represented in the DAG must be included. This is because what you omit from the DAG is far more important than what you include in the DAG. Many of your primary assumptions are about the nodes and edges that you leave out.\nFor example, suppose we are estimating the causal effect of a college degree on employment at age 40. After beginning our DAG with only these variables, we have to think about any other variables that might affect these two. High school performance is one example. Then we have to include any nodes that affect any two of {high school performance, college degree, employment at age 40}. Perhaps a person’s parents’ education affects that person’s high school performance and college degree attainment. Then parents’ education should be included as an additional node. The cycle continues, so that in observational causal inference settings you are likely to have a DAG with many nodes.\nIn practice, you may not have data on all the nodes that comprise the sufficient adjustment set in your graph. In this case, we recommend that you first draw a graph under which you can form a sufficient adjustment set with the measured variables. This allows you to state one set of causal beliefs under which your analysis can answer your causal question. Then, also draw a second DAG that includes the other variables you think are relevant. This will enable you to reason about the sense in which your results could be misleading because of omitting important variables.",
     "crumbs": [
       " ",
       "Inference Without Models",

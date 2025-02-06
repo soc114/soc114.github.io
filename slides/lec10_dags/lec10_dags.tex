@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usecolortheme{dove}
 \setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[text line]{\parbox{\linewidth}{\vspace*{-8pt}\insertsectionnavigationhorizontal{.97\paperwidth}{\hspace{-32pt}}{\hfill\hfill}}}
 \usepackage{amsmath,amssymb,amsfonts,amsthm, multicol, subfigure, color}
 \usepackage{bm}
 \usepackage{graphicx}
@@ -57,8 +58,6 @@
 }
 \usepackage{soul}
 
-\setbeamertemplate{footline}[frame number]
-
 
 \usepackage[round]{natbib}
 \bibliographystyle{humannat-mod}
@@ -96,6 +95,8 @@ At the end of class, you will be able to:
 Outcome: Employed at age 40
 
 \end{frame}
+
+\section{Nodes and Edges}
 
 \begin{frame}[t]{Elements of a Directed Acyclic Graph (DAG)}
 
@@ -156,12 +157,9 @@ Between $A$ and $Y$, what are the two paths? \pause
 
 \end{frame}
 
-\begin{frame}{Causal path}{$\bullet\rightarrow\bullet\rightarrow\bullet$}
+\section{Causal Paths}
 
-A path in which arrows point in the same direction \vskip .2in \pause
-
-What three paths between $A$ and $Y$? \\
-Which two are causal paths? \\
+\begin{frame}{Causal path: A path with arrows pointing one way}{$\bullet\rightarrow\bullet\rightarrow\bullet$} \pause
 
 \begin{center}
 \begin{tikzpicture}[x = .5in, y = .5in]
@@ -181,16 +179,20 @@ Which two are causal paths? \\
     \node[anchor = south, font = \small, align = center] at (m.north) {Completed\\college};
     \node[anchor = south, font = \small, align = center] at (y.north) {Employed at\\age 40?};
   \end{tikzpicture}
-\end{center} \pause \vskip .1in
+\end{center}
+\pause
+What three paths connect $A$ and $Y$? \\
+Which two are causal paths? \vskip .1in
+\pause
 \begin{tabular}{ll}
-$A\rightarrow Y$ & \only<4->{causal path} \\
-$A\rightarrow M \rightarrow Y$ & \only<5->{causal path} \\
-$A\leftarrow X \rightarrow Y$ & \only<6->{not a causal path}
+$A\rightarrow Y$ & \only<5->{causal path} \\
+$A\rightarrow M \rightarrow Y$ & \only<6->{causal path} \\
+$A\leftarrow X \rightarrow Y$ & \only<7->{not a causal path}
 \end{tabular}
 
 \end{frame}
 
-\begin{frame}{Causal path: Marginal dependence}{$\bullet\rightarrow\bullet\rightarrow\bullet$}
+\begin{frame}[t]{Causal path: Marginal dependence}{$\bullet\rightarrow\bullet\rightarrow\bullet$} \vskip .2in
 
 A causal path $A\rightarrow\cdots\rightarrow B$ will make the variables $A$ and $B$ statistically dependent \vskip .2in
 
@@ -201,7 +203,7 @@ What if we condition:\\filter to those with (buys ice cream = \texttt{FALSE})?
 
 \end{frame}
 
-\begin{frame}{Causal path: Conditional independence}{$\bullet\rightarrow\bullet\rightarrow\bullet$}
+\begin{frame}[t]{Causal path: Conditional independence}{$\bullet\rightarrow\bullet\rightarrow\bullet$} \vskip .2in
 
 A causal path $A\rightarrow\cdots\rightarrow B$ will not make the variables $A$ and $B$ statistically dependent if we condition on a variable along the path \vskip .2in
 
@@ -214,6 +216,8 @@ are equally likely to be eating ice cream. \vskip .2in \pause
 Conditioning on (buys ice cream = \texttt{FALSE}) \textbf{blocks} this path.
 
 \end{frame}
+
+\section{Forks}
 
 \begin{frame}[t]{Fork structure}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
 
@@ -246,7 +250,7 @@ Recall that there are two paths:
 
 \end{frame}
 
-\begin{frame}{Fork structure: Marginal dependence}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
+\begin{frame}[t]{Fork structure: Marginal dependence}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
 
 A fork structure $A\leftarrow C \rightarrow B$ will make $A$ and $B$ statistically dependent (because $C$ causes both). \vskip .1in
 
@@ -255,7 +259,7 @@ $$(\text{completed college}) \leftarrow (\text{top 25\% of high school})\rightar
 
 \end{frame}
 
-\begin{frame}{Fork structure: Marginal dependence}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
+\begin{frame}[t]{Fork structure: Marginal dependence}{$\bullet\leftarrow\bullet\rightarrow\bullet$}
 
 A fork structure $A\leftarrow C \rightarrow B$ will make $A$ and $B$ statistically dependent (because $C$ causes both). \vskip .1in
 
@@ -277,6 +281,8 @@ Among days with a given temperature,\\lifeguard rescues and ice cream sales are 
 Conditioning on (temperature) blocks this path.
 
 \end{frame}
+
+\section{Colliders}
 
 \begin{frame}{Collider structure}{$\bullet\rightarrow\bullet\leftarrow\bullet$}
 
@@ -323,7 +329,7 @@ $A$ and $B$ are conditionally dependent.
 
 \end{frame}
 
-\begin{frame}{Three structures}
+\begin{frame}{Review: Three structures}
 
 \begin{tabular}{llll}
 & & $A$ and $B$ & $A$ and $B$ \\
@@ -337,6 +343,8 @@ Collider & $A \rightarrow C \leftarrow B$ & No & Yes \\
 \end{tabular}
 
 \end{frame}
+
+\section{Blocked Paths}
 
 \begin{frame}[t]{A path can involve forks, colliders, and causal paths}
 
@@ -391,18 +399,77 @@ Open paths create statistical dependence.\\Blocked paths do not.
 
 \end{frame}
 
-\begin{frame}[t]{Determining statistical dependence: A procedure}
+\section{Statistical Dependence}
 
-How do you know if two nodes are dependent?
+\begin{frame}{Determining statistical dependence: A procedure}
+
+How do you know if two nodes (e.g., $A$ and $B$ are dependent? \pause
+\begin{center}
+\begin{tikzpicture}[y = .2in]
+\node (a) at (0,0) {$A$};
+\node (b) at (2,0) {$B$};
+\node (c) at (1,1) {$C$};
+\node (d) at (1,-1) {$D$};
+\draw[->, thick] (c) -- (a);
+\draw[->, thick] (c) -- (b);
+\draw[->, thick] (a) -- (d);
+\draw[->, thick] (b) -- (d);
+\end{tikzpicture}
+\end{center} \pause
 \begin{enumerate}
 \item List all paths between the two nodes
+\begin{itemize}
+\item $A\leftarrow C \rightarrow B$
+\item $A\rightarrow D \leftarrow B$
+\end{itemize} \pause
 \item Cross out any blocked paths that are blocked
+\begin{itemize}
+\item $A\leftarrow C \rightarrow B$
+\item \st{$A\rightarrow D \leftarrow B$}
+\end{itemize} \pause
 \item If any paths remain, the two nodes are dependent
-\end{enumerate} \vskip .2in \pause
+\begin{itemize}
+\item Dependent!
+\end{itemize}
+\end{enumerate}
 
-Practice: Are $A$ and \only<2-6>{$C$}\only<7-10>{$D$} statistically independent or dependent?
+\end{frame}
 
-  \begin{tikzpicture}[x = .5in, y = .4in]
+% BUILDING UP EXAMPLE
+
+\begin{frame}[t]{Determining statistical dependence: A procedure}{1. List all paths. 2. Cross out blocked paths. 3. Dependent if any paths remain.} \pause
+\begin{center}
+  \begin{tikzpicture}[x = .6in, y = .4in]
+  \node at (-2,0) {};
+  \node at (5,0) {};
+  \node (x) at (0,-1) {$X$};
+  \node[anchor = east, font = \footnotesize, align = right] at (x.west) {Power outage\\throughout town};
+  \pause
+  \node (a) at (0,0) {$A$};
+  \node[anchor = east, font = \footnotesize, align = right] at (a.west) {Ice cream\\freezer broken};
+  \draw[->, thick] (x) -- (a);
+  \pause
+  \node (b) at (1,1) {$B$};
+  \node[anchor = south, font = \footnotesize, align = right] at (b.north) {Ice cream sales};
+  \draw[->, thick] (a) -- (b);
+  \pause
+  \node (c) at (2,0) {$C$};
+  \node[anchor = south west, font = \footnotesize, align = left] at (c.north) {Discounted\\beach parking};
+  \draw[->, thick] (c) -- (b);
+  \pause
+  \node (d) at (3,0) {$D$};
+  \node[anchor = west, font = \footnotesize, align = right] at (d.east) {Lifeguard rescues};
+  \draw[->, thick] (c) -- (d);
+  \pause
+  \draw[->, thick] (x) to[out = 0, in = 210] (d);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+% MARGINAL A AND C
+\begin{frame}[t]{Determining statistical dependence: A procedure}{1. List all paths. 2. Cross out blocked paths. 3. Dependent if any paths remain.}
+\begin{center}
+  \begin{tikzpicture}[x = .6in, y = .4in]
   \node at (-2,0) {};
   \node at (5,0) {};
   \node (x) at (0,-1) {$X$};
@@ -415,43 +482,72 @@ Practice: Are $A$ and \only<2-6>{$C$}\only<7-10>{$D$} statistically independent 
   \draw[->, thick] (c) -- (d);
   \draw[->, thick] (x) -- (a);
   \draw[->, thick] (x) to[out = 0, in = 210] (d);
+  \node[anchor = east, font = \footnotesize, align = right] at (a.west) {Ice cream\\freezer broken};
+  \node[anchor = east, font = \footnotesize, align = right] at (x.west) {Power outage\\throughout town};
+  \node[anchor = south, font = \footnotesize, align = right] at (b.north) {Ice cream sales};
+  \node[anchor = south west, font = \footnotesize, align = left] at (c.north) {Discounted\\beach parking};
+  \node[anchor = west, font = \footnotesize, align = right] at (d.east) {Lifeguard rescues};
   \end{tikzpicture}
-
-\only<3-6>{
+\end{center}
+Are $A$ and $C$ statistically independent or dependent?
+\pause
 \begin{itemize}
-\item \only<4-6>{\st}{$A\rightarrow B \leftarrow C$}
-\item \only<5-6>{\st}{$A\leftarrow X \rightarrow D \leftarrow C$}
+\item \only<3->{\st}{$A\rightarrow B \leftarrow C$}
+\item \only<4->{\st}{$A\leftarrow X \rightarrow D \leftarrow C$}
 \end{itemize}
-\only<6>{No unblocked paths. $A$ and $C$ are independent!}
-}
-\only<8-10>{
+\only<5>{No unblocked paths. Independent!}
+\end{frame}
+
+% MARGINAL A AND D
+\begin{frame}[t]{Determining statistical dependence: A procedure}{1. List all paths. 2. Cross out blocked paths. 3. Dependent if any paths remain.}
+\begin{center}
+  \begin{tikzpicture}[x = .6in, y = .4in]
+  \node at (-2,0) {};
+  \node at (5,0) {};
+  \node (x) at (0,-1) {$X$};
+  \node (a) at (0,0) {$A$};
+  \node (b) at (1,1) {$B$};
+  \node (c) at (2,0) {$C$};
+  \node (d) at (3,0) {$D$};
+  \draw[->, thick] (a) -- (b);
+  \draw[->, thick] (c) -- (b);
+  \draw[->, thick] (c) -- (d);
+  \draw[->, thick] (x) -- (a);
+  \draw[->, thick] (x) to[out = 0, in = 210] (d);
+  \node[anchor = east, font = \footnotesize, align = right] at (a.west) {Ice cream\\freezer broken};
+  \node[anchor = east, font = \footnotesize, align = right] at (x.west) {Power outage\\throughout town};
+  \node[anchor = south, font = \footnotesize, align = right] at (b.north) {Ice cream sales};
+  \node[anchor = south west, font = \footnotesize, align = left] at (c.north) {Discounted\\beach parking};
+  \node[anchor = west, font = \footnotesize, align = right] at (d.east) {Lifeguard rescues};
+  \end{tikzpicture}
+\end{center}
+Are $A$ and $D$ statistically independent or dependent? \pause
 \begin{itemize}
-\item \only<9-10>{\st}{$A\rightarrow B \leftarrow C \rightarrow D$}
+\item \only<3->{\st}{$A\rightarrow B \leftarrow C \rightarrow D$}
 \item $A\leftarrow X \rightarrow D$
 \end{itemize}
-\only<10>{One remains. $A$ and $D$ are dependent!}
-}
-
+\only<4>{A path remains unblocked. Dependent!}
 
 \end{frame}
 
 % CONDITIONAL
 
-\begin{frame}[t]{Determining statistical dependence: A procedure}
+%\section{Conditional Dependence}
 
-How do you know if two nodes are dependent?
-\begin{enumerate}
-\item List all paths between the two nodes
-\item Cross out any blocked paths that are blocked
-\item If any paths remain, the two nodes are dependent
-\end{enumerate} \vskip .2in \pause
+\begin{frame}
 
-Practice: Are $A$ and $D$ statistically independent or dependent, conditional on $X$ and $B$?
+\huge
+Practice with \textbf{conditional} dependence\\
+(holding something constant)
 
-  \begin{tikzpicture}[x = .5in, y = .4in]
+\end{frame}
+
+\begin{frame}[t]{Determining statistical dependence: A procedure}{1. List all paths. 2. Cross out blocked paths. 3. Dependent if any paths remain.}
+\begin{center}
+  \begin{tikzpicture}[x = .6in, y = .4in]
   \node at (-2,0) {};
   \node at (5,0) {};
-  \node (x) at (0,-1) {$X$};
+  \node (x) at (0,-1) {\boxed{$X$}};
   \node (a) at (0,0) {$A$};
   \node (b) at (1,1) {$B$};
   \node (c) at (2,0) {$C$};
@@ -461,9 +557,133 @@ Practice: Are $A$ and $D$ statistically independent or dependent, conditional on
   \draw[->, thick] (c) -- (d);
   \draw[->, thick] (x) -- (a);
   \draw[->, thick] (x) to[out = 0, in = 210] (d);
+  \node[anchor = east, font = \footnotesize, align = right] at (a.west) {Ice cream\\freezer broken};
+  \node[anchor = east, font = \footnotesize, align = right] at (x.west) {Power outage\\throughout town};
+  \node[anchor = south, font = \footnotesize, align = right] at (b.north) {Ice cream sales};
+  \node[anchor = south west, font = \footnotesize, align = left] at (c.north) {Discounted\\beach parking};
+  \node[anchor = west, font = \footnotesize, align = right] at (d.east) {Lifeguard rescues};
   \end{tikzpicture}
+\end{center}
+Practice: Are $A$ and $D$ statistically independent or dependent, conditional on $X = \texttt{FALSE}$?
+\pause
+  \begin{itemize}
+\item \only<3->{\st}{$A\rightarrow B \leftarrow C \rightarrow D$}
+\item \only<4->{\st}{$A\leftarrow \boxed{X} \rightarrow D$}
+\end{itemize}
+\only<5>{No unblocked paths. Independent!}
+\end{frame}
   
-  \end{frame}
+\begin{frame}[t]{Determining statistical dependence: A procedure}{1. List all paths. 2. Cross out blocked paths. 3. Dependent if any paths remain.}
+\begin{center}
+  \begin{tikzpicture}[x = .6in, y = .4in]
+  \node at (-2,0) {};
+  \node at (5,0) {};
+  \node (x) at (0,-1) {\boxed{$X$}};
+  \node (a) at (0,0) {$A$};
+  \node (b) at (1,1) {\boxed{$B$}};
+  \node (c) at (2,0) {$C$};
+  \node (d) at (3,0) {$D$};
+  \draw[->, thick] (a) -- (b);
+  \draw[->, thick] (c) -- (b);
+  \draw[->, thick] (c) -- (d);
+  \draw[->, thick] (x) -- (a);
+  \draw[->, thick] (x) to[out = 0, in = 210] (d);
+  \node[anchor = east, font = \footnotesize, align = right] at (a.west) {Ice cream\\freezer broken};
+  \node[anchor = east, font = \footnotesize, align = right] at (x.west) {Power outage\\throughout town};
+  \node[anchor = south, font = \footnotesize, align = right] at (b.north) {Ice cream sales};
+  \node[anchor = south west, font = \footnotesize, align = left] at (c.north) {Discounted\\beach parking};
+  \node[anchor = west, font = \footnotesize, align = right] at (d.east) {Lifeguard rescues};
+  \end{tikzpicture}
+\end{center}
+Practice: Are $A$ and $D$ statistically independent or dependent, conditional on $X = \texttt{FALSE}$ and $B = \texttt{0}$?
+\pause
+  \begin{itemize}
+\item $A\rightarrow \boxed{B} \leftarrow C \rightarrow D$
+\item \only<3->{\st}{$A\leftarrow \boxed{X} \rightarrow D$}
+\end{itemize}
+\only<4>{A path remains. Dependent!}
+\end{frame}
+
+\section{Conditional Exchangeability}
+
+\begin{frame}{DAGs and conditional exchangeability}
+
+When studying the effect of $A$ on $Y$, conditional exchangeability holds if the only unblocked paths between $A$ and $Y$ are causal paths from $A$ to $Y$. \pause
+\begin{itemize}
+\item Why? Because then any association between $A$ and $Y$ must be due to the causal effect
+\end{itemize} \pause
+\begin{center}
+  \begin{tikzpicture}[x = .3in, y = .25in]
+    \node at (-9,0) {};
+    \node at (3,0) {};
+    \node (x) at (0,-1) {\boxed{$X$}};
+    \node (a) at (-2,0) {$A$};
+    \node (y) at (2,0) {$Y$};
+    \draw[->, thick] (x) -- (a);
+    \draw[->, thick] (a) -- (y);
+    \draw[->, thick] (x) -- (y);
+    % Labels
+    \node[anchor = north, font = \small, align = center] at (x.south) {In top 25\%\\of high school class?};
+    \node[anchor = south, font = \small, align = center] at (a.north) {Four-year\\college degree?};
+    \node[anchor = south, font = \small, align = center] at (y.north) {Employed at\\age 40?};
+    \node<5->[anchor = north east, align = left, draw, rounded corners] at (-4,1) {$X$ is a \textbf{sufficient}\\\textbf{adjustment set}\\to identify the effect\\of $A$ on $Y$};
+  \end{tikzpicture}
+  \end{center} \pause
+\begin{itemize}
+\item $A\rightarrow Y$
+\item $A\leftarrow \boxed{X} \rightarrow Y$ (blocked by conditioning on $X$)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{DAGs and conditional exchangeability: Practice}
+{1. List all paths. 2. Choose adjustment set. 3. Only causal paths remain unblocked.}
+
+\begin{center}
+  \begin{tikzpicture}[x = .6in, y = .4in]
+  \node[anchor = north] at (-2,2) {Find a sufficient adjustment set to identify the effect of $A$ on $Y$.};
+    \node at (-3,0) {};
+    \node at (3,0) {};
+    \node (x1) at (-4,-1) {$X_1$};
+    \node (x2) at (-2,-1) {$X_2$};
+    \node (a) at (-2,0) {$A$};
+    \node (y) at (0,0) {$Y$};
+    \draw[->, thick] (x1) -- (a);
+    \draw[->, thick] (x1) to[bend right = 30] (y);
+    \draw[->, thick] (x1) -- (x2);
+    \draw[->, thick] (x2) -- (a);
+    \draw[->, thick] (a) -- (y);
+    \draw[->, thick] (x2) -- (y);
+    % Labels
+    \node[anchor = north, font = \small, align = center, outer sep = 12pt] at (x1.south) {At least one\\parent finished\\college?};
+    \node[anchor = north, font = \small, align = center, outer sep = 12pt] at (x2.south) {In top 25\%\\of high school\\class?};
+    \node[anchor = south, font = \small, align = center] at (a.north) {Four-year\\college degree?};
+    \node[anchor = south, font = \small, align = center] at (y.north) {Employed at\\age 40?};
+  \end{tikzpicture}
+  \end{center} \pause
+
+Paths: ($A\rightarrow Y$), ($A\leftarrow X_2\rightarrow Y$), ($A\leftarrow X_1\rightarrow Y$), ($A\leftarrow X_1\rightarrow X_2\rightarrow Y$),($A\leftarrow X_2\leftarrow X_1\rightarrow Y$) \\ \pause
+Adjust for \{$X_1,X_2\}$
+
+\end{frame}
+
+\begin{frame}{How to draw a DAG}
+
+\begin{enumerate}
+\item Begin with treatment $A$ and outcome $Y$
+\item Add any variable that affects both
+\item Add any variable that affects any two variables in the DAG.
+\end{enumerate}
+
+Assumptions are about nodes and edges that you omit.
+
+\end{frame}
+
+\begin{frame}{Exercise: Draw a DAG}
+
+Treatment is college degree. Outcome is employment at age 40.
+
+\end{frame}
 
 \goalsframe
 

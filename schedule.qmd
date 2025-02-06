@@ -32,7 +32,7 @@ Each date will be a link to the slides for that lecture.
 | Thu, [Jan 30](slides/lec08_experiments/lec08_experiments.pdf)	| Exchangeability and experiments |
 | Tue, [Feb 4](slides/lec09_conditional_exchangeability/lec09_conditional_exchangeability.pdf)	| [Conditional exchangeability](topics/conditional_exchangeability.qmd) |
 | 	| [Nonparametric estimation](topics/nonparametric_estimation.qmd) |
-| Thu, Feb 6	| [Directed Acyclic Graphs (DAGs)](topics/DAGs.qmd) |
+| Thu, [Feb 6](slides/lec10_dags/lec10_dags.pdf)	| [Directed Acyclic Graphs (DAGs)](topics/DAGs.qmd) |
 | Tue, Feb 11	| [What is a model?](topics/what_is_a_model.qmd) |
 | Thu, Feb 13 | [Models for causal inference](topics/models_for_causal.qmd)
 | Tue, Feb 18	| Properties of estimators |

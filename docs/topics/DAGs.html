@@ -382,7 +382,7 @@ window.Quarto = {
   <li><a href="#open-and-blocked-paths" id="toc-open-and-blocked-paths" class="nav-link" data-scroll-target="#open-and-blocked-paths">Open and blocked paths</a></li>
   <li><a href="#determining-statistical-dependence" id="toc-determining-statistical-dependence" class="nav-link" data-scroll-target="#determining-statistical-dependence">Determining statistical dependence</a></li>
   <li><a href="#causal-identification-with-dags" id="toc-causal-identification-with-dags" class="nav-link" data-scroll-target="#causal-identification-with-dags">Causal identification with DAGs</a></li>
-  <li><a href="#how-to-drawing-a-dag" id="toc-how-to-drawing-a-dag" class="nav-link" data-scroll-target="#how-to-drawing-a-dag">How to drawing a DAG</a></li>
+  <li><a href="#how-to-draw-a-dag" id="toc-how-to-draw-a-dag" class="nav-link" data-scroll-target="#how-to-draw-a-dag">How to draw a DAG</a></li>
   <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing thoughts</a></li>
   </ul>
 </nav>
@@ -409,6 +409,9 @@ window.Quarto = {
 </header>
 
 
+<blockquote class="blockquote">
+<p>This topic is covered Feb 6. Here are <a href="../slides/lec10_dags/lec10_dags.pdf">slides</a>.</p>
+</blockquote>
 <p>Directed Acyclic Graphs (DAGs) formalize causal assumptions mathematically in graphs. One way DAGs are useful in observational studies is by helping us to identify a sufficient adjustment set (<span class="math inline">\(\vec{X}\)</span>) such that conditional exchangeability holds.</p>
 <section id="nodes-edges-and-paths" class="level2">
 <h2 class="anchored" data-anchor-id="nodes-edges-and-paths">Nodes, edges, and paths</h2>
@@ -594,8 +597,8 @@ window.Quarto = {
 <p>A <strong>minimal sufficient adjustment set</strong> is an adjustment set that achieves causal identification by conditioning on the fewest number of variables possible.</p>
 </blockquote>
 </section>
-<section id="how-to-drawing-a-dag" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-drawing-a-dag">How to drawing a DAG</h2>
+<section id="how-to-draw-a-dag" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-draw-a-dag">How to draw a DAG</h2>
 <p>So far, we have focused on causal identification with a DAG that has been given. But how do you draw one for yourself?</p>
 <p>When drawing a DAG, there is an important rule: any node that would have edges pointing into any two nodes already represented in the DAG must be included. This is because what you omit from the DAG is far more important than what you include in the DAG. Many of your primary assumptions are about the nodes and edges that you leave out.</p>
 <p>For example, suppose we are estimating the causal effect of a college degree on employment at age 40. After beginning our DAG with only these variables, we have to think about any other variables that might affect these two. High school performance is one example. Then we have to include any nodes that affect any two of {high school performance, college degree, employment at age 40}. Perhaps a person’s parents’ education affects that person’s high school performance and college degree attainment. Then parents’ education should be included as an additional node. The cycle continues, so that in observational causal inference settings you are likely to have a DAG with many nodes.</p>
