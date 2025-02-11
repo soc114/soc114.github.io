@@ -1,0 +1,731 @@
+---
+title: "Why model?"
+author: UCLA SOCIOL 114 \break Winter 2025 \break \href{https://soc114.github.io/}{\textcolor{blue}{soc114.github.io}}
+date: 11 Feb 2025
+format: beamer
+urlcolor: blue
+date-format: DD MMM YYYY
+header-includes:
+  \usecolortheme{dove}
+  \usepackage{tikz}
+  \usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
+---
+
+```{r, include = F}
+knitr::opts_chunk$set(echo = T)
+```
+
+
+```{r, include = F, eval = F}
+source("prepare_nlsy97.R")
+```
+```{r, include = F, eval = T}
+library(tidyverse)
+d <- readRDS("d.RDS")
+```
+
+## Arc of the course
+
+* Working with data
+* Inference without models
+* Inference with models
+
+## Learning goals for today (Part 1)
+
+At the end of class, you will be able to
+
+- explain the curse of dimensionality
+- recognize the possible futility of nonparametric estimation
+
+## Motivating a research question^[[Mare 1991](https://doi.org/10.2307/2095670), [Schwartz 2013](https://doi.org/10.1146/annurev-soc-071312-145544)]
+
+Income inequality across households depends on
+
+1. inequality across individuals
+2. how individuals pool into households
+
+A college degree affects (1) and (2)
+
+
+## Research question
+
+To what degree does finishing college increase the probability of having a spouse who finished college?
+
+. . .
+
+**Data.** [National Longitudinal Survey of Youth 1997](https://www.bls.gov/nls/nlsy97.htm)
+
+- Probability sample of U.S. non-institutional civilian youth age 12--16 on Dec 31 1996
+- Surveyed annually 1997--2011, then biennially
+- $n$ = 8,984
+
+## Data access
+
+To access these data, first
+
+* set your working directory where you will be working
+* download two supporting files from us
+     1. [`nlsy97.NLSY97`](https://drive.google.com/file/d/1YcyaC1R5u9_d0-AX4ivqDiU0bRnEsAsJ/view?usp=sharing) is a tagset file containing the variable names
+     2. [`prepare_nlsy97.R`](https://drive.google.com/file/d/1fUdlhEsGGC0shREvu4znPPmJjtNi--Ko/view?usp=sharing) is an R script to prepare the data
+
+## Data access
+
+Now go to the data distributor
+
+1. [Register](https://nlsinfo.org/investigator/pages/register) with the survey
+2. [Log in](https://nlsinfo.org/investigator/pages/login) to the NLS Investigator
+3. Choose the NLSY97 study
+4. Upload the tagset [`nlsy97.NLSY97`](https://drive.google.com/file/d/1YcyaC1R5u9_d0-AX4ivqDiU0bRnEsAsJ/view?usp=sharing) that you downloaded from us
+5. In the Investigator, download the data. Type to change the file name from `default` to `nlsy97`
+6. Unzip the file. Drag `nlsy97.dat` into the folder you will work in
+7. In your R console, run the line of code below
+     * this will take about 30 seconds to run
+     * you will need these R packages: `tidyverse` and `Amelia`
+
+```{r, eval = F}
+source("prepare_nlsy97.R")
+```
+In the future, you can now load the data with 
+```{r, eval = F}
+d <- readRDS("d.RDS")
+```
+
+
+## [Register](https://nlsinfo.org/investigator/pages/register) with the survey
+
+![](figures/nlsy97_register.png)
+
+## Choose the NLSY97 study
+
+![](figures/nlsy97_choose.png)
+
+## Upload [our tagset]()
+
+![](figures/nlsy97_upload1.png)
+![](figures/nlsy97_upload2.png)
+
+## Download the data
+
+![](figures/nlsy97_download.png)
+
+## Run our code
+
+This code prepares the data file (one time, takes about 30 seconds)
+```{r, eval = F}
+source("prepare_NLSY97.R")
+```
+
+This code loads the prepared data (after the above, very fast)
+```{r}
+d <- readRDS("d.RDS")
+```
+
+## Research question
+
+To what degree does finishing college increase the probability of having a spouse who finished college?
+
+. . .
+
+- Treatment $A$: Finished BA by age 25
+- Outcome $Y$: Spouse or partner at age 30--40 holds a BA
+     * 0 if no spouse or partner, or partner with no BA
+     * 1 if spouse or partner holds a BA
+
+. . .
+
+\begin{center}
+\begin{tikzpicture}[x = 1in, y = .7in]
+\node (a) at (0,0) {$A$};
+\node (y) at (1,0) {$Y$};
+\node (l) at (-1,0) {$L$};
+\draw[->, thick] (l) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l) to[bend left] (y);
+\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
+\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
+\node[anchor = north, align = center, font = \footnotesize] at (l.south) {Sex};
+\end{tikzpicture}
+\end{center}
+
+. . .
+
+Adjustment procedure
+
+1) Estimate within subgroups defined by \{sex\}
+2) Aggregate over the subgroups
+
+## Data
+
+\footnotesize
+```{r}
+d %>%
+  select(sex, a, y) %>%
+  print(n = 8)
+```
+
+## 1) Estimate in subgroups
+
+\footnotesize
+```{r}
+ybar_in_subgroups <- d %>%
+  # Group by confounders and treatment
+  group_by(sex, a) %>%
+  # Summarize mean outcomes and nber of cases
+  summarize(ybar = mean(y),
+            n = n(),
+            .groups = "drop") %>%
+  print()
+```
+
+## 1) Estimate in subgroups
+
+\footnotesize
+```{r, echo = F}
+ybar_in_subgroups
+```
+
+. . .
+
+```{r}
+pivoted <- ybar_in_subgroups %>%
+  pivot_wider(names_from = a,
+              values_from = c("ybar","n")) %>%
+  print()
+```
+
+## 1) Estimate in subgroups
+
+\footnotesize
+```{r,echo = F}
+pivoted
+```
+
+. . .
+
+```{r}
+cate <- pivoted %>%
+  mutate(conditional_effect = ybar_college - ybar_no_college,
+         n_in_stratum = n_college + n_no_college) %>%
+  select(sex, conditional_effect, n_in_stratum) %>%
+  print()
+```
+
+## 2) Aggregate over subgroups
+
+\footnotesize
+```{r, echo = F}
+cate
+```
+
+. . .
+
+```{r}
+cate %>%
+  summarize(population_average_effect = weighted.mean(
+    conditional_effect,
+    w = n_in_stratum
+  ))
+```
+
+## Recap: Intuition
+
+```{r, echo = F}
+viz_data <- d %>%
+  group_by(sex) %>%
+  summarize(num = n(), 
+            prop_treated = mean(a == "college"),
+            .groups = "drop") %>%
+  mutate(proportion = num / sum(num)) %>%
+  arrange(sex) %>%
+  mutate(cdf = cumsum(proportion),
+         cdf_min = lag(cdf),
+         cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
+         cdf_mid = .5 * (cdf_min + cdf),
+         treated_mid = (1 - .5 * prop_treated),
+         untreated_mid = .5 * (1 - prop_treated))
+
+plot_by_sex <- viz_data %>%
+  ggplot() +
+  geom_rect(aes(xmin = cdf_min, xmax = cdf,
+             ymin = 0, ymax = 1),
+            fill = NA, color = "black") +
+  geom_text(aes(x = cdf_mid, y = -.05,
+                label = sex),
+            vjust = 1) +
+  geom_segment(aes(x = cdf_min, xend = cdf, 
+                   y = 1 - prop_treated,
+                   yend = 1 - prop_treated),
+               linetype = "dashed") +
+  geom_text(aes(x = cdf_mid, y = treated_mid),
+            label = "College") +
+  geom_text(aes(x = cdf_mid, y = untreated_mid),
+            label = "No College") +
+  ylim(c(-.1,1.1)) +
+  theme_void()
+plot_by_sex
+```
+
+## Recap: In code
+
+\footnotesize
+```{r}
+d %>%
+  # Group by confounders and treatment
+  group_by(sex, a) %>%
+  # Estimate within subgroups
+  summarize(ybar = mean(y),
+            n = n(),
+            .groups = "drop") %>%
+  pivot_wider(names_from = a,
+              values_from = c("ybar","n")) %>%
+  mutate(conditional_effect = ybar_college - ybar_no_college,
+         n_in_stratum = n_college + n_no_college) %>%
+  # Aggregate over subgroups
+  summarize(population_average_effect = weighted.mean(
+    conditional_effect,
+    w = n_in_stratum
+  ))
+```
+
+## Adjust for sex and race
+
+\begin{center}
+\begin{tikzpicture}[x = 1in, y = .4in]
+\node (a) at (0,0) {$A$};
+\node (y) at (1,0) {$Y$};
+\node (l1) at (-1,1) {$L_1$};
+\node (l2) at (-1,0) {$L_2$};
+\draw[->, thick] (l1) -- (a);
+\draw[->, thick] (l2) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l1) to[bend left] (y);
+\draw[->, thick] (l2) to[bend left] (y);
+\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
+\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
+\node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
+\node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
+\end{tikzpicture}
+\end{center}
+
+. . .
+
+1) Estimate effects within subgroups defined by \{sex, race\}
+2) Aggregate over subgroups
+
+## Adjust for sex and race
+
+```{r, echo = F}
+viz_data <- d %>%
+  group_by(race, sex) %>%
+  summarize(num = n(), 
+            prop_treated = mean(a == "college"),
+            .groups = "drop_last") %>%
+  mutate(proportion = num / sum(num)) %>%
+  arrange(sex) %>%
+  mutate(cdf = cumsum(proportion),
+         cdf_min = lag(cdf),
+         cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
+         cdf_mid = .5 * (cdf_min + cdf),
+         treated_mid = (1 - .5 * prop_treated),
+         untreated_mid = .5 * (1 - prop_treated))
+
+plot_by_sex_race <- viz_data %>%
+  ggplot() +
+  geom_rect(aes(xmin = cdf_min, xmax = cdf,
+             ymin = 0, ymax = 1),
+            fill = NA, color = "black") +
+  geom_text(aes(x = cdf_mid, y = -.05,
+                label = sex),
+            vjust = 1) +
+  geom_segment(aes(x = cdf_min, xend = cdf, 
+                   y = 1 - prop_treated,
+                   yend = 1 - prop_treated),
+               linetype = "dashed") +
+  geom_text(aes(x = cdf_mid, y = treated_mid),
+            label = "College") +
+  geom_text(aes(x = cdf_mid, y = untreated_mid),
+            label = "No College") +
+  ylim(c(-.1,1.1)) +
+  theme_void() +
+  facet_wrap(~race) +
+  theme(strip.text = element_text(face = "bold"))
+plot_by_sex_race
+```
+
+## Adjust for sex and race
+
+```{r, echo = F}
+descriptive <- d %>%
+  group_by(a) %>%
+  summarize(ybar = mean(y)) %>%
+  pivot_wider(names_from = a, values_from = ybar) %>%
+  mutate(difference = college - no_college) %>%
+  pivot_longer(cols = everything()) %>%
+  mutate(name = fct_relevel(name,"college","no_college","difference")) %>%
+  mutate(quantity = "Descriptive\n(Unadjusted)")
+
+causal <- d %>%
+  # Group by confounders and treatment
+  group_by(sex, race, a) %>%
+  # Estimate within subgroups
+  summarize(ybar = mean(y),
+            n = n(),
+            .groups = "drop") %>%
+  pivot_wider(names_from = a,
+              values_from = c("ybar","n")) %>%
+  mutate(n = n_no_college + n_college) %>%
+  summarize(college = weighted.mean(ybar_college, w = n),
+            no_college = weighted.mean(ybar_no_college, w = n),
+            difference = weighted.mean(ybar_college - ybar_no_college,
+                                       w = n)) %>%
+  pivot_longer(cols = everything()) %>%
+  mutate(name = fct_relevel(name,"college","no_college","difference")) %>%
+  mutate(quantity = "Causal\n(Adjusted)")
+
+descriptive %>%
+  bind_rows(causal) %>%
+  mutate(quantity = fct_rev(quantity)) %>%
+  ggplot(aes(x = name, y = value,
+             label = format(round(value,2),nsmll = 2))) +
+  geom_point() +
+  geom_text(nudge_x = .1, hjust = 0, size = 8) +
+  facet_wrap(~quantity) +
+  scale_x_discrete(labels = as_labeller(function(x) {
+    case_when(x == "college" ~ "(1)\nUnder College",
+              x == "no_college" ~ "(2)\nUnder No College",
+              x == "difference" ~ "(1) - (2)\nDifference")
+  })) +
+  xlab("Estimand") +
+  ylab("Estimate") +
+  ylim(c(0,1)) +
+  theme_bw() +
+  theme(text = element_text(size = 16))
+```
+
+## Adjust for sex, race, mom education
+
+\begin{center}
+\begin{tikzpicture}[x = 1in, y = .4in]
+\node (a) at (0,0) {$A$};
+\node (y) at (1,0) {$Y$};
+\node (l1) at (-1,1) {$L_1$};
+\node (l2) at (-1,.5) {$L_2$};
+\node (l3) at (-1,0) {$L_3$};
+\draw[->, thick] (l1) -- (a);
+\draw[->, thick] (l2) -- (a);
+\draw[->, thick] (l3) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l1) to[bend left] (y);
+\draw[->, thick] (l2) to[bend left] (y);
+\draw[->, thick] (l3) to[bend left] (y);
+\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
+\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
+\node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
+\node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
+\node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
+\end{tikzpicture}
+\end{center}
+
+1) Estimate effects within subgroups defined by \{race,sex, mom education\}
+2) Aggregate over subgroups
+
+## Adjust for sex, race, mom education
+
+```{r, echo = F}
+viz_data <- d %>%
+  group_by(race, mom_educ, sex) %>%
+  summarize(num = n(), 
+            prop_treated = mean(a == "college"),
+            .groups = "drop_last") %>%
+  mutate(proportion = num / sum(num)) %>%
+  arrange(sex) %>%
+  mutate(cdf = cumsum(proportion),
+         cdf_min = lag(cdf),
+         cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
+         cdf_mid = .5 * (cdf_min + cdf),
+         treated_mid = (1 - .5 * prop_treated),
+         untreated_mid = .5 * (1 - prop_treated))
+
+plot_by_sex_race_mom_educ <- viz_data %>%
+  ggplot() +
+  geom_rect(aes(xmin = cdf_min, xmax = cdf,
+             ymin = 0, ymax = 1),
+            fill = NA, color = "black") +
+  geom_text(aes(x = cdf_mid, y = -.05,
+                label = sex),
+            vjust = 1) +
+  geom_segment(aes(x = cdf_min, xend = cdf, 
+                   y = 1 - prop_treated,
+                   yend = 1 - prop_treated),
+               linetype = "dashed") +
+  geom_text(aes(x = cdf_mid, y = treated_mid),
+            label = "College") +
+  geom_text(aes(x = cdf_mid, y = untreated_mid),
+            label = "No College") +
+  ylim(c(-.1,1.1)) +
+  theme_void() +
+  facet_grid(mom_educ~race) +
+  theme(strip.text = element_text(face = "bold"))
+plot_by_sex_race_mom_educ
+```
+
+## Adjust for sex, race, mom education
+
+```{r, echo = F}
+causal <- d %>%
+  # Group by confounders and treatment
+  group_by(sex, race, mom_educ, a) %>%
+  # Estimate within subgroups
+  summarize(ybar = mean(y),
+            n = n(),
+            .groups = "drop") %>%
+  pivot_wider(names_from = a,
+              values_from = c("ybar","n")) %>%
+  mutate(n = n_no_college + n_college) %>%
+  summarize(college = weighted.mean(ybar_college, w = n),
+            no_college = weighted.mean(ybar_no_college, w = n),
+            difference = weighted.mean(ybar_college - ybar_no_college,
+                                       w = n)) %>%
+  pivot_longer(cols = everything()) %>%
+  mutate(name = fct_relevel(name,"college","no_college","difference")) %>%
+  mutate(quantity = "Causal\n(Adjusted)")
+
+descriptive %>%
+  bind_rows(causal) %>%
+  mutate(quantity = fct_rev(quantity)) %>%
+  ggplot(aes(x = name, y = value,
+             label = format(round(value,2),nsmll = 2))) +
+  geom_point() +
+  geom_text(nudge_x = .1, hjust = 0, size = 8) +
+  facet_wrap(~quantity) +
+  scale_x_discrete(labels = as_labeller(function(x) {
+    case_when(x == "college" ~ "(1)\nUnder College",
+              x == "no_college" ~ "(2)\nUnder No College",
+              x == "difference" ~ "(1) - (2)\nDifference")
+  })) +
+  xlab("Estimand") +
+  ylab("Estimate") +
+  ylim(c(0,1)) +
+  theme_bw() +
+  theme(text = element_text(size = 16))
+```
+
+## Adjust for sex, race, mom education, dad education
+
+\begin{center}
+\begin{tikzpicture}[x = 1in, y = .4in]
+\node (a) at (0,0) {$A$};
+\node (y) at (1,0) {$Y$};
+\node (l1) at (-1,1) {$L_1$};
+\node (l2) at (-1,.66) {$L_2$};
+\node (l3) at (-1,.33) {$L_3$};
+\node (l4) at (-1,0) {$L_4$};
+\draw[->, thick] (l1) -- (a);
+\draw[->, thick] (l2) -- (a);
+\draw[->, thick] (l3) -- (a);
+\draw[->, thick] (l4) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l1) to[bend left] (y);
+\draw[->, thick] (l2) to[bend left] (y);
+\draw[->, thick] (l3) to[bend left] (y);
+\draw[->, thick] (l4) to[bend left] (y);
+\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
+\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
+\node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
+\node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
+\node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
+\node[anchor = east, align = center, font = \footnotesize] at (l4.west) {Dad Education};
+\end{tikzpicture}
+\end{center}
+
+1) Estimate effects within subgroups defined by \{race,sex, mom education, dad education\}
+2) Aggregate over subgroups
+
+## Adjust for sex, race, mom education, dad education
+
+```{r, echo = F}
+viz_data <- d %>%
+  group_by(race, mom_educ, dad_educ, sex) %>%
+  summarize(num = n(), 
+            prop_treated = mean(a == "college"),
+            .groups = "drop_last") %>%
+  mutate(proportion = num / sum(num)) %>%
+  arrange(sex) %>%
+  mutate(cdf = cumsum(proportion),
+         cdf_min = lag(cdf),
+         cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
+         cdf_mid = .5 * (cdf_min + cdf),
+         treated_mid = (1 - .5 * prop_treated),
+         untreated_mid = .5 * (1 - prop_treated))
+
+plot_by_sex_race_mom_educ_dad_educ <- viz_data %>%
+  ggplot() +
+  geom_rect(aes(xmin = cdf_min, xmax = cdf,
+             ymin = 0, ymax = 1),
+            fill = NA, color = "black") +
+  geom_text(aes(x = cdf_mid, y = -.05,
+                label = sex),
+            vjust = 1) +
+  geom_segment(aes(x = cdf_min, xend = cdf, 
+                   y = 1 - prop_treated,
+                   yend = 1 - prop_treated),
+               linetype = "dashed") +
+  geom_text(aes(x = cdf_mid, y = treated_mid),
+            label = "College", size = 2) +
+  geom_text(aes(x = cdf_mid, y = untreated_mid),
+            label = "No College", size = 2) +
+  ylim(c(-.1,1.1)) +
+  theme_void() +
+  facet_grid(mom_educ + dad_educ ~race) +
+  theme(strip.text = element_text(face = "bold"))
+plot_by_sex_race_mom_educ_dad_educ
+```
+
+## Adjust for sex, race, mom education, dad education
+
+```{r, echo = F}
+plot_by_sex_race_mom_educ_dad_educ +
+  geom_rect(aes(xmin = cdf_min, xmax = cdf,
+                ymin = 0, ymax = 1,
+                alpha = prop_treated %in% c(0,1)),
+            fill = "red") +
+  scale_alpha_manual(values = c(0,.5)) +
+  theme(legend.position = "none")
+ggsave("figures/curse.pdf",
+       height = 9, width = 9)
+```
+
+## Curse of dimensionality: Unpopulated cells
+
+```{r, echo = F}
+many_groups <- d %>%
+  group_by(a, sex, race, mom_educ, dad_educ) %>%
+  summarize(n = n(),
+            .groups = "drop") %>%
+  pivot_wider(names_from = a,
+              values_from = n,
+              names_prefix = "n_")
+```
+
+\scriptsize
+```{r, echo = F}
+many_groups %>%
+  mutate(race = str_replace_all(race,"Black","B"),
+         race = str_replace_all(race,"Hispanic","H")) %>%
+  arrange(-is.na(n_college)) %>%
+  print(n = 10)
+```
+
+## Curse of dimensionality
+
+\centering
+\begin{tikzpicture}[x = 1in, y = .4in]
+\node (a) at (0,0) {$A$};
+\node (y) at (1,0) {$Y$};
+\node (l1) at (-1,1) {$L_1$};
+\node (l2) at (-1,.66) {$L_2$};
+\node (l3) at (-1,.33) {$L_3$};
+\node (l4) at (-1,0) {$L_4$};
+\draw[->, thick] (l1) -- (a);
+\draw[->, thick] (l2) -- (a);
+\draw[->, thick] (l3) -- (a);
+\draw[->, thick] (l4) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l1) to[bend left] (y);
+\draw[->, thick] (l2) to[bend left] (y);
+\draw[->, thick] (l3) to[bend left] (y);
+\draw[->, thick] (l4) to[bend left] (y);
+\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
+\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
+\node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
+\node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
+\node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
+\node[anchor = east, align = center, font = \footnotesize] at (l4.west) {Dad Education};
+\end{tikzpicture}
+
+```{r, echo = F}
+empirical_positivity_violated <- many_groups %>%
+  summarize(violated = weighted.mean(is.na(n_college) | is.na(n_no_college),
+                                     w = ifelse(is.na(n_college),0,n_college) +
+                                       ifelse(is.na(n_no_college),0,n_no_college))) %>%
+  mutate(violated = paste0(round(100*violated,1),"%"))
+```
+
+\huge
+**`r empirical_positivity_violated$violated`** of the sample 
+
+\normalsize
+is in a subgroup with either 0 treated or 0 untreated units
+
+## Curse of dimensionality
+
+\centering
+
+\begin{tikzpicture}[x = 1in, y = .4in]
+\node (a) at (0,0) {$A$};
+\node (y) at (1,0) {$Y$};
+\node (l1) at (-1,2) {$L_1$};
+\node (l2) at (-1,1.66) {$L_2$};
+\node (l3) at (-1,1.33) {$L_3$};
+\node (l4) at (-1,1) {$L_4$};
+\node (l5) at (-1,.66) {$L_5$};
+\node (l6) at (-1,.33) {$L_6$};
+\node (l7) at (-1,0) {$L_7$};
+\draw[->, thick] (l1) -- (a);
+\draw[->, thick] (l2) -- (a);
+\draw[->, thick] (l3) -- (a);
+\draw[->, thick] (l4) -- (a);
+\draw[->, thick] (l5) -- (a);
+\draw[->, thick] (l6) -- (a);
+\draw[->, thick] (l7) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l1) to[bend left] (y);
+\draw[->, thick] (l2) to[bend left] (y);
+\draw[->, thick] (l3) to[bend left] (y);
+\draw[->, thick] (l4) to[bend left] (y);
+\draw[->, thick] (l5) to[bend left] (y);
+\draw[->, thick] (l6) to[bend left] (y);
+\draw[->, thick] (l7) to[bend left] (y);
+\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
+\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
+\node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
+\node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
+\node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
+\node[anchor = east, align = center, font = \footnotesize] at (l4.west) {Dad Education};
+\node[anchor = east, align = center, font = \footnotesize] at (l5.west) {Income};
+\node[anchor = east, align = center, font = \footnotesize] at (l6.west) {Wealth};
+\node[anchor = east, align = center, font = \footnotesize] at (l7.west) {Test Percentile};
+\end{tikzpicture}
+
+. . .
+
+```{r, echo = F}
+violated <- d %>%
+  group_by(a, sex, race, mom_educ, dad_educ, log_parent_income, log_parent_wealth, test_percentile) %>%
+  summarize(n = n(),
+            .groups = "drop") %>%
+  pivot_wider(names_from = a,
+              values_from = n,
+              names_prefix = "n_") %>%
+  summarize(violated = weighted.mean(is.na(n_college) | is.na(n_no_college),
+                                     w = ifelse(is.na(n_college),0,n_college) +
+                                       ifelse(is.na(n_no_college),0,n_no_college))) %>%
+  mutate(violated = paste0(round(100*violated,1),"%"))
+```
+
+\huge
+**`r violated$violated`** of the sample 
+
+\normalsize
+is in a subgroup with either 0 treated or 0 untreated units
+
+
+## Learning goals for today
+
+At the end of class, you will be able to
+
+- explain the curse of dimensionality
+- recognize the possible futility of nonparametric estimation
+
+Optionally, read [Hernán \& Robins Ch 11](https://miguelhernan.org/whatifbook)
+     

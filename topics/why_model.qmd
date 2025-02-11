@@ -1,94 +1,37 @@
 ---
 title: "Why model?"
-author: UCLA SOCIOL 114 \break Winter 2025 \break \href{https://soc114.github.io/}{\textcolor{blue}{soc114.github.io}}
-date: 11 Feb 2025
-format: beamer
-urlcolor: blue
-date-format: DD MMM YYYY
-header-includes:
-  \usecolortheme{dove}
-  \usepackage{tikz}
-  \usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
+format: 
+  html:
+    fig-height: 3
 ---
 
-```{r, include = F}
-knitr::opts_chunk$set(echo = T)
-```
+> Covered Feb 11. Here are [slides](../slides/lec11a_whymodel/lec11a_whymodel.pdf). Lecture for today also includes the next page.
 
+<!-- > The reading with this class is [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play." -->
 
-```{r, include = F, eval = F}
-source("prepare_nlsy97.R")
-```
-```{r, include = F, eval = T}
-library(tidyverse)
-d <- readRDS("d.RDS")
-```
-
-## Arc of the course
-
-We began by asking causal questions
-
-- Defining counterfactuals
-
-Then we discussed causal assumptions
-
-- Exchangeability and experiments
-- Consistency and positivity
-- Directed Acyclic Graphs
-
-. . .
-
-\begin{center}
-\Large
-5 weeks
-\end{center}
-
-. . .
-
-\begin{center}
-\Large
-0 statistical models
-\end{center}
-
-## Learning goals for today
-
-At the end of class, you will be able to
+This page will help you
 
 - explain the curse of dimensionality
 - recognize the possible futility of nonparametric estimation
 
-## Motivating a research question^[[Mare 1991](https://doi.org/10.2307/2095670), [Schwartz 2013](https://doi.org/10.1146/annurev-soc-071312-145544)]
+It motivates the **model-based estimation** that we will use in the next part of the course.
 
-Income inequality across households depends on
+## A motivating example
 
-1. inequality across individuals
-2. how individuals pool into households
+Sociologists who study household income inequality often focus on two mechanisms. First, incomes vary across individuals. Second, individuals pool together into households. The tendency of high-income individuals to marry other high-income individuals is thus an important process through which household income inequality arises.^[[Mare 1991](https://doi.org/10.2307/2095670), [Schwartz 2013](https://doi.org/10.1146/annurev-soc-071312-145544)]
 
-A college degree affects (1) and (2)
+This page asks a question about the pooling of people together into households: To what degree does finishing college increase the probability of having a spouse who finished college?
 
+## Data
 
-## Research question
+We use data from the [National Longitudinal Survey of Youth 1997](https://www.bls.gov/nls/nlsy97.htm) (NLSY97). The NLSY97 is a probability sample of U.S. non-institutional civilian youths age 12--16 on Dec 31 1996 ($n$ = 8,984). Sampled individuals were surveyed annually 1997--2011, then biennially.
 
-To what degree does finishing college increase the probability of having a spouse who finished college?
-
-. . .
-
-**Data.** [National Longitudinal Survey of Youth 1997](https://www.bls.gov/nls/nlsy97.htm)
-
-- Probability sample of U.S. non-institutional civilian youth age 12--16 on Dec 31 1996
-- Surveyed annually 1997--2011, then biennially
-- $n$ = 8,984
-
-## Data access
-
-To access these data, first
+If you would like to work with the data, you should first prepare your computer with some files from us:
 
 * set your working directory where you will be working
 * download two supporting files from us
      1. [`nlsy97.NLSY97`](https://drive.google.com/file/d/1YcyaC1R5u9_d0-AX4ivqDiU0bRnEsAsJ/view?usp=sharing) is a tagset file containing the variable names
      2. [`prepare_nlsy97.R`](https://drive.google.com/file/d/1fUdlhEsGGC0shREvu4znPPmJjtNi--Ko/view?usp=sharing) is an R script to prepare the data
-
-## Data access
 
 Now go to the data distributor
 
@@ -102,6 +45,10 @@ Now go to the data distributor
      * this will take about 30 seconds to run
      * you will need these R packages: `tidyverse` and `Amelia`
 
+```{r, warning = F, message = F}
+library(tidyverse)
+```
+
 ```{r, eval = F}
 source("prepare_nlsy97.R")
 ```
@@ -109,52 +56,25 @@ In the future, you can now load the data with
 ```{r, eval = F}
 d <- readRDS("d.RDS")
 ```
-
-
-## [Register](https://nlsinfo.org/investigator/pages/register) with the survey
-
-![](figures/nlsy97_register.png)
-
-## Choose the NLSY97 study
-
-![](figures/nlsy97_choose.png)
-
-## Upload [our tagset]()
-
-![](figures/nlsy97_upload1.png)
-![](figures/nlsy97_upload2.png)
-
-## Download the data
-
-![](figures/nlsy97_download.png)
-
-## Run our code
-
-This code prepares the data file (one time, takes about 30 seconds)
-```{r, eval = F}
-source("prepare_NLSY97.R")
+```{r, echo = F}
+d <- readRDS("../data_raw/d.RDS")
 ```
 
-This code loads the prepared data (after the above, very fast)
-```{r}
-d <- readRDS("d.RDS")
-```
+## A DAG with one confounder
 
-## Research question
-
-To what degree does finishing college increase the probability of having a spouse who finished college?
-
-. . .
+To draw a DAG, we first define our treatment and outcome variables
 
 - Treatment $A$: Finished BA by age 25
 - Outcome $Y$: Spouse or partner at age 30--40 holds a BA
      * 0 if no spouse or partner, or partner with no BA
      * 1 if spouse or partner holds a BA
+     
+With these two variables, we ask whether there are any other variables that are common ancestors of these two. One possibility is the sex of the respondent, $L$.
 
-. . .
-
-\begin{center}
+```{tikz, echo = F}
 \begin{tikzpicture}[x = 1in, y = .7in]
+\node at (-3,0) {};
+\node at (3,0) {};
 \node (a) at (0,0) {$A$};
 \node (y) at (1,0) {$Y$};
 \node (l) at (-1,0) {$L$};
@@ -165,98 +85,57 @@ To what degree does finishing college increase the probability of having a spous
 \node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
 \node[anchor = north, align = center, font = \footnotesize] at (l.south) {Sex};
 \end{tikzpicture}
-\end{center}
+```
 
-. . .
-
-Adjustment procedure
+If this were the only confounder, our adjustment procedure would be simple:
 
 1) Estimate within subgroups defined by \{sex\}
 2) Aggregate over the subgroups
 
-## Data
+The code below estimates within the subgroups
 
-\footnotesize
 ```{r}
-d %>%
-  select(sex, a, y) %>%
-  print(n = 8)
-```
-
-## 1) Estimate in subgroups
-
-\footnotesize
-```{r}
-ybar_in_subgroups <- d %>%
+ybar_in_subgroups <- d |>
   # Group by confounders and treatment
-  group_by(sex, a) %>%
+  group_by(sex, a) |>
   # Summarize mean outcomes and nber of cases
   summarize(ybar = mean(y),
             n = n(),
-            .groups = "drop") %>%
-  print()
-```
-
-## 1) Estimate in subgroups
-
-\footnotesize
-```{r, echo = F}
-ybar_in_subgroups
-```
-
-. . .
-
-```{r}
-pivoted <- ybar_in_subgroups %>%
+            .groups = "drop") |>
   pivot_wider(names_from = a,
-              values_from = c("ybar","n")) %>%
+              values_from = c("ybar","n")) |>
   print()
 ```
 
-## 1) Estimate in subgroups
-
-\footnotesize
-```{r,echo = F}
-pivoted
-```
-
-. . .
+Then we can aggregate over the subgroups, weighted by size.
 
 ```{r}
-cate <- pivoted %>%
-  mutate(conditional_effect = ybar_college - ybar_no_college,
-         n_in_stratum = n_college + n_no_college) %>%
-  select(sex, conditional_effect, n_in_stratum) %>%
+ybar_in_subgroups |>
+  mutate(
+    conditional_effect = ybar_college - ybar_no_college,
+    n_in_stratum = n_college + n_no_college
+  ) |>
+  select(sex, conditional_effect, n_in_stratum) |>
+  summarize(
+    population_average_effect = weighted.mean(
+      conditional_effect,
+      w = n_in_stratum
+    )
+  ) |>
   print()
 ```
 
-## 2) Aggregate over subgroups
-
-\footnotesize
-```{r, echo = F}
-cate
-```
-
-. . .
-
-```{r}
-cate %>%
-  summarize(population_average_effect = weighted.mean(
-    conditional_effect,
-    w = n_in_stratum
-  ))
-```
-
-## Recap: Intuition
+The visualization below seeks to build intuitiomn for what we have just done. We split the population into two subgroups (left and right of the solid line). Within each subgroup, we took the mean outcome among those with and without college degrees (above and below dashed line), taking the difference as the effect of a college degree. Then we took the average across the left and right subgroups.
 
 ```{r, echo = F}
-viz_data <- d %>%
-  group_by(sex) %>%
+#| fig-height: 3
+viz_data <- d |>
+  group_by(sex) |>
   summarize(num = n(), 
             prop_treated = mean(a == "college"),
-            .groups = "drop") %>%
-  mutate(proportion = num / sum(num)) %>%
-  arrange(sex) %>%
+            .groups = "drop") |>
+  mutate(proportion = num / sum(num)) |>
+  arrange(sex) |>
   mutate(cdf = cumsum(proportion),
          cdf_min = lag(cdf),
          cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
@@ -264,7 +143,7 @@ viz_data <- d %>%
          treated_mid = (1 - .5 * prop_treated),
          untreated_mid = .5 * (1 - prop_treated))
 
-plot_by_sex <- viz_data %>%
+plot_by_sex <- viz_data |>
   ggplot() +
   geom_rect(aes(xmin = cdf_min, xmax = cdf,
              ymin = 0, ymax = 1),
@@ -285,31 +164,11 @@ plot_by_sex <- viz_data %>%
 plot_by_sex
 ```
 
-## Recap: In code
+## With two confounders
 
-\footnotesize
-```{r}
-d %>%
-  # Group by confounders and treatment
-  group_by(sex, a) %>%
-  # Estimate within subgroups
-  summarize(ybar = mean(y),
-            n = n(),
-            .groups = "drop") %>%
-  pivot_wider(names_from = a,
-              values_from = c("ybar","n")) %>%
-  mutate(conditional_effect = ybar_college - ybar_no_college,
-         n_in_stratum = n_college + n_no_college) %>%
-  # Aggregate over subgroups
-  summarize(population_average_effect = weighted.mean(
-    conditional_effect,
-    w = n_in_stratum
-  ))
-```
+Sex may not be the only confounder. What if race also shapes access to college and the probability of having a college-educated spouse at age 35?
 
-## Adjust for sex and race
-
-\begin{center}
+```{tikz, echo = F}
 \begin{tikzpicture}[x = 1in, y = .4in]
 \node (a) at (0,0) {$A$};
 \node (y) at (1,0) {$Y$};
@@ -325,23 +184,24 @@ d %>%
 \node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
 \node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
 \end{tikzpicture}
-\end{center}
+```
 
-. . .
+Our procedure would be analogous to the above:
 
 1) Estimate effects within subgroups defined by \{sex, race\}
 2) Aggregate over subgroups
 
-## Adjust for sex and race
+The only difference is that now there are 6 subgroups (3 race categories $\times$ 2 sex categories). Moving from one to two confounders multiplies the number of subgroups.
 
 ```{r, echo = F}
-viz_data <- d %>%
-  group_by(race, sex) %>%
+#| fig-height: 4
+viz_data <- d |>
+  group_by(race, sex) |>
   summarize(num = n(), 
             prop_treated = mean(a == "college"),
-            .groups = "drop_last") %>%
-  mutate(proportion = num / sum(num)) %>%
-  arrange(sex) %>%
+            .groups = "drop_last") |>
+  mutate(proportion = num / sum(num)) |>
+  arrange(sex) |>
   mutate(cdf = cumsum(proportion),
          cdf_min = lag(cdf),
          cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
@@ -349,7 +209,7 @@ viz_data <- d %>%
          treated_mid = (1 - .5 * prop_treated),
          untreated_mid = .5 * (1 - prop_treated))
 
-plot_by_sex_race <- viz_data %>%
+plot_by_sex_race <- viz_data |>
   ggplot() +
   geom_rect(aes(xmin = cdf_min, xmax = cdf,
              ymin = 0, ymax = 1),
@@ -372,43 +232,44 @@ plot_by_sex_race <- viz_data %>%
 plot_by_sex_race
 ```
 
-## Adjust for sex and race
+Below are the unadjusted estimates and the estimates adjusted for sex and race.
 
 ```{r, echo = F}
-descriptive <- d %>%
-  group_by(a) %>%
-  summarize(ybar = mean(y)) %>%
-  pivot_wider(names_from = a, values_from = ybar) %>%
-  mutate(difference = college - no_college) %>%
-  pivot_longer(cols = everything()) %>%
-  mutate(name = fct_relevel(name,"college","no_college","difference")) %>%
+#| fig-height: 3
+descriptive <- d |>
+  group_by(a) |>
+  summarize(ybar = mean(y)) |>
+  pivot_wider(names_from = a, values_from = ybar) |>
+  mutate(difference = college - no_college) |>
+  pivot_longer(cols = everything()) |>
+  mutate(name = fct_relevel(name,"college","no_college","difference")) |>
   mutate(quantity = "Descriptive\n(Unadjusted)")
 
-causal <- d %>%
+causal <- d |>
   # Group by confounders and treatment
-  group_by(sex, race, a) %>%
+  group_by(sex, race, a) |>
   # Estimate within subgroups
   summarize(ybar = mean(y),
             n = n(),
-            .groups = "drop") %>%
+            .groups = "drop") |>
   pivot_wider(names_from = a,
-              values_from = c("ybar","n")) %>%
-  mutate(n = n_no_college + n_college) %>%
+              values_from = c("ybar","n")) |>
+  mutate(n = n_no_college + n_college) |>
   summarize(college = weighted.mean(ybar_college, w = n),
             no_college = weighted.mean(ybar_no_college, w = n),
             difference = weighted.mean(ybar_college - ybar_no_college,
-                                       w = n)) %>%
-  pivot_longer(cols = everything()) %>%
-  mutate(name = fct_relevel(name,"college","no_college","difference")) %>%
+                                       w = n)) |>
+  pivot_longer(cols = everything()) |>
+  mutate(name = fct_relevel(name,"college","no_college","difference")) |>
   mutate(quantity = "Causal\n(Adjusted)")
 
-descriptive %>%
-  bind_rows(causal) %>%
-  mutate(quantity = fct_rev(quantity)) %>%
+descriptive |>
+  bind_rows(causal) |>
+  mutate(quantity = fct_rev(quantity)) |>
   ggplot(aes(x = name, y = value,
              label = format(round(value,2),nsmll = 2))) +
   geom_point() +
-  geom_text(nudge_x = .1, hjust = 0, size = 8) +
+  geom_text(nudge_x = .1, hjust = 0) +
   facet_wrap(~quantity) +
   scale_x_discrete(labels = as_labeller(function(x) {
     case_when(x == "college" ~ "(1)\nUnder College",
@@ -418,13 +279,14 @@ descriptive %>%
   xlab("Estimand") +
   ylab("Estimate") +
   ylim(c(0,1)) +
-  theme_bw() +
-  theme(text = element_text(size = 16))
+  theme_bw()
 ```
 
-## Adjust for sex, race, mom education
+## With three confounders
 
-\begin{center}
+Sex and race are not likely to be a sufficient adjustment set. Our DAG should really include at least three confounders:
+
+```{tikz, echo = F}
 \begin{tikzpicture}[x = 1in, y = .4in]
 \node (a) at (0,0) {$A$};
 \node (y) at (1,0) {$Y$};
@@ -444,21 +306,24 @@ descriptive %>%
 \node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
 \node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
 \end{tikzpicture}
-\end{center}
+```
+
+Proceeding as above, we can make a nonparametric estimate:
 
 1) Estimate effects within subgroups defined by \{race,sex, mom education\}
 2) Aggregate over subgroups
 
-## Adjust for sex, race, mom education
+The number of subgroups is starting to get quite large!
 
 ```{r, echo = F}
-viz_data <- d %>%
-  group_by(race, mom_educ, sex) %>%
+#| fig-height: 8
+viz_data <- d |>
+  group_by(race, mom_educ, sex) |>
   summarize(num = n(), 
             prop_treated = mean(a == "college"),
-            .groups = "drop_last") %>%
-  mutate(proportion = num / sum(num)) %>%
-  arrange(sex) %>%
+            .groups = "drop_last") |>
+  mutate(proportion = num / sum(num)) |>
+  arrange(sex) |>
   mutate(cdf = cumsum(proportion),
          cdf_min = lag(cdf),
          cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
@@ -466,7 +331,7 @@ viz_data <- d %>%
          treated_mid = (1 - .5 * prop_treated),
          untreated_mid = .5 * (1 - prop_treated))
 
-plot_by_sex_race_mom_educ <- viz_data %>%
+plot_by_sex_race_mom_educ <- viz_data |>
   ggplot() +
   geom_rect(aes(xmin = cdf_min, xmax = cdf,
              ymin = 0, ymax = 1),
@@ -489,34 +354,33 @@ plot_by_sex_race_mom_educ <- viz_data %>%
 plot_by_sex_race_mom_educ
 ```
 
-## Adjust for sex, race, mom education
-
 ```{r, echo = F}
-causal <- d %>%
+#| fig-height: 3
+causal <- d |>
   # Group by confounders and treatment
-  group_by(sex, race, mom_educ, a) %>%
+  group_by(sex, race, mom_educ, a) |>
   # Estimate within subgroups
   summarize(ybar = mean(y),
             n = n(),
-            .groups = "drop") %>%
+            .groups = "drop") |>
   pivot_wider(names_from = a,
-              values_from = c("ybar","n")) %>%
-  mutate(n = n_no_college + n_college) %>%
+              values_from = c("ybar","n")) |>
+  mutate(n = n_no_college + n_college) |>
   summarize(college = weighted.mean(ybar_college, w = n),
             no_college = weighted.mean(ybar_no_college, w = n),
             difference = weighted.mean(ybar_college - ybar_no_college,
-                                       w = n)) %>%
-  pivot_longer(cols = everything()) %>%
-  mutate(name = fct_relevel(name,"college","no_college","difference")) %>%
+                                       w = n)) |>
+  pivot_longer(cols = everything()) |>
+  mutate(name = fct_relevel(name,"college","no_college","difference")) |>
   mutate(quantity = "Causal\n(Adjusted)")
 
-descriptive %>%
-  bind_rows(causal) %>%
-  mutate(quantity = fct_rev(quantity)) %>%
+descriptive |>
+  bind_rows(causal) |>
+  mutate(quantity = fct_rev(quantity)) |>
   ggplot(aes(x = name, y = value,
              label = format(round(value,2),nsmll = 2))) +
   geom_point() +
-  geom_text(nudge_x = .1, hjust = 0, size = 8) +
+  geom_text(nudge_x = .1, hjust = 0) +
   facet_wrap(~quantity) +
   scale_x_discrete(labels = as_labeller(function(x) {
     case_when(x == "college" ~ "(1)\nUnder College",
@@ -530,9 +394,11 @@ descriptive %>%
   theme(text = element_text(size = 16))
 ```
 
-## Adjust for sex, race, mom education, dad education
+## With four confounders
 
-\begin{center}
+Now we suppose that dad's education is also a confounder.
+
+```{tikz, echo = F}
 \begin{tikzpicture}[x = 1in, y = .4in]
 \node (a) at (0,0) {$A$};
 \node (y) at (1,0) {$Y$};
@@ -556,21 +422,24 @@ descriptive %>%
 \node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
 \node[anchor = east, align = center, font = \footnotesize] at (l4.west) {Dad Education};
 \end{tikzpicture}
-\end{center}
+```
+
+The procedure still holds:
 
 1) Estimate effects within subgroups defined by \{race,sex, mom education, dad education\}
 2) Aggregate over subgroups
 
-## Adjust for sex, race, mom education, dad education
+but the number of subgroups is now *very* many.
 
 ```{r, echo = F}
-viz_data <- d %>%
-  group_by(race, mom_educ, dad_educ, sex) %>%
+#| fig-height: 12
+viz_data <- d |>
+  group_by(race, mom_educ, dad_educ, sex) |>
   summarize(num = n(), 
             prop_treated = mean(a == "college"),
-            .groups = "drop_last") %>%
-  mutate(proportion = num / sum(num)) %>%
-  arrange(sex) %>%
+            .groups = "drop_last") |>
+  mutate(proportion = num / sum(num)) |>
+  arrange(sex) |>
   mutate(cdf = cumsum(proportion),
          cdf_min = lag(cdf),
          cdf_min = ifelse(is.na(cdf_min),0,cdf_min),
@@ -578,7 +447,7 @@ viz_data <- d %>%
          treated_mid = (1 - .5 * prop_treated),
          untreated_mid = .5 * (1 - prop_treated))
 
-plot_by_sex_race_mom_educ_dad_educ <- viz_data %>%
+plot_by_sex_race_mom_educ_dad_educ <- viz_data |>
   ggplot() +
   geom_rect(aes(xmin = cdf_min, xmax = cdf,
              ymin = 0, ymax = 1),
@@ -598,12 +467,12 @@ plot_by_sex_race_mom_educ_dad_educ <- viz_data %>%
   theme_void() +
   facet_grid(mom_educ + dad_educ ~race) +
   theme(strip.text = element_text(face = "bold"))
-plot_by_sex_race_mom_educ_dad_educ
 ```
 
-## Adjust for sex, race, mom education, dad education
+Now we have a problem. Some subgroups (highlighted in red) are unpopulated: there are no sampled units in these subgroups. The problem of unpopulated cells happens because we have many confounders, so that there are a huge number of subgroups. This problem is known as the curse of dimensionality.
 
 ```{r, echo = F}
+#| fig-height: 12
 plot_by_sex_race_mom_educ_dad_educ +
   geom_rect(aes(xmin = cdf_min, xmax = cdf,
                 ymin = 0, ymax = 1,
@@ -611,76 +480,32 @@ plot_by_sex_race_mom_educ_dad_educ +
             fill = "red") +
   scale_alpha_manual(values = c(0,.5)) +
   theme(legend.position = "none")
-ggsave("figures/curse.pdf",
-       height = 9, width = 9)
 ```
 
 ## Curse of dimensionality: Unpopulated cells
 
+The curse of dimensionality is that the number of subgroups grows multiplicatively with the number of predictors. Nonparametric estimation (estimation by subgroup means) quickly becomes infeasible as the number of subgroups explodes.
+
 ```{r, echo = F}
-many_groups <- d %>%
-  group_by(a, sex, race, mom_educ, dad_educ) %>%
+many_groups <- d |>
+  group_by(a, sex, race, mom_educ, dad_educ) |>
   summarize(n = n(),
-            .groups = "drop") %>%
+            .groups = "drop") |>
   pivot_wider(names_from = a,
               values_from = n,
               names_prefix = "n_")
-```
-
-\scriptsize
-```{r, echo = F}
-many_groups %>%
-  mutate(race = str_replace_all(race,"Black","B"),
-         race = str_replace_all(race,"Hispanic","H")) %>%
-  arrange(-is.na(n_college)) %>%
-  print(n = 10)
-```
-
-## Curse of dimensionality
-
-\centering
-\begin{tikzpicture}[x = 1in, y = .4in]
-\node (a) at (0,0) {$A$};
-\node (y) at (1,0) {$Y$};
-\node (l1) at (-1,1) {$L_1$};
-\node (l2) at (-1,.66) {$L_2$};
-\node (l3) at (-1,.33) {$L_3$};
-\node (l4) at (-1,0) {$L_4$};
-\draw[->, thick] (l1) -- (a);
-\draw[->, thick] (l2) -- (a);
-\draw[->, thick] (l3) -- (a);
-\draw[->, thick] (l4) -- (a);
-\draw[->, thick] (a) -- (y);
-\draw[->, thick] (l1) to[bend left] (y);
-\draw[->, thick] (l2) to[bend left] (y);
-\draw[->, thick] (l3) to[bend left] (y);
-\draw[->, thick] (l4) to[bend left] (y);
-\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
-\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
-\node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
-\node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
-\node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
-\node[anchor = east, align = center, font = \footnotesize] at (l4.west) {Dad Education};
-\end{tikzpicture}
-
-```{r, echo = F}
-empirical_positivity_violated <- many_groups %>%
+empirical_positivity_violated <- many_groups |>
   summarize(violated = weighted.mean(is.na(n_college) | is.na(n_no_college),
                                      w = ifelse(is.na(n_college),0,n_college) +
-                                       ifelse(is.na(n_no_college),0,n_no_college))) %>%
+                                       ifelse(is.na(n_no_college),0,n_no_college))) |>
   mutate(violated = paste0(round(100*violated,1),"%"))
 ```
 
-\huge
-**`r empirical_positivity_violated$violated`** of the sample 
+In fact, in our example, **`r empirical_positivity_violated$violated`** of the sample is in a subgroup where there are either zero people with college degrees or zero people without college degrees.
 
-\normalsize
-is in a subgroup with either 0 treated or 0 untreated units
+To make conditional exchangeability plausible, social scientists often have to draw a DAG with numerous confounding variables.
 
-## Curse of dimensionality
-
-\centering
-
+```{tikz, echo = F}
 \begin{tikzpicture}[x = 1in, y = .4in]
 \node (a) at (0,0) {$A$};
 \node (y) at (1,0) {$Y$};
@@ -716,39 +541,29 @@ is in a subgroup with either 0 treated or 0 untreated units
 \node[anchor = east, align = center, font = \footnotesize] at (l6.west) {Wealth};
 \node[anchor = east, align = center, font = \footnotesize] at (l7.west) {Test Percentile};
 \end{tikzpicture}
-
-. . .
+```
 
 ```{r, echo = F}
-violated <- d %>%
-  group_by(a, sex, race, mom_educ, dad_educ, log_parent_income, log_parent_wealth, test_percentile) %>%
+violated <- d |>
+  group_by(a, sex, race, mom_educ, dad_educ, log_parent_income, log_parent_wealth, test_percentile) |>
   summarize(n = n(),
-            .groups = "drop") %>%
+            .groups = "drop") |>
   pivot_wider(names_from = a,
               values_from = n,
-              names_prefix = "n_") %>%
+              names_prefix = "n_") |>
   summarize(violated = weighted.mean(is.na(n_college) | is.na(n_no_college),
                                      w = ifelse(is.na(n_college),0,n_college) +
-                                       ifelse(is.na(n_no_college),0,n_no_college))) %>%
+                                       ifelse(is.na(n_no_college),0,n_no_college))) |>
   mutate(violated = paste0(round(100*violated,1),"%"))
 ```
 
-\huge
-**`r violated$violated`** of the sample 
+But when we add tons of variables, we have an ever-increasing problem of empty cells. With the above DAG, **`r violated$violated`** of the sample falls in a cell where either everyone is treated or everyone is untreated.
 
-\normalsize
-is in a subgroup with either 0 treated or 0 untreated units
+## Models to the rescue
 
+In many real research settings, the curse of dimensionality makes it impossible to estimate nonparametrically by subgroup means. With more than a few confounders, there are simply too many subgroups and not enough sampled cases to populate them.
 
-## Learning goals for today
+A **model** is the solution to this problem. A model is a statistical approach to pool information across units who fall in different subgroups, thereby allowing us to make inference even in subgroups where no units are observed. The next page introduces models through a simple descriptive example, and then we will return to causal examples to see how models can help us to answer causal questions.
 
-At the end of class, you will be able to
-
-- explain the curse of dimensionality
-- recognize the possible futility of nonparametric estimation
-
-After class, you should
-
-- read [Hernán \& Robins Ch 11](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/)
-- attend discussion: you will learn to use models!
+If you would like to read more, you might see [Hernán \& Robins Ch 11](https://miguelhernan.org/whatifbook).
      

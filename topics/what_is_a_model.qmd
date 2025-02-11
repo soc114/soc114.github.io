@@ -5,7 +5,7 @@ format:
     fig-height: 3
 ---
 
-<!-- [Slides](../slides/lec4/lec4.pdf) -->
+> This is the second part of lecture for Feb 11. Slides are [here](../slides/lec11b_what_is_a_model/lec11b_what_is_a_model.pdf)
 
 <!-- > The reading with this class is [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play." -->
 
