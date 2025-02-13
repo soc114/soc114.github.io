@@ -467,9 +467,9 @@ window.Quarto = {
 </div>
 <p>By adjusting for the variables <span class="math inline">\(\vec{X}\)</span>, we block all non-causal paths between the treatment <span class="math inline">\(A\)</span> and the outcome <span class="math inline">\(Y\)</span> in the DAG. If this DAG is correct, then conditional exchangeability holds with this adjustment set: <span class="math inline">\(\{Y^1,Y^0\}\indep A \mid\vec{X}\)</span>.</p>
 <p>To estimate, we use data from the <a href="https://www.bls.gov/nls/nlsy97.htm">National Longitudinal Survey of Youth 1997</a>, a probability sample of U.S. resident children who were ages 12–16 on Dec 31, 1996. The study followed these children and interviewed them every year through 2011 and then every other year after that.</p>
-<p>We will analyze a <a href="../data/nlsy97_simulated.RDS">simulated version</a> of these data, which you can access with this line of code.</p>
+<p>We will analyze a simulated version of these data (<a href="../data/nlsy97_simulated.csv">nlsy97_simulated.csv</a>), which you can access with this line of code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"https://soc114.github.io/data/nlsy97_simulated.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/nlsy97_simulated.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -545,7 +545,7 @@ Expand to learn how to get the actual data
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7,771 × 9
   a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth
-  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;fct&gt; &lt;fct&gt;    &lt;fct&gt;                &lt;dbl&gt;             &lt;dbl&gt;
+  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;
 1 colle… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. 
 2 colle… FALSE Male  Non-… Some co… College              31.8               80.5
 3 colle… FALSE Male  Non-… College  High sc…             14.1               23.9
@@ -562,7 +562,7 @@ Expand to learn how to get the actual data
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7,771 × 9
   a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth
-  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;fct&gt; &lt;fct&gt;    &lt;fct&gt;                &lt;dbl&gt;             &lt;dbl&gt;
+  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;
 1 no_co… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. 
 2 no_co… FALSE Male  Non-… Some co… College              31.8               80.5
 3 no_co… FALSE Male  Non-… College  High sc…             14.1               23.9

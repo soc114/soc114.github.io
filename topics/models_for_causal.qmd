@@ -62,13 +62,13 @@ By adjusting for the variables $\vec{X}$, we block all non-causal paths between 
 
 To estimate, we use data from the [National Longitudinal Survey of Youth 1997](https://www.bls.gov/nls/nlsy97.htm), a probability sample of U.S. resident children who were ages 12--16 on Dec 31, 1996. The study followed these children and interviewed them every year through 2011 and then every other year after that.
 
-We will analyze a [simulated version](../data/nlsy97_simulated.RDS) of these data, which you can access with this line of code.
+We will analyze a simulated version of these data ([nlsy97_simulated.csv](../data/nlsy97_simulated.csv)), which you can access with this line of code.
 
 ```{r, eval = F}
-data <- readRDS("https://soc114.github.io/data/nlsy97_simulated.RDS")
+data <- read_csv("https://soc114.github.io/data/nlsy97_simulated.csv")
 ```
-```{r, echo = F}
-data <- readRDS("../data/nlsy97_simulated.RDS")
+```{r, echo = F, message = F, warning = F}
+data <- read_csv("../data/nlsy97_simulated.csv")
 ```
 
 ::: {.callout-note collapse="true"}

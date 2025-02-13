@@ -35,5 +35,5 @@ d |>
   ) |>
   select(-contains("mean"), -contains("sd")) |>
   select(-index) |>
-  saveRDS("data/nlsy97_simulated.RDS")
+  write_csv("data/nlsy97_simulated.csv")
   
