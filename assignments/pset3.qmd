@@ -4,9 +4,9 @@ title: "Problem Set 3: Causal Inference"
 
 **Due: 5pm on Friday, February 14.**
 
-<!-- ::: {.callout-note} -->
-<!-- Want to see how you'll be evaluated? Check out the [rubric](https://docs.google.com/forms/d/e/1FAIpQLSed5nDlpx4vVcDu9Tz_2AFphUU4_ugLAw2EyF5h6124gT-bQQ/viewform?usp=sf_link) -->
-<!-- ::: -->
+::: {.callout-note}
+Want to see how you'll be evaluated? Check out the [peer review form](https://docs.google.com/forms/d/e/1FAIpQLSergD75cuFfLm0RCobrPVZ6qmOwrRtTVUb0fRjZ0xfnTCSuYg/viewform?usp=header).
+:::
 
 Student identifer: [type your anonymous identifier here]
 
