@@ -156,161 +156,136 @@
     ]
   },
   {
-    "objectID": "topics/sampling.html",
-    "href": "topics/sampling.html",
-    "title": "Population sampling",
+    "objectID": "topics/weights.html",
+    "href": "topics/weights.html",
+    "title": "Using weights",
     "section": "",
-    "text": "This topic is covered on Jan 21 and 23.\nClaims about inequality are often claims about a population. Our data are typically only a sample! This module addresses the link between samples and populations.\nThis page covers two lectures.",
+    "text": "When studying population-level inequality, our goal is to draw inference about all units in the population. We want to know about the people in the U.S., not just the people who answer the Current Population Survey. Drawing inference from a sample to a population is most straightforward for a simple random sample: when people are chosen at random with equal probabilities. For simple random samples, the sample average of any variable is an unbiased and consistent estimator of the population average.\nBut the Current Population Survey is not a simple random sample. Neither are most labor force samples! These samples still begin with a sampling frame, but people are chosen with unequal probabilities. We need sample weights to address this fact.\nIn the CPS, a key goal is to estimate unemployment in each state. Every state needs to have enough sample size—even tiny states like Wyoming. In order to make those estimates, the CPS oversamples people who live in small states.\nTo draw good population inference, our analysis must incorporate what we know about how the data were collected. If we ignore the weights, our sample will have too many people from Wyoming and too few people from California. Weights correct for this.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Population sampling"
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/sampling.html#full-count-enumeration",
-    "href": "topics/sampling.html#full-count-enumeration",
-    "title": "Population sampling",
-    "section": "Full count enumeration",
-    "text": "Full count enumeration\nWhat proportion of our class prefers to sit in the front of the room?\nWe answered this question in class using full count enumeration: list the entire target population and ask them the question. Full count enumeration is ideal because it removes all statistical sources of error. But in settings with a larger target population, the high cost of full count enumeration may be prohibitive.",
+    "objectID": "topics/weights.html#how-survey-designers-create-weights",
+    "href": "topics/weights.html#how-survey-designers-create-weights",
+    "title": "Using weights",
+    "section": "How survey designers create weights",
+    "text": "How survey designers create weights\nTo calculate sampling weight on person \\(i\\), those who design survey samples take the ratio \\[\\text{weight on unit }i = \\frac{1}{\\text{probability of including person }i\\text{ in the sample}}\\] You can think of the sampling weight as the number of population members a given sample member represents. If there are 100 people with a 1% chance of inclusion, then on average 1 of them will be in the sample. That person represents \\(\\frac{1}{.01}=100\\) people.\n\n\n\n\n\n\nExample redux: California and Wyoming\n\n\n\nSuppose Californians are sampled with probability 0.0004. Then each Californian represents 1 / 0.0004 = 2,500 people. Each Californian should receive a weight of 2,500. Working out the same math for Wyoming, each Wyoming resident should receive a weight of 250. The total weight on these two samples will then be proportional to the sizes of these two populations.\n\n\nIn practice, weighting is more complicated: survey administrators adjust weights for differential nonresponse across population subgroups (a method called post-stratification). How to construct weights is beyond the scope of this course, and could be a whole course in itself!",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Population sampling"
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/sampling.html#simple-random-sample",
-    "href": "topics/sampling.html#simple-random-sample",
-    "title": "Population sampling",
-    "section": "Simple random sample",
-    "text": "Simple random sample\nWe carried out a simple random sample1 in class.\n\neveryone generated a random number between 0 and 1\nthose with values less than 0.1 were sampled\nour sample estimate was the proportion of those sampled to prefer the front of the room\n\nIn a simple random sample, each person in the population is sampled with equal probabilities. Because the probabilities are known, a simple random sample is a probability sample.",
+    "objectID": "topics/weights.html#point-estimates",
+    "href": "topics/weights.html#point-estimates",
+    "title": "Using weights",
+    "section": "Point estimates",
+    "text": "Point estimates\nWhen we download data, we typically download a column of weights. For simplicity, suppose we are given a sample of four people. The weight column tells us how many people in the population each person represents. The employed column tells us whether each person employed.\n\n\n     name weight employed\n1    Luis      4        1\n2 William      1        0\n3   Susan      1        0\n4  Ayesha      4        1\n\n\nIf we take an unweighted mean, we would conclude that only 50% of the population is employed. But with a weighted mean, we would conclude that 80% of the population is employed! This might be the case if the sample was designed to oversample people at a high risk of unemployment.\n\n\n\n\n\n\n\n\n\nEstimator\nMath\nExample\nResult\n\n\n\n\nUnweighted mean\n\\(=\\frac{\\sum_{i=1}^n Y_i}{n}\\)\n\\(=\\frac{1 + 0 + 0 + 1}{4}\\)\n= 50% employed\n\n\nWeighted mean\n\\(=\\frac{\\sum_{i=1}^n w_iY_i}{\\sum_{i=1}^n w_i}\\)\n\\(=\\frac{4*1 + 1*0 + 1*0 + 4*1}{4 + 1 + 1 + 4}\\)\n= 80% employed\n\n\n\nIn R, the weighted.mean(x, w) function will calculate weighted means where x is an argument for the outcome variable and w is an argument for the weight variable.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Population sampling"
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/sampling.html#unequal-probability-sample",
-    "href": "topics/sampling.html#unequal-probability-sample",
-    "title": "Population sampling",
-    "section": "Unequal probability sample",
-    "text": "Unequal probability sample\nSuppose we want to make subgroup estimates:\n\nwhat proportion prefer the front, among those sitting in the first 3 rows?\nwhat proportion prefer the front, among those sitting in the back 17 rows?\n\nIn a simple random sample, we might only get a few or even zero people in the first 3 rows! To reduce the chance of this bad sample, we could draw an unequal probability sample:\n\nthose in rows 1–3 are selected with probability 0.5\nthose in rows 4–20 are selected with probability 0.1\n\nOur unequal probability sample will over-represent the first three rows, thus creating a large enough sample in this subgroup to yield precise estimates.\n\nHaving drawn an unequal probability sample, suppose we now want to estimate the class-wide proportion who prefer sitting in the front. We will have a problem: those who prefer the front may be more likely to sit there, and they are also sampled with a higher probability! Sample inclusion is related to the value of our outcome.\nBecause the sampling probabilities are known, we can correct for this by applying sampling weights, which for each person equals the inverse of the known probability of inclusion for that person.\nFor those in rows 1–3,\n\nwe sampled with probability 50%\non average 1 in every 2 people is sampled\neach person in the sample represents 2 people in the population\n\\(w_i = \\frac{1}{\\text{P}(\\text{Sampled}_i)} = \\frac{1}{.5} = 2\\)\n\nFor those in rows 4–20,\n\nwe sampled with probability 10%\non average 1 in every 10 people is sampled\neach person in the sample represents 10 people in the population\n\\(w_i = \\frac{1}{\\text{P}(\\text{Sampled}_i)} = \\frac{1}{.1} = 10\\)\n\nTo estimate the population mean, we can use the weighted sample mean,\n\\[\\frac{\\sum_i y_iw_i}{\\sum_i w_i}\\]",
+    "objectID": "topics/weights.html#standard-errors",
+    "href": "topics/weights.html#standard-errors",
+    "title": "Using weights",
+    "section": "Standard errors",
+    "text": "Standard errors\nAs you know from statistics, our sample mean is unlikely to equal the population mean. There is random variation in which people were chosen for inclusion in our sample, and this means that across hypothetical repeated samples we would get different sample means! You likely learned formulas to create a standard errors, which quantifies how much a sample estimator would move around across repeated samples.\nUnfortunately, the formula you learned doesn’t work for complex survey samples! Simple random samples (for which those formulas hold) are actually quite rare. When you face a complex survey sample, those who administer the survey might provide\n\na vector of \\(n\\) weights for making a point estimate\na matrix of \\(n\\times k\\) replicate weights for making standard errors\n\nBy providing \\(k\\) different ways to up- and down-weight various observations, the replicate weights enable you to generate \\(k\\) estimates that vary in a way that mimics how the estimator might vary if applied to different samples from the population. For instance, our employment sample might come with 3 replicate weights.\n\n\n     name weight employed repwt1 repwt2 repwt3\n1    Luis      4        1      3      5      3\n2 William      1        0      1      2      2\n3   Susan      1        0      3      1      1\n4  Ayesha      4        1      5      3      4\n\n\nThe procedure to use replicate weights depends on how they are constructed. Often, it is relatively straightforward:\n\nuse weight to create a point estimate \\(\\hat\\tau\\)\nuse repwt* to generate \\(k\\) replicate estimates \\(\\hat\\tau^*_1,\\dots,\\hat\\tau^*_k\\)\ncalculate the standard error of \\(\\hat\\tau\\) using the replicate estimates \\(\\hat\\tau^*\\). The formula will depend on how the replicate weights were constructed, but it will likely involve the standard deviation of the \\(\\hat\\tau^*\\) multiplied by some factor\nconstruct a confidence interval1 by a normal approximation \\[(\\text{point estimate}) \\pm 1.96 * (\\text{standard error estimate})\\]\n\nIn our concrete example, the point estimate is 80% employed. The replicate estimates are 0.67, 0.73, 0.70. Variation across the replicate estimates tells us something about how the estimate would vary across hypothetical repeated samples from the population.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Population sampling"
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/sampling.html#stratified-random-sample",
-    "href": "topics/sampling.html#stratified-random-sample",
-    "title": "Population sampling",
-    "section": "Stratified random sample",
-    "text": "Stratified random sample\nWe could also draw a stratified random sample by first partitioning the population into subgroups (called strata) and then drawing samples within each subgroup. For instance,\n\nsample 10 of the 20 people in rows 1–3\nsample 10 of the 130 people in rows 4–17\n\nIn simple random or unequal probability sampling, it is always possible that by random chance we sample no one in the front of the room. Stratified random sampling rules this out: we know in advance how our sample will be balanced across the two strata.\n\n\n\n\n\n\nNote\n\n\n\nIn our real-data example at the end of this page, the Current Population Survey is stratified by state so that the Bureau of Labor Statistics knows in advance that they will gather a sufficient sample to estimate unemployment in each state.",
+    "objectID": "topics/weights.html#computational-strategy-for-replicate-weights",
+    "href": "topics/weights.html#computational-strategy-for-replicate-weights",
+    "title": "Using weights",
+    "section": "Computational strategy for replicate weights",
+    "text": "Computational strategy for replicate weights\nUsing replicate weights can be computationally tricky! It becomes much easier if you write an estimator() function. Your function accepts two arguments\n\ndata is the tibble containing the data\nweight_name is the name of a column containing the weight to be used (e.g., “repwt1”)\n\nExample. If our estimator is the weighted mean of employment,\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    summarize(\n      estimate = weighted.mean(\n        x = employed,\n        # extract the weight column\n        w = sim_rep |&gt; pull(weight_name)\n      )\n    ) |&gt; \n    # extract the scalar estimate\n    pull(estimate)\n}\n\nIn the code above, sim_rep |&gt; pull(weight_name) takes the data frame sim_rep and extracts the weight variable that is named weight_name. There are other ways to do this also.\nWe can now apply our estimator to get a point estimate with the main sampling weight,\n\nestimate &lt;- estimator(data = sim_rep, weight_name = \"weight\")\n\nwhich yields the point estimate 0.80. We can use the same function to produce the replicate estimates,\n\nreplicate_estimates &lt;- c(\n  estimator(data = sim_rep, weight_name = \"repwt1\"),\n  estimator(data = sim_rep, weight_name = \"repwt2\"),\n  estimator(data = sim_rep, weight_name = \"repwt3\")\n)\n\nyielding the three estimates: 0.67, 0.73, 0.70. In real data, you will want to apply this in a loop because there may be dozens of replicate weights.\nThe standard error of the estimator will be some function of the replicate estimates, likely involving the standard deviation of the replicate estimates. Check with the data distributor for a formula for your case. Once you estimate the standard error, a 95% confidence interval can be constructed with a Normal approximation, as discussed above.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Population sampling"
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/sampling.html#sec-cps",
-    "href": "topics/sampling.html#sec-cps",
-    "title": "Population sampling",
-    "section": "A real case: The Current Population Survey",
-    "text": "A real case: The Current Population Survey\nEvery month, the Bureau of Labor Statistics in collaboration with the U.S. Census Bureau collects data on unemployment in the Current Population Survey (CPS). The CPS is a probability sample designed to estimate the unemployment rate in the U.S. and in each state.\nWe will be using the CPS in discussion. This video introduces the CPS and points you toward where you can access the data via IPUMS-CPS.",
+    "objectID": "topics/weights.html#application-in-the-cps",
+    "href": "topics/weights.html#application-in-the-cps",
+    "title": "Using weights",
+    "section": "Application in the CPS",
+    "text": "Application in the CPS\nStarting in 2005, the CPS-ASEC samples include 160 replicate weights. If you download replicate weights for many years, the file size will be enormous. We illustrate the use of replicate weights with a question that can be explored with only one year of data: among 25-year olds in 2023, how did the proportion holding four-year college degrees differ across those identifying as male and female?\nWe first load some packages, including the foreach package which will be helpful when looping through replicate weights.\n\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(foreach)\n\nTo answer our research question, we download 2023 CPS-ASEC data including the variables sex, educ, age, the weight variable asecwt, and the replicate weights repwtp*.\n\ncps_data &lt;- read_dta(\"../data_raw/cps_00079.dta\")\n\nWe then define an estimator to use with these data. It accepts a tibble data and a character weight_name identifying the name of the weight variable, and it returns a tibble with two columns: sex and estimate for the estimated proportion with a four-year degree.\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    # Define focal_weight to hold the selected weight\n    mutate(focal_weight = data |&gt; pull(weight_name)) |&gt;\n    # Restrict to those age 25+\n    filter(age &gt;= 25) |&gt;\n    # Restrict to valid reports of education\n    filter(educ &gt; 1 & educ &lt; 999) |&gt;\n    # Define a binary outcome: a four-year degree\n    mutate(college = educ &gt;= 110) |&gt;\n    # Estimate weighted means by sex\n    group_by(sex) |&gt;\n    summarize(estimate = weighted.mean(\n      x = college,\n      w = focal_weight\n    ))\n}\n\nWe produce a point estimate by applying that estimator with the asecwt.\n\nestimate &lt;- estimator(data = cps_data, weight_name = \"asecwt\")\n\n\n\n# A tibble: 2 × 2\n  sex        estimate\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;\n1 1 [male]      0.369\n2 2 [female]    0.397\n\n\nUsing the foreach package, we apply the estimator 160 times—once with each replicate weight—and use the argument .combine = \"rbind\" to stitch results together by rows.\n\nlibrary(foreach)\nreplicate_estimates &lt;- foreach(r = 1:160, .combine = \"rbind\") %do% {\n  estimator(data = cps_data, weight_name = paste0(\"repwtp\",r))\n}\n\n\n\n# A tibble: 320 × 2\n   sex        estimate\n   &lt;dbl+lbl&gt;     &lt;dbl&gt;\n 1 1 [male]      0.368\n 2 2 [female]    0.396\n 3 1 [male]      0.371\n 4 2 [female]    0.400\n 5 1 [male]      0.371\n 6 2 [female]    0.397\n 7 1 [male]      0.369\n 8 2 [female]    0.397\n 9 1 [male]      0.370\n10 2 [female]    0.398\n# ℹ 310 more rows\n\n\nWe estimate the standard error of our estimator by a formula \\[\\text{StandardError}(\\hat\\tau) = \\sqrt{\\frac{4}{160}\\sum_{r=1}^{160}\\left(\\hat\\tau^*_r - \\hat\\tau\\right)^2}\\] where the formula comes from the survey documentation. We carry out this procedure within groups defined by sex, since we are producing estimate for each sex.\n\nstandard_error &lt;- replicate_estimates |&gt;\n  # Denote replicate estimates as estimate_star\n  rename(estimate_star = estimate) |&gt;\n  # Merge in the point estimate\n  left_join(estimate,\n            by = join_by(sex)) |&gt;\n  # Carry out within groups defined by sex\n  group_by(sex) |&gt;\n  # Apply the formula from survey documentation\n  summarize(standard_error = sqrt(4 / 160 * sum((estimate_star - estimate) ^ 2)))\n\n\n\n# A tibble: 2 × 2\n  sex        standard_error\n  &lt;dbl+lbl&gt;           &lt;dbl&gt;\n1 1 [male]          0.00280\n2 2 [female]        0.00291\n\n\nFinally, we combine everything and construct a 95% confidence interval by a Normal approximation.\n\nresult &lt;- estimate |&gt;\n  left_join(standard_error, by = \"sex\") |&gt;\n  mutate(ci_min = estimate - 1.96 * standard_error,\n         ci_max = estimate + 1.96 * standard_error)\n\n\n\n# A tibble: 2 × 5\n  sex        estimate standard_error ci_min ci_max\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 1 [male]      0.369        0.00280  0.364  0.375\n2 2 [female]    0.397        0.00291  0.391  0.403\n\n\nWe use ggplot() to visualize the result.\n\nresult |&gt;\n  mutate(sex = as_factor(sex)) |&gt;\n  ggplot(aes(\n    x = sex, \n    y = estimate,\n    ymin = ci_min, \n    ymax = ci_max,\n    label = scales::percent(estimate)\n  )) +\n  geom_errorbar(width = .2) +\n  geom_label() +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = str_to_title\n  ) +\n  scale_y_continuous(name = \"Proportion with 4-Year College Degree\") +\n  ggtitle(\n    \"Sex Disparities in College Completion\",\n    subtitle = \"Estimates from the 2023 CPS-ASEC among those age 25+\"\n  )\n\n\n\n\n\n\n\n\nWe conclude that those identifying as female are more likely to hold a college degree. Because we can see the confidence intervals generated using the replicate weights, we are reasonably confident in the statistical precision of our point estimates.",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Population sampling"
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/sampling.html#sec-baseball",
-    "href": "topics/sampling.html#sec-baseball",
-    "title": "Population sampling",
-    "section": "Example: Baseball players",
-    "text": "Example: Baseball players\nAs one example where full-count enumeration is possible, we will examine the salaries of all 944 Major League Baseball Players who were on active rosters, injured lists, and restricted lists on Opening Day 2023. These data were compiled by USA Today and are available in baseball.csv.\n\nbaseball &lt;- read_csv(\"https://soc114.github.io/data/baseball.csv\")\n\n\n\n# A tibble: 944 × 4\n  player            team         position   salary\n  &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;\n1 Scherzer, Max     N.Y. Mets    RHP      43333333\n2 Verlander, Justin N.Y. Mets    RHP      43333333\n3 Judge, Aaron      N.Y. Yankees OF       40000000\n4 Rendon, Anthony   L.A. Angels  3B       38571429\n5 Trout, Mike       L.A. Angels  OF       37116667\n# ℹ 939 more rows\n\n\nSalaries are high, and income inequality is also high among baseball players\n\n4% were paid the league minimum of $720,000\n53% were paid less than $2,000,000\nthe highest-paid players—Max Scherzer and Justin Verlander—each earned $43,333,333\nthe highest-paid half of players take home 92% of the total pay\n\n\n\n\n\n\n\n\n\n\nPay also varies widely across teams!\n\n\n\n\n\n\n\n\n\n\nConceptualize the sampling strategy\nSuppose you did not have the whole population. You still want to learn the population mean salary! How could you learn that in a sample of 60 out of the 944 players?\nBefore reading on, think through three questions:\n\nWhat would it mean to use each of these strategies?\n\n\na simple random sample of 60 players\na sample stratified by the 30 MLB teams\na sample clustered by the 30 MLB teams\n\n\nWhich strategies have advantages in terms of\n\n\nbeing least expensive?\nhaving the best statistical properties?\n\n\nGiven that you already have the population, how would you write some R code to carry out the sampling strategies? You might use sample_n() and possibly group_by().\n\n\n\nSampling strategies in code\nIn a simple random sample, we draw 60 players from the entire league. Each player’s probability of sample inclusion is \\(\\frac{60}{n}\\) where \\(n\\) is the number of players in the league (944).\n\nsimple_sample &lt;- function(population) {\n  population |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 60 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 60 players\n    sample_n(size = 60)\n}\n\nTo use this function, we give it the baseball data as the population and it returns a tibble containing a sample of 60 players.\n\nsimple_sample(population = baseball)\n\n# A tibble: 60 × 6\n   player            team          position   salary p_sampled sampling_weight\n   &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;\n 1 Bader, Harrison*  N.Y. Yankees  OF        5200000    0.0636            15.7\n 2 Murfee, Penn      Seattle       RHP        727000    0.0636            15.7\n 3 Henriquez, Ronny* Minnesota     RHP        720900    0.0636            15.7\n 4 Fried, Max        Atlanta       LHP      13500000    0.0636            15.7\n 5 Cobb, Alex        San Francisco RHP       9000000    0.0636            15.7\n 6 Castro, Rodolfo   Pittsburgh    2B         725000    0.0636            15.7\n 7 Kirby, George     Seattle       RHP        758300    0.0636            15.7\n 8 Guillorme, Luis   N.Y. Mets     SS        1600000    0.0636            15.7\n 9 Kreidler, Ryan    Detroit       SS         721600    0.0636            15.7\n10 Jameson, Drey     Arizona       RHP        723600    0.0636            15.7\n# ℹ 50 more rows\n\n\nIn a stratified random sample by team, we sample 2 players on each of 30 teams. A stratified random sample is often a higher-quality sample, because it eliminates the possibility of an unlucky draw that completely omits a few teams. All teams are equally represented no matter what happens in the randomization. The downside of a stratified random sample is that it is costly.\nEach player’s probability of sample inclusion is \\(\\frac{2}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nstratified_sample &lt;- function(population) {\n  population |&gt;\n    # Draw sample within each team\n    group_by(team) |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 2 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Within each team, sample 2 players\n    sample_n(size = 2) |&gt;\n    ungroup()\n}\n\nIn a sample clustered by team, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams. But this type of sample is lower quality, because there is some chance that one will randomly select a few teams that all have particularly high or low average salaries. A clustered random sample is less expensive but is more susceptible to random error based on the clusters chosen.\nEach player’s probability of sample inclusion is P(Team Chosen) \\(\\times\\) P(Chosen Within Team) = \\(\\frac{3}{30}\\times\\frac{20}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nclustered_sample &lt;- function(population) {\n  \n  # First, sample 3 teams\n  sampled_teams &lt;- population |&gt;\n    # Make one row per team\n    distinct(team) |&gt;\n    # Sample 3 teams\n    sample_n(3) |&gt;\n    # Store those 3 team names in a vector\n    pull()\n  \n  # Then load data on those teams and sample 20 per team\n  population |&gt;\n    filter(team %in% sampled_teams) |&gt;\n    # Define sampling probability and weight\n    group_by(team) |&gt;\n    mutate(\n      p_sampled = (3 / 30) * (20 / n()),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 20 players\n    sample_n(20) |&gt;\n    ungroup()\n}\n\n\n\nWeighted mean estimator\nGiven a sample, how do we estimate the population mean? The weighted mean estimator can also be placed in a function\n\nwe hand our sample to the function\nwe get a numeric estimate back\n\n\nestimator &lt;- function(sample) {\n  sample |&gt;\n    summarize(estimate = weighted.mean(\n      x = salary, \n      w = sampling_weight\n    )) |&gt;\n    pull(estimate)\n}\n\nHere is what it looks like to use the estimator.\n\nsample_example &lt;- simple_sample(population = baseball)\nestimator(sample = sample_example)\n\n[1] 4768428\n\n\nTry it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?\n\n\nEvaluating performance: Many samples\nWe might like to know something about performance across many repeated samples. The replicate function will carry out a set of code many times.\n\nsample_estimates &lt;- replicate(\n  n = 1000,\n  expr = {\n    a_sample &lt;- simple_sample(population = baseball)\n    estimator(sample = a_sample)\n  }\n)\n\nSimulate many samples. Which one is the best? Strategy A, B, or C?\n\n\n\nThe danger of one sample\nIn actual science, we typically have only one sample. Any estimate we produce from that sample involves some signal about the population quantities, and also some noise. Herein is the danger: researchers are very good at telling stories about why their sample evidence tells something about the population, even when it may be random noise. We illustrate this with an example.\nDoes salary differ between left- and right-handed pitchers? To address this question, I create a tibble with only the pitchers(those for whom the position variable takes the value LHP or RHP).\n\npitchers &lt;- baseball |&gt;\n  filter(position == \"LHP\" | position == \"RHP\")\n\nTo illustrate what can happen with a sample, we now draw a sample. Let’s first set our computer’s random number seed so we get the same sample each time.\n\nset.seed(1599)\n\nThen draw a sample of 40 pitchers\n\npitchers_sample &lt;- pitchers |&gt;\n  sample_n(size = 40)\n\nand examine the mean difference in salary.\n\npitchers_sample |&gt;\n  group_by(position) |&gt;\n  summarize(salary_mean = mean(salary))\n\n# A tibble: 2 × 2\n  position salary_mean\n  &lt;chr&gt;          &lt;dbl&gt;\n1 LHP         9677309.\n2 RHP         3182428.\n\n\nThe left-handed pitchers make millions of dollars more per year! You can probably tell many stories why this might be the case. Maybe left-handed pitchers are needed by all teams, and there just aren’t many available because so few people are left-handed!\nWhat happens if we repeat this process many times? The figure below shows many repeated samples of size 40 from the population of pitchers.\n\n\n\n\n\n\n\n\n\nOur original result was really random noise: we happened by chance to draw a sample with some highly-paid left-handed pitchers!\nThis exercise illustrates what is known as the replication crisis: findings that are surprising in one sample may not hold in other repeated samples from the same population, or in the population as a whole. The replication crisis has many sources. One principal source is the one we illustrated above: sample-based estimates involve some randomness, and well-meaning researchers are (unfortunately) very good at telling interesting stories.\nOne solution to the replication crisis is to pay close attention to the statistical uncertainty in our estimates, such as that from random sampling. Another solution is to re-evaluate findings that are of interest on new samples. In any case, both the roots of the problem and the solutions are closely tied to sources of randomness in estimates, such as those generated using samples from a population.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Population sampling"
-    ]
-  },
-  {
-    "objectID": "topics/sampling.html#the-future-of-sample-surveys",
-    "href": "topics/sampling.html#the-future-of-sample-surveys",
-    "title": "Population sampling",
-    "section": "The future of sample surveys",
-    "text": "The future of sample surveys\nSample surveys served as a cornerstone of social science research from the 1950s to the present. But there are concerns about their future:\n\nsome sampling frames, such as landline telephones, have become obsolete\nresponse rates have been falling for decades\nsample surveys are slower and more expensive than digital data\n\nWhat is the future for sample surveys? How can they be combined with other data?\nWe will close with a discussion of these questions, which you can also engage with in the Groves 2011 reading that follows this module.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Population sampling"
-    ]
-  },
-  {
-    "objectID": "topics/sampling.html#footnotes",
-    "href": "topics/sampling.html#footnotes",
-    "title": "Population sampling",
+    "objectID": "topics/weights.html#footnotes",
+    "href": "topics/weights.html#footnotes",
+    "title": "Using weights",
     "section": "Footnotes",
-    "text": "Footnotes\n\n\nTechnically, a simple random sample draws units independently with equal probabilities, and with replacement. Our sample is actually drawn without replacement. In an infinite population, the two are equivalent.↩︎",
+    "text": "Footnotes\n\n\nIf we hypothetically drew many complex survey samples from the population in this way, an interval generated this way would contain the true population mean 95% of the time.↩︎",
     "crumbs": [
       " ",
       "Inference Without Models",
-      "Population sampling"
+      "Using weights"
     ]
   },
   {
-    "objectID": "assignments/pset4_in_progress.html",
-    "href": "assignments/pset4_in_progress.html",
-    "title": "Problem Set 4: Statistical Learning",
+    "objectID": "topics/what_is_a_model.html",
+    "href": "topics/what_is_a_model.html",
+    "title": "What is a model?",
     "section": "",
-    "text": "Due: 5pm on Friday, Feb 28.\nIdea: - Income prediction challenge. OLS with two predictor sets. Sample split. Which one is better? - OLS with all variables. G-formula for causal effect of college on earnings, in subgroups of parent college\nThis problem set has not yet been posted.\nclass website page is a possibility for data here. Effect of college on subjective social class.\nknitr::opts_chunk$set(eval = FALSE)\nNOTE: This problem set will be updated to explicitly involve statistical learning with more guidance, as well as some causal inference.\nStudent identifer: [type your anonymous identifier here]\nThis problem set is connected to the PSID Income Prediction Challenge from discussion."
+    "text": "This is the second part of lecture for Feb 11. Slides are here\nWhat is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression.\nAt a high level, a model is a tool to share information across units with different \\(\\vec{X}\\) values when estimating subgroup summaries, such as the conditional mean \\(\\text{E}(Y\\mid\\vec{X} = \\vec{x})\\) within the subgroup taking predictor value \\(\\vec{X} = \\vec{x}\\). By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren’t very many units observed in each subgroup.\nLater in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics.",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "What is a model?"
+    ]
   },
   {
-    "objectID": "assignments/pset4_in_progress.html#notes",
-    "href": "assignments/pset4_in_progress.html#notes",
-    "title": "Problem Set 4: Statistical Learning",
-    "section": "NOTES",
-    "text": "NOTES\nGoals are\n\nSample split\nEstimate MSE\nParametric g-formula outcome\nthere is no ML algorithm on this problem set nor any IPTW\n\nWould be nice to have a nonlinear confounder and a binary treatment.\n\nlibrary(tidyverse)\n# taken from principal stratification \ndata &lt;- readRDS(\"../data_raw/motherhood.RDS\") |&gt;\n  select(\n    treated, employed, age = age_2, sex, race, employed_baseline, \n    educ, marital, fulltime, tenure, experience,\n    weight = w\n  ) |&gt;\n  na.omit()"
+    "objectID": "topics/what_is_a_model.html#a-simple-example",
+    "href": "topics/what_is_a_model.html#a-simple-example",
+    "title": "What is a model?",
+    "section": "A simple example",
+    "text": "A simple example\nAs an example, we continue to use the data on baseball salaries, with a small twist. The file baseball_population.csv contains the following variables\n\npopulation &lt;- read_csv(\"https://soc114.github.io/data/baseball_population.csv\")\n\n\nplayer is the player name\nteam is the team name\nsalary is the 2023 salary\nteam_past_record is the 2022 proportion of games won by that team\nteam_past_salary is the 2022 mean salary in that team\n\nOur goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is $6.23m. We will imagine that we don’t know this number. Instead of having the full population, we will imagine we have\n\ninformation on predictors for all players: position, team, team past record\ninformation on salary for a random sample of 5 players per team\n\nOur estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams’ players to help us make a better estimate of the Dodger mean salary.\nOur predictor will be the team_past_salary from the previous year. We assume that a team’s past salary in 2022 tells us something about their mean salary in 2023.\nFor illustration, draw a sample of 5 players per team\n\nsample &lt;- population |&gt;\n  group_by(team) |&gt;\n  sample_n(5) |&gt;\n  ungroup()\n\nConstruct a tibble with the observations to be predicted: the Dodgers.\n\nto_predict &lt;- population |&gt;\n  filter(team == \"L.A. Dodgers\")",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "What is a model?"
+    ]
   },
   {
-    "objectID": "assignments/pset4_in_progress.html#prediction-challenge",
-    "href": "assignments/pset4_in_progress.html#prediction-challenge",
-    "title": "Problem Set 4: Statistical Learning",
-    "section": "Prediction challenge",
-    "text": "Prediction challenge\n\ndata &lt;- read_csv(\"data_raw/income_challenge/for_students/learning.csv\") |&gt;\n  mutate(across(contains(\"educ\"), \\(x) factor(x,levels = c(\"Less than high school\",\"High school\",\"Some college\",\"College\"))))"
+    "objectID": "topics/what_is_a_model.html#ordinary-least-squares",
+    "href": "topics/what_is_a_model.html#ordinary-least-squares",
+    "title": "What is a model?",
+    "section": "Ordinary Least Squares",
+    "text": "Ordinary Least Squares\nWe could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction \\[\\hat{Y}_i = \\hat\\alpha + \\hat\\beta X_i\\] with \\(\\hat\\alpha\\) and \\(\\hat\\beta\\) chosen to minimize the sum of squared errors, \\(\\sum_{i=1}^n \\left(Y_i - \\hat{Y}_i\\right)^2\\). Visually, it minimizes all the line segments below.\n\n\n\n\n\n\n\n\n\nHere is how to estimate an OLS model using R.\n\nmodel &lt;- lm(salary ~ team_past_salary, data = sample)\n\nThen we could predict the mean salary for the Dodgers.\n\npredicted &lt;- to_predict |&gt;\n  mutate(predicted = predict(model, newdata = to_predict))\n\nWe would report the mean predicted salary for the Dodgers.\n\npredicted |&gt;\n  summarize(estimated_Dodger_mean = mean(predicted))\n\n# A tibble: 1 × 1\n  estimated_Dodger_mean\n                  &lt;dbl&gt;\n1              7224025.\n\n\nOur model-based estimate compares to the true population mean of $6.23m.",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "What is a model?"
+    ]
   },
   {
-    "objectID": "assignments/pset4_in_progress.html#ols-prediction",
-    "href": "assignments/pset4_in_progress.html#ols-prediction",
-    "title": "Problem Set 4: Statistical Learning",
-    "section": "1. OLS prediction",
-    "text": "1. OLS prediction\nPredict g3_log_income given all other variables by OLS.\n\nfit &lt;- lm(\n  g3_log_income ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data\n)\n\nEstimate the average causal effect of college vs high school.\n\ndata |&gt;\n  mutate(yhat1 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"College\")),\n         yhat0 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"High school\"))) |&gt;\n  summarize(ate = mean(yhat1 - yhat0))\n\nEstimate within subgroups of parents’ education\n\ndata |&gt;\n  mutate(yhat1 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"College\")),\n         yhat0 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"High school\"))) |&gt;\n  group_by(g2_educ) |&gt;\n  summarize(ate = mean(yhat1 - yhat0))"
-  },
-  {
-    "objectID": "assignments/pset4_in_progress.html#causal-forest-prediction",
-    "href": "assignments/pset4_in_progress.html#causal-forest-prediction",
-    "title": "Problem Set 4: Statistical Learning",
-    "section": "2. Causal forest prediction",
-    "text": "2. Causal forest prediction\n\nlibrary(grf)\n\n\nfor_forest &lt;- data |&gt;\n      filter(g3_educ %in% c(\"High school\",\"College\"))\n\nfit &lt;- causal_forest(\n  X = model.matrix(\n    ~ race + sex + g2_log_income + g2_educ,\n    data = for_forest\n  ),\n  Y = for_forest$g3_log_income,\n  W = for_forest$g3_educ == \"College\"\n)\n\nsummary(fit)\naverage_treatment_effect(fit, target.sample = \"control\")\n\n\n\nconditi\n\n# Prepare the predictor matrix\nmodel.matrix(fit)\n\nX &lt;- X0 &lt;- X1 &lt;- model.matrix(\n  ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data\n)\nX1[\"\"]\n\nX_factual &lt;- model.matrix(\n  object = ~g3_log_income ~ race + sex,\n  data = data.frame(data)\n)\nX_treated &lt;- model.matrix(\n  ~g3_log_income ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data |&gt; mutate(g3_educ = \"College\")\n)\nX_untreated &lt;- model.matrix(\n  ~g3_log_income ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data |&gt; mutate(g3_educ = \"High school\")\n)\n\nfit &lt;- regression_forest(\n  X = \n)\n\n\ndata |&gt;\n  group_by(g3_educ) |&gt;\n  summarize(y = mean(g3_log_income)) |&gt;\n  mutate(\n    g3_educ = factor(g3_educ),\n    g3_educ = fct_relevel(g3_educ, \"Less than high school\",\"High school\",\"Some college\",\"College\")\n  ) |&gt;\n  ggplot(aes(x = g3_educ, y = y)) +\n  geom_point() +\n  scale_y_continuous(labels = function(x) scales::label_dollar()(exp(x)))\n\n\ndata |&gt;\n  mutate(\n    yhat_factual = predict(fit_ols),\n    yhat_counterfactual = predict(fit_ols, newdata = data |&gt; mutate(g3_educ = \"College\"))\n  ) |&gt;\n  select(g2_log_income, starts_with(\"yhat\")) |&gt;\n  pivot_longer(cols = -g2_log_income) |&gt;\n  ggplot(aes(x = g2_log_income, y = value, color = name)) +\n  geom_line()"
-  },
-  {
-    "objectID": "assignments/pset4_in_progress.html#income-prediction-challenge",
-    "href": "assignments/pset4_in_progress.html#income-prediction-challenge",
-    "title": "Problem Set 4: Statistical Learning",
-    "section": "Income Prediction Challenge",
-    "text": "Income Prediction Challenge\nCollaboration note. This question is an individual write-up connected to your group work from discussion. We expect that the approach you tell us might be the same as that of your other group members, but your answers to these questions should be in your own words.\n1.1 (5 points) How did you choose the predictor variables you used? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.\n1.2 (5 points) What learning algorithms or models did you consider, and how did you choose one? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.\n1.3 (20 points) Split the learning data randomly into train and test. Your split can be 50-50 or another ratio. Learn in the train set and make predictions in the test set. What do you estimate for your out-of-sample mean squared error? There is no written answer here; the answer is the code and result."
-  },
-  {
-    "objectID": "assignments/pset4_in_progress.html#grad.-machine-learning-versus-statistics",
-    "href": "assignments/pset4_in_progress.html#grad.-machine-learning-versus-statistics",
-    "title": "Problem Set 4: Statistical Learning",
-    "section": "Grad. Machine learning versus statistics",
-    "text": "Grad. Machine learning versus statistics\n\nThis question is required for grad students. It is optional for undergrads, and worth no extra credit.\n\n20 points. This question is about the relative gain in this problem as we move from no model to a statistical model to a machine learning model.\nFirst, use your train set to estimate 3 learners and predict in your test set.\n\nNo model. For every test observation, predict the mean of the train outcomes\nOrdinary Least Squares. Choose a set of predictors \\(\\vec{X}\\). For every test observation, predict using a linear model lm() fit to the train set with the predictors \\(\\vec{X}\\).\nMachine learning. Use the same set of predictors \\(\\vec{X}\\). For every test observation, predict using a machine learning model fit to the train set with the predictors \\(\\vec{X}\\). Your machine learning model could be a Generalized Additive Model (gam()), a decision tree (rpart()), or some other machine learning approach.\n\nReport your out-of-sample mean squared error estimates for each approach. How did mean squared error change from (a) to (b)? From (b) to (c)?\nInterpret what you found. To what degree does machine learning improve predictability, beyond what can be achieved by Ordinary Least Squares?"
+    "objectID": "topics/what_is_a_model.html#logistic-regression",
+    "href": "topics/what_is_a_model.html#logistic-regression",
+    "title": "What is a model?",
+    "section": "Logistic regression",
+    "text": "Logistic regression\nSometimes the outcome is binary (taking the values {0,1} or {FALSE,TRUE}). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (position == \"DH\") as a linear function of player salary. For illustration, we do this on the full population.\n\nols_binary_outcome &lt;- lm(\n  position == \"C\" ~ salary,\n  data = population\n)\n\nCatchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making $40 million is -2%! This prediction doesn’t make a lot of sense.\n\n\n\n\n\n\n\n\n\nLogistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval.\n\n\n\n\n\n\n\n\n\nMathematically, logistic regression replaces \\(\\text{E}(Y\\mid\\vec{X})\\) on the left side of the equation with the logistic function.\n\\[\n\\underbrace{\\log\\left(\\frac{\\text{P}(Y\\mid\\vec{X})}{1 - \\text{P}(Y\\mid\\vec{X})}\\right)}_\\text{Logistic Function} = \\alpha + \\vec{X}'\\vec\\beta\n\\]\nIn our example with the catchers, we can use logistic regression to model the probability of being a catcher using the glm() function. The family = \"binomial\" line tells the function that we want to estimate logistic regression (since “binomial” is a distribution for outcomes drawn at random with a given probability).\n\nlogistic_regression &lt;- glm(\n  position == \"C\" ~ salary,\n  data = population,\n  family = \"binomial\"\n)\n\nWe can predict exactly as with OLS, except that we need to add the type = \"response\" argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined (\\(-\\inf,\\inf\\)).\n\n\n\n\n\n\n\n\n\nBelow is code to make a prediction for the L.A. Dodgers.\n\npredicted_logistic &lt;- predict(\n  logistic_regression,\n  newdata = to_predict,\n  type = \"response\"\n)\n\nTo summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of \\(\\vec{X}\\) when estimating \\(\\text{E}(Y\\mid \\vec{X})\\) or \\(\\text{P}(Y = 1\\mid\\vec{X})\\). This is especially useful any time when we do not get to observe many units at each value of \\(\\vec{X}\\).",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "What is a model?"
+    ]
   },
   {
     "objectID": "topics/visualization.html",
@@ -1486,143 +1461,11 @@
     "text": "Closing thoughts\nSample splitting is an art as much as a science. In particular applications, the gain from sample splitting is not always clear and must be balanced against the reduction in cases available for training. It is important to remember that out-of-sample prediction remains the gold standard, and sample splitting is one way to approximate that when only one sample is available."
   },
   {
-    "objectID": "topics/what_is_a_model.html",
-    "href": "topics/what_is_a_model.html",
-    "title": "What is a model?",
-    "section": "",
-    "text": "This is the second part of lecture for Feb 11. Slides are here\nWhat is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression.\nAt a high level, a model is a tool to share information across units with different \\(\\vec{X}\\) values when estimating subgroup summaries, such as the conditional mean \\(\\text{E}(Y\\mid\\vec{X} = \\vec{x})\\) within the subgroup taking predictor value \\(\\vec{X} = \\vec{x}\\). By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren’t very many units observed in each subgroup.\nLater in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics.",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "What is a model?"
-    ]
-  },
-  {
-    "objectID": "topics/what_is_a_model.html#a-simple-example",
-    "href": "topics/what_is_a_model.html#a-simple-example",
-    "title": "What is a model?",
-    "section": "A simple example",
-    "text": "A simple example\nAs an example, we continue to use the data on baseball salaries, with a small twist. The file baseball_population.csv contains the following variables\n\npopulation &lt;- read_csv(\"https://soc114.github.io/data/baseball_population.csv\")\n\n\nplayer is the player name\nteam is the team name\nsalary is the 2023 salary\nteam_past_record is the 2022 proportion of games won by that team\nteam_past_salary is the 2022 mean salary in that team\n\nOur goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is $6.23m. We will imagine that we don’t know this number. Instead of having the full population, we will imagine we have\n\ninformation on predictors for all players: position, team, team past record\ninformation on salary for a random sample of 5 players per team\n\nOur estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams’ players to help us make a better estimate of the Dodger mean salary.\nOur predictor will be the team_past_salary from the previous year. We assume that a team’s past salary in 2022 tells us something about their mean salary in 2023.\nFor illustration, draw a sample of 5 players per team\n\nsample &lt;- population |&gt;\n  group_by(team) |&gt;\n  sample_n(5) |&gt;\n  ungroup()\n\nConstruct a tibble with the observations to be predicted: the Dodgers.\n\nto_predict &lt;- population |&gt;\n  filter(team == \"L.A. Dodgers\")",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "What is a model?"
-    ]
-  },
-  {
-    "objectID": "topics/what_is_a_model.html#ordinary-least-squares",
-    "href": "topics/what_is_a_model.html#ordinary-least-squares",
-    "title": "What is a model?",
-    "section": "Ordinary Least Squares",
-    "text": "Ordinary Least Squares\nWe could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction \\[\\hat{Y}_i = \\hat\\alpha + \\hat\\beta X_i\\] with \\(\\hat\\alpha\\) and \\(\\hat\\beta\\) chosen to minimize the sum of squared errors, \\(\\sum_{i=1}^n \\left(Y_i - \\hat{Y}_i\\right)^2\\). Visually, it minimizes all the line segments below.\n\n\n\n\n\n\n\n\n\nHere is how to estimate an OLS model using R.\n\nmodel &lt;- lm(salary ~ team_past_salary, data = sample)\n\nThen we could predict the mean salary for the Dodgers.\n\npredicted &lt;- to_predict |&gt;\n  mutate(predicted = predict(model, newdata = to_predict))\n\nWe would report the mean predicted salary for the Dodgers.\n\npredicted |&gt;\n  summarize(estimated_Dodger_mean = mean(predicted))\n\n# A tibble: 1 × 1\n  estimated_Dodger_mean\n                  &lt;dbl&gt;\n1              7224025.\n\n\nOur model-based estimate compares to the true population mean of $6.23m.",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "What is a model?"
-    ]
-  },
-  {
-    "objectID": "topics/what_is_a_model.html#logistic-regression",
-    "href": "topics/what_is_a_model.html#logistic-regression",
-    "title": "What is a model?",
-    "section": "Logistic regression",
-    "text": "Logistic regression\nSometimes the outcome is binary (taking the values {0,1} or {FALSE,TRUE}). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (position == \"DH\") as a linear function of player salary. For illustration, we do this on the full population.\n\nols_binary_outcome &lt;- lm(\n  position == \"C\" ~ salary,\n  data = population\n)\n\nCatchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making $40 million is -2%! This prediction doesn’t make a lot of sense.\n\n\n\n\n\n\n\n\n\nLogistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval.\n\n\n\n\n\n\n\n\n\nMathematically, logistic regression replaces \\(\\text{E}(Y\\mid\\vec{X})\\) on the left side of the equation with the logistic function.\n\\[\n\\underbrace{\\log\\left(\\frac{\\text{P}(Y\\mid\\vec{X})}{1 - \\text{P}(Y\\mid\\vec{X})}\\right)}_\\text{Logistic Function} = \\alpha + \\vec{X}'\\vec\\beta\n\\]\nIn our example with the catchers, we can use logistic regression to model the probability of being a catcher using the glm() function. The family = \"binomial\" line tells the function that we want to estimate logistic regression (since “binomial” is a distribution for outcomes drawn at random with a given probability).\n\nlogistic_regression &lt;- glm(\n  position == \"C\" ~ salary,\n  data = population,\n  family = \"binomial\"\n)\n\nWe can predict exactly as with OLS, except that we need to add the type = \"response\" argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined (\\(-\\inf,\\inf\\)).\n\n\n\n\n\n\n\n\n\nBelow is code to make a prediction for the L.A. Dodgers.\n\npredicted_logistic &lt;- predict(\n  logistic_regression,\n  newdata = to_predict,\n  type = \"response\"\n)\n\nTo summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of \\(\\vec{X}\\) when estimating \\(\\text{E}(Y\\mid \\vec{X})\\) or \\(\\text{P}(Y = 1\\mid\\vec{X})\\). This is especially useful any time when we do not get to observe many units at each value of \\(\\vec{X}\\).",
-    "crumbs": [
-      " ",
-      "Inference with Models",
-      "What is a model?"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html",
-    "href": "topics/weights.html",
-    "title": "Using weights",
-    "section": "",
-    "text": "When studying population-level inequality, our goal is to draw inference about all units in the population. We want to know about the people in the U.S., not just the people who answer the Current Population Survey. Drawing inference from a sample to a population is most straightforward for a simple random sample: when people are chosen at random with equal probabilities. For simple random samples, the sample average of any variable is an unbiased and consistent estimator of the population average.\nBut the Current Population Survey is not a simple random sample. Neither are most labor force samples! These samples still begin with a sampling frame, but people are chosen with unequal probabilities. We need sample weights to address this fact.\nIn the CPS, a key goal is to estimate unemployment in each state. Every state needs to have enough sample size—even tiny states like Wyoming. In order to make those estimates, the CPS oversamples people who live in small states.\nTo draw good population inference, our analysis must incorporate what we know about how the data were collected. If we ignore the weights, our sample will have too many people from Wyoming and too few people from California. Weights correct for this.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#how-survey-designers-create-weights",
-    "href": "topics/weights.html#how-survey-designers-create-weights",
-    "title": "Using weights",
-    "section": "How survey designers create weights",
-    "text": "How survey designers create weights\nTo calculate sampling weight on person \\(i\\), those who design survey samples take the ratio \\[\\text{weight on unit }i = \\frac{1}{\\text{probability of including person }i\\text{ in the sample}}\\] You can think of the sampling weight as the number of population members a given sample member represents. If there are 100 people with a 1% chance of inclusion, then on average 1 of them will be in the sample. That person represents \\(\\frac{1}{.01}=100\\) people.\n\n\n\n\n\n\nExample redux: California and Wyoming\n\n\n\nSuppose Californians are sampled with probability 0.0004. Then each Californian represents 1 / 0.0004 = 2,500 people. Each Californian should receive a weight of 2,500. Working out the same math for Wyoming, each Wyoming resident should receive a weight of 250. The total weight on these two samples will then be proportional to the sizes of these two populations.\n\n\nIn practice, weighting is more complicated: survey administrators adjust weights for differential nonresponse across population subgroups (a method called post-stratification). How to construct weights is beyond the scope of this course, and could be a whole course in itself!",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#point-estimates",
-    "href": "topics/weights.html#point-estimates",
-    "title": "Using weights",
-    "section": "Point estimates",
-    "text": "Point estimates\nWhen we download data, we typically download a column of weights. For simplicity, suppose we are given a sample of four people. The weight column tells us how many people in the population each person represents. The employed column tells us whether each person employed.\n\n\n     name weight employed\n1    Luis      4        1\n2 William      1        0\n3   Susan      1        0\n4  Ayesha      4        1\n\n\nIf we take an unweighted mean, we would conclude that only 50% of the population is employed. But with a weighted mean, we would conclude that 80% of the population is employed! This might be the case if the sample was designed to oversample people at a high risk of unemployment.\n\n\n\n\n\n\n\n\n\nEstimator\nMath\nExample\nResult\n\n\n\n\nUnweighted mean\n\\(=\\frac{\\sum_{i=1}^n Y_i}{n}\\)\n\\(=\\frac{1 + 0 + 0 + 1}{4}\\)\n= 50% employed\n\n\nWeighted mean\n\\(=\\frac{\\sum_{i=1}^n w_iY_i}{\\sum_{i=1}^n w_i}\\)\n\\(=\\frac{4*1 + 1*0 + 1*0 + 4*1}{4 + 1 + 1 + 4}\\)\n= 80% employed\n\n\n\nIn R, the weighted.mean(x, w) function will calculate weighted means where x is an argument for the outcome variable and w is an argument for the weight variable.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#standard-errors",
-    "href": "topics/weights.html#standard-errors",
-    "title": "Using weights",
-    "section": "Standard errors",
-    "text": "Standard errors\nAs you know from statistics, our sample mean is unlikely to equal the population mean. There is random variation in which people were chosen for inclusion in our sample, and this means that across hypothetical repeated samples we would get different sample means! You likely learned formulas to create a standard errors, which quantifies how much a sample estimator would move around across repeated samples.\nUnfortunately, the formula you learned doesn’t work for complex survey samples! Simple random samples (for which those formulas hold) are actually quite rare. When you face a complex survey sample, those who administer the survey might provide\n\na vector of \\(n\\) weights for making a point estimate\na matrix of \\(n\\times k\\) replicate weights for making standard errors\n\nBy providing \\(k\\) different ways to up- and down-weight various observations, the replicate weights enable you to generate \\(k\\) estimates that vary in a way that mimics how the estimator might vary if applied to different samples from the population. For instance, our employment sample might come with 3 replicate weights.\n\n\n     name weight employed repwt1 repwt2 repwt3\n1    Luis      4        1      3      5      3\n2 William      1        0      1      2      2\n3   Susan      1        0      3      1      1\n4  Ayesha      4        1      5      3      4\n\n\nThe procedure to use replicate weights depends on how they are constructed. Often, it is relatively straightforward:\n\nuse weight to create a point estimate \\(\\hat\\tau\\)\nuse repwt* to generate \\(k\\) replicate estimates \\(\\hat\\tau^*_1,\\dots,\\hat\\tau^*_k\\)\ncalculate the standard error of \\(\\hat\\tau\\) using the replicate estimates \\(\\hat\\tau^*\\). The formula will depend on how the replicate weights were constructed, but it will likely involve the standard deviation of the \\(\\hat\\tau^*\\) multiplied by some factor\nconstruct a confidence interval1 by a normal approximation \\[(\\text{point estimate}) \\pm 1.96 * (\\text{standard error estimate})\\]\n\nIn our concrete example, the point estimate is 80% employed. The replicate estimates are 0.67, 0.73, 0.70. Variation across the replicate estimates tells us something about how the estimate would vary across hypothetical repeated samples from the population.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#computational-strategy-for-replicate-weights",
-    "href": "topics/weights.html#computational-strategy-for-replicate-weights",
-    "title": "Using weights",
-    "section": "Computational strategy for replicate weights",
-    "text": "Computational strategy for replicate weights\nUsing replicate weights can be computationally tricky! It becomes much easier if you write an estimator() function. Your function accepts two arguments\n\ndata is the tibble containing the data\nweight_name is the name of a column containing the weight to be used (e.g., “repwt1”)\n\nExample. If our estimator is the weighted mean of employment,\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    summarize(\n      estimate = weighted.mean(\n        x = employed,\n        # extract the weight column\n        w = sim_rep |&gt; pull(weight_name)\n      )\n    ) |&gt; \n    # extract the scalar estimate\n    pull(estimate)\n}\n\nIn the code above, sim_rep |&gt; pull(weight_name) takes the data frame sim_rep and extracts the weight variable that is named weight_name. There are other ways to do this also.\nWe can now apply our estimator to get a point estimate with the main sampling weight,\n\nestimate &lt;- estimator(data = sim_rep, weight_name = \"weight\")\n\nwhich yields the point estimate 0.80. We can use the same function to produce the replicate estimates,\n\nreplicate_estimates &lt;- c(\n  estimator(data = sim_rep, weight_name = \"repwt1\"),\n  estimator(data = sim_rep, weight_name = \"repwt2\"),\n  estimator(data = sim_rep, weight_name = \"repwt3\")\n)\n\nyielding the three estimates: 0.67, 0.73, 0.70. In real data, you will want to apply this in a loop because there may be dozens of replicate weights.\nThe standard error of the estimator will be some function of the replicate estimates, likely involving the standard deviation of the replicate estimates. Check with the data distributor for a formula for your case. Once you estimate the standard error, a 95% confidence interval can be constructed with a Normal approximation, as discussed above.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#application-in-the-cps",
-    "href": "topics/weights.html#application-in-the-cps",
-    "title": "Using weights",
-    "section": "Application in the CPS",
-    "text": "Application in the CPS\nStarting in 2005, the CPS-ASEC samples include 160 replicate weights. If you download replicate weights for many years, the file size will be enormous. We illustrate the use of replicate weights with a question that can be explored with only one year of data: among 25-year olds in 2023, how did the proportion holding four-year college degrees differ across those identifying as male and female?\nWe first load some packages, including the foreach package which will be helpful when looping through replicate weights.\n\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(foreach)\n\nTo answer our research question, we download 2023 CPS-ASEC data including the variables sex, educ, age, the weight variable asecwt, and the replicate weights repwtp*.\n\ncps_data &lt;- read_dta(\"../data_raw/cps_00079.dta\")\n\nWe then define an estimator to use with these data. It accepts a tibble data and a character weight_name identifying the name of the weight variable, and it returns a tibble with two columns: sex and estimate for the estimated proportion with a four-year degree.\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    # Define focal_weight to hold the selected weight\n    mutate(focal_weight = data |&gt; pull(weight_name)) |&gt;\n    # Restrict to those age 25+\n    filter(age &gt;= 25) |&gt;\n    # Restrict to valid reports of education\n    filter(educ &gt; 1 & educ &lt; 999) |&gt;\n    # Define a binary outcome: a four-year degree\n    mutate(college = educ &gt;= 110) |&gt;\n    # Estimate weighted means by sex\n    group_by(sex) |&gt;\n    summarize(estimate = weighted.mean(\n      x = college,\n      w = focal_weight\n    ))\n}\n\nWe produce a point estimate by applying that estimator with the asecwt.\n\nestimate &lt;- estimator(data = cps_data, weight_name = \"asecwt\")\n\n\n\n# A tibble: 2 × 2\n  sex        estimate\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;\n1 1 [male]      0.369\n2 2 [female]    0.397\n\n\nUsing the foreach package, we apply the estimator 160 times—once with each replicate weight—and use the argument .combine = \"rbind\" to stitch results together by rows.\n\nlibrary(foreach)\nreplicate_estimates &lt;- foreach(r = 1:160, .combine = \"rbind\") %do% {\n  estimator(data = cps_data, weight_name = paste0(\"repwtp\",r))\n}\n\n\n\n# A tibble: 320 × 2\n   sex        estimate\n   &lt;dbl+lbl&gt;     &lt;dbl&gt;\n 1 1 [male]      0.368\n 2 2 [female]    0.396\n 3 1 [male]      0.371\n 4 2 [female]    0.400\n 5 1 [male]      0.371\n 6 2 [female]    0.397\n 7 1 [male]      0.369\n 8 2 [female]    0.397\n 9 1 [male]      0.370\n10 2 [female]    0.398\n# ℹ 310 more rows\n\n\nWe estimate the standard error of our estimator by a formula \\[\\text{StandardError}(\\hat\\tau) = \\sqrt{\\frac{4}{160}\\sum_{r=1}^{160}\\left(\\hat\\tau^*_r - \\hat\\tau\\right)^2}\\] where the formula comes from the survey documentation. We carry out this procedure within groups defined by sex, since we are producing estimate for each sex.\n\nstandard_error &lt;- replicate_estimates |&gt;\n  # Denote replicate estimates as estimate_star\n  rename(estimate_star = estimate) |&gt;\n  # Merge in the point estimate\n  left_join(estimate,\n            by = join_by(sex)) |&gt;\n  # Carry out within groups defined by sex\n  group_by(sex) |&gt;\n  # Apply the formula from survey documentation\n  summarize(standard_error = sqrt(4 / 160 * sum((estimate_star - estimate) ^ 2)))\n\n\n\n# A tibble: 2 × 2\n  sex        standard_error\n  &lt;dbl+lbl&gt;           &lt;dbl&gt;\n1 1 [male]          0.00280\n2 2 [female]        0.00291\n\n\nFinally, we combine everything and construct a 95% confidence interval by a Normal approximation.\n\nresult &lt;- estimate |&gt;\n  left_join(standard_error, by = \"sex\") |&gt;\n  mutate(ci_min = estimate - 1.96 * standard_error,\n         ci_max = estimate + 1.96 * standard_error)\n\n\n\n# A tibble: 2 × 5\n  sex        estimate standard_error ci_min ci_max\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 1 [male]      0.369        0.00280  0.364  0.375\n2 2 [female]    0.397        0.00291  0.391  0.403\n\n\nWe use ggplot() to visualize the result.\n\nresult |&gt;\n  mutate(sex = as_factor(sex)) |&gt;\n  ggplot(aes(\n    x = sex, \n    y = estimate,\n    ymin = ci_min, \n    ymax = ci_max,\n    label = scales::percent(estimate)\n  )) +\n  geom_errorbar(width = .2) +\n  geom_label() +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = str_to_title\n  ) +\n  scale_y_continuous(name = \"Proportion with 4-Year College Degree\") +\n  ggtitle(\n    \"Sex Disparities in College Completion\",\n    subtitle = \"Estimates from the 2023 CPS-ASEC among those age 25+\"\n  )\n\n\n\n\n\n\n\n\nWe conclude that those identifying as female are more likely to hold a college degree. Because we can see the confidence intervals generated using the replicate weights, we are reasonably confident in the statistical precision of our point estimates.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#footnotes",
-    "href": "topics/weights.html#footnotes",
-    "title": "Using weights",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nIf we hypothetically drew many complex survey samples from the population in this way, an interval generated this way would contain the true population mean 95% of the time.↩︎",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
     "objectID": "topics/models_for_causal.html",
     "href": "topics/models_for_causal.html",
     "title": "Models for causal inference",
     "section": "",
-    "text": "Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we need to estimate the mean outcome within subgroups defined by the treatment \\(A\\) and the confounders \\(\\vec{X}\\). Especially in observational data settings (anything that is not a randomized experiment), causal identification is most plausible when \\(\\vec{X}\\) includes many measured variables, many of which may take many values. For this reason, causal inference questions often require us to estimate the means in many subgroups that are sparsely populated.\nThis page introduces models for causal inference in two general approaches: outcome models and treatment models. We illustrate with a simple simulated dataset.",
+    "text": "Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we assume that \\(\\vec{X}\\) is a sufficient adjustment set so that conditional exchangeability holds, and this allows us to identify the causal quantity \\(\\text{E}(Y^a\\mid \\vec{X} = \\vec{x})\\) by the statistical quantity \\(\\text{E}(Y\\mid A = a, \\vec{X} = \\vec{x})\\). But that empirical quantity—the subgroup mean among those with treatment value \\(a\\) and adjustment set value \\(\\vec{x}\\)—may be the mean of a subgroup that is unpopulated. This is especially true in practice because the adjustment set \\(\\vec{X}\\) is often most plausible when it includes many variables, leading to a curse of dimensionality and small subgroup sample sizes. For this reason, causal inference approaches that adjust for measured variables often require us to estimate the means in many subgroups that are sparsely populated.\nThis page introduces outcome models for causal inference. To run the code on this page, you will need the tidyverse.\nlibrary(tidyverse)",
     "crumbs": [
       " ",
       "Inference with Models",
@@ -1630,11 +1473,11 @@
     ]
   },
   {
-    "objectID": "topics/models_for_causal.html#simulated-data",
-    "href": "topics/models_for_causal.html#simulated-data",
+    "objectID": "topics/models_for_causal.html#motivating-example",
+    "href": "topics/models_for_causal.html#motivating-example",
     "title": "Models for causal inference",
-    "section": "Simulated data",
-    "text": "Simulated data\nThe code below will generate a dataset of \\(n = 100\\) observations. Each observation contains several observed variables:\n\nL1 A numeric confounder\nL2 A numeric confounder\nA A binary treatment\nY A numeric outcome\n\nEach observation also contains outcomes that we know only because the data are simulated. These variables are useful as ground truth in simulations.\n\npropensity_score The true propensity score \\(P(A = 1 \\mid \\vec{L})\\)\nY0 The potential outcome under control\nY1 The potential outcome under treatment\n\nTo run this code, you will need the dplyr package. If you don’t have it, first run the line install.packages(\"dplyr\") in your R console. Then, add this line to your R script to load the package.\n\nlibrary(dplyr)\n\nIf you want your simulation to match our numbers exactly, add a line to set your seed.\n\nset.seed(90095)\n\n\nn &lt;- 500\ndata &lt;- tibble(\n  L1 = rnorm(n),\n  L2 = rnorm(n)\n) |&gt;\n  # Generate potential outcomes as functions of L\n  mutate(Y0 = rnorm(n(), mean = L1 + L2, sd = 1),\n         Y1 = rnorm(n(), mean = Y0 + 1, sd = 1)) |&gt;\n  # Generate treatment as a function of L\n  mutate(propensity_score = plogis(-2 + L1 + L2)) |&gt;\n  mutate(A = rbinom(n(), 1, propensity_score)) |&gt;\n  # Generate factual outcome\n  mutate(Y = case_when(A == 0 ~ Y0,\n                       A == 1 ~ Y1))\n\nA simulation is nice because the answer is known. In this simulation, the conditional average causal effect of A on Y equals 1 at any value of L1 and L_2.",
+    "section": "Motivating example",
+    "text": "Motivating example\nTo what extent does completing a four-year college degree by age 25 increase the probability of having a spouse or residential partner with a four-year college degree at age 35, among the population of U.S. residents who were ages 12–16 at the end of 1996?\nWe used this example on the Why Model? page and will continue with it here. For those jumping in on this page, here is a refresher.\nThis causal question draws on questions in sociology and demography about assortative mating: the tendency of people with high education, income, or status to form households together1. One reason to care about assortative mating is that it can contribute to inequality across households: if people with high earnings potential form households together, then income inequality across households will be greater than it would be if people formed households randomly.\nOur question is causal: to what extent is the probability of marrying a four-year college graduate higher if one were hypothetically to finish a four-year degree, versus if that same person were hypothetically to not finish a college degree? But in data that exist in the world, we see only one of these two potential outcomes. The people for whom we see the outcome under a college degree are systematically different from those for whom we see the outcome under no degree: college graduates come from families with higher incomes, higher wealth, and higher parental education, for example. All of these factors may directly shape the probability of marrying a college graduate even in the absence of college. Thus, it will be important to adjust for a set of measured confounders, represented by \\(\\vec{X}\\) in our DAG.\n\n\n\n\n\n\n\n\n\nBy adjusting for the variables \\(\\vec{X}\\), we block all non-causal paths between the treatment \\(A\\) and the outcome \\(Y\\) in the DAG. If this DAG is correct, then conditional exchangeability holds with this adjustment set: \\(\\{Y^1,Y^0\\}\\indep A \\mid\\vec{X}\\).\nTo estimate, we use data from the National Longitudinal Survey of Youth 1997, a probability sample of U.S. resident children who were ages 12–16 on Dec 31, 1996. The study followed these children and interviewed them every year through 2011 and then every other year after that.\nWe will analyze a simulated version of these data, which you can access with this line of code.\n\ndata &lt;- readRDS(\"https://soc114.github.io/data/nlsy97_simulated.RDS\")\n\n\n\n\n\n\n\nExpand to learn how to get the actual data\n\n\n\n\n\nTo access the actual data, you would need to register for an account, log in, upload the nlsy97.NLSY97 tagset that identifies our variables, and then download. Unzip the folder and put the contents in a directory on your computer. Then run our code file prepare_nlsy97.R in that folder. This will produce a new file d.RDS, contains the data. You could analyze that file. In the interest of transparency, we wrote the code nlsy97_simulated.R to convert these real data to simulated data that we can share.\n\n\n\nThe data contain several variables\n\na is the treatment, containing the respondent’s education (no_college or college).\ny is the outcome: TRUE if has a spouse or residential partner at age 35 who holds a college degree, and FALSE if no spouse or partner or if the spouse or partner at age 35 does not have a degree.\nThere are several pre-treatment variables\n\nsex is coded Female and Male\nrace is race/ethnicity and is coded Hispanic, Non-Hispanic Black, and Non-Hispanic Non-Black.\nmom_educ is the respondent’s mother’s education as reported in 1997. It takes the value No mom if the child had no residential mother in 1997, and otherwise is coded with her education: &lt; HS, High school, Some college, or College.\ndad_educ is the respondent’s father’s education as reported in 1997. It takes the value No dad if the child had no residential father in 1997, and otherwise is coded with his education: &lt; HS, High school, Some college, or College.\nlog_parent_income is the log of gross household income in 1997\nlog_parent_wealth is the log of household net worth in 1997\ntest_percentile is the respondent’s percentile score on a test of math and verbal skills administered in 1999 (the Armed Services Vocational Aptitude Battery).\n\n\nWhen values are missing, we have replcaed them with predicted values. In the simulated data, no row represents a real person because values have been drawn randomly from a probability distribution designed to mimic what exists in the real data. As discussed above, we did this in order to share the file with you by a download on this website.",
     "crumbs": [
       " ",
       "Inference with Models",
@@ -1642,11 +1485,11 @@
     ]
   },
   {
-    "objectID": "topics/models_for_causal.html#outcome-modeling",
-    "href": "topics/models_for_causal.html#outcome-modeling",
+    "objectID": "topics/models_for_causal.html#a-three-step-plan",
+    "href": "topics/models_for_causal.html#a-three-step-plan",
     "title": "Models for causal inference",
-    "section": "Outcome modeling",
-    "text": "Outcome modeling\nBecause the causal effect of A on Y is identified by adjusting for the confounders L1 and L2, we can estimate by outcome modeling.\n\nModel \\(E(Y\\mid A, L_1, L_2)\\), the conditional mean of \\(Y\\) given the treatment and confounders\nPredict potential outcomes\n\nset A = 1 for every unit. Predict \\(Y^1\\)\nset A = 0 for every unit. Predict \\(Y^0\\)\n\nAggregate to the average causal effect\n\nThe code below assumes you have generated data as on the data page.\n\n1) Model\nThe code below uses Ordinary Least Squares to estimate an outcome model.\n\nmodel &lt;- lm(Y ~ A*(L1 + L2), data = data)\n\n\n\n\nCall:\nlm(formula = Y ~ A * (L1 + L2), data = data)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-4.1448 -0.7105  0.0097  0.6998  3.1743 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  0.01606    0.05699   0.282  0.77827    \nA            1.11555    0.18021   6.190 1.26e-09 ***\nL1           1.06333    0.05938  17.907  &lt; 2e-16 ***\nL2           1.11199    0.05951  18.685  &lt; 2e-16 ***\nA:L1        -0.39475    0.14279  -2.765  0.00591 ** \nA:L2        -0.28935    0.13940  -2.076  0.03844 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.111 on 494 degrees of freedom\nMultiple R-squared:  0.6732,    Adjusted R-squared:  0.6699 \nF-statistic: 203.6 on 5 and 494 DF,  p-value: &lt; 2.2e-16\n\n\nWe chose a model where treatment A is interacted with an additive function of confounders L1 + L2. This is also known as a t-learner (Kunzel et al. 2019) because it is equivalent to estimating two separate regression models of outcome on confounders, one among those for whom A == 1 and among those for whom A == 0.\n\n\n2) Predict\nThe code below predicts the conditional average potential outcome under treatment and control at the confounder values of each observation.\nFirst, we create data with A set to the value 1.\n\ndata_1 &lt;- data |&gt;\n  mutate(A = 1)\n\n\n\n# A tibble: 500 × 7\n        L1     L2      Y0    Y1 propensity_score     A       Y\n     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n1  0.00304  1.03   0.677   1.59          0.276       1  0.677 \n2 -2.35    -1.66  -4.09   -3.53          0.00244     1 -4.09  \n3  0.104   -0.912  0.0659  1.31          0.0569      1  0.0659\n# ℹ 497 more rows\n\n\nThen, we create data with A set to the value 0.\n\ndata_0 &lt;- data |&gt;\n  mutate(A = 0)\n\n\n\n# A tibble: 500 × 7\n        L1     L2      Y0    Y1 propensity_score     A       Y\n     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n1  0.00304  1.03   0.677   1.59          0.276       0  0.677 \n2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09  \n3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659\n# ℹ 497 more rows\n\n\nWe use our outcome model to predict the conditional mean of the potential outcome under each scenario.\n\npredicted &lt;- data |&gt;\n  mutate(\n    Y1_predicted = predict(model, newdata = data_1),\n    Y0_predicted = predict(model, newdata = data_0),\n    effect_predicted = Y1_predicted - Y0_predicted\n  )\n\n\n\n# A tibble: 500 × 10\n        L1     L2      Y0    Y1 propensity_score     A       Y Y1_predicted\n     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;\n1  0.00304  1.03   0.677   1.59          0.276       0  0.677         1.98 \n2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09         -1.81 \n3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659        0.451\n# ℹ 497 more rows\n# ℹ 2 more variables: Y0_predicted &lt;dbl&gt;, effect_predicted &lt;dbl&gt;\n\n\n\n\n3) Aggregate\nThe final step is to aggregate to an average causal effect estimate.\n\naggregated &lt;- predicted |&gt;\n  summarize(average_effect_estimate = mean(effect_predicted))\n\n\n\n# A tibble: 1 × 1\n  average_effect_estimate\n                    &lt;dbl&gt;\n1                    1.13",
+    "section": "A three-step plan",
+    "text": "A three-step plan\nBecause the causal effect of A on Y is identified by adjusting for the confounders, we can estimate by outcome modeling. There are three general steps.\n\nModel \\(E(Y\\mid A, \\vec{X})\\), the conditional mean of \\(Y\\) given the treatment and confounders\nPredict potential outcomes\n\nset A = 1 for every unit. Predict \\(Y^1\\)\nset A = 0 for every unit. Predict \\(Y^0\\)\n\nAggregate to the average causal effect",
     "crumbs": [
       " ",
       "Inference with Models",
@@ -1654,11 +1497,11 @@
     ]
   },
   {
-    "objectID": "topics/models_for_causal.html#treatment-modeling",
-    "href": "topics/models_for_causal.html#treatment-modeling",
+    "objectID": "topics/models_for_causal.html#model-factual-outcomes",
+    "href": "topics/models_for_causal.html#model-factual-outcomes",
     "title": "Models for causal inference",
-    "section": "Treatment modeling",
-    "text": "Treatment modeling\nBecause the causal effect of A on Y is identified by adjusting for the confounders L1 and L2, we can also estimate by inverse probability of treatment weighting. The intuition of this approach is that treated units (with A == TRUE) are a random sample of all units, within subgroups defined by L1 and L2. We can infer the population-average outcome under treatment by the weighted mean outcome under treatment, with weights equal to the inverse probability of being treated.\nTreatment modeling proceeds in three steps:\n\nModel \\(P(A = 1\\mid L_1, L_2)\\), the conditional probability of treatment given confounders\nPredict the conditional probability \\(\\pi\\) of each unit’s observed treatment\n\nif A = 1, predict \\(\\pi = P(A = 1 \\mid L_1,L_2)\\)\nif A = 0, predict \\(\\pi = P(A = 0 \\mid L_1,L_2)\\)\n\nAggregate to the average causal effect\n\nestimate the expected outcome under treatment \\(E(Y^1)\\) by a weighted mean of treated units’ outcomes, weighted by \\(\\frac{1}{\\pi}\\)\nestimate the expected outcome under control \\(E(Y^0)\\) by a weighted mean of untreated units’ outcomes, weighted by \\(\\frac{1}{\\pi}\\)\nestimate the average causal effect by the difference\n\n\nThe code below assumes you have generated data as on the data page.\n\n1) Model\nThe code below uses logistic regression to model the conditional probability of treatment.\n\nmodel &lt;- glm(\n  A ~ L1 + L2, \n  data = data, \n  family = binomial\n)\n\n\n\n\nCall:\nglm(formula = A ~ L1 + L2, family = binomial, data = data)\n\nCoefficients:\n            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)  -2.0740     0.1737 -11.938  &lt; 2e-16 ***\nL1            1.0845     0.1639   6.618 3.65e-11 ***\nL2            1.1877     0.1548   7.673 1.68e-14 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 474.41  on 499  degrees of freedom\nResidual deviance: 354.86  on 497  degrees of freedom\nAIC: 360.86\n\nNumber of Fisher Scoring iterations: 5\n\n\n\n\n2) Predict\nThe code below predicts the conditional probability of each unit’s observed treatment value, also known as the propensity score.\n\npredicted &lt;- data |&gt;\n  # Predict the probabilities that A = 1 and A = 0\n  mutate(\n    p_A_equals_1 = predict(model, type = \"response\"),\n    p_A_equals_0 = 1 - p_A_equals_1\n  ) |&gt;\n  # Assign the propensity score based on the observed treatment\n  mutate(\n    pi = case_when(\n      A == 1 ~ p_A_equals_1,\n      A == 0 ~ p_A_equals_0\n    )\n  )\n\n\n\n# A tibble: 500 × 10\n        L1     L2      Y0    Y1 propensity_score     A       Y p_A_equals_1\n     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;\n1  0.00304  1.03   0.677   1.59          0.276       0  0.677       0.300  \n2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09        0.00136\n3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659      0.0455 \n# ℹ 497 more rows\n# ℹ 2 more variables: p_A_equals_0 &lt;dbl&gt;, pi &lt;dbl&gt;\n\n\n\n\n3) Aggregate\nThe final step is to aggregate to an average causal effect estimate.\n\naggregated_Y1 &lt;- predicted |&gt;\n  # Restrict to cases with A == 1\n  filter(A == 1) |&gt;\n  # Calculate the weighted mean outcome\n  summarize(estimate = weighted.mean(Y, w = 1 / pi))\n\naggregated_Y0 &lt;- predicted |&gt;\n  # Restrict to cases with A == 1\n  filter(A == 0) |&gt;\n  # Calculate the weighted mean outcome\n  summarize(estimate = weighted.mean(Y, w = 1 / pi))\n\naverage_effect_estimate &lt;- aggregated_Y1 - aggregated_Y0\n\n\n\n  estimate\n1 1.288555",
+    "section": "1) Model factual outcomes",
+    "text": "1) Model factual outcomes\nThe code below uses Ordinary Least Squares to estimate an outcome model.\n\nmodel &lt;- lm(\n  y ~ a * (\n    sex + race + mom_educ + dad_educ + log_parent_income +\n      log_parent_wealth + test_percentile\n  ),\n  data = data\n)\n\nThe lm() function estimates a linear model, which is stored in the model object. The first argument is the model formula, which defines the function by which we model the conditional mean of the outcome given the predictors. The second argument is the data we use to learn the model.\nWhy did we choose this model formula? You can actually choose any model formula, but there are some reasons we chose this one. In our model formula, we begin with the treatment a and then we interact this treatment with an additive function of all confounders a * (...). This is equivalent to fitting two models: an additive OLS model for \\(Y^\\text{college}\\) and an additive OLS model for \\(Y^\\text{no\\_college}\\), which is a desirable thing to do when we think the effect of college may differ for people with different values on the adjustment set. This type of model was proposed by Lin (2013) and is also known as a t-learner (Kunzel et al. 2019) because it is equivalent to estimating two separate regression models of outcome on confounder: one for the treated group and one for the untreated group. For a recent discussion of its advantages, see Hazlett & Shinkre (2024).\nThe model has a lot of terms! You can see them with summary(model). Thankfully, we won’t interpret any of them. We will just use the model as a tool to predict potential outcomes.",
     "crumbs": [
       " ",
       "Inference with Models",
@@ -1666,15 +1509,196 @@
     ]
   },
   {
-    "objectID": "topics/models_for_causal.html#concluding-thoughts",
-    "href": "topics/models_for_causal.html#concluding-thoughts",
+    "objectID": "topics/models_for_causal.html#predict-potential-outcomes",
+    "href": "topics/models_for_causal.html#predict-potential-outcomes",
     "title": "Models for causal inference",
-    "section": "Concluding thoughts",
-    "text": "Concluding thoughts\nOutcome modeling is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies where outcomes are modeled by parametric regression.\nInverse probability of treatment weighting is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies from survey sampling where units from a population are sampled with known probabilities of inclusion. The analogy is that outcomes under treatment are sampled with estimated inclusion probabilities (the probability of treatment). Just as in a population sample we would need to think carefully about the probability of sampling, treatment modeling encourages us to model the probability of receiving the observed treatment.",
+    "section": "2) Predict potential outcomes",
+    "text": "2) Predict potential outcomes\nThe code below predicts the conditional average potential outcome under treatment and control at the confounder values of each observation.\nFirst, we create data with a set to the value college for everyone.\n\ndata_1 &lt;- data |&gt;\n  mutate(a = \"college\")\n\n\n\n# A tibble: 7,771 × 9\n  a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth\n  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;fct&gt; &lt;fct&gt;    &lt;fct&gt;                &lt;dbl&gt;             &lt;dbl&gt;\n1 colle… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. \n2 colle… FALSE Male  Non-… Some co… College              31.8               80.5\n3 colle… FALSE Male  Non-… College  High sc…             14.1               23.9\n# ℹ 7,768 more rows\n# ℹ 1 more variable: test_percentile &lt;dbl&gt;\n\n\nThen, we create data with a set to the value no_college for everyone.\n\ndata_0 &lt;- data |&gt;\n  mutate(a = \"no_college\")\n\n\n\n# A tibble: 7,771 × 9\n  a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth\n  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;fct&gt; &lt;fct&gt;    &lt;fct&gt;                &lt;dbl&gt;             &lt;dbl&gt;\n1 no_co… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. \n2 no_co… FALSE Male  Non-… Some co… College              31.8               80.5\n3 no_co… FALSE Male  Non-… College  High sc…             14.1               23.9\n# ℹ 7,768 more rows\n# ℹ 1 more variable: test_percentile &lt;dbl&gt;\n\n\nWe use our outcome model to predict the conditional mean of the potential outcome under each scenario.\n\npredicted &lt;- data |&gt;\n  mutate(\n    y1_predicted = predict(model, newdata = data_1),\n    y0_predicted = predict(model, newdata = data_0),\n    effect_predicted = y1_predicted - y0_predicted\n  )\n\n\n\n# A tibble: 7,771 × 4\n  a          y     y1_predicted y0_predicted\n  &lt;chr&gt;      &lt;lgl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n1 college    TRUE         0.507        0.318\n2 college    FALSE        0.742        0.505\n3 no_college FALSE        0.391        0.159\n# ℹ 7,768 more rows\n\n\nIn the code above, the function call predict(model, newdata = data_1) uses the model object to make predictions for the data in data_1, which contains each person coded with the treatment set to college. The predicted values y1_predicted are predictions \\(\\hat{Y}^\\text{College}\\) of the potential outcome under a four-year college degree. Likewise, the function call predict(model, newdata = data_0) predicts the outcomes under no college degree. The effect_predicted variable contains the predicted causal effect at the adjustment set values of each person in the data.",
     "crumbs": [
       " ",
       "Inference with Models",
       "Models for causal inference"
+    ]
+  },
+  {
+    "objectID": "topics/models_for_causal.html#aggregate",
+    "href": "topics/models_for_causal.html#aggregate",
+    "title": "Models for causal inference",
+    "section": "3) Aggregate",
+    "text": "3) Aggregate\nThe final step is to aggregate to an average causal effect estimate.\n\naggregated &lt;- predicted |&gt;\n  select(y1_predicted, y0_predicted, effect_predicted) |&gt;\n  summarize_all(.funs = mean)\n\n\n\n# A tibble: 1 × 3\n  y1_predicted y0_predicted effect_predicted\n         &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;\n1        0.432        0.160            0.272\n\n\nWe estimate that completing college increases the probability of having a college-educated by 0.272, from 0.16 to 0.432. This causal conclusion relies both on our causal assumptions (the DAG) and our statistical assumptions (the chosen model).",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for causal inference"
+    ]
+  },
+  {
+    "objectID": "topics/models_for_causal.html#footnotes",
+    "href": "topics/models_for_causal.html#footnotes",
+    "title": "Models for causal inference",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nFor reviews, see Mare 1991 and Schwartz 2013.↩︎",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for causal inference"
+    ]
+  },
+  {
+    "objectID": "assignments/pset4_in_progress.html",
+    "href": "assignments/pset4_in_progress.html",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "",
+    "text": "Due: 5pm on Friday, Feb 28.\nIdea: - Income prediction challenge. OLS with two predictor sets. Sample split. Which one is better? - OLS with all variables. G-formula for causal effect of college on earnings, in subgroups of parent college\nThis problem set has not yet been posted.\nclass website page is a possibility for data here. Effect of college on subjective social class.\nknitr::opts_chunk$set(eval = FALSE)\nNOTE: This problem set will be updated to explicitly involve statistical learning with more guidance, as well as some causal inference.\nStudent identifer: [type your anonymous identifier here]\nThis problem set is connected to the PSID Income Prediction Challenge from discussion."
+  },
+  {
+    "objectID": "assignments/pset4_in_progress.html#notes",
+    "href": "assignments/pset4_in_progress.html#notes",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "NOTES",
+    "text": "NOTES\nGoals are\n\nSample split\nEstimate MSE\nParametric g-formula outcome\nthere is no ML algorithm on this problem set nor any IPTW\n\nWould be nice to have a nonlinear confounder and a binary treatment.\n\nlibrary(tidyverse)\n# taken from principal stratification \ndata &lt;- readRDS(\"../data_raw/motherhood.RDS\") |&gt;\n  select(\n    treated, employed, age = age_2, sex, race, employed_baseline, \n    educ, marital, fulltime, tenure, experience,\n    weight = w\n  ) |&gt;\n  na.omit()"
+  },
+  {
+    "objectID": "assignments/pset4_in_progress.html#prediction-challenge",
+    "href": "assignments/pset4_in_progress.html#prediction-challenge",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "Prediction challenge",
+    "text": "Prediction challenge\n\ndata &lt;- read_csv(\"data_raw/income_challenge/for_students/learning.csv\") |&gt;\n  mutate(across(contains(\"educ\"), \\(x) factor(x,levels = c(\"Less than high school\",\"High school\",\"Some college\",\"College\"))))"
+  },
+  {
+    "objectID": "assignments/pset4_in_progress.html#ols-prediction",
+    "href": "assignments/pset4_in_progress.html#ols-prediction",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "1. OLS prediction",
+    "text": "1. OLS prediction\nPredict g3_log_income given all other variables by OLS.\n\nfit &lt;- lm(\n  g3_log_income ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data\n)\n\nEstimate the average causal effect of college vs high school.\n\ndata |&gt;\n  mutate(yhat1 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"College\")),\n         yhat0 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"High school\"))) |&gt;\n  summarize(ate = mean(yhat1 - yhat0))\n\nEstimate within subgroups of parents’ education\n\ndata |&gt;\n  mutate(yhat1 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"College\")),\n         yhat0 = predict(fit, newdata = data |&gt; mutate(g3_educ = \"High school\"))) |&gt;\n  group_by(g2_educ) |&gt;\n  summarize(ate = mean(yhat1 - yhat0))"
+  },
+  {
+    "objectID": "assignments/pset4_in_progress.html#causal-forest-prediction",
+    "href": "assignments/pset4_in_progress.html#causal-forest-prediction",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "2. Causal forest prediction",
+    "text": "2. Causal forest prediction\n\nlibrary(grf)\n\n\nfor_forest &lt;- data |&gt;\n      filter(g3_educ %in% c(\"High school\",\"College\"))\n\nfit &lt;- causal_forest(\n  X = model.matrix(\n    ~ race + sex + g2_log_income + g2_educ,\n    data = for_forest\n  ),\n  Y = for_forest$g3_log_income,\n  W = for_forest$g3_educ == \"College\"\n)\n\nsummary(fit)\naverage_treatment_effect(fit, target.sample = \"control\")\n\n\n\nconditi\n\n# Prepare the predictor matrix\nmodel.matrix(fit)\n\nX &lt;- X0 &lt;- X1 &lt;- model.matrix(\n  ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data\n)\nX1[\"\"]\n\nX_factual &lt;- model.matrix(\n  object = ~g3_log_income ~ race + sex,\n  data = data.frame(data)\n)\nX_treated &lt;- model.matrix(\n  ~g3_log_income ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data |&gt; mutate(g3_educ = \"College\")\n)\nX_untreated &lt;- model.matrix(\n  ~g3_log_income ~ race + sex + \n    g1_log_income + g2_log_income + \n    g1_educ + g2_educ*g3_educ,\n  data = data |&gt; mutate(g3_educ = \"High school\")\n)\n\nfit &lt;- regression_forest(\n  X = \n)\n\n\ndata |&gt;\n  group_by(g3_educ) |&gt;\n  summarize(y = mean(g3_log_income)) |&gt;\n  mutate(\n    g3_educ = factor(g3_educ),\n    g3_educ = fct_relevel(g3_educ, \"Less than high school\",\"High school\",\"Some college\",\"College\")\n  ) |&gt;\n  ggplot(aes(x = g3_educ, y = y)) +\n  geom_point() +\n  scale_y_continuous(labels = function(x) scales::label_dollar()(exp(x)))\n\n\ndata |&gt;\n  mutate(\n    yhat_factual = predict(fit_ols),\n    yhat_counterfactual = predict(fit_ols, newdata = data |&gt; mutate(g3_educ = \"College\"))\n  ) |&gt;\n  select(g2_log_income, starts_with(\"yhat\")) |&gt;\n  pivot_longer(cols = -g2_log_income) |&gt;\n  ggplot(aes(x = g2_log_income, y = value, color = name)) +\n  geom_line()"
+  },
+  {
+    "objectID": "assignments/pset4_in_progress.html#income-prediction-challenge",
+    "href": "assignments/pset4_in_progress.html#income-prediction-challenge",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "Income Prediction Challenge",
+    "text": "Income Prediction Challenge\nCollaboration note. This question is an individual write-up connected to your group work from discussion. We expect that the approach you tell us might be the same as that of your other group members, but your answers to these questions should be in your own words.\n1.1 (5 points) How did you choose the predictor variables you used? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.\n1.2 (5 points) What learning algorithms or models did you consider, and how did you choose one? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.\n1.3 (20 points) Split the learning data randomly into train and test. Your split can be 50-50 or another ratio. Learn in the train set and make predictions in the test set. What do you estimate for your out-of-sample mean squared error? There is no written answer here; the answer is the code and result."
+  },
+  {
+    "objectID": "assignments/pset4_in_progress.html#grad.-machine-learning-versus-statistics",
+    "href": "assignments/pset4_in_progress.html#grad.-machine-learning-versus-statistics",
+    "title": "Problem Set 4: Statistical Learning",
+    "section": "Grad. Machine learning versus statistics",
+    "text": "Grad. Machine learning versus statistics\n\nThis question is required for grad students. It is optional for undergrads, and worth no extra credit.\n\n20 points. This question is about the relative gain in this problem as we move from no model to a statistical model to a machine learning model.\nFirst, use your train set to estimate 3 learners and predict in your test set.\n\nNo model. For every test observation, predict the mean of the train outcomes\nOrdinary Least Squares. Choose a set of predictors \\(\\vec{X}\\). For every test observation, predict using a linear model lm() fit to the train set with the predictors \\(\\vec{X}\\).\nMachine learning. Use the same set of predictors \\(\\vec{X}\\). For every test observation, predict using a machine learning model fit to the train set with the predictors \\(\\vec{X}\\). Your machine learning model could be a Generalized Additive Model (gam()), a decision tree (rpart()), or some other machine learning approach.\n\nReport your out-of-sample mean squared error estimates for each approach. How did mean squared error change from (a) to (b)? From (b) to (c)?\nInterpret what you found. To what degree does machine learning improve predictability, beyond what can be achieved by Ordinary Least Squares?"
+  },
+  {
+    "objectID": "topics/sampling.html",
+    "href": "topics/sampling.html",
+    "title": "Population sampling",
+    "section": "",
+    "text": "This topic is covered on Jan 21 and 23.\nClaims about inequality are often claims about a population. Our data are typically only a sample! This module addresses the link between samples and populations.\nThis page covers two lectures.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#full-count-enumeration",
+    "href": "topics/sampling.html#full-count-enumeration",
+    "title": "Population sampling",
+    "section": "Full count enumeration",
+    "text": "Full count enumeration\nWhat proportion of our class prefers to sit in the front of the room?\nWe answered this question in class using full count enumeration: list the entire target population and ask them the question. Full count enumeration is ideal because it removes all statistical sources of error. But in settings with a larger target population, the high cost of full count enumeration may be prohibitive.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#simple-random-sample",
+    "href": "topics/sampling.html#simple-random-sample",
+    "title": "Population sampling",
+    "section": "Simple random sample",
+    "text": "Simple random sample\nWe carried out a simple random sample1 in class.\n\neveryone generated a random number between 0 and 1\nthose with values less than 0.1 were sampled\nour sample estimate was the proportion of those sampled to prefer the front of the room\n\nIn a simple random sample, each person in the population is sampled with equal probabilities. Because the probabilities are known, a simple random sample is a probability sample.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#unequal-probability-sample",
+    "href": "topics/sampling.html#unequal-probability-sample",
+    "title": "Population sampling",
+    "section": "Unequal probability sample",
+    "text": "Unequal probability sample\nSuppose we want to make subgroup estimates:\n\nwhat proportion prefer the front, among those sitting in the first 3 rows?\nwhat proportion prefer the front, among those sitting in the back 17 rows?\n\nIn a simple random sample, we might only get a few or even zero people in the first 3 rows! To reduce the chance of this bad sample, we could draw an unequal probability sample:\n\nthose in rows 1–3 are selected with probability 0.5\nthose in rows 4–20 are selected with probability 0.1\n\nOur unequal probability sample will over-represent the first three rows, thus creating a large enough sample in this subgroup to yield precise estimates.\n\nHaving drawn an unequal probability sample, suppose we now want to estimate the class-wide proportion who prefer sitting in the front. We will have a problem: those who prefer the front may be more likely to sit there, and they are also sampled with a higher probability! Sample inclusion is related to the value of our outcome.\nBecause the sampling probabilities are known, we can correct for this by applying sampling weights, which for each person equals the inverse of the known probability of inclusion for that person.\nFor those in rows 1–3,\n\nwe sampled with probability 50%\non average 1 in every 2 people is sampled\neach person in the sample represents 2 people in the population\n\\(w_i = \\frac{1}{\\text{P}(\\text{Sampled}_i)} = \\frac{1}{.5} = 2\\)\n\nFor those in rows 4–20,\n\nwe sampled with probability 10%\non average 1 in every 10 people is sampled\neach person in the sample represents 10 people in the population\n\\(w_i = \\frac{1}{\\text{P}(\\text{Sampled}_i)} = \\frac{1}{.1} = 10\\)\n\nTo estimate the population mean, we can use the weighted sample mean,\n\\[\\frac{\\sum_i y_iw_i}{\\sum_i w_i}\\]",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#stratified-random-sample",
+    "href": "topics/sampling.html#stratified-random-sample",
+    "title": "Population sampling",
+    "section": "Stratified random sample",
+    "text": "Stratified random sample\nWe could also draw a stratified random sample by first partitioning the population into subgroups (called strata) and then drawing samples within each subgroup. For instance,\n\nsample 10 of the 20 people in rows 1–3\nsample 10 of the 130 people in rows 4–17\n\nIn simple random or unequal probability sampling, it is always possible that by random chance we sample no one in the front of the room. Stratified random sampling rules this out: we know in advance how our sample will be balanced across the two strata.\n\n\n\n\n\n\nNote\n\n\n\nIn our real-data example at the end of this page, the Current Population Survey is stratified by state so that the Bureau of Labor Statistics knows in advance that they will gather a sufficient sample to estimate unemployment in each state.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#sec-cps",
+    "href": "topics/sampling.html#sec-cps",
+    "title": "Population sampling",
+    "section": "A real case: The Current Population Survey",
+    "text": "A real case: The Current Population Survey\nEvery month, the Bureau of Labor Statistics in collaboration with the U.S. Census Bureau collects data on unemployment in the Current Population Survey (CPS). The CPS is a probability sample designed to estimate the unemployment rate in the U.S. and in each state.\nWe will be using the CPS in discussion. This video introduces the CPS and points you toward where you can access the data via IPUMS-CPS.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#sec-baseball",
+    "href": "topics/sampling.html#sec-baseball",
+    "title": "Population sampling",
+    "section": "Example: Baseball players",
+    "text": "Example: Baseball players\nAs one example where full-count enumeration is possible, we will examine the salaries of all 944 Major League Baseball Players who were on active rosters, injured lists, and restricted lists on Opening Day 2023. These data were compiled by USA Today and are available in baseball.csv.\n\nbaseball &lt;- read_csv(\"https://soc114.github.io/data/baseball.csv\")\n\n\n\n# A tibble: 944 × 4\n  player            team         position   salary\n  &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;\n1 Scherzer, Max     N.Y. Mets    RHP      43333333\n2 Verlander, Justin N.Y. Mets    RHP      43333333\n3 Judge, Aaron      N.Y. Yankees OF       40000000\n4 Rendon, Anthony   L.A. Angels  3B       38571429\n5 Trout, Mike       L.A. Angels  OF       37116667\n# ℹ 939 more rows\n\n\nSalaries are high, and income inequality is also high among baseball players\n\n4% were paid the league minimum of $720,000\n53% were paid less than $2,000,000\nthe highest-paid players—Max Scherzer and Justin Verlander—each earned $43,333,333\nthe highest-paid half of players take home 92% of the total pay\n\n\n\n\n\n\n\n\n\n\nPay also varies widely across teams!\n\n\n\n\n\n\n\n\n\n\nConceptualize the sampling strategy\nSuppose you did not have the whole population. You still want to learn the population mean salary! How could you learn that in a sample of 60 out of the 944 players?\nBefore reading on, think through three questions:\n\nWhat would it mean to use each of these strategies?\n\n\na simple random sample of 60 players\na sample stratified by the 30 MLB teams\na sample clustered by the 30 MLB teams\n\n\nWhich strategies have advantages in terms of\n\n\nbeing least expensive?\nhaving the best statistical properties?\n\n\nGiven that you already have the population, how would you write some R code to carry out the sampling strategies? You might use sample_n() and possibly group_by().\n\n\n\nSampling strategies in code\nIn a simple random sample, we draw 60 players from the entire league. Each player’s probability of sample inclusion is \\(\\frac{60}{n}\\) where \\(n\\) is the number of players in the league (944).\n\nsimple_sample &lt;- function(population) {\n  population |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 60 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 60 players\n    sample_n(size = 60)\n}\n\nTo use this function, we give it the baseball data as the population and it returns a tibble containing a sample of 60 players.\n\nsimple_sample(population = baseball)\n\n# A tibble: 60 × 6\n   player            team          position   salary p_sampled sampling_weight\n   &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;\n 1 Bader, Harrison*  N.Y. Yankees  OF        5200000    0.0636            15.7\n 2 Murfee, Penn      Seattle       RHP        727000    0.0636            15.7\n 3 Henriquez, Ronny* Minnesota     RHP        720900    0.0636            15.7\n 4 Fried, Max        Atlanta       LHP      13500000    0.0636            15.7\n 5 Cobb, Alex        San Francisco RHP       9000000    0.0636            15.7\n 6 Castro, Rodolfo   Pittsburgh    2B         725000    0.0636            15.7\n 7 Kirby, George     Seattle       RHP        758300    0.0636            15.7\n 8 Guillorme, Luis   N.Y. Mets     SS        1600000    0.0636            15.7\n 9 Kreidler, Ryan    Detroit       SS         721600    0.0636            15.7\n10 Jameson, Drey     Arizona       RHP        723600    0.0636            15.7\n# ℹ 50 more rows\n\n\nIn a stratified random sample by team, we sample 2 players on each of 30 teams. A stratified random sample is often a higher-quality sample, because it eliminates the possibility of an unlucky draw that completely omits a few teams. All teams are equally represented no matter what happens in the randomization. The downside of a stratified random sample is that it is costly.\nEach player’s probability of sample inclusion is \\(\\frac{2}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nstratified_sample &lt;- function(population) {\n  population |&gt;\n    # Draw sample within each team\n    group_by(team) |&gt;\n    # Define sampling probability and weight\n    mutate(\n      p_sampled = 2 / n(),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Within each team, sample 2 players\n    sample_n(size = 2) |&gt;\n    ungroup()\n}\n\nIn a sample clustered by team, we might first sample 3 teams and then sample 20 players on each sampled team. A clustered sample is often less costly, for example because you would only need to call up the front office of 3 teams instead of 30 teams. But this type of sample is lower quality, because there is some chance that one will randomly select a few teams that all have particularly high or low average salaries. A clustered random sample is less expensive but is more susceptible to random error based on the clusters chosen.\nEach player’s probability of sample inclusion is P(Team Chosen) \\(\\times\\) P(Chosen Within Team) = \\(\\frac{3}{30}\\times\\frac{20}{n}\\) where \\(n\\) is the number on that player’s team (which ranges from 28 to 35).\n\nclustered_sample &lt;- function(population) {\n  \n  # First, sample 3 teams\n  sampled_teams &lt;- population |&gt;\n    # Make one row per team\n    distinct(team) |&gt;\n    # Sample 3 teams\n    sample_n(3) |&gt;\n    # Store those 3 team names in a vector\n    pull()\n  \n  # Then load data on those teams and sample 20 per team\n  population |&gt;\n    filter(team %in% sampled_teams) |&gt;\n    # Define sampling probability and weight\n    group_by(team) |&gt;\n    mutate(\n      p_sampled = (3 / 30) * (20 / n()),\n      sampling_weight = 1 / p_sampled\n    ) |&gt;\n    # Sample 20 players\n    sample_n(20) |&gt;\n    ungroup()\n}\n\n\n\nWeighted mean estimator\nGiven a sample, how do we estimate the population mean? The weighted mean estimator can also be placed in a function\n\nwe hand our sample to the function\nwe get a numeric estimate back\n\n\nestimator &lt;- function(sample) {\n  sample |&gt;\n    summarize(estimate = weighted.mean(\n      x = salary, \n      w = sampling_weight\n    )) |&gt;\n    pull(estimate)\n}\n\nHere is what it looks like to use the estimator.\n\nsample_example &lt;- simple_sample(population = baseball)\nestimator(sample = sample_example)\n\n[1] 4768428\n\n\nTry it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?\n\n\nEvaluating performance: Many samples\nWe might like to know something about performance across many repeated samples. The replicate function will carry out a set of code many times.\n\nsample_estimates &lt;- replicate(\n  n = 1000,\n  expr = {\n    a_sample &lt;- simple_sample(population = baseball)\n    estimator(sample = a_sample)\n  }\n)\n\nSimulate many samples. Which one is the best? Strategy A, B, or C?\n\n\n\nThe danger of one sample\nIn actual science, we typically have only one sample. Any estimate we produce from that sample involves some signal about the population quantities, and also some noise. Herein is the danger: researchers are very good at telling stories about why their sample evidence tells something about the population, even when it may be random noise. We illustrate this with an example.\nDoes salary differ between left- and right-handed pitchers? To address this question, I create a tibble with only the pitchers(those for whom the position variable takes the value LHP or RHP).\n\npitchers &lt;- baseball |&gt;\n  filter(position == \"LHP\" | position == \"RHP\")\n\nTo illustrate what can happen with a sample, we now draw a sample. Let’s first set our computer’s random number seed so we get the same sample each time.\n\nset.seed(1599)\n\nThen draw a sample of 40 pitchers\n\npitchers_sample &lt;- pitchers |&gt;\n  sample_n(size = 40)\n\nand examine the mean difference in salary.\n\npitchers_sample |&gt;\n  group_by(position) |&gt;\n  summarize(salary_mean = mean(salary))\n\n# A tibble: 2 × 2\n  position salary_mean\n  &lt;chr&gt;          &lt;dbl&gt;\n1 LHP         9677309.\n2 RHP         3182428.\n\n\nThe left-handed pitchers make millions of dollars more per year! You can probably tell many stories why this might be the case. Maybe left-handed pitchers are needed by all teams, and there just aren’t many available because so few people are left-handed!\nWhat happens if we repeat this process many times? The figure below shows many repeated samples of size 40 from the population of pitchers.\n\n\n\n\n\n\n\n\n\nOur original result was really random noise: we happened by chance to draw a sample with some highly-paid left-handed pitchers!\nThis exercise illustrates what is known as the replication crisis: findings that are surprising in one sample may not hold in other repeated samples from the same population, or in the population as a whole. The replication crisis has many sources. One principal source is the one we illustrated above: sample-based estimates involve some randomness, and well-meaning researchers are (unfortunately) very good at telling interesting stories.\nOne solution to the replication crisis is to pay close attention to the statistical uncertainty in our estimates, such as that from random sampling. Another solution is to re-evaluate findings that are of interest on new samples. In any case, both the roots of the problem and the solutions are closely tied to sources of randomness in estimates, such as those generated using samples from a population.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#the-future-of-sample-surveys",
+    "href": "topics/sampling.html#the-future-of-sample-surveys",
+    "title": "Population sampling",
+    "section": "The future of sample surveys",
+    "text": "The future of sample surveys\nSample surveys served as a cornerstone of social science research from the 1950s to the present. But there are concerns about their future:\n\nsome sampling frames, such as landline telephones, have become obsolete\nresponse rates have been falling for decades\nsample surveys are slower and more expensive than digital data\n\nWhat is the future for sample surveys? How can they be combined with other data?\nWe will close with a discussion of these questions, which you can also engage with in the Groves 2011 reading that follows this module.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
+    ]
+  },
+  {
+    "objectID": "topics/sampling.html#footnotes",
+    "href": "topics/sampling.html#footnotes",
+    "title": "Population sampling",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nTechnically, a simple random sample draws units independently with equal probabilities, and with replacement. Our sample is actually drawn without replacement. In an infinite population, the two are equivalent.↩︎",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Population sampling"
     ]
   },
   {

@@ -415,20 +415,11 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#simulated-data" id="toc-simulated-data" class="nav-link active" data-scroll-target="#simulated-data">Simulated data</a></li>
-  <li><a href="#outcome-modeling" id="toc-outcome-modeling" class="nav-link" data-scroll-target="#outcome-modeling">Outcome modeling</a>
-  <ul class="collapse">
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">1) Model</a></li>
-  <li><a href="#predict" id="toc-predict" class="nav-link" data-scroll-target="#predict">2) Predict</a></li>
+  <li><a href="#motivating-example" id="toc-motivating-example" class="nav-link active" data-scroll-target="#motivating-example">Motivating example</a></li>
+  <li><a href="#a-three-step-plan" id="toc-a-three-step-plan" class="nav-link" data-scroll-target="#a-three-step-plan">A three-step plan</a></li>
+  <li><a href="#model-factual-outcomes" id="toc-model-factual-outcomes" class="nav-link" data-scroll-target="#model-factual-outcomes">1) Model factual outcomes</a></li>
+  <li><a href="#predict-potential-outcomes" id="toc-predict-potential-outcomes" class="nav-link" data-scroll-target="#predict-potential-outcomes">2) Predict potential outcomes</a></li>
   <li><a href="#aggregate" id="toc-aggregate" class="nav-link" data-scroll-target="#aggregate">3) Aggregate</a></li>
-  </ul></li>
-  <li><a href="#treatment-modeling" id="toc-treatment-modeling" class="nav-link" data-scroll-target="#treatment-modeling">Treatment modeling</a>
-  <ul class="collapse">
-  <li><a href="#model-1" id="toc-model-1" class="nav-link" data-scroll-target="#model-1">1) Model</a></li>
-  <li><a href="#predict-1" id="toc-predict-1" class="nav-link" data-scroll-target="#predict-1">2) Predict</a></li>
-  <li><a href="#aggregate-1" id="toc-aggregate-1" class="nav-link" data-scroll-target="#aggregate-1">3) Aggregate</a></li>
-  </ul></li>
-  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts">Concluding thoughts</a></li>
   </ul>
 </nav>
     </div>
@@ -454,55 +445,70 @@ window.Quarto = {
 </header>
 
 
-<!-- To do: Why model? page comes before this -->
-<p>Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we need to estimate the mean outcome within subgroups defined by the treatment <span class="math inline">\(A\)</span> and the confounders <span class="math inline">\(\vec{X}\)</span>. Especially in observational data settings (anything that is not a randomized experiment), causal identification is most plausible when <span class="math inline">\(\vec{X}\)</span> includes many measured variables, many of which may take many values. For this reason, causal inference questions often require us to estimate the means in many subgroups that are sparsely populated.</p>
-<p>This page introduces models for causal inference in two general approaches: outcome models and treatment models. We illustrate with a simple simulated dataset.</p>
-<section id="simulated-data" class="level2">
-<h2 class="anchored" data-anchor-id="simulated-data">Simulated data</h2>
-<p>The code below will generate a dataset of <span class="math inline">\(n = 100\)</span> observations. Each observation contains several observed variables:</p>
+<p>Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we assume that <span class="math inline">\(\vec{X}\)</span> is a sufficient adjustment set so that conditional exchangeability holds, and this allows us to identify the causal quantity <span class="math inline">\(\text{E}(Y^a\mid \vec{X} = \vec{x})\)</span> by the statistical quantity <span class="math inline">\(\text{E}(Y\mid A = a, \vec{X} = \vec{x})\)</span>. But that empirical quantity—the subgroup mean among those with treatment value <span class="math inline">\(a\)</span> and adjustment set value <span class="math inline">\(\vec{x}\)</span>—may be the mean of a subgroup that is unpopulated. This is especially true in practice because the adjustment set <span class="math inline">\(\vec{X}\)</span> is often most plausible when it includes many variables, leading to a curse of dimensionality and small subgroup sample sizes. For this reason, causal inference approaches that adjust for measured variables often require us to estimate the means in many subgroups that are sparsely populated.</p>
+<p>This page introduces outcome models for causal inference. To run the code on this page, you will need the tidyverse.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="motivating-example" class="level2">
+<h2 class="anchored" data-anchor-id="motivating-example">Motivating example</h2>
+<p>To what extent does completing a four-year college degree by age 25 increase the probability of having a spouse or residential partner with a four-year college degree at age 35, among the population of U.S. residents who were ages 12–16 at the end of 1996?</p>
+<p>We used this example on the <a href="../topics/why_model.html">Why Model?</a> page and will continue with it here. For those jumping in on this page, here is a refresher.</p>
+<p>This causal question draws on questions in sociology and demography about assortative mating: the tendency of people with high education, income, or status to form households together<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. One reason to care about assortative mating is that it can contribute to inequality across households: if people with high earnings potential form households together, then income inequality across households will be greater than it would be if people formed households randomly.</p>
+<p>Our question is causal: to what extent is the probability of marrying a four-year college graduate higher if one were hypothetically to finish a four-year degree, versus if that same person were hypothetically to not finish a college degree? But in data that exist in the world, we see only one of these two potential outcomes. The people for whom we see the outcome under a college degree are systematically different from those for whom we see the outcome under no degree: college graduates come from families with higher incomes, higher wealth, and higher parental education, for example. All of these factors may directly shape the probability of marrying a college graduate even in the absence of college. Thus, it will be important to adjust for a set of measured confounders, represented by <span class="math inline">\(\vec{X}\)</span> in our DAG.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="models_for_causal_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>By adjusting for the variables <span class="math inline">\(\vec{X}\)</span>, we block all non-causal paths between the treatment <span class="math inline">\(A\)</span> and the outcome <span class="math inline">\(Y\)</span> in the DAG. If this DAG is correct, then conditional exchangeability holds with this adjustment set: <span class="math inline">\(\{Y^1,Y^0\}\indep A \mid\vec{X}\)</span>.</p>
+<p>To estimate, we use data from the <a href="https://www.bls.gov/nls/nlsy97.htm">National Longitudinal Survey of Youth 1997</a>, a probability sample of U.S. resident children who were ages 12–16 on Dec 31, 1996. The study followed these children and interviewed them every year through 2011 and then every other year after that.</p>
+<p>We will analyze a <a href="../data/nlsy97_simulated.RDS">simulated version</a> of these data, which you can access with this line of code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"https://soc114.github.io/data/nlsy97_simulated.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand to learn how to get the actual data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To access the actual data, you would need to <a href="https://nlsinfo.org/investigator/pages/register">register</a> for an account, <a href="https://nlsinfo.org/investigator/pages/login">log in</a>, upload the <a href="../code/nlsy97.NLSY97">nlsy97.NLSY97</a> tagset that identifies our variables, and then download. Unzip the folder and put the contents in a directory on your computer. Then run our code file <a href="../code/prepare_nlsy97.R">prepare_nlsy97.R</a> in that folder. This will produce a new file <code>d.RDS</code>, contains the data. You could analyze that file. In the interest of transparency, we wrote the code <a href="../data/nlsy97_simulated.R">nlsy97_simulated.R</a> to convert these real data to simulated data that we can share.</p>
+</div>
+</div>
+</div>
+<p>The data contain several variables</p>
 <ul>
-<li><code>L1</code> A numeric confounder</li>
-<li><code>L2</code> A numeric confounder</li>
-<li><code>A</code> A binary treatment</li>
-<li><code>Y</code> A numeric outcome</li>
-</ul>
-<p>Each observation also contains outcomes that we know only because the data are simulated. These variables are useful as ground truth in simulations.</p>
+<li><code>a</code> is the treatment, containing the respondent’s education (<code>no_college</code> or <code>college</code>).</li>
+<li><code>y</code> is the outcome: <code>TRUE</code> if has a spouse or residential partner at age 35 who holds a college degree, and <code>FALSE</code> if no spouse or partner or if the spouse or partner at age 35 does not have a degree.</li>
+<li>There are several pre-treatment variables
 <ul>
-<li><code>propensity_score</code> The true propensity score <span class="math inline">\(P(A = 1 \mid \vec{L})\)</span></li>
-<li><code>Y0</code> The potential outcome under control</li>
-<li><code>Y1</code> The potential outcome under treatment</li>
+<li><code>sex</code> is coded <code>Female</code> and <code>Male</code></li>
+<li><code>race</code> is race/ethnicity and is coded <code>Hispanic</code>, <code>Non-Hispanic Black</code>, and <code>Non-Hispanic Non-Black</code>.</li>
+<li><code>mom_educ</code> is the respondent’s mother’s education as reported in 1997. It takes the value <code>No mom</code> if the child had no residential mother in 1997, and otherwise is coded with her education: <code>&lt; HS</code>, <code>High school</code>, <code>Some college</code>, or <code>College</code>.</li>
+<li><code>dad_educ</code> is the respondent’s father’s education as reported in 1997. It takes the value <code>No dad</code> if the child had no residential father in 1997, and otherwise is coded with his education: <code>&lt; HS</code>, <code>High school</code>, <code>Some college</code>, or <code>College</code>.</li>
+<li><code>log_parent_income</code> is the log of gross household income in 1997</li>
+<li><code>log_parent_wealth</code> is the log of household net worth in 1997</li>
+<li><code>test_percentile</code> is the respondent’s percentile score on a test of math and verbal skills administered in 1999 (the Armed Services Vocational Aptitude Battery).</li>
+</ul></li>
 </ul>
-<p>To run this code, you will need the <code>dplyr</code> package. If you don’t have it, first run the line <code>install.packages("dplyr")</code> in your R console. Then, add this line to your R script to load the package.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>If you want your simulation to match our numbers exactly, add a line to set your seed.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">90095</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">L1 =</span> <span class="fu">rnorm</span>(n),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">L2 =</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate potential outcomes as functions of L</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y0 =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="at">mean =</span> L1 <span class="sc">+</span> L2, <span class="at">sd =</span> <span class="dv">1</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">Y1 =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="at">mean =</span> Y0 <span class="sc">+</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate treatment as a function of L</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">propensity_score =</span> <span class="fu">plogis</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">+</span> L1 <span class="sc">+</span> L2)) <span class="sc">|&gt;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="fu">rbinom</span>(<span class="fu">n</span>(), <span class="dv">1</span>, propensity_score)) <span class="sc">|&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate factual outcome</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Y =</span> <span class="fu">case_when</span>(A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> Y0,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                       A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> Y1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>A simulation is nice because the answer is known. In this simulation, the conditional average causal effect of <code>A</code> on <code>Y</code> equals 1 at any value of <code>L1</code> and <code>L_2</code>.</p>
+<p>When values are missing, we have replcaed them with predicted values. In the simulated data, no row represents a real person because values have been drawn randomly from a probability distribution designed to mimic what exists in the real data. As discussed above, we did this in order to share the file with you by a download on this website.</p>
 </section>
-<section id="outcome-modeling" class="level2">
-<h2 class="anchored" data-anchor-id="outcome-modeling">Outcome modeling</h2>
-<p>Because the causal effect of <code>A</code> on <code>Y</code> is identified by adjusting for the confounders <code>L1</code> and <code>L2</code>, we can estimate by outcome modeling.</p>
+<section id="a-three-step-plan" class="level2">
+<h2 class="anchored" data-anchor-id="a-three-step-plan">A three-step plan</h2>
+<p>Because the causal effect of <code>A</code> on <code>Y</code> is identified by adjusting for the confounders, we can estimate by outcome modeling. There are three general steps.</p>
 <ol type="1">
-<li>Model <span class="math inline">\(E(Y\mid A, L_1, L_2)\)</span>, the conditional mean of <span class="math inline">\(Y\)</span> given the treatment and confounders</li>
+<li>Model <span class="math inline">\(E(Y\mid A, \vec{X})\)</span>, the conditional mean of <span class="math inline">\(Y\)</span> given the treatment and confounders</li>
 <li>Predict potential outcomes
 <ul>
 <li>set <code>A = 1</code> for every unit. Predict <span class="math inline">\(Y^1\)</span></li>
@@ -510,234 +516,191 @@ window.Quarto = {
 </ul></li>
 <li>Aggregate to the average causal effect</li>
 </ol>
-<p>The code below assumes you have generated data as on the <a href="data.qmd">data</a> page.</p>
-<section id="model" class="level3">
-<h3 class="anchored" data-anchor-id="model">1) Model</h3>
+</section>
+<section id="model-factual-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="model-factual-outcomes">1) Model factual outcomes</h2>
 <p>The code below uses Ordinary Least Squares to estimate an outcome model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> A<span class="sc">*</span>(L1 <span class="sc">+</span> L2), <span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span> a <span class="sc">*</span> (</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    sex <span class="sc">+</span> race <span class="sc">+</span> mom_educ <span class="sc">+</span> dad_educ <span class="sc">+</span> log_parent_income <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      log_parent_wealth <span class="sc">+</span> test_percentile</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = Y ~ A * (L1 + L2), data = data)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--4.1448 -0.7105  0.0097  0.6998  3.1743 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.01606    0.05699   0.282  0.77827    
-A            1.11555    0.18021   6.190 1.26e-09 ***
-L1           1.06333    0.05938  17.907  &lt; 2e-16 ***
-L2           1.11199    0.05951  18.685  &lt; 2e-16 ***
-A:L1        -0.39475    0.14279  -2.765  0.00591 ** 
-A:L2        -0.28935    0.13940  -2.076  0.03844 *  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 1.111 on 494 degrees of freedom
-Multiple R-squared:  0.6732,    Adjusted R-squared:  0.6699 
-F-statistic: 203.6 on 5 and 494 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>We chose a model where treatment <code>A</code> is interacted with an additive function of confounders <code>L1 + L2</code>. This is also known as a t-learner (<a href="https://www.pnas.org/doi/abs/10.1073/pnas.1804597116">Kunzel et al.&nbsp;2019</a>) because it is equivalent to estimating <strong>t</strong>wo separate regression models of outcome on confounders, one among those for whom <code>A == 1</code> and among those for whom <code>A == 0</code>.</p>
+<p>The <code>lm()</code> function estimates a linear model, which is stored in the <code>model</code> object. The first argument is the model formula, which defines the function by which we model the conditional mean of the outcome given the predictors. The second argument is the data we use to learn the model.</p>
+<p>Why did we choose this model formula? You can actually choose any model formula, but there are some reasons we chose this one. In our model formula, we begin with the treatment <code>a</code> and then we interact this treatment with an additive function of all confounders <code>a * (...)</code>. This is equivalent to fitting two models: an additive OLS model for <span class="math inline">\(Y^\text{college}\)</span> and an additive OLS model for <span class="math inline">\(Y^\text{no\_college}\)</span>, which is a desirable thing to do when we think the effect of college may differ for people with different values on the adjustment set. This type of model was proposed by <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> and is also known as a t-learner (<a href="https://www.pnas.org/doi/abs/10.1073/pnas.1804597116">Kunzel et al.&nbsp;2019</a>) because it is equivalent to estimating <strong>t</strong>wo separate regression models of outcome on confounder: one for the treated group and one for the untreated group. For a recent discussion of its advantages, see <a href="https://arxiv.org/pdf/2403.03299">Hazlett &amp; Shinkre (2024)</a>.</p>
+<p>The model has a lot of terms! You can see them with <code>summary(model)</code>. Thankfully, we won’t interpret any of them. We will just use the model as a tool to predict potential outcomes.</p>
 </section>
-<section id="predict" class="level3">
-<h3 class="anchored" data-anchor-id="predict">2) Predict</h3>
+<section id="predict-potential-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="predict-potential-outcomes">2) Predict potential outcomes</h2>
 <p>The code below predicts the conditional average potential outcome under treatment and control at the confounder values of each observation.</p>
-<p>First, we create data with <code>A</code> set to the value <code>1</code>.</p>
+<p>First, we create data with <code>a</code> set to the value <code>college</code> for everyone.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> <span class="st">"college"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 500 × 7
-        L1     L2      Y0    Y1 propensity_score     A       Y
-     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  0.00304  1.03   0.677   1.59          0.276       1  0.677 
-2 -2.35    -1.66  -4.09   -3.53          0.00244     1 -4.09  
-3  0.104   -0.912  0.0659  1.31          0.0569      1  0.0659
-# ℹ 497 more rows</code></pre>
+<pre><code># A tibble: 7,771 × 9
+  a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth
+  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;fct&gt; &lt;fct&gt;    &lt;fct&gt;                &lt;dbl&gt;             &lt;dbl&gt;
+1 colle… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. 
+2 colle… FALSE Male  Non-… Some co… College              31.8               80.5
+3 colle… FALSE Male  Non-… College  High sc…             14.1               23.9
+# ℹ 7,768 more rows
+# ℹ 1 more variable: test_percentile &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Then, we create data with <code>A</code> set to the value <code>0</code>.</p>
+<p>Then, we create data with <code>a</code> set to the value <code>no_college</code> for everyone.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_0 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_0 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> <span class="st">"no_college"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 500 × 7
-        L1     L2      Y0    Y1 propensity_score     A       Y
-     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1  0.00304  1.03   0.677   1.59          0.276       0  0.677 
-2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09  
-3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659
-# ℹ 497 more rows</code></pre>
+<pre><code># A tibble: 7,771 × 9
+  a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth
+  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;fct&gt; &lt;fct&gt;    &lt;fct&gt;                &lt;dbl&gt;             &lt;dbl&gt;
+1 no_co… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. 
+2 no_co… FALSE Male  Non-… Some co… College              31.8               80.5
+3 no_co… FALSE Male  Non-… College  High sc…             14.1               23.9
+# ℹ 7,768 more rows
+# ℹ 1 more variable: test_percentile &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>We use our outcome model to predict the conditional mean of the potential outcome under each scenario.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y1_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_1),</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y0_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_0),</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect_predicted =</span> Y1_predicted <span class="sc">-</span> Y0_predicted</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y1_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_1),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y0_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_0),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect_predicted =</span> y1_predicted <span class="sc">-</span> y0_predicted</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 500 × 10
-        L1     L2      Y0    Y1 propensity_score     A       Y Y1_predicted
-     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;
-1  0.00304  1.03   0.677   1.59          0.276       0  0.677         1.98 
-2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09         -1.81 
-3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659        0.451
-# ℹ 497 more rows
-# ℹ 2 more variables: Y0_predicted &lt;dbl&gt;, effect_predicted &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 7,771 × 4
+  a          y     y1_predicted y0_predicted
+  &lt;chr&gt;      &lt;lgl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 college    TRUE         0.507        0.318
+2 college    FALSE        0.742        0.505
+3 no_college FALSE        0.391        0.159
+# ℹ 7,768 more rows</code></pre>
 </div>
 </div>
+<p>In the code above, the function call <code>predict(model, newdata = data_1)</code> uses the <code>model</code> object to make predictions for the data in <code>data_1</code>, which contains each person coded with the treatment set to <code>college</code>. The predicted values <code>y1_predicted</code> are predictions <span class="math inline">\(\hat{Y}^\text{College}\)</span> of the potential outcome under a four-year college degree. Likewise, the function call <code>predict(model, newdata = data_0)</code> predicts the outcomes under no college degree. The <code>effect_predicted</code> variable contains the predicted causal effect at the adjustment set values of each person in the data.</p>
 </section>
-<section id="aggregate" class="level3">
-<h3 class="anchored" data-anchor-id="aggregate">3) Aggregate</h3>
+<section id="aggregate" class="level2">
+<h2 class="anchored" data-anchor-id="aggregate">3) Aggregate</h2>
 <p>The final step is to aggregate to an average causal effect estimate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>aggregated <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_effect_estimate =</span> <span class="fu">mean</span>(effect_predicted))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>aggregated <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(y1_predicted, y0_predicted, effect_predicted) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_all</span>(<span class="at">.funs =</span> mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  average_effect_estimate
-                    &lt;dbl&gt;
-1                    1.13</code></pre>
+<pre><code># A tibble: 1 × 3
+  y1_predicted y0_predicted effect_predicted
+         &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;
+1        0.432        0.160            0.272</code></pre>
 </div>
 </div>
+<p>We estimate that completing college increases the probability of having a college-educated by 0.272, from 0.16 to 0.432. This causal conclusion relies both on our causal assumptions (the DAG) and our statistical assumptions (the chosen model).</p>
+<!-- ## Treatment modeling -->
+<!-- Because the causal effect of `A` on `Y` is identified by adjusting for the confounders `L1` and `L2`, we can also estimate by inverse probability of treatment weighting. The intuition of this approach is that treated units (with `A == TRUE`) are a random sample of all units, within subgroups defined by `L1` and `L2`. We can infer the population-average outcome under treatment by the weighted mean outcome under treatment, with weights equal to the inverse probability of being treated. -->
+<!-- Treatment modeling proceeds in three steps: -->
+<!-- 1) Model $P(A = 1\mid L_1, L_2)$, the conditional probability of treatment given confounders -->
+<!-- 2) Predict the conditional probability $\pi$ of each unit's observed treatment -->
+<!--      * if `A = 1`, predict $\pi = P(A = 1 \mid L_1,L_2)$ -->
+<!--      * if `A = 0`, predict $\pi = P(A = 0 \mid L_1,L_2)$ -->
+<!-- 3) Aggregate to the average causal effect -->
+<!--      * estimate the expected outcome under treatment $E(Y^1)$ by a weighted mean of treated units' outcomes, weighted by $\frac{1}{\pi}$ -->
+<!--      * estimate the expected outcome under control $E(Y^0)$ by a weighted mean of untreated units' outcomes, weighted by $\frac{1}{\pi}$ -->
+<!--      * estimate the average causal effect by the difference -->
+<!-- The code below assumes you have generated data as on the [data](data.qmd) page. -->
+<!-- ```{r, echo = F, output = F, message = F, warning = F} -->
+<!-- library(dplyr) -->
+<!-- set.seed(90095) -->
+<!-- n <- 500 -->
+<!-- data <- tibble(L1 = rnorm(n), -->
+<!--                L2 = rnorm(n)) |> -->
+<!--   # Generate potential outcomes as functions of L -->
+<!--   mutate(Y0 = rnorm(n(), mean = L1 + L2, sd = 1), -->
+<!--          Y1 = rnorm(n(), mean = Y0 + 1, sd = 1)) |> -->
+<!--   # Generate treatment as a function of L -->
+<!--   mutate(propensity_score = plogis(-2 + L1 + L2)) |> -->
+<!--   mutate(A = rbinom(n(), 1, propensity_score)) |> -->
+<!--   # Generate factual outcome -->
+<!--   mutate(Y = case_when(A == 0 ~ Y0, -->
+<!--                        A == 1 ~ Y1)) -->
+<!-- ``` -->
+<!-- ## 1) Model -->
+<!-- The code below uses logistic regression to model the conditional probability of treatment. -->
+<!-- ```{r} -->
+<!-- model <- glm( -->
+<!--   A ~ L1 + L2,  -->
+<!--   data = data,  -->
+<!--   family = binomial -->
+<!-- ) -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- summary(model) -->
+<!-- ``` -->
+<!-- ## 2) Predict -->
+<!-- The code below predicts the conditional probability of each unit's observed treatment value, also known as the propensity score. -->
+<!-- ```{r} -->
+<!-- predicted <- data |> -->
+<!--   # Predict the probabilities that A = 1 and A = 0 -->
+<!--   mutate( -->
+<!--     p_A_equals_1 = predict(model, type = "response"), -->
+<!--     p_A_equals_0 = 1 - p_A_equals_1 -->
+<!--   ) |> -->
+<!--   # Assign the propensity score based on the observed treatment -->
+<!--   mutate( -->
+<!--     pi = case_when( -->
+<!--       A == 1 ~ p_A_equals_1, -->
+<!--       A == 0 ~ p_A_equals_0 -->
+<!--     ) -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- predicted |> print(n = 3) -->
+<!-- ``` -->
+<!-- ## 3) Aggregate -->
+<!-- The final step is to aggregate to an average causal effect estimate. -->
+<!-- ```{r} -->
+<!-- aggregated_Y1 <- predicted |> -->
+<!--   # Restrict to cases with A == 1 -->
+<!--   filter(A == 1) |> -->
+<!--   # Calculate the weighted mean outcome -->
+<!--   summarize(estimate = weighted.mean(Y, w = 1 / pi)) -->
+<!-- aggregated_Y0 <- predicted |> -->
+<!--   # Restrict to cases with A == 1 -->
+<!--   filter(A == 0) |> -->
+<!--   # Calculate the weighted mean outcome -->
+<!--   summarize(estimate = weighted.mean(Y, w = 1 / pi)) -->
+<!-- average_effect_estimate <- aggregated_Y1 - aggregated_Y0 -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- average_effect_estimate -->
+<!-- ``` -->
+<!-- ## Concluding thoughts -->
+<!-- Outcome modeling is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies where outcomes are modeled by parametric regression. -->
+<!-- Inverse probability of treatment weighting is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies from survey sampling where units from a population are sampled with known probabilities of inclusion. The analogy is that outcomes under treatment are sampled with estimated inclusion probabilities (the probability of treatment). Just as in a population sample we would need to think carefully about the probability of sampling, treatment modeling encourages us to model the probability of receiving the observed treatment. -->
+
+
 </section>
-</section>
-<section id="treatment-modeling" class="level2">
-<h2 class="anchored" data-anchor-id="treatment-modeling">Treatment modeling</h2>
-<p>Because the causal effect of <code>A</code> on <code>Y</code> is identified by adjusting for the confounders <code>L1</code> and <code>L2</code>, we can also estimate by inverse probability of treatment weighting. The intuition of this approach is that treated units (with <code>A == TRUE</code>) are a random sample of all units, within subgroups defined by <code>L1</code> and <code>L2</code>. We can infer the population-average outcome under treatment by the weighted mean outcome under treatment, with weights equal to the inverse probability of being treated.</p>
-<p>Treatment modeling proceeds in three steps:</p>
-<ol type="1">
-<li>Model <span class="math inline">\(P(A = 1\mid L_1, L_2)\)</span>, the conditional probability of treatment given confounders</li>
-<li>Predict the conditional probability <span class="math inline">\(\pi\)</span> of each unit’s observed treatment
-<ul>
-<li>if <code>A = 1</code>, predict <span class="math inline">\(\pi = P(A = 1 \mid L_1,L_2)\)</span></li>
-<li>if <code>A = 0</code>, predict <span class="math inline">\(\pi = P(A = 0 \mid L_1,L_2)\)</span></li>
-</ul></li>
-<li>Aggregate to the average causal effect
-<ul>
-<li>estimate the expected outcome under treatment <span class="math inline">\(E(Y^1)\)</span> by a weighted mean of treated units’ outcomes, weighted by <span class="math inline">\(\frac{1}{\pi}\)</span></li>
-<li>estimate the expected outcome under control <span class="math inline">\(E(Y^0)\)</span> by a weighted mean of untreated units’ outcomes, weighted by <span class="math inline">\(\frac{1}{\pi}\)</span></li>
-<li>estimate the average causal effect by the difference</li>
-</ul></li>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>For reviews, see <a href="https://doi.org/10.2307/2095670">Mare 1991</a> and <a href="https://doi.org/10.1146/annurev-soc-071312-145544">Schwartz 2013</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-<p>The code below assumes you have generated data as on the <a href="data.qmd">data</a> page.</p>
-<section id="model-1" class="level3">
-<h3 class="anchored" data-anchor-id="model-1">1) Model</h3>
-<p>The code below uses logistic regression to model the conditional probability of treatment.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  A <span class="sc">~</span> L1 <span class="sc">+</span> L2, </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data, </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = A ~ L1 + L2, family = binomial, data = data)
-
-Coefficients:
-            Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)  -2.0740     0.1737 -11.938  &lt; 2e-16 ***
-L1            1.0845     0.1639   6.618 3.65e-11 ***
-L2            1.1877     0.1548   7.673 1.68e-14 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 474.41  on 499  degrees of freedom
-Residual deviance: 354.86  on 497  degrees of freedom
-AIC: 360.86
-
-Number of Fisher Scoring iterations: 5</code></pre>
-</div>
-</div>
-</section>
-<section id="predict-1" class="level3">
-<h3 class="anchored" data-anchor-id="predict-1">2) Predict</h3>
-<p>The code below predicts the conditional probability of each unit’s observed treatment value, also known as the propensity score.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predict the probabilities that A = 1 and A = 0</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_A_equals_1 =</span> <span class="fu">predict</span>(model, <span class="at">type =</span> <span class="st">"response"</span>),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_A_equals_0 =</span> <span class="dv">1</span> <span class="sc">-</span> p_A_equals_1</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Assign the propensity score based on the observed treatment</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> <span class="fu">case_when</span>(</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> p_A_equals_1,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> p_A_equals_0</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 500 × 10
-        L1     L2      Y0    Y1 propensity_score     A       Y p_A_equals_1
-     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;
-1  0.00304  1.03   0.677   1.59          0.276       0  0.677       0.300  
-2 -2.35    -1.66  -4.09   -3.53          0.00244     0 -4.09        0.00136
-3  0.104   -0.912  0.0659  1.31          0.0569      0  0.0659      0.0455 
-# ℹ 497 more rows
-# ℹ 2 more variables: p_A_equals_0 &lt;dbl&gt;, pi &lt;dbl&gt;</code></pre>
-</div>
-</div>
-</section>
-<section id="aggregate-1" class="level3">
-<h3 class="anchored" data-anchor-id="aggregate-1">3) Aggregate</h3>
-<p>The final step is to aggregate to an average causal effect estimate.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>aggregated_Y1 <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Restrict to cases with A == 1</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the weighted mean outcome</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">weighted.mean</span>(Y, <span class="at">w =</span> <span class="dv">1</span> <span class="sc">/</span> pi))</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>aggregated_Y0 <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Restrict to cases with A == 1</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the weighted mean outcome</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">weighted.mean</span>(Y, <span class="at">w =</span> <span class="dv">1</span> <span class="sc">/</span> pi))</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>average_effect_estimate <span class="ot">&lt;-</span> aggregated_Y1 <span class="sc">-</span> aggregated_Y0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  estimate
-1 1.288555</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="concluding-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="concluding-thoughts">Concluding thoughts</h2>
-<p>Outcome modeling is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies where outcomes are modeled by parametric regression.</p>
-<p>Inverse probability of treatment weighting is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies from survey sampling where units from a population are sampled with known probabilities of inclusion. The analogy is that outcomes under treatment are sampled with estimated inclusion probabilities (the probability of treatment). Just as in a population sample we would need to think carefully about the probability of sampling, treatment modeling encourages us to model the probability of receiving the observed treatment.</p>
-
-
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
