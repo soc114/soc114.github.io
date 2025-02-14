@@ -4,12 +4,12 @@ title: "Final Project"
 
 The culmination of the course is a group research project. You will
 
-- create your own research question
+- create your own research question (one descriptive and one causal)
 - download your own data
 - visualize the data
 - interpret your findings
 
-You can answer any question about inequality (broadly defined) using the ideas we learned in this course.
+You can answer any question using the ideas we learned in this course.
 
 ## What you will submit
 
@@ -36,17 +36,20 @@ A few points should be part of your writeup:
      - this may be a probability sample, such as those available via IPUMS. If so, tell us a little bit about the sampling design
      - this may be a convenience sample. If so, why does it speak to the population and what are the limitations?
      - this may be data on the entire population, as in our [baseball](../topics/sampling.qmd#sec-baseball) example
-4) Choose an outcome variable, which is defined for each unit in the population. Your outcome variable can be a factual variable ($Y$) for descriptive claims, or a potential outcome ($Y^a$) or difference in potential outcomes ($Y^1-Y^0$) for causal claims.
+4) Choose an outcome variable, which is defined for each unit in the population.
      - example: annual wage and salary income
 5) Choose one or more variables on which to create population subgroups
      - example: subgroups defined by sex (male and female)
 6) Choose a summary statistic, which aggregates the outcome distribution to one summary per subgroup
      - examples: proportion, mean, median, 90th percentile
-7) Write with clarity on causal assumptions
-     - if your goal is causal with potential outcomes, draw a DAG in which those potential outcomes can be identified by an assumption of conditional exchangeability. If there are unmeasured confounders, discuss how their omission from your DAG may threaten the credibility of your estimates. It is ok if the assumptions are doubtful as long as you write them down clearly.
-     - if your goal is descriptive with only factual outcomes, then write your results carefully using only descriptive language. As a heuristic, if your goal is descriptive then you should not be using the sentence structure "X [verb] Y", such as "going to college increases earnings." This claim suggests a college graduate would have earned less if they had not gone to college---a counterfactual outcome we did not see. For truly descriptive claims, you should phrase more like: "There is a difference in earnings among those who did and did not go to college." A heuristic to recognize a non-causal claim is that it can be phrased it in an "among" statement: "Among subgroup A, we find \_\_\_. Among subgroup B, we find \_\_\_." Or "There is a disparity in Y across subgroups defined by X."
-8) Visualize your findings in a `ggplot`
-    
+7) Answer one descriptive and one causal question (see below)
+8) Present results using `ggplot()`
+
+With these components in mind, you will answer one descriptive and one causal research question.
+
+**Descriptive research question.** For this question, write your results carefully using only descriptive language. As a heuristic, if your goal is descriptive then you should not be using the sentence structure "X [verb] Y", such as "going to college increases earnings." This claim suggests a college graduate would have earned less if they had not gone to college---a counterfactual outcome we did not see. For truly descriptive claims, you should phrase more like: "There is a difference in earnings among those who did and did not go to college." A heuristic to recognize a non-causal claim is that it can be phrased it in an "among" statement: "Among subgroup A, we find \_\_\_. Among subgroup B, we find \_\_\_." Or "There is a disparity in Y across subgroups defined by X."
+
+**Causal research question.** Define your potential outcomes. Draw a DAG in which those potential outcomes can be identified by an assumption of conditional exchangeability. If there are unmeasured confounders, discuss how their omission from your DAG may threaten the credibility of your estimates. It is ok if the assumptions are doubtful as long as you write them down clearly.
 
 ## Considerations to bear in mind
 
