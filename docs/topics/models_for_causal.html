@@ -63,8 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../discussion.html" rel="next">
-<link href="../topics/what_is_a_model.html" rel="prev">
+<link href="../topics/matching.html" rel="next">
+<link href="../topics/why_model.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -194,7 +194,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/why_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/models_for_causal.html">Models for causal inference</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/models_for_causal.html">Models for causal inference</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -319,20 +319,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/why_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Why model?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../topics/what_is_a_model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">What is a model?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../topics/why_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why model?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../topics/models_for_causal.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Models for causal inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/matching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matching</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -416,17 +422,33 @@ window.Quarto = {
    
   <ul>
   <li><a href="#motivating-example" id="toc-motivating-example" class="nav-link active" data-scroll-target="#motivating-example">Motivating example</a></li>
-  <li><a href="#a-three-step-plan" id="toc-a-three-step-plan" class="nav-link" data-scroll-target="#a-three-step-plan">A three-step plan</a></li>
+  <li><a href="#outcome-modeling" id="toc-outcome-modeling" class="nav-link" data-scroll-target="#outcome-modeling">Outcome modeling</a>
+  <ul class="collapse">
   <li><a href="#model-factual-outcomes" id="toc-model-factual-outcomes" class="nav-link" data-scroll-target="#model-factual-outcomes">1) Model factual outcomes</a></li>
   <li><a href="#predict-potential-outcomes" id="toc-predict-potential-outcomes" class="nav-link" data-scroll-target="#predict-potential-outcomes">2) Predict potential outcomes</a></li>
   <li><a href="#aggregate" id="toc-aggregate" class="nav-link" data-scroll-target="#aggregate">3) Aggregate</a></li>
+  </ul></li>
+  <li><a href="#treatment-modeling" id="toc-treatment-modeling" class="nav-link" data-scroll-target="#treatment-modeling">Treatment modeling</a>
+  <ul class="collapse">
+  <li><a href="#model-treatment-probabilities" id="toc-model-treatment-probabilities" class="nav-link" data-scroll-target="#model-treatment-probabilities">1) Model treatment probabilities</a></li>
+  <li><a href="#construct-weights" id="toc-construct-weights" class="nav-link" data-scroll-target="#construct-weights">2) Construct weights</a></li>
+  <li><a href="#estimate-by-weighted-means" id="toc-estimate-by-weighted-means" class="nav-link" data-scroll-target="#estimate-by-weighted-means">3) Estimate by weighted means</a></li>
+  </ul></li>
+  <li><a href="#doubly-robust-estimation" id="toc-doubly-robust-estimation" class="nav-link" data-scroll-target="#doubly-robust-estimation">Doubly-robust estimation</a>
+  <ul class="collapse">
+  <li><a href="#model-outcomes-and-produce-an-initial-ate-estimate." id="toc-model-outcomes-and-produce-an-initial-ate-estimate." class="nav-link" data-scroll-target="#model-outcomes-and-produce-an-initial-ate-estimate.">1) Model outcomes and produce an initial ATE estimate.</a></li>
+  <li><a href="#model-treatments-to-create-weights" id="toc-model-treatments-to-create-weights" class="nav-link" data-scroll-target="#model-treatments-to-create-weights">2) Model treatments to create weights</a></li>
+  <li><a href="#estimate-the-weighted-average-error" id="toc-estimate-the-weighted-average-error" class="nav-link" data-scroll-target="#estimate-the-weighted-average-error">3) Estimate the weighted average error</a></li>
+  <li><a href="#why-double-robustness" id="toc-why-double-robustness" class="nav-link" data-scroll-target="#why-double-robustness">Why double robustness?</a></li>
+  </ul></li>
+  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts">Concluding thoughts</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/why_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/models_for_causal.html">Models for causal inference</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/what_is_a_model.html">Inference with Models</a></li><li class="breadcrumb-item"><a href="../topics/models_for_causal.html">Models for causal inference</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Models for causal inference</h1>
 </div>
@@ -445,6 +467,9 @@ window.Quarto = {
 </header>
 
 
+<blockquote class="blockquote">
+<p>Here are slides on <a href="../slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf">outcome modeling</a>, a quick review and then on to <a href="../slides/ipw/ipw.pdf">treatment modeling</a>, and slides (to come) on doubly-robust estimation.</p>
+</blockquote>
 <p>Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we assume that <span class="math inline">\(\vec{X}\)</span> is a sufficient adjustment set so that conditional exchangeability holds, and this allows us to identify the causal quantity <span class="math inline">\(\text{E}(Y^a\mid \vec{X} = \vec{x})\)</span> by the statistical quantity <span class="math inline">\(\text{E}(Y\mid A = a, \vec{X} = \vec{x})\)</span>. But that empirical quantity—the subgroup mean among those with treatment value <span class="math inline">\(a\)</span> and adjustment set value <span class="math inline">\(\vec{x}\)</span>—may be the mean of a subgroup that is unpopulated. This is especially true in practice because the adjustment set <span class="math inline">\(\vec{X}\)</span> is often most plausible when it includes many variables, leading to a curse of dimensionality and small subgroup sample sizes. For this reason, causal inference approaches that adjust for measured variables often require us to estimate the means in many subgroups that are sparsely populated.</p>
 <p>This page introduces outcome models for causal inference. To run the code on this page, you will need the tidyverse.</p>
 <div class="cell">
@@ -489,7 +514,8 @@ Expand to learn how to get the actual data
 </div>
 <p>The data contain several variables</p>
 <ul>
-<li><code>a</code> is the treatment, containing the respondent’s education (<code>no_college</code> or <code>college</code>).</li>
+<li><code>id</code> is an individual identifier for each person</li>
+<li><code>a</code> is the treatment, containing the respondent’s education coded <code>treated</code> if the respondent completed a four-year college degree and <code>untreated</code> if not.</li>
 <li><code>y</code> is the outcome: <code>TRUE</code> if has a spouse or residential partner at age 35 who holds a college degree, and <code>FALSE</code> if no spouse or partner or if the spouse or partner at age 35 does not have a degree.</li>
 <li>There are several pre-treatment variables
 <ul>
@@ -504,8 +530,8 @@ Expand to learn how to get the actual data
 </ul>
 <p>When values are missing, we have replcaed them with predicted values. In the simulated data, no row represents a real person because values have been drawn randomly from a probability distribution designed to mimic what exists in the real data. As discussed above, we did this in order to share the file with you by a download on this website.</p>
 </section>
-<section id="a-three-step-plan" class="level2">
-<h2 class="anchored" data-anchor-id="a-three-step-plan">A three-step plan</h2>
+<section id="outcome-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="outcome-modeling">Outcome modeling</h2>
 <p>Because the causal effect of <code>A</code> on <code>Y</code> is identified by adjusting for the confounders, we can estimate by outcome modeling. There are three general steps.</p>
 <ol type="1">
 <li>Model <span class="math inline">\(E(Y\mid A, \vec{X})\)</span>, the conditional mean of <span class="math inline">\(Y\)</span> given the treatment and confounders</li>
@@ -516,12 +542,11 @@ Expand to learn how to get the actual data
 </ul></li>
 <li>Aggregate to the average causal effect</li>
 </ol>
-</section>
-<section id="model-factual-outcomes" class="level2">
-<h2 class="anchored" data-anchor-id="model-factual-outcomes">1) Model factual outcomes</h2>
+<section id="model-factual-outcomes" class="level3">
+<h3 class="anchored" data-anchor-id="model-factual-outcomes">1) Model factual outcomes</h3>
 <p>The code below uses Ordinary Least Squares to estimate an outcome model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>outcome_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span> a <span class="sc">*</span> (</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    sex <span class="sc">+</span> race <span class="sc">+</span> mom_educ <span class="sc">+</span> dad_educ <span class="sc">+</span> log_parent_income <span class="sc">+</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      log_parent_wealth <span class="sc">+</span> test_percentile</span>
@@ -530,73 +555,74 @@ Expand to learn how to get the actual data
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>lm()</code> function estimates a linear model, which is stored in the <code>model</code> object. The first argument is the model formula, which defines the function by which we model the conditional mean of the outcome given the predictors. The second argument is the data we use to learn the model.</p>
-<p>Why did we choose this model formula? You can actually choose any model formula, but there are some reasons we chose this one. In our model formula, we begin with the treatment <code>a</code> and then we interact this treatment with an additive function of all confounders <code>a * (...)</code>. This is equivalent to fitting two models: an additive OLS model for <span class="math inline">\(Y^\text{college}\)</span> and an additive OLS model for <span class="math inline">\(Y^\text{no\_college}\)</span>, which is a desirable thing to do when we think the effect of college may differ for people with different values on the adjustment set. This type of model was proposed by <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> and is also known as a t-learner (<a href="https://www.pnas.org/doi/abs/10.1073/pnas.1804597116">Kunzel et al.&nbsp;2019</a>) because it is equivalent to estimating <strong>t</strong>wo separate regression models of outcome on confounder: one for the treated group and one for the untreated group. For a recent discussion of its advantages, see <a href="https://arxiv.org/pdf/2403.03299">Hazlett &amp; Shinkre (2024)</a>.</p>
+<p>Why did we choose this model formula? You can actually choose any model formula, but there are some reasons we chose this one. In our model formula, we begin with the treatment <code>a</code> and then we interact this treatment with an additive function of all confounders <code>a * (...)</code>. This is equivalent to fitting two models: an additive OLS model for <span class="math inline">\(Y^\text{treated}\)</span> and an additive OLS model for <span class="math inline">\(Y^\text{untreated}\)</span>, which is a desirable thing to do when we think the effect of college may differ for people with different values on the adjustment set. This type of model was proposed by <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> and is also known as a t-learner (<a href="https://www.pnas.org/doi/abs/10.1073/pnas.1804597116">Kunzel et al.&nbsp;2019</a>) because it is equivalent to estimating <strong>t</strong>wo separate regression models of outcome on confounder: one for the treated group and one for the untreated group. For a recent discussion of its advantages, see <a href="https://arxiv.org/pdf/2403.03299">Hazlett &amp; Shinkre (2024)</a>.</p>
 <p>The model has a lot of terms! You can see them with <code>summary(model)</code>. Thankfully, we won’t interpret any of them. We will just use the model as a tool to predict potential outcomes.</p>
 </section>
-<section id="predict-potential-outcomes" class="level2">
-<h2 class="anchored" data-anchor-id="predict-potential-outcomes">2) Predict potential outcomes</h2>
+<section id="predict-potential-outcomes" class="level3">
+<h3 class="anchored" data-anchor-id="predict-potential-outcomes">2) Predict potential outcomes</h3>
 <p>The code below predicts the conditional average potential outcome under treatment and control at the confounder values of each observation.</p>
-<p>First, we create data with <code>a</code> set to the value <code>college</code> for everyone.</p>
+<p>First, we create data with <code>a</code> set to the value <code>treated</code> for everyone.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> <span class="st">"college"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_if_treated <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> <span class="st">"treated"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7,771 × 9
-  a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth
-  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;
-1 colle… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. 
-2 colle… FALSE Male  Non-… Some co… College              31.8               80.5
-3 colle… FALSE Male  Non-… College  High sc…             14.1               23.9
+<pre><code># A tibble: 7,771 × 10
+     id a       y     sex   race             mom_educ dad_educ log_parent_income
+  &lt;dbl&gt; &lt;chr&gt;   &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
+1     1 treated TRUE  Male  Non-Hispanic No… &lt; HS     &lt; HS                  8.55
+2     2 treated FALSE Male  Non-Hispanic No… Some co… College              31.8 
+3     3 treated FALSE Male  Non-Hispanic Bl… College  High sc…             14.1 
 # ℹ 7,768 more rows
-# ℹ 1 more variable: test_percentile &lt;dbl&gt;</code></pre>
+# ℹ 2 more variables: log_parent_wealth &lt;dbl&gt;, test_percentile &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Then, we create data with <code>a</code> set to the value <code>no_college</code> for everyone.</p>
+<p>Then, we create data with <code>a</code> set to the value <code>untreated</code> for everyone.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_0 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> <span class="st">"no_college"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_if_untreated <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> <span class="st">"untreated"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7,771 × 9
-  a      y     sex   race  mom_educ dad_educ log_parent_income log_parent_wealth
-  &lt;chr&gt;  &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;
-1 no_co… TRUE  Male  Non-… &lt; HS     &lt; HS                  8.55             109. 
-2 no_co… FALSE Male  Non-… Some co… College              31.8               80.5
-3 no_co… FALSE Male  Non-… College  High sc…             14.1               23.9
+<pre><code># A tibble: 7,771 × 10
+     id a         y     sex   race           mom_educ dad_educ log_parent_income
+  &lt;dbl&gt; &lt;chr&gt;     &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
+1     1 untreated TRUE  Male  Non-Hispanic … &lt; HS     &lt; HS                  8.55
+2     2 untreated FALSE Male  Non-Hispanic … Some co… College              31.8 
+3     3 untreated FALSE Male  Non-Hispanic … College  High sc…             14.1 
 # ℹ 7,768 more rows
-# ℹ 1 more variable: test_percentile &lt;dbl&gt;</code></pre>
+# ℹ 2 more variables: log_parent_wealth &lt;dbl&gt;, test_percentile &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>We use our outcome model to predict the conditional mean of the potential outcome under each scenario.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>predicted_outcomes <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y1_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_1),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y0_predicted =</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> data_0),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y1_predicted =</span> <span class="fu">predict</span>(outcome_model, <span class="at">newdata =</span> data_if_treated),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y0_predicted =</span> <span class="fu">predict</span>(outcome_model, <span class="at">newdata =</span> data_if_untreated),</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect_predicted =</span> y1_predicted <span class="sc">-</span> y0_predicted</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, a, y, y1_predicted, y0_predicted, effect_predicted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7,771 × 4
-  a          y     y1_predicted y0_predicted
-  &lt;chr&gt;      &lt;lgl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1 college    TRUE         0.507        0.318
-2 college    FALSE        0.742        0.505
-3 no_college FALSE        0.391        0.159
+<pre><code># A tibble: 7,771 × 6
+     id a         y     y1_predicted y0_predicted effect_predicted
+  &lt;dbl&gt; &lt;chr&gt;     &lt;lgl&gt;        &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;
+1     1 treated   TRUE         0.507        0.318            0.188
+2     2 treated   FALSE        0.742        0.505            0.237
+3     3 untreated FALSE        0.391        0.159            0.232
 # ℹ 7,768 more rows</code></pre>
 </div>
 </div>
-<p>In the code above, the function call <code>predict(model, newdata = data_1)</code> uses the <code>model</code> object to make predictions for the data in <code>data_1</code>, which contains each person coded with the treatment set to <code>college</code>. The predicted values <code>y1_predicted</code> are predictions <span class="math inline">\(\hat{Y}^\text{College}\)</span> of the potential outcome under a four-year college degree. Likewise, the function call <code>predict(model, newdata = data_0)</code> predicts the outcomes under no college degree. The <code>effect_predicted</code> variable contains the predicted causal effect at the adjustment set values of each person in the data.</p>
+<p>In the code above, the function call <code>predict(model, newdata = data_if_treated)</code> uses the <code>model</code> object to make predictions for the data in <code>data_if_treated</code>, which contains each person coded with the treatment set to <code>treated</code>. The predicted values <code>y1_predicted</code> are predictions <span class="math inline">\(\hat{Y}^\text{treated}\)</span> of the potential outcome under a four-year college degree. Likewise, the function call <code>predict(model, newdata = data_if_untreated)</code> predicts the outcomes under no college degree. The <code>effect_predicted</code> variable contains the predicted causal effect at the adjustment set values of each person in the data.</p>
 </section>
-<section id="aggregate" class="level2">
-<h2 class="anchored" data-anchor-id="aggregate">3) Aggregate</h2>
+<section id="aggregate" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate">3) Aggregate</h3>
 <p>The final step is to aggregate to an average causal effect estimate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>aggregated <span class="ot">&lt;-</span> predicted <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>outcome_model_estimate <span class="ot">&lt;-</span> predicted_outcomes <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(y1_predicted, y0_predicted, effect_predicted) <span class="sc">|&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_all</span>(<span class="at">.funs =</span> mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -609,87 +635,254 @@ Expand to learn how to get the actual data
 </div>
 </div>
 <p>We estimate that completing college increases the probability of having a college-educated by 0.272, from 0.16 to 0.432. This causal conclusion relies both on our causal assumptions (the DAG) and our statistical assumptions (the chosen model).</p>
-<!-- ## Treatment modeling -->
-<!-- Because the causal effect of `A` on `Y` is identified by adjusting for the confounders `L1` and `L2`, we can also estimate by inverse probability of treatment weighting. The intuition of this approach is that treated units (with `A == TRUE`) are a random sample of all units, within subgroups defined by `L1` and `L2`. We can infer the population-average outcome under treatment by the weighted mean outcome under treatment, with weights equal to the inverse probability of being treated. -->
-<!-- Treatment modeling proceeds in three steps: -->
-<!-- 1) Model $P(A = 1\mid L_1, L_2)$, the conditional probability of treatment given confounders -->
-<!-- 2) Predict the conditional probability $\pi$ of each unit's observed treatment -->
-<!--      * if `A = 1`, predict $\pi = P(A = 1 \mid L_1,L_2)$ -->
-<!--      * if `A = 0`, predict $\pi = P(A = 0 \mid L_1,L_2)$ -->
-<!-- 3) Aggregate to the average causal effect -->
-<!--      * estimate the expected outcome under treatment $E(Y^1)$ by a weighted mean of treated units' outcomes, weighted by $\frac{1}{\pi}$ -->
-<!--      * estimate the expected outcome under control $E(Y^0)$ by a weighted mean of untreated units' outcomes, weighted by $\frac{1}{\pi}$ -->
-<!--      * estimate the average causal effect by the difference -->
-<!-- The code below assumes you have generated data as on the [data](data.qmd) page. -->
-<!-- ```{r, echo = F, output = F, message = F, warning = F} -->
-<!-- library(dplyr) -->
-<!-- set.seed(90095) -->
-<!-- n <- 500 -->
-<!-- data <- tibble(L1 = rnorm(n), -->
-<!--                L2 = rnorm(n)) |> -->
-<!--   # Generate potential outcomes as functions of L -->
-<!--   mutate(Y0 = rnorm(n(), mean = L1 + L2, sd = 1), -->
-<!--          Y1 = rnorm(n(), mean = Y0 + 1, sd = 1)) |> -->
-<!--   # Generate treatment as a function of L -->
-<!--   mutate(propensity_score = plogis(-2 + L1 + L2)) |> -->
-<!--   mutate(A = rbinom(n(), 1, propensity_score)) |> -->
-<!--   # Generate factual outcome -->
-<!--   mutate(Y = case_when(A == 0 ~ Y0, -->
-<!--                        A == 1 ~ Y1)) -->
-<!-- ``` -->
-<!-- ## 1) Model -->
-<!-- The code below uses logistic regression to model the conditional probability of treatment. -->
-<!-- ```{r} -->
-<!-- model <- glm( -->
-<!--   A ~ L1 + L2,  -->
-<!--   data = data,  -->
-<!--   family = binomial -->
-<!-- ) -->
-<!-- ``` -->
-<!-- ```{r, echo = F} -->
-<!-- summary(model) -->
-<!-- ``` -->
-<!-- ## 2) Predict -->
-<!-- The code below predicts the conditional probability of each unit's observed treatment value, also known as the propensity score. -->
-<!-- ```{r} -->
-<!-- predicted <- data |> -->
-<!--   # Predict the probabilities that A = 1 and A = 0 -->
-<!--   mutate( -->
-<!--     p_A_equals_1 = predict(model, type = "response"), -->
-<!--     p_A_equals_0 = 1 - p_A_equals_1 -->
-<!--   ) |> -->
-<!--   # Assign the propensity score based on the observed treatment -->
-<!--   mutate( -->
-<!--     pi = case_when( -->
-<!--       A == 1 ~ p_A_equals_1, -->
-<!--       A == 0 ~ p_A_equals_0 -->
-<!--     ) -->
-<!--   ) -->
-<!-- ``` -->
-<!-- ```{r, echo = F} -->
-<!-- predicted |> print(n = 3) -->
-<!-- ``` -->
-<!-- ## 3) Aggregate -->
-<!-- The final step is to aggregate to an average causal effect estimate. -->
-<!-- ```{r} -->
-<!-- aggregated_Y1 <- predicted |> -->
-<!--   # Restrict to cases with A == 1 -->
-<!--   filter(A == 1) |> -->
-<!--   # Calculate the weighted mean outcome -->
-<!--   summarize(estimate = weighted.mean(Y, w = 1 / pi)) -->
-<!-- aggregated_Y0 <- predicted |> -->
-<!--   # Restrict to cases with A == 1 -->
-<!--   filter(A == 0) |> -->
-<!--   # Calculate the weighted mean outcome -->
-<!--   summarize(estimate = weighted.mean(Y, w = 1 / pi)) -->
-<!-- average_effect_estimate <- aggregated_Y1 - aggregated_Y0 -->
-<!-- ``` -->
-<!-- ```{r, echo = F} -->
-<!-- average_effect_estimate -->
-<!-- ``` -->
-<!-- ## Concluding thoughts -->
-<!-- Outcome modeling is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies where outcomes are modeled by parametric regression. -->
-<!-- Inverse probability of treatment weighting is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies from survey sampling where units from a population are sampled with known probabilities of inclusion. The analogy is that outcomes under treatment are sampled with estimated inclusion probabilities (the probability of treatment). Just as in a population sample we would need to think carefully about the probability of sampling, treatment modeling encourages us to model the probability of receiving the observed treatment. -->
+</section>
+</section>
+<section id="treatment-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="treatment-modeling">Treatment modeling</h2>
+<p>Instead of modeling the outcome, another way of using models for causal inference is to model the probability of treatment assignment. This approach is more analogous to sampling from a population.</p>
+<p>In a probability sample, we observe the outcome <span class="math inline">\(Y_i\)</span> for any sampled unit <span class="math inline">\((S_i=1)\)</span> which is seen with some probability of sampling, <span class="math inline">\(P(S=1\mid\vec{X} = \vec{x}_i)\)</span> that may differ across subgroups with different values of some variables <span class="math inline">\(\vec{X}\)</span>. As discussed in population sampling, the sampling weight is the inverse of these probabilities. A person who is sampled with a 20% probability represents 1 / .2 = 5 people in the population (the other 4 being unsampled).</p>
+<p>In a conditionally randomized experiment, we observe the outcome under treatment <span class="math inline">\(Y_i^1\)</span> for any treated unit <span class="math inline">\(A_i=1\)</span>, which might be assigned with some probability <span class="math inline">\(P(A_i=1\mid\vec{X} = \vec{x}_i)\)</span> that differs across subgroups defined by an adjustment set <span class="math inline">\(\vec{X}\)</span>. In a conditionally randomized experiment, these probabilities are known and the overall expected outcome under treatment <span class="math inline">\(\E(Y^1)\)</span> can be estimated by the average of the observed outcomes under treatment, weighted by the inverse probability of being treated. A treated unit who had a 20% probability of being treated represents 1 / .2 = 5 people (the other 4 being untreated).</p>
+<p>In an observational study, we don’t know the probability of being treated given the variables in our sufficient adjustment set. We need to model that probability. There are three general steps.</p>
+<ol type="1">
+<li>Model treatment probabilities given an adjustment set</li>
+<li>Construct a weight for each unit</li>
+<li>Estimate by weighted means within each treatment group</li>
+</ol>
+<section id="model-treatment-probabilities" class="level3">
+<h3 class="anchored" data-anchor-id="model-treatment-probabilities">1) Model treatment probabilities</h3>
+<p>One way to model the probability of treatment is with logistic regression. If logistic regression is new to you, see the bottom of <a href="../topics/what_is_a_model.html">What is a model?</a>.</p>
+<p><span class="math display">\[
+\log\left(\frac{P(A = 1 \mid\vec{X})}{1-P(A = 1\mid\vec{X})}\right) = \alpha + \vec{X}'\vec\beta
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>treatment_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">I</span>(a <span class="sc">==</span> <span class="st">"treated"</span>) <span class="sc">~</span> sex <span class="sc">+</span> race <span class="sc">+</span> mom_educ <span class="sc">+</span> dad_educ <span class="sc">+</span> log_parent_income <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    log_parent_wealth <span class="sc">+</span> test_percentile,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For every unit, we can then predict the probability of being treated given the adjustment set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>predicted_treatment_probabilities <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_treated =</span> <span class="fu">predict</span>(treatment_model, <span class="at">type =</span> <span class="st">"response"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, a, y, p_treated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,771 × 4
+     id a         y     p_treated
+  &lt;dbl&gt; &lt;chr&gt;     &lt;lgl&gt;     &lt;dbl&gt;
+1     1 treated   TRUE      0.236
+2     2 treated   FALSE     0.860
+3     3 untreated FALSE     0.133
+# ℹ 7,768 more rows</code></pre>
+</div>
+</div>
+<p>The <code>type = "response"</code> argument is essential, because this tells R to predict the probability of treatment instead of the log odds of treatment.</p>
+</section>
+<section id="construct-weights" class="level3">
+<h3 class="anchored" data-anchor-id="construct-weights">2) Construct weights</h3>
+<p>For each unit, we can construct a weight that is the inverse probability of that unit’s treatment assignment. Recall that if a unit is treated and had a 0.2 probability of treatment, then we could think of this unit as representing 1 / 0.2 = 5 units: itself and 4 others like it who were not treated. The weight on each unit is the inverse probability of the treatment value that happened for that unit.</p>
+<p><span class="math display">\[
+w_i = \begin{cases}
+\frac{1}{\P(A = 1\mid \vec{X} = \vec{x}_i)} &amp;\text{if treated} \\
+\frac{1}{1 - \P(A = 1\mid \vec{X} = \vec{x}_i)} &amp;\text{if untreated}
+\end{cases}
+\]</span></p>
+<p>In code, we can use <code>case_when()</code> to assign this weight as <code>1 / p_treated</code> for treated units and <code>1 / (1 - p_treated)</code> for untreated units.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>inverse_probability_weights <span class="ot">&lt;-</span> predicted_treatment_probabilities <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> <span class="fu">case_when</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>      a <span class="sc">==</span> <span class="st">"treated"</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">/</span> p_treated,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      a <span class="sc">==</span> <span class="st">"untreated"</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> p_treated)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,771 × 5
+     id a         y     p_treated weight
+  &lt;dbl&gt; &lt;chr&gt;     &lt;lgl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+1     1 treated   TRUE      0.236   4.24
+2     2 treated   FALSE     0.860   1.16
+3     3 untreated FALSE     0.133   1.15
+# ℹ 7,768 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="estimate-by-weighted-means" class="level3">
+<h3 class="anchored" data-anchor-id="estimate-by-weighted-means">3) Estimate by weighted means</h3>
+<p>Finally, we use the weights to take the treated units and draw inference about what would happen to all units if they were hypothetically treated, and to use the untreated units and draw inference about what would happen to all units if they were hypothetically untreated.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>inverse_probability_weights <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Within each treatment group</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(a) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take the mean weighted by inverse probability of treatment weights</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">weighted.mean</span>(y, <span class="at">w =</span> weight)) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pivot wider and difference to estimate the effect</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> a, <span class="at">values_from =</span> estimate, <span class="at">names_prefix =</span> <span class="st">"if_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">effect =</span> if_treated <span class="sc">-</span> if_untreated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  if_treated if_untreated effect
+       &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+1      0.425        0.167  0.259</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="doubly-robust-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="doubly-robust-estimation">Doubly-robust estimation</h2>
+<p>We don’t have to constrain ourselves to outcome modeling or treatment modeling. We can also use both together.</p>
+<ol type="1">
+<li>Model outcomes and produce an initial ATE estimate</li>
+<li>Model treatment probabilities and produce inverse probability weights</li>
+<li>Estimate the weighted average error of your outcome model
+<ul>
+<li>For each unit, calculate the error <span class="math inline">\(Y-\hat{Y}\)</span></li>
+<li>Each unit represents a number of units corresponding to its inverse probability weight</li>
+<li>Estimate the population-average error by the weighted mean of errors, within each treatment group</li>
+</ul></li>
+<li>Improve estimate (1) by subtracting the average error (3)</li>
+</ol>
+<p>This estimator has some properties that make it superior to outcome or treatment modeling alone, as we will discuss at the end of this section.</p>
+<section id="model-outcomes-and-produce-an-initial-ate-estimate." class="level3">
+<h3 class="anchored" data-anchor-id="model-outcomes-and-produce-an-initial-ate-estimate.">1) Model outcomes and produce an initial ATE estimate.</h3>
+<p>We already did this above! Our predictions are stored in an object already.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>predicted_outcomes <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,771 × 6
+     id a         y     y1_predicted y0_predicted effect_predicted
+  &lt;dbl&gt; &lt;chr&gt;     &lt;lgl&gt;        &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;
+1     1 treated   TRUE         0.507        0.318            0.188
+2     2 treated   FALSE        0.742        0.505            0.237
+3     3 untreated FALSE        0.391        0.159            0.232
+# ℹ 7,768 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="model-treatments-to-create-weights" class="level3">
+<h3 class="anchored" data-anchor-id="model-treatments-to-create-weights">2) Model treatments to create weights</h3>
+<p>We already did this above! Our weights are stored in an object already.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>inverse_probability_weights <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,771 × 5
+     id a         y     p_treated weight
+  &lt;dbl&gt; &lt;chr&gt;     &lt;lgl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+1     1 treated   TRUE      0.236   4.24
+2     2 treated   FALSE     0.860   1.16
+3     3 untreated FALSE     0.133   1.15
+# ℹ 7,768 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="estimate-the-weighted-average-error" class="level3">
+<h3 class="anchored" data-anchor-id="estimate-the-weighted-average-error">3) Estimate the weighted average error</h3>
+<p>For each unit, we can calculate the error as the difference between the actual outcome <span class="math inline">\(Y\)</span> and the predicted outcome <span class="math inline">\(\hat{Y}\)</span> under the treatment value that actually happened for that unit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>errors <span class="ot">&lt;-</span> predicted_outcomes <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">error =</span> <span class="fu">case_when</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      a <span class="sc">==</span> <span class="st">"treated"</span> <span class="sc">~</span> y1_predicted <span class="sc">-</span> y,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      a <span class="sc">==</span> <span class="st">"untreated"</span> <span class="sc">~</span> y0_predicted <span class="sc">-</span> y</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,771 × 7
+     id a         y     y1_predicted y0_predicted effect_predicted  error
+  &lt;dbl&gt; &lt;chr&gt;     &lt;lgl&gt;        &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt;
+1     1 treated   TRUE         0.507        0.318            0.188 -0.493
+2     2 treated   FALSE        0.742        0.505            0.237  0.742
+3     3 untreated FALSE        0.391        0.159            0.232  0.159
+# ℹ 7,768 more rows</code></pre>
+</div>
+</div>
+<p>We then merge our errors with our weights, so that we can see how many total units each error should represent.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>errors_with_weight <span class="ot">&lt;-</span> errors <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, a, error) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    inverse_probability_weights <span class="sc">|&gt;</span> <span class="fu">select</span>(id, p_treated, weight), </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">join_by</span>(id)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,771 × 5
+     id a          error p_treated weight
+  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+1     1 treated   -0.493     0.236   4.24
+2     2 treated    0.742     0.860   1.16
+3     3 untreated  0.159     0.133   1.15
+# ℹ 7,768 more rows</code></pre>
+</div>
+</div>
+<p>As a concrete example, the error when predicting the first person’s outcome was -0.493. This person’s treatment was treated, and that treatment occurred with treatment probability 0.236. Some units like this unit got treated, and others didn’t. When we take a weighted average within treatment groups to estimate the average over all people, this person’s error stands in for the errors of 4.244 units in total.</p>
+<p>With our inverse probability weights, we can take the weighted average error within each treatment group as an estimate of the error that would persist if we hypothetically applied our model to all the <span class="math inline">\(Y^1\)</span> values and all the <span class="math inline">\(Y^0\)</span> values (even the ones we didn’t see).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>weighted_average_error <span class="ot">&lt;-</span> errors_with_weight <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(a) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_outcome_error =</span> <span class="fu">weighted.mean</span>(error, <span class="at">w =</span> weight)) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  a         average_outcome_error
+  &lt;chr&gt;                     &lt;dbl&gt;
+1 treated                 0.00960
+2 untreated              -0.00416</code></pre>
+</div>
+</div>
+<p>In this case our model was very good—the weighted average errors are nearly 0! The weighted average error of (outcome under treatment) - (outcome under control) is calculated below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>weighted_average_effect_error <span class="ot">&lt;-</span> weighted_average_error <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> a, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> average_outcome_error, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"average_error_"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">effect_error =</span> average_error_treated <span class="sc">-</span> average_error_untreated) <span class="sc">|&gt;</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(effect_error)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We estimate that our outcome model was mis-specified: we estimate that our outcome model estimate will be 0.014 away from the truth. We can improve our estimate by subtracting the estimated error from the original estimate.</p>
+<p><span class="math display">\[
+\text{Updated Estimate} = \text{Outcome Model Estimate} - \text{Estimated Error}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>updated_estimate <span class="ot">&lt;-</span> outcome_model_estimate <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">estimated_error =</span> weighted_average_effect_error) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">updated_estimate =</span> effect_predicted <span class="sc">-</span> estimated_error) <span class="sc">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  y1_predicted y0_predicted effect_predicted estimated_error updated_estimate
+         &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
+1        0.432        0.160            0.272          0.0138            0.258</code></pre>
+</div>
+</div>
+</section>
+<section id="why-double-robustness" class="level3">
+<h3 class="anchored" data-anchor-id="why-double-robustness">Why double robustness?</h3>
+<p>The doubly-robust estimator has a desirable property. We would like it to be the case that our estimator of the average causal effect is consistent: as the sample size grows to infinity, the estimator converges to the true average causal effect. Let <span class="math inline">\(\hat{f}()\)</span> be the estimated outcome model and <span class="math inline">\(\hat{m}()\)</span> be the estimated treatment model. The doubly-robust estimator is consistent for the average causal effect if either</p>
+<ol type="1">
+<li>The outcome model is consistent for the truth: <span class="math inline">\(\hat{f}(a,\vec{x})\rightarrow \text{E}(Y\mid A = a, \vec{X} = \vec{x})\)</span> for all values <span class="math inline">\(a\)</span> and <span class="math inline">\(\vec{x}\)</span> OR</li>
+<li>The treatment model is consistent for the truth: <span class="math inline">\(\hat{m}(\vec{x})\rightarrow \text{P}(A = 1\mid \vec{X} = \vec{x})\)</span> where the <span class="math inline">\(\rightarrow\)</span> indicates asymptotic convergence as the sample size grows.</li>
+</ol>
+<p>Our estimator is good if <strong>either</strong> (1) or (2) is true! When we aren’t sure how to specify the form of our model, it is good to have two chances.</p>
+<p>When both estimators are consistent, the doubly-robust estimator brings additional advantages such as a faster rate of convergence toward the truth as the sample size grows. For many statistical reasons, we should prefer the doubly robust estimator.</p>
+<p>A reason to choose outcome or treatment modeling on its own is that each of these alone may be easier to implement and explain to readers than the doubly-robust estimator. When presenting complex statistical results, being able to explain the procedure to your audience is an important consideration.</p>
+</section>
+</section>
+<section id="concluding-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="concluding-thoughts">Concluding thoughts</h2>
+<p>Outcome modeling is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies where outcomes are modeled by parametric regression.</p>
+<p>Inverse probability of treatment weighting is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies from survey sampling where units from a population are sampled with known probabilities of inclusion. The analogy is that outcomes under treatment are sampled with estimated inclusion probabilities (the probability of treatment). Just as in a population sample we would need to think carefully about the probability of sampling, treatment modeling encourages us to model the probability of receiving the observed treatment.</p>
+<p>Doubly robust estimation brings the two together for an estimator that is statistically preferable, albeit conceptually more complicated!</p>
 
 
 </section>
@@ -1267,13 +1460,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../topics/what_is_a_model.html" class="pagination-link" aria-label="What is a model?">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">What is a model?</span>
+      <a href="../topics/why_model.html" class="pagination-link" aria-label="Why model?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Why model?</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../discussion.html" class="pagination-link" aria-label="Discussion Meetings">
-        <span class="nav-page-text">Discussion Meetings</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../topics/matching.html" class="pagination-link" aria-label="Matching">
+        <span class="nav-page-text">Matching</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

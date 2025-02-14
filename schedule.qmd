@@ -34,15 +34,24 @@ Each date will be a link to the slides for that lecture.
 | 	| [Nonparametric estimation](topics/nonparametric_estimation.qmd) |
 | Thu, [Feb 6](slides/lec10_dags/lec10_dags.pdf)	| [Directed Acyclic Graphs (DAGs)](topics/DAGs.qmd) |
 | Tue, Feb 11 [A](slides/lec11a_whymodel/lec11a_whymodel.pdf) and [B](slides/lec11b_what_is_a_model/lec11b_what_is_a_model.pdf)	| [Why model?](topics/why_model.qmd) and [What is a model?](topics/what_is_a_model.qmd) |
-| Thu, [Feb 13](slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf) | [Models for causal inference](topics/models_for_causal.qmd)
-| Tue, Feb 18	| Properties of estimators |
-| Thu, Feb 20	| Estimating the properties of estimators |
-| Tue, Feb 25	| Machine learning as a plug-in: Descriptive and causal |
-| Tue, Feb 27	| Machine learning as a plug-in: Descriptive and causal |
-| Thu, Mar 4	| Machine learning: Penalized regression |
-| Tue, Mar 6	| Machine learning: Trees and forests |
-| Thu, Mar 11	| Machine learning vs regression: A case study (FF Challenge) |
-| Thu, Mar 13	| Course recap |
+| Thu, [Feb 13](slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf) | Intro of outcome models for causal inference
+| Tue, Feb 18	| With coding: [Outcome models for causal inference](topics/models_for_causal.qmd#doubly-robust-estimation#outcome-modeling)
+| | [Model-based inverse probability weighting](topics/models_for_causal.qmd#doubly-robust-estimation#treatment-modeling) |
+| Thu, Feb 20	| [Doubly-robust estimation](topics/models_for_causal.qmd#doubly-robust-estimation) |
+| Tue, Feb 25	| Matching |
+| Thu, Feb 27	| Trees |
+| Teu, Mar 4	| Forests |
+| Thu, Mar 6	| Sample splitting |
+| Tue, Mar 11	| Machine learning vs regression: A case study (FF Challenge |
+| Thur, Mar 13	| Course recap |
+
+<!-- | Tue, Feb 18	| Properties of estimators | -->
+<!-- | Thu, Feb 20	| Estimating the properties of estimators | -->
+<!-- | Tue, Feb 25	| Machine learning as a plug-in: Descriptive and causal | -->
+<!-- | Tue, Feb 27	| Machine learning as a plug-in: Descriptive and causal | -->
+<!-- | Thu, Mar 4	| Machine learning: Penalized regression | -->
+<!-- | Tue, Mar 6	| Machine learning: Trees and forests | -->
+<!-- | Thu, Mar 11	| Machine learning vs regression: A case study (FF Challenge) | -->
 
 ## Assignments
 

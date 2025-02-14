@@ -55,9 +55,10 @@ website:
           - topics/DAGs.qmd
       - section: "Inference with Models"
         contents:
-          - topics/why_model.qmd
           - topics/what_is_a_model.qmd
+          - topics/why_model.qmd
           - topics/models_for_causal.qmd
+          - topics/matching.qmd
           # - section: "Models for description"
           #   contents:
           #     - topics/learning_exercise.qmd

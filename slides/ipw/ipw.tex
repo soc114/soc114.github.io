@@ -68,15 +68,15 @@ At the end of class, you will be able to
 \item for the treatment $\P(A\mid\vec{L})$
 \end{itemize}
 \end{itemize} \vskip .2in
-After class:
+Optional reading:
 \begin{itemize}
 \item Hernán and Robins 2020 Chapter 12.1--12.5, 13, 15.1
 \end{itemize}
 \end{frame}}
 
-\title{Parametric g-Formula}
-\author{Cornell STSCI / INFO / ILRST 3900\\Fall 2023\\\bref{https://causal3900.github.io/}{causal3900.github.io}}
-\date{28 Sep 2023}
+\title{Model-based causal estimation:\\From outcome models to treatment weighting}
+\author{Ian Lundberg\\Sociol 114\\\bref{https://soc114.github.io/}{soc114.github.io}}
+\date{Winter 2025}
 
 \begin{document}
 
@@ -102,7 +102,7 @@ Causal assumptions
 Nonparametric estimator
 $$\begin{aligned}
 \hat\E(Y^a) &= \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{L} = \vec\ell_i, A = a)
-\end{aligned}$$ \pause
+\end{aligned}$$
 
 For every unit $i$,
 \begin{itemize}
@@ -175,62 +175,8 @@ $$\begin{aligned}
 \hat\E(Y^a) &= \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{L} = \vec\ell_i, A = a)
 \end{aligned}$$ \pause
 
-First, learn a model to predict $Y$ given $\vec{L}$ and $A$ 
+Where $\hat{E}$ is a model-based prediction
 $$\hat\E(Y\mid \vec{L}, A) = \hat\alpha + \vec{L}'\hat{\vec\gamma} + A\hat\beta$$ \pause
-For every unit $i$,
-\begin{itemize}
-\item change the treatment value to $a$
-\item predict the outcome
-\end{itemize}
-Then average over all units
-
-\end{frame}
-
-\begin{frame}{The parametric g-formula: Connection to $\hat\beta$} \pause
-Estimator for the effect $\E(Y^1) - \E(Y^0)$: \pause
-$$\begin{aligned}
-\hat\E(Y^1) - \hat\E(Y^0) 
-&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1\bigg)\right) \\
-&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0\bigg)\right) \\ \pause
-&= \frac{1}{n}\sum_{i=1}^n \hat\beta \\ \pause
-&= \hat\beta
-\end{aligned}$$ \pause
-With OLS, the parametric g-formula collapses on the coefficient.
-\end{frame}
-
-\begin{frame}{The parametric g-formula is more general}
-Suppose the effect of $A$ depends on $L$
-$$\E(Y\mid A, L) = \alpha + \gamma L + \beta A + \eta AL$$ \pause
-Estimator for the effect $\E(Y^1) - \E(Y^0)$:
-$$\begin{aligned}
-\hat\E(Y^1) - \hat\E(Y^0) 
-&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1 + \hat\eta \times  1\times \ell_i)\bigg) \right) \\
-&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0 + \hat\eta\times 0 \times \ell_i\bigg) \right) \\ \pause
-&= \frac{1}{n}\sum_{i=1}^n \left(\hat\beta + \hat\eta \ell_i\right)
-\end{aligned}$$
-The g-formula no longer collapses to a coefficient!
-\end{frame}
-
-\begin{frame}{Parametric g-formula: Outcome model recap}
-
-\begin{center}
-\begin{tikzpicture}
-\node (l) at (0,0) {$\vec{L}$};
-\node (a) at (1,0) {$A$};
-\node (y) at (2,0) {$Y$};
-\draw[->, thick] (l) -- (a);
-\draw[->, thick] (a) -- (y);
-\draw[->, thick] (l) to[bend left] (y);
-\end{tikzpicture}
-\end{center}
-
-\begin{enumerate}
-\item Model the outcome mean $\E(Y\mid A,\vec{L})$
-\item Change everyone's treatment to the value of interest
-\item Predict for everyone
-\item Take the average
-\end{enumerate}
-$$\hat\E(Y^a) = \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{L} = \vec\ell_i, A = a)$$
 
 \end{frame}
 
@@ -409,7 +355,7 @@ Both solutions accept bias in order to reduce variance
 
 \end{frame}
 
-
+\goalsframe
 
 
 \end{document}
@@ -418,3 +364,61 @@ Both solutions accept bias in order to reduce variance
 
 
 
+
+
+
+
+
+
+
+
+
+% OUTTAKES
+
+\begin{frame}{The parametric g-formula: Connection to $\hat\beta$} \pause
+Estimator for the effect $\E(Y^1) - \E(Y^0)$: \pause
+$$\begin{aligned}
+\hat\E(Y^1) - \hat\E(Y^0) 
+&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1\bigg)\right) \\
+&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0\bigg)\right) \\ \pause
+&= \frac{1}{n}\sum_{i=1}^n \hat\beta \\ \pause
+&= \hat\beta
+\end{aligned}$$ \pause
+With OLS, the parametric g-formula collapses on the coefficient.
+\end{frame}
+
+\begin{frame}{The parametric g-formula is more general}
+Suppose the effect of $A$ depends on $L$
+$$\E(Y\mid A, L) = \alpha + \gamma L + \beta A + \eta AL$$ \pause
+Estimator for the effect $\E(Y^1) - \E(Y^0)$:
+$$\begin{aligned}
+\hat\E(Y^1) - \hat\E(Y^0) 
+&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1 + \hat\eta \times  1\times \ell_i)\bigg) \right) \\
+&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0 + \hat\eta\times 0 \times \ell_i\bigg) \right) \\ \pause
+&= \frac{1}{n}\sum_{i=1}^n \left(\hat\beta + \hat\eta \ell_i\right)
+\end{aligned}$$
+The g-formula no longer collapses to a coefficient!
+\end{frame}
+
+\begin{frame}{Parametric g-formula: Outcome model recap}
+
+\begin{center}
+\begin{tikzpicture}
+\node (l) at (0,0) {$\vec{L}$};
+\node (a) at (1,0) {$A$};
+\node (y) at (2,0) {$Y$};
+\draw[->, thick] (l) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l) to[bend left] (y);
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+\item Model the outcome mean $\E(Y\mid A,\vec{L})$
+\item Change everyone's treatment to the value of interest
+\item Predict for everyone
+\item Take the average
+\end{enumerate}
+$$\hat\E(Y^a) = \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{L} = \vec\ell_i, A = a)$$
+
+\end{frame}

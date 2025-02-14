@@ -5,7 +5,7 @@ library(haven)
 d <- readRDS("data_raw/d.RDS")
 
 d |>
-  mutate(index = 1:n()) |>
+  mutate(id = 1:n()) |>
   group_by(a, y, sex, race, mom_educ, dad_educ) |>
   # Replace continuous values with random draws
   pivot_longer(cols = c("log_parent_income","log_parent_wealth","test_percentile")) |>
@@ -34,6 +34,13 @@ d |>
     )
   ) |>
   select(-contains("mean"), -contains("sd")) |>
-  select(-index) |>
+  mutate(id = 1:n()) |>
+  mutate(
+    a = case_when(
+      a == "college" ~ "treated",
+      a == "no_college" ~ "untreated"
+    )
+  ) |>
+  select(id, a, y, everything()) |>
   write_csv("data/nlsy97_simulated.csv")
   
