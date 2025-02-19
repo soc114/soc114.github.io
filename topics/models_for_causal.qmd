@@ -2,7 +2,9 @@
 title: "Models for causal inference"
 ---
 
-> Here are slides on [outcome modeling](../slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf), a quick review and then on to [treatment modeling](../slides/ipw/ipw.pdf), and slides (to come) on doubly-robust estimation.
+<!-- notes: this was tricky to teach because most of the class has never used OLS with interaction terms before. In the future, need to explain OLS with interactions with a simple example, similar to how I might explain trees with a simple example. -->
+
+> Here are slides on [outcome modeling](../slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf) and [treatment modeling](../slides/ipw/ipw.pdf).
 
 Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we assume that $\vec{X}$ is a sufficient adjustment set so that conditional exchangeability holds, and this allows us to identify the causal quantity $\text{E}(Y^a\mid \vec{X} = \vec{x})$ by the statistical quantity $\text{E}(Y\mid A = a, \vec{X} = \vec{x})$. But that empirical quantity---the subgroup mean among those with treatment value $a$ and adjustment set value $\vec{x}$---may be the mean of a subgroup that is unpopulated. This is especially true in practice because the adjustment set $\vec{X}$ is often most plausible when it includes many variables, leading to a curse of dimensionality and small subgroup sample sizes. For this reason, causal inference approaches that adjust for measured variables often require us to estimate the means in many subgroups that are sparsely populated.
 
@@ -272,6 +274,8 @@ inverse_probability_weights |>
 ```
 
 ## Doubly-robust estimation
+
+> Note: This is an advanced topic that we will not cover now, but to which we may return later in the quarter if time allows.
 
 We don't have to constrain ourselves to outcome modeling or treatment modeling. We can also use both together.
 

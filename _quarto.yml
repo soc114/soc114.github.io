@@ -59,6 +59,9 @@ website:
           - topics/why_model.qmd
           - topics/models_for_causal.qmd
           - topics/matching.qmd
+          - topics/trees.qmd
+          - topics/forests.qmd
+          - topics/data_driven_selection.qmd
           # - section: "Models for description"
           #   contents:
           #     - topics/learning_exercise.qmd
