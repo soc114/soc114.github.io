@@ -152,7 +152,8 @@ ols_binary_outcome <- lm(
 
 Catchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making \$40 million is `r label_percent()(predict(ols_binary_outcome, newdata = tibble(salary = 40e6)))`! This prediction doesn't make a lot of sense.
 
-```{r, echo = F}
+```{r}
+#| code-fold: true
 population |>
   mutate(yhat = predict(ols_binary_outcome)) |>
   ggplot(aes(x = salary, y = yhat)) +
@@ -200,7 +201,8 @@ logistic_regression <- glm(
 
 We can predict exactly as with OLS, except that we need to add the `type = "response"` argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined ($-\inf,\inf$).
 
-```{r, echo = F}
+```{r}
+#| code-fold: true
 population |>
   mutate(yhat = predict(logistic_regression, type = "response")) |>
   distinct(salary, yhat) |>

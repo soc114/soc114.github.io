@@ -300,51 +300,87 @@
     ]
   },
   {
-    "objectID": "topics/what_is_a_model.html",
-    "href": "topics/what_is_a_model.html",
-    "title": "What is a model?",
+    "objectID": "topics/weights.html",
+    "href": "topics/weights.html",
+    "title": "Using weights",
     "section": "",
-    "text": "This is the second part of lecture for Feb 11. Slides are here\nWhat is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression.\nAt a high level, a model is a tool to share information across units with different \\(\\vec{X}\\) values when estimating subgroup summaries, such as the conditional mean \\(\\text{E}(Y\\mid\\vec{X} = \\vec{x})\\) within the subgroup taking predictor value \\(\\vec{X} = \\vec{x}\\). By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren’t very many units observed in each subgroup.\nLater in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics.",
+    "text": "When studying population-level inequality, our goal is to draw inference about all units in the population. We want to know about the people in the U.S., not just the people who answer the Current Population Survey. Drawing inference from a sample to a population is most straightforward for a simple random sample: when people are chosen at random with equal probabilities. For simple random samples, the sample average of any variable is an unbiased and consistent estimator of the population average.\nBut the Current Population Survey is not a simple random sample. Neither are most labor force samples! These samples still begin with a sampling frame, but people are chosen with unequal probabilities. We need sample weights to address this fact.\nIn the CPS, a key goal is to estimate unemployment in each state. Every state needs to have enough sample size—even tiny states like Wyoming. In order to make those estimates, the CPS oversamples people who live in small states.\nTo draw good population inference, our analysis must incorporate what we know about how the data were collected. If we ignore the weights, our sample will have too many people from Wyoming and too few people from California. Weights correct for this.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "What is a model?"
+      "Inference Without Models",
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/what_is_a_model.html#a-simple-example",
-    "href": "topics/what_is_a_model.html#a-simple-example",
-    "title": "What is a model?",
-    "section": "A simple example",
-    "text": "A simple example\nAs an example, we continue to use the data on baseball salaries, with a small twist. The file baseball_population.csv contains the following variables\n\npopulation &lt;- read_csv(\"https://soc114.github.io/data/baseball_population.csv\")\n\n\nplayer is the player name\nteam is the team name\nsalary is the 2023 salary\nteam_past_record is the 2022 proportion of games won by that team\nteam_past_salary is the 2022 mean salary in that team\n\nOur goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is $6.23m. We will imagine that we don’t know this number. Instead of having the full population, we will imagine we have\n\ninformation on predictors for all players: position, team, team past record\ninformation on salary for a random sample of 5 players per team\n\nOur estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams’ players to help us make a better estimate of the Dodger mean salary.\nOur predictor will be the team_past_salary from the previous year. We assume that a team’s past salary in 2022 tells us something about their mean salary in 2023.\nFor illustration, draw a sample of 5 players per team\n\nsample &lt;- population |&gt;\n  group_by(team) |&gt;\n  sample_n(5) |&gt;\n  ungroup()\n\nConstruct a tibble with the observations to be predicted: the Dodgers.\n\nto_predict &lt;- population |&gt;\n  filter(team == \"L.A. Dodgers\")",
+    "objectID": "topics/weights.html#how-survey-designers-create-weights",
+    "href": "topics/weights.html#how-survey-designers-create-weights",
+    "title": "Using weights",
+    "section": "How survey designers create weights",
+    "text": "How survey designers create weights\nTo calculate sampling weight on person \\(i\\), those who design survey samples take the ratio \\[\\text{weight on unit }i = \\frac{1}{\\text{probability of including person }i\\text{ in the sample}}\\] You can think of the sampling weight as the number of population members a given sample member represents. If there are 100 people with a 1% chance of inclusion, then on average 1 of them will be in the sample. That person represents \\(\\frac{1}{.01}=100\\) people.\n\n\n\n\n\n\nExample redux: California and Wyoming\n\n\n\nSuppose Californians are sampled with probability 0.0004. Then each Californian represents 1 / 0.0004 = 2,500 people. Each Californian should receive a weight of 2,500. Working out the same math for Wyoming, each Wyoming resident should receive a weight of 250. The total weight on these two samples will then be proportional to the sizes of these two populations.\n\n\nIn practice, weighting is more complicated: survey administrators adjust weights for differential nonresponse across population subgroups (a method called post-stratification). How to construct weights is beyond the scope of this course, and could be a whole course in itself!",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "What is a model?"
+      "Inference Without Models",
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/what_is_a_model.html#ordinary-least-squares",
-    "href": "topics/what_is_a_model.html#ordinary-least-squares",
-    "title": "What is a model?",
-    "section": "Ordinary Least Squares",
-    "text": "Ordinary Least Squares\nWe could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction \\[\\hat{Y}_i = \\hat\\alpha + \\hat\\beta X_i\\] with \\(\\hat\\alpha\\) and \\(\\hat\\beta\\) chosen to minimize the sum of squared errors, \\(\\sum_{i=1}^n \\left(Y_i - \\hat{Y}_i\\right)^2\\). Visually, it minimizes all the line segments below.\n\n\n\n\n\n\n\n\n\nHere is how to estimate an OLS model using R.\n\nmodel &lt;- lm(salary ~ team_past_salary, data = sample)\n\nThen we could predict the mean salary for the Dodgers.\n\npredicted &lt;- to_predict |&gt;\n  mutate(predicted = predict(model, newdata = to_predict))\n\nWe would report the mean predicted salary for the Dodgers.\n\npredicted |&gt;\n  summarize(estimated_Dodger_mean = mean(predicted))\n\n# A tibble: 1 × 1\n  estimated_Dodger_mean\n                  &lt;dbl&gt;\n1              7224025.\n\n\nOur model-based estimate compares to the true population mean of $6.23m.",
+    "objectID": "topics/weights.html#point-estimates",
+    "href": "topics/weights.html#point-estimates",
+    "title": "Using weights",
+    "section": "Point estimates",
+    "text": "Point estimates\nWhen we download data, we typically download a column of weights. For simplicity, suppose we are given a sample of four people. The weight column tells us how many people in the population each person represents. The employed column tells us whether each person employed.\n\n\n     name weight employed\n1    Luis      4        1\n2 William      1        0\n3   Susan      1        0\n4  Ayesha      4        1\n\n\nIf we take an unweighted mean, we would conclude that only 50% of the population is employed. But with a weighted mean, we would conclude that 80% of the population is employed! This might be the case if the sample was designed to oversample people at a high risk of unemployment.\n\n\n\n\n\n\n\n\n\nEstimator\nMath\nExample\nResult\n\n\n\n\nUnweighted mean\n\\(=\\frac{\\sum_{i=1}^n Y_i}{n}\\)\n\\(=\\frac{1 + 0 + 0 + 1}{4}\\)\n= 50% employed\n\n\nWeighted mean\n\\(=\\frac{\\sum_{i=1}^n w_iY_i}{\\sum_{i=1}^n w_i}\\)\n\\(=\\frac{4*1 + 1*0 + 1*0 + 4*1}{4 + 1 + 1 + 4}\\)\n= 80% employed\n\n\n\nIn R, the weighted.mean(x, w) function will calculate weighted means where x is an argument for the outcome variable and w is an argument for the weight variable.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "What is a model?"
+      "Inference Without Models",
+      "Using weights"
     ]
   },
   {
-    "objectID": "topics/what_is_a_model.html#logistic-regression",
-    "href": "topics/what_is_a_model.html#logistic-regression",
-    "title": "What is a model?",
-    "section": "Logistic regression",
-    "text": "Logistic regression\nSometimes the outcome is binary (taking the values {0,1} or {FALSE,TRUE}). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (position == \"DH\") as a linear function of player salary. For illustration, we do this on the full population.\n\nols_binary_outcome &lt;- lm(\n  position == \"C\" ~ salary,\n  data = population\n)\n\nCatchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making $40 million is -2%! This prediction doesn’t make a lot of sense.\n\n\n\n\n\n\n\n\n\nLogistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval.\n\n\n\n\n\n\n\n\n\nMathematically, logistic regression replaces \\(\\text{E}(Y\\mid\\vec{X})\\) on the left side of the equation with the logistic function.\n\\[\n\\underbrace{\\log\\left(\\frac{\\text{P}(Y\\mid\\vec{X})}{1 - \\text{P}(Y\\mid\\vec{X})}\\right)}_\\text{Logistic Function} = \\alpha + \\vec{X}'\\vec\\beta\n\\]\nIn our example with the catchers, we can use logistic regression to model the probability of being a catcher using the glm() function. The family = \"binomial\" line tells the function that we want to estimate logistic regression (since “binomial” is a distribution for outcomes drawn at random with a given probability).\n\nlogistic_regression &lt;- glm(\n  position == \"C\" ~ salary,\n  data = population,\n  family = \"binomial\"\n)\n\nWe can predict exactly as with OLS, except that we need to add the type = \"response\" argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined (\\(-\\inf,\\inf\\)).\n\n\n\n\n\n\n\n\n\nBelow is code to make a prediction for the L.A. Dodgers.\n\npredicted_logistic &lt;- predict(\n  logistic_regression,\n  newdata = to_predict,\n  type = \"response\"\n)\n\nTo summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of \\(\\vec{X}\\) when estimating \\(\\text{E}(Y\\mid \\vec{X})\\) or \\(\\text{P}(Y = 1\\mid\\vec{X})\\). This is especially useful any time when we do not get to observe many units at each value of \\(\\vec{X}\\).",
+    "objectID": "topics/weights.html#standard-errors",
+    "href": "topics/weights.html#standard-errors",
+    "title": "Using weights",
+    "section": "Standard errors",
+    "text": "Standard errors\nAs you know from statistics, our sample mean is unlikely to equal the population mean. There is random variation in which people were chosen for inclusion in our sample, and this means that across hypothetical repeated samples we would get different sample means! You likely learned formulas to create a standard errors, which quantifies how much a sample estimator would move around across repeated samples.\nUnfortunately, the formula you learned doesn’t work for complex survey samples! Simple random samples (for which those formulas hold) are actually quite rare. When you face a complex survey sample, those who administer the survey might provide\n\na vector of \\(n\\) weights for making a point estimate\na matrix of \\(n\\times k\\) replicate weights for making standard errors\n\nBy providing \\(k\\) different ways to up- and down-weight various observations, the replicate weights enable you to generate \\(k\\) estimates that vary in a way that mimics how the estimator might vary if applied to different samples from the population. For instance, our employment sample might come with 3 replicate weights.\n\n\n     name weight employed repwt1 repwt2 repwt3\n1    Luis      4        1      3      5      3\n2 William      1        0      1      2      2\n3   Susan      1        0      3      1      1\n4  Ayesha      4        1      5      3      4\n\n\nThe procedure to use replicate weights depends on how they are constructed. Often, it is relatively straightforward:\n\nuse weight to create a point estimate \\(\\hat\\tau\\)\nuse repwt* to generate \\(k\\) replicate estimates \\(\\hat\\tau^*_1,\\dots,\\hat\\tau^*_k\\)\ncalculate the standard error of \\(\\hat\\tau\\) using the replicate estimates \\(\\hat\\tau^*\\). The formula will depend on how the replicate weights were constructed, but it will likely involve the standard deviation of the \\(\\hat\\tau^*\\) multiplied by some factor\nconstruct a confidence interval1 by a normal approximation \\[(\\text{point estimate}) \\pm 1.96 * (\\text{standard error estimate})\\]\n\nIn our concrete example, the point estimate is 80% employed. The replicate estimates are 0.67, 0.73, 0.70. Variation across the replicate estimates tells us something about how the estimate would vary across hypothetical repeated samples from the population.",
     "crumbs": [
       " ",
-      "Inference with Models",
-      "What is a model?"
+      "Inference Without Models",
+      "Using weights"
+    ]
+  },
+  {
+    "objectID": "topics/weights.html#computational-strategy-for-replicate-weights",
+    "href": "topics/weights.html#computational-strategy-for-replicate-weights",
+    "title": "Using weights",
+    "section": "Computational strategy for replicate weights",
+    "text": "Computational strategy for replicate weights\nUsing replicate weights can be computationally tricky! It becomes much easier if you write an estimator() function. Your function accepts two arguments\n\ndata is the tibble containing the data\nweight_name is the name of a column containing the weight to be used (e.g., “repwt1”)\n\nExample. If our estimator is the weighted mean of employment,\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    summarize(\n      estimate = weighted.mean(\n        x = employed,\n        # extract the weight column\n        w = sim_rep |&gt; pull(weight_name)\n      )\n    ) |&gt; \n    # extract the scalar estimate\n    pull(estimate)\n}\n\nIn the code above, sim_rep |&gt; pull(weight_name) takes the data frame sim_rep and extracts the weight variable that is named weight_name. There are other ways to do this also.\nWe can now apply our estimator to get a point estimate with the main sampling weight,\n\nestimate &lt;- estimator(data = sim_rep, weight_name = \"weight\")\n\nwhich yields the point estimate 0.80. We can use the same function to produce the replicate estimates,\n\nreplicate_estimates &lt;- c(\n  estimator(data = sim_rep, weight_name = \"repwt1\"),\n  estimator(data = sim_rep, weight_name = \"repwt2\"),\n  estimator(data = sim_rep, weight_name = \"repwt3\")\n)\n\nyielding the three estimates: 0.67, 0.73, 0.70. In real data, you will want to apply this in a loop because there may be dozens of replicate weights.\nThe standard error of the estimator will be some function of the replicate estimates, likely involving the standard deviation of the replicate estimates. Check with the data distributor for a formula for your case. Once you estimate the standard error, a 95% confidence interval can be constructed with a Normal approximation, as discussed above.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Using weights"
+    ]
+  },
+  {
+    "objectID": "topics/weights.html#application-in-the-cps",
+    "href": "topics/weights.html#application-in-the-cps",
+    "title": "Using weights",
+    "section": "Application in the CPS",
+    "text": "Application in the CPS\nStarting in 2005, the CPS-ASEC samples include 160 replicate weights. If you download replicate weights for many years, the file size will be enormous. We illustrate the use of replicate weights with a question that can be explored with only one year of data: among 25-year olds in 2023, how did the proportion holding four-year college degrees differ across those identifying as male and female?\nWe first load some packages, including the foreach package which will be helpful when looping through replicate weights.\n\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(foreach)\n\nTo answer our research question, we download 2023 CPS-ASEC data including the variables sex, educ, age, the weight variable asecwt, and the replicate weights repwtp*.\n\ncps_data &lt;- read_dta(\"../data_raw/cps_00079.dta\")\n\nWe then define an estimator to use with these data. It accepts a tibble data and a character weight_name identifying the name of the weight variable, and it returns a tibble with two columns: sex and estimate for the estimated proportion with a four-year degree.\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    # Define focal_weight to hold the selected weight\n    mutate(focal_weight = data |&gt; pull(weight_name)) |&gt;\n    # Restrict to those age 25+\n    filter(age &gt;= 25) |&gt;\n    # Restrict to valid reports of education\n    filter(educ &gt; 1 & educ &lt; 999) |&gt;\n    # Define a binary outcome: a four-year degree\n    mutate(college = educ &gt;= 110) |&gt;\n    # Estimate weighted means by sex\n    group_by(sex) |&gt;\n    summarize(estimate = weighted.mean(\n      x = college,\n      w = focal_weight\n    ))\n}\n\nWe produce a point estimate by applying that estimator with the asecwt.\n\nestimate &lt;- estimator(data = cps_data, weight_name = \"asecwt\")\n\n\n\n# A tibble: 2 × 2\n  sex        estimate\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;\n1 1 [male]      0.369\n2 2 [female]    0.397\n\n\nUsing the foreach package, we apply the estimator 160 times—once with each replicate weight—and use the argument .combine = \"rbind\" to stitch results together by rows.\n\nlibrary(foreach)\nreplicate_estimates &lt;- foreach(r = 1:160, .combine = \"rbind\") %do% {\n  estimator(data = cps_data, weight_name = paste0(\"repwtp\",r))\n}\n\n\n\n# A tibble: 320 × 2\n   sex        estimate\n   &lt;dbl+lbl&gt;     &lt;dbl&gt;\n 1 1 [male]      0.368\n 2 2 [female]    0.396\n 3 1 [male]      0.371\n 4 2 [female]    0.400\n 5 1 [male]      0.371\n 6 2 [female]    0.397\n 7 1 [male]      0.369\n 8 2 [female]    0.397\n 9 1 [male]      0.370\n10 2 [female]    0.398\n# ℹ 310 more rows\n\n\nWe estimate the standard error of our estimator by a formula \\[\\text{StandardError}(\\hat\\tau) = \\sqrt{\\frac{4}{160}\\sum_{r=1}^{160}\\left(\\hat\\tau^*_r - \\hat\\tau\\right)^2}\\] where the formula comes from the survey documentation. We carry out this procedure within groups defined by sex, since we are producing estimate for each sex.\n\nstandard_error &lt;- replicate_estimates |&gt;\n  # Denote replicate estimates as estimate_star\n  rename(estimate_star = estimate) |&gt;\n  # Merge in the point estimate\n  left_join(estimate,\n            by = join_by(sex)) |&gt;\n  # Carry out within groups defined by sex\n  group_by(sex) |&gt;\n  # Apply the formula from survey documentation\n  summarize(standard_error = sqrt(4 / 160 * sum((estimate_star - estimate) ^ 2)))\n\n\n\n# A tibble: 2 × 2\n  sex        standard_error\n  &lt;dbl+lbl&gt;           &lt;dbl&gt;\n1 1 [male]          0.00280\n2 2 [female]        0.00291\n\n\nFinally, we combine everything and construct a 95% confidence interval by a Normal approximation.\n\nresult &lt;- estimate |&gt;\n  left_join(standard_error, by = \"sex\") |&gt;\n  mutate(ci_min = estimate - 1.96 * standard_error,\n         ci_max = estimate + 1.96 * standard_error)\n\n\n\n# A tibble: 2 × 5\n  sex        estimate standard_error ci_min ci_max\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 1 [male]      0.369        0.00280  0.364  0.375\n2 2 [female]    0.397        0.00291  0.391  0.403\n\n\nWe use ggplot() to visualize the result.\n\nresult |&gt;\n  mutate(sex = as_factor(sex)) |&gt;\n  ggplot(aes(\n    x = sex, \n    y = estimate,\n    ymin = ci_min, \n    ymax = ci_max,\n    label = scales::percent(estimate)\n  )) +\n  geom_errorbar(width = .2) +\n  geom_label() +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = str_to_title\n  ) +\n  scale_y_continuous(name = \"Proportion with 4-Year College Degree\") +\n  ggtitle(\n    \"Sex Disparities in College Completion\",\n    subtitle = \"Estimates from the 2023 CPS-ASEC among those age 25+\"\n  )\n\n\n\n\n\n\n\n\nWe conclude that those identifying as female are more likely to hold a college degree. Because we can see the confidence intervals generated using the replicate weights, we are reasonably confident in the statistical precision of our point estimates.",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Using weights"
+    ]
+  },
+  {
+    "objectID": "topics/weights.html#footnotes",
+    "href": "topics/weights.html#footnotes",
+    "title": "Using weights",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nIf we hypothetically drew many complex survey samples from the population in this way, an interval generated this way would contain the true population mean 95% of the time.↩︎",
+    "crumbs": [
+      " ",
+      "Inference Without Models",
+      "Using weights"
     ]
   },
   {
@@ -1684,87 +1720,51 @@
     ]
   },
   {
-    "objectID": "topics/weights.html",
-    "href": "topics/weights.html",
-    "title": "Using weights",
+    "objectID": "topics/what_is_a_model.html",
+    "href": "topics/what_is_a_model.html",
+    "title": "What is a model?",
     "section": "",
-    "text": "When studying population-level inequality, our goal is to draw inference about all units in the population. We want to know about the people in the U.S., not just the people who answer the Current Population Survey. Drawing inference from a sample to a population is most straightforward for a simple random sample: when people are chosen at random with equal probabilities. For simple random samples, the sample average of any variable is an unbiased and consistent estimator of the population average.\nBut the Current Population Survey is not a simple random sample. Neither are most labor force samples! These samples still begin with a sampling frame, but people are chosen with unequal probabilities. We need sample weights to address this fact.\nIn the CPS, a key goal is to estimate unemployment in each state. Every state needs to have enough sample size—even tiny states like Wyoming. In order to make those estimates, the CPS oversamples people who live in small states.\nTo draw good population inference, our analysis must incorporate what we know about how the data were collected. If we ignore the weights, our sample will have too many people from Wyoming and too few people from California. Weights correct for this.",
+    "text": "This is the second part of lecture for Feb 11. Slides are here\nWhat is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression.\nAt a high level, a model is a tool to share information across units with different \\(\\vec{X}\\) values when estimating subgroup summaries, such as the conditional mean \\(\\text{E}(Y\\mid\\vec{X} = \\vec{x})\\) within the subgroup taking predictor value \\(\\vec{X} = \\vec{x}\\). By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren’t very many units observed in each subgroup.\nLater in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics.",
     "crumbs": [
       " ",
-      "Inference Without Models",
-      "Using weights"
+      "Inference with Models",
+      "What is a model?"
     ]
   },
   {
-    "objectID": "topics/weights.html#how-survey-designers-create-weights",
-    "href": "topics/weights.html#how-survey-designers-create-weights",
-    "title": "Using weights",
-    "section": "How survey designers create weights",
-    "text": "How survey designers create weights\nTo calculate sampling weight on person \\(i\\), those who design survey samples take the ratio \\[\\text{weight on unit }i = \\frac{1}{\\text{probability of including person }i\\text{ in the sample}}\\] You can think of the sampling weight as the number of population members a given sample member represents. If there are 100 people with a 1% chance of inclusion, then on average 1 of them will be in the sample. That person represents \\(\\frac{1}{.01}=100\\) people.\n\n\n\n\n\n\nExample redux: California and Wyoming\n\n\n\nSuppose Californians are sampled with probability 0.0004. Then each Californian represents 1 / 0.0004 = 2,500 people. Each Californian should receive a weight of 2,500. Working out the same math for Wyoming, each Wyoming resident should receive a weight of 250. The total weight on these two samples will then be proportional to the sizes of these two populations.\n\n\nIn practice, weighting is more complicated: survey administrators adjust weights for differential nonresponse across population subgroups (a method called post-stratification). How to construct weights is beyond the scope of this course, and could be a whole course in itself!",
+    "objectID": "topics/what_is_a_model.html#a-simple-example",
+    "href": "topics/what_is_a_model.html#a-simple-example",
+    "title": "What is a model?",
+    "section": "A simple example",
+    "text": "A simple example\nAs an example, we continue to use the data on baseball salaries, with a small twist. The file baseball_population.csv contains the following variables\n\npopulation &lt;- read_csv(\"https://soc114.github.io/data/baseball_population.csv\")\n\n\nplayer is the player name\nteam is the team name\nsalary is the 2023 salary\nteam_past_record is the 2022 proportion of games won by that team\nteam_past_salary is the 2022 mean salary in that team\n\nOur goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is $6.23m. We will imagine that we don’t know this number. Instead of having the full population, we will imagine we have\n\ninformation on predictors for all players: position, team, team past record\ninformation on salary for a random sample of 5 players per team\n\nOur estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams’ players to help us make a better estimate of the Dodger mean salary.\nOur predictor will be the team_past_salary from the previous year. We assume that a team’s past salary in 2022 tells us something about their mean salary in 2023.\nFor illustration, draw a sample of 5 players per team\n\nsample &lt;- population |&gt;\n  group_by(team) |&gt;\n  sample_n(5) |&gt;\n  ungroup()\n\nConstruct a tibble with the observations to be predicted: the Dodgers.\n\nto_predict &lt;- population |&gt;\n  filter(team == \"L.A. Dodgers\")",
     "crumbs": [
       " ",
-      "Inference Without Models",
-      "Using weights"
+      "Inference with Models",
+      "What is a model?"
     ]
   },
   {
-    "objectID": "topics/weights.html#point-estimates",
-    "href": "topics/weights.html#point-estimates",
-    "title": "Using weights",
-    "section": "Point estimates",
-    "text": "Point estimates\nWhen we download data, we typically download a column of weights. For simplicity, suppose we are given a sample of four people. The weight column tells us how many people in the population each person represents. The employed column tells us whether each person employed.\n\n\n     name weight employed\n1    Luis      4        1\n2 William      1        0\n3   Susan      1        0\n4  Ayesha      4        1\n\n\nIf we take an unweighted mean, we would conclude that only 50% of the population is employed. But with a weighted mean, we would conclude that 80% of the population is employed! This might be the case if the sample was designed to oversample people at a high risk of unemployment.\n\n\n\n\n\n\n\n\n\nEstimator\nMath\nExample\nResult\n\n\n\n\nUnweighted mean\n\\(=\\frac{\\sum_{i=1}^n Y_i}{n}\\)\n\\(=\\frac{1 + 0 + 0 + 1}{4}\\)\n= 50% employed\n\n\nWeighted mean\n\\(=\\frac{\\sum_{i=1}^n w_iY_i}{\\sum_{i=1}^n w_i}\\)\n\\(=\\frac{4*1 + 1*0 + 1*0 + 4*1}{4 + 1 + 1 + 4}\\)\n= 80% employed\n\n\n\nIn R, the weighted.mean(x, w) function will calculate weighted means where x is an argument for the outcome variable and w is an argument for the weight variable.",
+    "objectID": "topics/what_is_a_model.html#ordinary-least-squares",
+    "href": "topics/what_is_a_model.html#ordinary-least-squares",
+    "title": "What is a model?",
+    "section": "Ordinary Least Squares",
+    "text": "Ordinary Least Squares\nWe could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction \\[\\hat{Y}_i = \\hat\\alpha + \\hat\\beta X_i\\] with \\(\\hat\\alpha\\) and \\(\\hat\\beta\\) chosen to minimize the sum of squared errors, \\(\\sum_{i=1}^n \\left(Y_i - \\hat{Y}_i\\right)^2\\). Visually, it minimizes all the line segments below.\n\n\n\n\n\n\n\n\n\nHere is how to estimate an OLS model using R.\n\nmodel &lt;- lm(salary ~ team_past_salary, data = sample)\n\nThen we could predict the mean salary for the Dodgers.\n\npredicted &lt;- to_predict |&gt;\n  mutate(predicted = predict(model, newdata = to_predict))\n\nWe would report the mean predicted salary for the Dodgers.\n\npredicted |&gt;\n  summarize(estimated_Dodger_mean = mean(predicted))\n\n# A tibble: 1 × 1\n  estimated_Dodger_mean\n                  &lt;dbl&gt;\n1              7224025.\n\n\nOur model-based estimate compares to the true population mean of $6.23m.",
     "crumbs": [
       " ",
-      "Inference Without Models",
-      "Using weights"
+      "Inference with Models",
+      "What is a model?"
     ]
   },
   {
-    "objectID": "topics/weights.html#standard-errors",
-    "href": "topics/weights.html#standard-errors",
-    "title": "Using weights",
-    "section": "Standard errors",
-    "text": "Standard errors\nAs you know from statistics, our sample mean is unlikely to equal the population mean. There is random variation in which people were chosen for inclusion in our sample, and this means that across hypothetical repeated samples we would get different sample means! You likely learned formulas to create a standard errors, which quantifies how much a sample estimator would move around across repeated samples.\nUnfortunately, the formula you learned doesn’t work for complex survey samples! Simple random samples (for which those formulas hold) are actually quite rare. When you face a complex survey sample, those who administer the survey might provide\n\na vector of \\(n\\) weights for making a point estimate\na matrix of \\(n\\times k\\) replicate weights for making standard errors\n\nBy providing \\(k\\) different ways to up- and down-weight various observations, the replicate weights enable you to generate \\(k\\) estimates that vary in a way that mimics how the estimator might vary if applied to different samples from the population. For instance, our employment sample might come with 3 replicate weights.\n\n\n     name weight employed repwt1 repwt2 repwt3\n1    Luis      4        1      3      5      3\n2 William      1        0      1      2      2\n3   Susan      1        0      3      1      1\n4  Ayesha      4        1      5      3      4\n\n\nThe procedure to use replicate weights depends on how they are constructed. Often, it is relatively straightforward:\n\nuse weight to create a point estimate \\(\\hat\\tau\\)\nuse repwt* to generate \\(k\\) replicate estimates \\(\\hat\\tau^*_1,\\dots,\\hat\\tau^*_k\\)\ncalculate the standard error of \\(\\hat\\tau\\) using the replicate estimates \\(\\hat\\tau^*\\). The formula will depend on how the replicate weights were constructed, but it will likely involve the standard deviation of the \\(\\hat\\tau^*\\) multiplied by some factor\nconstruct a confidence interval1 by a normal approximation \\[(\\text{point estimate}) \\pm 1.96 * (\\text{standard error estimate})\\]\n\nIn our concrete example, the point estimate is 80% employed. The replicate estimates are 0.67, 0.73, 0.70. Variation across the replicate estimates tells us something about how the estimate would vary across hypothetical repeated samples from the population.",
+    "objectID": "topics/what_is_a_model.html#logistic-regression",
+    "href": "topics/what_is_a_model.html#logistic-regression",
+    "title": "What is a model?",
+    "section": "Logistic regression",
+    "text": "Logistic regression\nSometimes the outcome is binary (taking the values {0,1} or {FALSE,TRUE}). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (position == \"DH\") as a linear function of player salary. For illustration, we do this on the full population.\n\nols_binary_outcome &lt;- lm(\n  position == \"C\" ~ salary,\n  data = population\n)\n\nCatchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making $40 million is -2%! This prediction doesn’t make a lot of sense.\n\n\nCode\npopulation |&gt;\n  mutate(yhat = predict(ols_binary_outcome)) |&gt;\n  ggplot(aes(x = salary, y = yhat)) +\n  geom_line() +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  scale_x_continuous(\n    name = \"Player Salary\",\n    labels = label_currency(scale = 1e-6, suffix = \"m\")\n  ) +\n  scale_y_continuous(\n    name = \"Predicted Probability\\nof Being a Catcher\"\n  ) +\n  theme_minimal() +\n  ggtitle(\"Modeling a binary outcome with a line\")\n\n\n\n\n\n\n\n\n\nLogistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval.\n\n\n\n\n\n\n\n\n\nMathematically, logistic regression replaces \\(\\text{E}(Y\\mid\\vec{X})\\) on the left side of the equation with the logistic function.\n\\[\n\\underbrace{\\log\\left(\\frac{\\text{P}(Y\\mid\\vec{X})}{1 - \\text{P}(Y\\mid\\vec{X})}\\right)}_\\text{Logistic Function} = \\alpha + \\vec{X}'\\vec\\beta\n\\]\nIn our example with the catchers, we can use logistic regression to model the probability of being a catcher using the glm() function. The family = \"binomial\" line tells the function that we want to estimate logistic regression (since “binomial” is a distribution for outcomes drawn at random with a given probability).\n\nlogistic_regression &lt;- glm(\n  position == \"C\" ~ salary,\n  data = population,\n  family = \"binomial\"\n)\n\nWe can predict exactly as with OLS, except that we need to add the type = \"response\" argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined (\\(-\\inf,\\inf\\)).\n\n\nCode\npopulation |&gt;\n  mutate(yhat = predict(logistic_regression, type = \"response\")) |&gt;\n  distinct(salary, yhat) |&gt;\n  ggplot(aes(x = salary, y = yhat)) +\n  geom_line() +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  scale_x_continuous(\n    name = \"Player Salary\",\n    labels = label_currency(scale = 1e-6, suffix = \"m\")\n  ) +\n  scale_y_continuous(\n    name = \"Predicted Probability\\nof Being a Catcher\"\n  ) +\n  theme_minimal() +\n  ggtitle(\"Modeling a binary outcome with logistic regression\")\n\n\n\n\n\n\n\n\n\nBelow is code to make a prediction for the L.A. Dodgers.\n\npredicted_logistic &lt;- predict(\n  logistic_regression,\n  newdata = to_predict,\n  type = \"response\"\n)\n\nTo summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of \\(\\vec{X}\\) when estimating \\(\\text{E}(Y\\mid \\vec{X})\\) or \\(\\text{P}(Y = 1\\mid\\vec{X})\\). This is especially useful any time when we do not get to observe many units at each value of \\(\\vec{X}\\).",
     "crumbs": [
       " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#computational-strategy-for-replicate-weights",
-    "href": "topics/weights.html#computational-strategy-for-replicate-weights",
-    "title": "Using weights",
-    "section": "Computational strategy for replicate weights",
-    "text": "Computational strategy for replicate weights\nUsing replicate weights can be computationally tricky! It becomes much easier if you write an estimator() function. Your function accepts two arguments\n\ndata is the tibble containing the data\nweight_name is the name of a column containing the weight to be used (e.g., “repwt1”)\n\nExample. If our estimator is the weighted mean of employment,\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    summarize(\n      estimate = weighted.mean(\n        x = employed,\n        # extract the weight column\n        w = sim_rep |&gt; pull(weight_name)\n      )\n    ) |&gt; \n    # extract the scalar estimate\n    pull(estimate)\n}\n\nIn the code above, sim_rep |&gt; pull(weight_name) takes the data frame sim_rep and extracts the weight variable that is named weight_name. There are other ways to do this also.\nWe can now apply our estimator to get a point estimate with the main sampling weight,\n\nestimate &lt;- estimator(data = sim_rep, weight_name = \"weight\")\n\nwhich yields the point estimate 0.80. We can use the same function to produce the replicate estimates,\n\nreplicate_estimates &lt;- c(\n  estimator(data = sim_rep, weight_name = \"repwt1\"),\n  estimator(data = sim_rep, weight_name = \"repwt2\"),\n  estimator(data = sim_rep, weight_name = \"repwt3\")\n)\n\nyielding the three estimates: 0.67, 0.73, 0.70. In real data, you will want to apply this in a loop because there may be dozens of replicate weights.\nThe standard error of the estimator will be some function of the replicate estimates, likely involving the standard deviation of the replicate estimates. Check with the data distributor for a formula for your case. Once you estimate the standard error, a 95% confidence interval can be constructed with a Normal approximation, as discussed above.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#application-in-the-cps",
-    "href": "topics/weights.html#application-in-the-cps",
-    "title": "Using weights",
-    "section": "Application in the CPS",
-    "text": "Application in the CPS\nStarting in 2005, the CPS-ASEC samples include 160 replicate weights. If you download replicate weights for many years, the file size will be enormous. We illustrate the use of replicate weights with a question that can be explored with only one year of data: among 25-year olds in 2023, how did the proportion holding four-year college degrees differ across those identifying as male and female?\nWe first load some packages, including the foreach package which will be helpful when looping through replicate weights.\n\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(foreach)\n\nTo answer our research question, we download 2023 CPS-ASEC data including the variables sex, educ, age, the weight variable asecwt, and the replicate weights repwtp*.\n\ncps_data &lt;- read_dta(\"../data_raw/cps_00079.dta\")\n\nWe then define an estimator to use with these data. It accepts a tibble data and a character weight_name identifying the name of the weight variable, and it returns a tibble with two columns: sex and estimate for the estimated proportion with a four-year degree.\n\nestimator &lt;- function(data, weight_name) {\n  data |&gt;\n    # Define focal_weight to hold the selected weight\n    mutate(focal_weight = data |&gt; pull(weight_name)) |&gt;\n    # Restrict to those age 25+\n    filter(age &gt;= 25) |&gt;\n    # Restrict to valid reports of education\n    filter(educ &gt; 1 & educ &lt; 999) |&gt;\n    # Define a binary outcome: a four-year degree\n    mutate(college = educ &gt;= 110) |&gt;\n    # Estimate weighted means by sex\n    group_by(sex) |&gt;\n    summarize(estimate = weighted.mean(\n      x = college,\n      w = focal_weight\n    ))\n}\n\nWe produce a point estimate by applying that estimator with the asecwt.\n\nestimate &lt;- estimator(data = cps_data, weight_name = \"asecwt\")\n\n\n\n# A tibble: 2 × 2\n  sex        estimate\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;\n1 1 [male]      0.369\n2 2 [female]    0.397\n\n\nUsing the foreach package, we apply the estimator 160 times—once with each replicate weight—and use the argument .combine = \"rbind\" to stitch results together by rows.\n\nlibrary(foreach)\nreplicate_estimates &lt;- foreach(r = 1:160, .combine = \"rbind\") %do% {\n  estimator(data = cps_data, weight_name = paste0(\"repwtp\",r))\n}\n\n\n\n# A tibble: 320 × 2\n   sex        estimate\n   &lt;dbl+lbl&gt;     &lt;dbl&gt;\n 1 1 [male]      0.368\n 2 2 [female]    0.396\n 3 1 [male]      0.371\n 4 2 [female]    0.400\n 5 1 [male]      0.371\n 6 2 [female]    0.397\n 7 1 [male]      0.369\n 8 2 [female]    0.397\n 9 1 [male]      0.370\n10 2 [female]    0.398\n# ℹ 310 more rows\n\n\nWe estimate the standard error of our estimator by a formula \\[\\text{StandardError}(\\hat\\tau) = \\sqrt{\\frac{4}{160}\\sum_{r=1}^{160}\\left(\\hat\\tau^*_r - \\hat\\tau\\right)^2}\\] where the formula comes from the survey documentation. We carry out this procedure within groups defined by sex, since we are producing estimate for each sex.\n\nstandard_error &lt;- replicate_estimates |&gt;\n  # Denote replicate estimates as estimate_star\n  rename(estimate_star = estimate) |&gt;\n  # Merge in the point estimate\n  left_join(estimate,\n            by = join_by(sex)) |&gt;\n  # Carry out within groups defined by sex\n  group_by(sex) |&gt;\n  # Apply the formula from survey documentation\n  summarize(standard_error = sqrt(4 / 160 * sum((estimate_star - estimate) ^ 2)))\n\n\n\n# A tibble: 2 × 2\n  sex        standard_error\n  &lt;dbl+lbl&gt;           &lt;dbl&gt;\n1 1 [male]          0.00280\n2 2 [female]        0.00291\n\n\nFinally, we combine everything and construct a 95% confidence interval by a Normal approximation.\n\nresult &lt;- estimate |&gt;\n  left_join(standard_error, by = \"sex\") |&gt;\n  mutate(ci_min = estimate - 1.96 * standard_error,\n         ci_max = estimate + 1.96 * standard_error)\n\n\n\n# A tibble: 2 × 5\n  sex        estimate standard_error ci_min ci_max\n  &lt;dbl+lbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 1 [male]      0.369        0.00280  0.364  0.375\n2 2 [female]    0.397        0.00291  0.391  0.403\n\n\nWe use ggplot() to visualize the result.\n\nresult |&gt;\n  mutate(sex = as_factor(sex)) |&gt;\n  ggplot(aes(\n    x = sex, \n    y = estimate,\n    ymin = ci_min, \n    ymax = ci_max,\n    label = scales::percent(estimate)\n  )) +\n  geom_errorbar(width = .2) +\n  geom_label() +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = str_to_title\n  ) +\n  scale_y_continuous(name = \"Proportion with 4-Year College Degree\") +\n  ggtitle(\n    \"Sex Disparities in College Completion\",\n    subtitle = \"Estimates from the 2023 CPS-ASEC among those age 25+\"\n  )\n\n\n\n\n\n\n\n\nWe conclude that those identifying as female are more likely to hold a college degree. Because we can see the confidence intervals generated using the replicate weights, we are reasonably confident in the statistical precision of our point estimates.",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
-    ]
-  },
-  {
-    "objectID": "topics/weights.html#footnotes",
-    "href": "topics/weights.html#footnotes",
-    "title": "Using weights",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nIf we hypothetically drew many complex survey samples from the population in this way, an interval generated this way would contain the true population mean 95% of the time.↩︎",
-    "crumbs": [
-      " ",
-      "Inference Without Models",
-      "Using weights"
+      "Inference with Models",
+      "What is a model?"
     ]
   },
   {
