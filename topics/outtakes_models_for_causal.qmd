@@ -1,0 +1,196 @@
+---
+title: "models_for_causal_outtakes"
+---
+
+
+<!-- ### 1) Model factual outcomes -->
+
+<!-- The code below uses Ordinary Least Squares to estimate an outcome model. -->
+
+<!-- ```{r} -->
+<!-- outcome_model <- lm( -->
+<!--   y ~ a * ( -->
+<!--     sex + race + mom_educ + dad_educ + log_parent_income + -->
+<!--       log_parent_wealth + test_percentile -->
+<!--   ), -->
+<!--   data = data -->
+<!-- ) -->
+<!-- ``` -->
+
+
+
+<!-- <!-- Why did we choose this model formula? You can actually choose any model formula, but there are some reasons we chose this one. In our model formula, we begin with the treatment `a` and then we interact this treatment with an additive function of all confounders `a * (...)`. This is equivalent to fitting two models: an additive OLS model for $Y^\text{treated}$ and an additive OLS model for $Y^\text{untreated}$, which is a desirable thing to do when we think the effect of college may differ for people with different values on the adjustment set. This type of model was proposed by [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) and is also known as a t-learner ([Kunzel et al. 2019](https://www.pnas.org/doi/abs/10.1073/pnas.1804597116)) because it is equivalent to estimating **t**wo separate regression models of outcome on confounder: one for the treated group and one for the untreated group. For a recent discussion of its advantages, see [Hazlett \& Shinkre (2024)](https://arxiv.org/pdf/2403.03299). --> -->
+
+<!-- The model has a lot of terms! You can see them with `summary(model)`. Thankfully, we won't interpret any of them. We will just use the model as a tool to predict potential outcomes. -->
+
+<!-- ### 2) Predict potential outcomes -->
+
+<!-- The code below predicts the conditional average potential outcome under treatment and control at the confounder values of each observation. -->
+
+<!-- First, we create data with `a` set to the value `treated` for everyone. -->
+
+<!-- ```{r} -->
+<!-- data_if_treated <- data |> -->
+<!--   mutate(a = "treated") -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- data_if_treated |> print(n = 3) -->
+<!-- ``` -->
+
+<!-- Then, we create data with `a` set to the value `untreated` for everyone. -->
+
+<!-- ```{r} -->
+<!-- data_if_untreated <- data |> -->
+<!--   mutate(a = "untreated") -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- data_if_untreated |> print(n = 3) -->
+<!-- ``` -->
+
+<!-- We use our outcome model to predict the conditional mean of the potential outcome under each scenario. -->
+
+<!-- ```{r} -->
+<!-- predicted_outcomes <- data |> -->
+<!--   mutate( -->
+<!--     y1_predicted = predict(outcome_model, newdata = data_if_treated), -->
+<!--     y0_predicted = predict(outcome_model, newdata = data_if_untreated), -->
+<!--     effect_predicted = y1_predicted - y0_predicted -->
+<!--   ) |> -->
+<!--   select(id, a, y, y1_predicted, y0_predicted, effect_predicted) -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- predicted_outcomes |>  -->
+<!--   print(n = 3) -->
+<!-- ``` -->
+
+<!-- In the code above, the function call `predict(model, newdata = data_if_treated)` uses the `model` object to make predictions for the data in `data_if_treated`, which contains each person coded with the treatment set to `treated`. The predicted values `y1_predicted` are predictions $\hat{Y}^\text{treated}$ of the potential outcome under a four-year college degree. Likewise, the function call `predict(model, newdata = data_if_untreated)` predicts the outcomes under no college degree. The `effect_predicted` variable contains the predicted causal effect at the adjustment set values of each person in the data. -->
+
+<!-- ### 3) Aggregate -->
+
+<!-- The final step is to aggregate to an average causal effect estimate. -->
+
+<!-- ```{r} -->
+<!-- outcome_model_estimate <- predicted_outcomes |> -->
+<!--   select(y1_predicted, y0_predicted, effect_predicted) |> -->
+<!--   summarize_all(.funs = mean) -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- outcome_model_estimate |> print() -->
+<!-- ``` -->
+
+<!-- We estimate that completing college increases the probability of having a college-educated by `r outcome_model_estimate |> pull(effect_predicted) |> round(3)`, from `r outcome_model_estimate |> pull(y0_predicted) |> round(3)` to `r outcome_model_estimate |> pull(y1_predicted) |> round(3)`. This causal conclusion relies both on our causal assumptions (the DAG) and our statistical assumptions (the chosen model). -->
+
+<!-- ## Doubly-robust estimation -->
+
+<!-- > Note: This is an advanced topic that we will not cover now, but to which we may return later in the quarter if time allows. -->
+
+<!-- We don't have to constrain ourselves to outcome modeling or treatment modeling. We can also use both together. -->
+
+<!-- 1. Model outcomes and produce an initial ATE estimate -->
+<!-- 2. Model treatment probabilities and produce inverse probability weights -->
+<!-- 3. Estimate the weighted average error of your outcome model -->
+<!--      * For each unit, calculate the error $Y-\hat{Y}$ -->
+<!--      * Each unit represents a number of units corresponding to its inverse probability weight -->
+<!--      * Estimate the population-average error by the weighted mean of errors, within each treatment group -->
+<!-- 4. Improve estimate (1) by subtracting the average error (3) -->
+
+<!-- This estimator has some properties that make it superior to outcome or treatment modeling alone, as we will discuss at the end of this section. -->
+
+<!-- ### 1) Model outcomes and produce an initial ATE estimate. -->
+
+<!-- We already did this above! Our predictions are stored in an object already. -->
+
+<!-- ```{r} -->
+<!-- predicted_outcomes |> print(n = 3) -->
+<!-- ``` -->
+
+<!-- ### 2) Model treatments to create weights -->
+
+<!-- We already did this above! Our weights are stored in an object already. -->
+
+<!-- ```{r} -->
+<!-- inverse_probability_weights |> print(n = 3) -->
+<!-- ``` -->
+
+<!-- ### 3) Estimate the weighted average error -->
+
+<!-- For each unit, we can calculate the error as the difference between the actual outcome $Y$ and the predicted outcome $\hat{Y}$ under the treatment value that actually happened for that unit. -->
+
+<!-- ```{r} -->
+<!-- errors <- predicted_outcomes |> -->
+<!--   mutate( -->
+<!--     error = case_when( -->
+<!--       a == "treated" ~ y1_predicted - y, -->
+<!--       a == "untreated" ~ y0_predicted - y -->
+<!--     ) -->
+<!--   ) -->
+<!-- ``` -->
+<!-- ```{r, echo = F} -->
+<!-- errors |> print(n = 3) -->
+<!-- ``` -->
+
+<!-- We then merge our errors with our weights, so that we can see how many total units each error should represent. -->
+
+<!-- ```{r} -->
+<!-- errors_with_weight <- errors |> -->
+<!--   select(id, a, error) |> -->
+<!--   left_join( -->
+<!--     inverse_probability_weights |> select(id, p_treated, weight),  -->
+<!--     by = join_by(id) -->
+<!--   ) -->
+<!-- ``` -->
+
+<!-- ```{r, echo = F} -->
+<!-- errors_with_weight |> print(n = 3) -->
+<!-- ``` -->
+
+<!-- As a concrete example, the error when predicting the first person's outcome was `r errors_with_weight |> slice_head(n = 1) |> pull(error) |> round(3) |> unname()`. This person's treatment was `r errors_with_weight |> slice_head(n = 1) |> pull(a) |> unname()`, and that treatment occurred with treatment probability `r errors_with_weight |> slice_head(n = 1) |> pull(p_treated) |> round(3) |> unname()`. Some units like this unit got treated, and others didn't. When we take a weighted average within treatment groups to estimate the average over all people, this person's error stands in for the errors of `r errors_with_weight |> slice_head(n = 1) |> pull(weight) |> round(3) |> unname()` units in total. -->
+
+<!-- With our inverse probability weights, we can take the weighted average error within each treatment group as an estimate of the error that would persist if we hypothetically applied our model to all the $Y^1$ values and all the $Y^0$ values (even the ones we didn't see). -->
+
+<!-- ```{r} -->
+<!-- weighted_average_error <- errors_with_weight |> -->
+<!--   group_by(a) |> -->
+<!--   summarize(average_outcome_error = weighted.mean(error, w = weight)) |> -->
+<!--   print() -->
+<!-- ``` -->
+
+<!-- In this case our model was very good---the weighted average errors are nearly 0! The weighted average error of (outcome under treatment) - (outcome under control) is calculated below. -->
+
+<!-- ```{r} -->
+<!-- weighted_average_effect_error <- weighted_average_error |> -->
+<!--   pivot_wider( -->
+<!--     names_from = a,  -->
+<!--     values_from = average_outcome_error,  -->
+<!--     names_prefix = "average_error_" -->
+<!--   ) |> -->
+<!--   mutate(effect_error = average_error_treated - average_error_untreated) |> -->
+<!--   pull(effect_error) -->
+<!-- ``` -->
+
+<!-- We estimate that our outcome model was mis-specified: we estimate that our outcome model estimate will be `r weighted_average_effect_error |> round(3)` away from the truth. We can improve our estimate by subtracting the estimated error from the original estimate. -->
+
+<!-- $$ -->
+<!-- \text{Updated Estimate} = \text{Outcome Model Estimate} - \text{Estimated Error} -->
+<!-- $$ -->
+
+<!-- ```{r} -->
+<!-- updated_estimate <- outcome_model_estimate |> -->
+<!--   mutate(estimated_error = weighted_average_effect_error) |> -->
+<!--   mutate(updated_estimate = effect_predicted - estimated_error) |> -->
+<!--   print() -->
+<!-- ``` -->
+
+<!-- ### Why double robustness? -->
+
+<!-- The doubly-robust estimator has a desirable property. We would like it to be the case that our estimator of the average causal effect is consistent: as the sample size grows to infinity, the estimator converges to the true average causal effect. Let $\hat{f}()$ be the estimated outcome model and $\hat{m}()$ be the estimated treatment model. The doubly-robust estimator is consistent for the average causal effect if either -->
+
+<!-- 1. The outcome model is consistent for the truth: $\hat{f}(a,\vec{x})\rightarrow \text{E}(Y\mid A = a, \vec{X} = \vec{x})$ for all values $a$ and $\vec{x}$ OR -->
+<!-- 2. The treatment model is consistent for the truth: $\hat{m}(\vec{x})\rightarrow \text{P}(A = 1\mid \vec{X} = \vec{x})$ -->
+<!-- where the $\rightarrow$ indicates asymptotic convergence as the sample size grows. -->
+
+<!-- Our estimator is good if **either** (1) or (2) is true! When we aren't sure how to specify the form of our model, it is good to have two chances. -->
+
+<!-- When both estimators are consistent, the doubly-robust estimator brings additional advantages such as a faster rate of convergence toward the truth as the sample size grows. For many statistical reasons, we should prefer the doubly robust estimator. -->
+
+<!-- A reason to choose outcome or treatment modeling on its own is that each of these alone may be easier to implement and explain to readers than the doubly-robust estimator. When presenting complex statistical results, being able to explain the procedure to your audience is an important consideration. -->

@@ -5,26 +5,15 @@ library(haven)
 d <- readRDS("data_raw/d.RDS")
 
 d |>
-  mutate(id = 1:n()) |>
   group_by(a, y, sex, race, mom_educ, dad_educ) |>
-  # Replace continuous values with random draws
-  pivot_longer(cols = c("log_parent_income","log_parent_wealth","test_percentile")) |>
-  mutate(
-    mean = mean(value), 
-    sd = sd(value),
-    sd = ifelse(is.na(sd), mean(sd, na.rm = T), sd)
-  ) |>
-  select(-value) |>
-  pivot_wider(names_from = name, values_from = c("mean","sd")) |>
-  ungroup() |>
+  filter(n() > 1) |>
+  mutate(across(c("log_parent_income","log_parent_wealth","test_percentile"), \(x) rnorm(n(), mean(x), sd(x)))) |>
   # Randomly sample discrete variables jointly from empirical distribution
+  ungroup() |>
   slice_sample(prop = 1, replace = T) |>
-  # Randomly draw continuous values from conditional distribution given discrete variables
+  mutate(id = 1:n()) |>
+  # Enforce reasonable bounds
   mutate(
-    log_parent_income = rnorm(n(), mean_log_parent_income, sd_log_parent_income),
-    log_parent_wealth = rnorm(n(), mean_log_parent_wealth, sd_log_parent_wealth),
-    test_percentile = rnorm(n(), mean_test_percentile, sd_test_percentile),
-    # Enforce reasonable bounds
     log_parent_wealth = ifelse(log_parent_wealth < 1, 1, log_parent_wealth),
     log_parent_income = ifelse(log_parent_income < 1, 1, log_parent_income),
     test_percentile = case_when(
@@ -33,7 +22,6 @@ d |>
       T ~ test_percentile
     )
   ) |>
-  select(-contains("mean"), -contains("sd")) |>
   mutate(id = 1:n()) |>
   mutate(
     a = case_when(
@@ -41,6 +29,7 @@ d |>
       a == "no_college" ~ "untreated"
     )
   ) |>
-  select(id, a, y, everything()) |>
+  mutate(sampling_weight = runif(n(), .95, 1.05)) |>
+  select(id, sampling_weight, a, y, everything()) |>
   write_csv("data/nlsy97_simulated.csv")
   
