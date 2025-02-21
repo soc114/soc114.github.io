@@ -1,5 +1,6 @@
 ---
 title: "Problem Set 4: DAGs and Statistical Learning"
+format: pdf
 ---
 
 **Due: 5pm on Friday, Feb 28.**
@@ -16,7 +17,7 @@ The reason for this is that we are all busy with the final project! So you can h
 
 Here is how to do this problem set:
 
-* Use this <a href="../assets/pset4/pset4.qmd" download>pset4.qmd</a> to complete the problem set.
+* Use this [.qmd template](../assets/pset4/pset4.qmd) to complete the problem set.
 * When you are finished, complete the quiz on BruinLearn
      * you will upload your PDF there
      * you will type some answers from your PDF there
@@ -25,7 +26,7 @@ Here is how to do this problem set:
 
 For 1.1–1.5, answer True or False: $X$ is a sufficient adjustment set to identify the causal effect of $A$ on $Y$. Recall that as you work on these problems, a good strategy is to first list all non-causal paths between $A$ and $Y$ and then cross out any that are blocked when conditioning on $X$.
 
-![](dags_tf.png)
+**Note. Look on the course website for the DAG images for 1.1--1.5. We did not print them here to avoid creating errors in your .qmd document.**
 
 **1.1.** [answer here]
 
@@ -69,7 +70,7 @@ The data include a set of variables measured in the pre-period. We will consider
 * `pre_tenure` is years of experience with a current employer, as of the prior survey wave
 * `pre_experience` is total years of full-time work experience, as of the prior survey wave
 
-```{r, message = F, warning = F, eval = F}
+```{r, message = F, warning = F}
 library(tidyverse)
 motherhood_simulated <- read_csv("https://soc114.github.io/data/motherhood_simulated.csv")
 ```
