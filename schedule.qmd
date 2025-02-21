@@ -36,15 +36,18 @@ Each date will be a link to the slides for that lecture.
 | Tue, Feb 11 [A](slides/lec11a_whymodel/lec11a_whymodel.pdf) and [B](slides/lec11b_what_is_a_model/lec11b_what_is_a_model.pdf)	| [Why model?](topics/why_model.qmd) and [What is a model?](topics/what_is_a_model.qmd) |
 | Thu, [Feb 13](slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf) | Intro of outcome models for causal inference
 | Tue, Feb 18	| With coding: [Outcome models for causal inference](topics/models_for_causal.qmd#outcome-modeling)
-| Thu, [Feb 20](slides/ipw/ipw.pdf) | [Model-based inverse probability weighting](topics/models_for_causal.qmd#doubly-robust-estimation#treatment-modeling) |
-| Tue, Feb 25	| [Matching](topics/matching.qmd) |
-| Thu, Feb 27	| [Trees](topics/trees.qmd) |
-| Tue, Mar 4	| [Forests](topics/forests.qmd) |
-| Thu, Mar 6	| [Data-driven selection of an estimator](data_driven_selection.qmd) |
-| Tue, Mar 11	| Machine learning vs regression: A case study (FF Challenge) |
+| Thu, Feb 20	| [Logistic regression](topics/what_is_a_model.qmd#logistic-regression) and its use in a [causal outcome model](topics/models_for_causal.qmd#generalizing-to-logistic-regression)
+| Tue, [Feb 25](slides/ipw/ipw.pdf) | [Model-based inverse probability weighting](topics/models_for_causal.qmd#doubly-robust-estimation#treatment-modeling) |
+| Thu, Feb 27	| [Matching](topics/matching.qmd) |
+| Tue, Mar 4	| [Trees](topics/trees.qmd) |
+| Thu, Mar 6	| [Forests](topics/forests.qmd) |
+| Tue, Mar 11	| [Data-driven selection of an estimator](data_driven_selection.qmd) |
 | Thur, Mar 13	| Course recap |
 
 <!-- continuous treatments? mediation? -->
+
+
+<!-- | Tue, Mar 11	| Machine learning vs regression: A case study (FF Challenge) | -->
 
 <!-- | Thu, Feb 20	| [Doubly-robust estimation](topics/models_for_causal.qmd#doubly-robust-estimation) | -->
 <!-- | Tue, Feb 18	| Properties of estimators | -->
