@@ -168,6 +168,18 @@
     ]
   },
   {
+    "objectID": "topics/models_for_causal.html#why-each-strategy",
+    "href": "topics/models_for_causal.html#why-each-strategy",
+    "title": "Models for causal inference",
+    "section": "Why each strategy?",
+    "text": "Why each strategy?\nWhy would we choose outcome modeling or treatment modeling?\nIn favor of outcome modeling, this is how many social scientists have thought about modeling social processes: build a regression model to predict outcomes. In favor of treatment modeling, this connects directly with how many researchers are trained to draw inferences about a population from a sample selected with unequal probabilities.\nOne argument in favor of treatment modeling is that it makes more transparent which units get a very large amount of weight. To illustrate this, the figure below shows a simulation in a very dystopian world. In this world, 99% of the children of college graduates complete college compared with only 1% of the children of non-graduates. We could fit an outcome model to predict each child’s future income under college (\\(Y^1\\)) and under no college (\\(Y^0\\)). Alternatively, we could estimate by inverse probability of treatment weights. An advantage of the treatment weighting is that we can see that two observations are very influential: the first-generation college graduate has a very unlikely treatment status, and counts for 100 people! Likewise the child of college graduates who did not make it through college has a weight of 100.",
+    "crumbs": [
+      " ",
+      "Inference with Models",
+      "Models for causal inference"
+    ]
+  },
+  {
     "objectID": "topics/models_for_causal.html#concluding-thoughts",
     "href": "topics/models_for_causal.html#concluding-thoughts",
     "title": "Models for causal inference",

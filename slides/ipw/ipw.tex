@@ -11,6 +11,9 @@
 \usepackage{pdfpages}
 \usepackage{xcolor}
 \definecolor{seagreen}{RGB}{46, 139, 87}
+\definecolor{ucla}{RGB}{39, 116, 174}
+\definecolor{darkestblue}{RGB}{0, 59, 92}
+\definecolor{gold}{RGB}{255, 209, 0}
 \def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
 \newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
 \def\log{\text{log}}
@@ -60,14 +63,7 @@
 \usepackage{mathtools}
 
 \newcommand{\goalsframe}{\begin{frame}{Learning goals for today}
-At the end of class, you will be able to
-\begin{itemize}
-\item estimate average causal effects with a parametric model
-\begin{itemize}
-\item for the outcome $\E(Y\mid A,\vec{L})$
-\item for the treatment $\P(A\mid\vec{L})$
-\end{itemize}
-\end{itemize} \vskip .2in
+At the end of class, you will be able to estimate average causal effects by modeling treatment assignment probabilities. \vskip .2in
 Optional reading:
 \begin{itemize}
 \item Hernán and Robins 2020 Chapter 12.1--12.5, 13, 15.1
@@ -85,12 +81,508 @@ Optional reading:
 \goalsframe
 
 
-\begin{frame}{Nonparametric estimation}
+\begin{frame}{Review of what we have learned}
 
 Causal assumptions
 \begin{center}
 \begin{tikzpicture}
-\node (l) at (0,0) {$\vec{L}$};
+\node (l) at (0,0) {$\vec{X}$};
+\node (a) at (1,0) {$A$};
+\node (y) at (2,0) {$Y$};
+\draw[->, thick] (l) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l) to[bend left] (y);
+\end{tikzpicture}
+\end{center} \pause
+
+Nonparametric estimator
+\begin{itemize}
+\item Group by $L$, then mean difference in $Y$ over $A$
+\item Re-aggregate over subgroups
+\end{itemize} \vskip .1in \pause
+
+Outcome modeling estimator
+\begin{itemize}
+\item Model $Y^1$ given $L$ among the treated
+\item Model $Y^0$ given $L$ among the untreated
+\item Predict for everyone and take the difference
+\item Average over all units
+\end{itemize}
+
+\end{frame}
+
+% SIMPLE RANDOM SAMPLE
+\begin{frame}{Inverse probability weighting: Population mean}
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% To fix frame to match next frame
+\node[anchor = east, align = right, white] at (.07, .7) {No Parent\\Completed\\College};
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1) {Population\\Outcomes};
+\foreach \i in {.3,.4,.5,.6,.7,.8} {
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.5) {$Y_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.4) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.3) {$Y_\text{Jes\'us}$};
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Sampling};
+%\foreach \i in {.3,.4,.5,.6,.7,.8} {
+%	\draw[fill = ucla, draw = white] (.4,\i) rectangle (6,\i + .1) {};
+%}
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$S_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$S_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$S_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.5) {$S_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.4) {$S_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.3) {$S_\text{Jes\'us} = 1$};
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Sampled\\Outcomes};
+\foreach \i in {.3,.5,.8} {
+	\draw[fill = ucla, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.62,.8) {$Y_\text{Maria}$};
+%\node[font = {\bf}, white] at (.75,.75) {$Y_\text{William}$};
+%\node[font = {\bf}, white] at (.75,.65) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.62,.5) {$Y_\text{Sarah}$};
+%\node[font = {\bf}, white] at (.75,.45) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.62,.3) {$Y_\text{Jes\'us}$};
+\node[anchor = north west, align = left] at (.75,1) {How many\\people do\\Maria, Sarah,\\and Jes\'us\\each\\represent?};
+\end{tikzpicture}
+\end{frame}
+
+% UNEQUAL PROBABILITY SAMPLE
+\begin{frame}{Inverse probability weighting: Population mean}
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% SUBGROUPS
+\draw (.07, .54) rectangle (.7, .86);
+\draw (.07, .2) rectangle (.7, .52);
+\node[anchor = east, align = right] at (.07, .7) {No Parent\\Completed\\College};
+\node[anchor = east, align = right] at (.07, .36) {A Parent\\Completed\\College};
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1) {Population\\Outcomes};
+\foreach \i in {.26,.36,.46,.6,.7,.8} { %-.04
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.46) {$Y_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.36) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.26) {$Y_\text{Jes\'us}$};
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Sampling};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$S_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$S_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$S_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.46) {$S_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.36) {$S_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.26) {$S_\text{Jes\'us} = 1$};
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Sampled\\Outcomes};
+\foreach \i in {.26,.46,.8} {
+	\draw[fill = ucla, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.62,.8) {$Y_\text{Maria}$};
+%\node[font = {\bf}, white] at (.75,.75) {$Y_\text{William}$};
+%\node[font = {\bf}, white] at (.75,.65) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.62,.46) {$Y_\text{Sarah}$};
+%\node[font = {\bf}, white] at (.75,.45) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.62,.26) {$Y_\text{Jes\'us}$};
+\node[anchor = north west, align = left] at (.75,1) {How many\\people do\\Maria, Sarah,\\and Jes\'us\\each\\represent?};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Inverse probability weighting: Population mean}
+
+Each unit has a probability of being sampled
+$$P(S = 1\mid \vec{X})$$
+Weight by the inverse probability of sampling
+$$w = \frac{1}{\P(S = 1\mid\vec{X})}$$
+
+\end{frame}
+
+\begin{frame}{Inverse probability weighting: Mean under treatment}{$A = 1$ indicates child completed college}
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% To fix frame to match next frame
+\node[anchor = east, align = right, white] at (.07, .7) {No Parent\\Completed\\College};
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1) {Population\\Outcomes};
+\foreach \i in {.3,.4,.5,.6,.7,.8} {
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y^1_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y^1_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y^1_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.5) {$Y^1_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.4) {$Y^1_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.3) {$Y^1_\text{Jes\'us}$};
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Sampling};
+%\foreach \i in {.3,.4,.5,.6,.7,.8} {
+%	\draw[fill = ucla, draw = white] (.4,\i) rectangle (6,\i + .1) {};
+%}
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$A_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$A_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$A_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.5) {$A_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.4) {$A_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.3) {$A_\text{Jes\'us} = 1$};
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Sampled\\Treatment};
+\foreach \i in {.3,.5,.8} {
+	\draw[fill = ucla, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.62,.8) {$Y^1_\text{Maria}$};
+%\node[font = {\bf}, white] at (.75,.75) {$Y_\text{William}$};
+%\node[font = {\bf}, white] at (.75,.65) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.62,.5) {$Y^1_\text{Sarah}$};
+%\node[font = {\bf}, white] at (.75,.45) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.62,.3) {$Y^1_\text{Jes\'us}$};
+\node[anchor = north west, align = left] at (.75,1) {How many\\people do\\Maria, Sarah,\\and Jes\'us\\each\\represent?};
+\end{tikzpicture}
+\end{frame}
+
+% UNEQUAL PROBABILITY SAMPLE
+\begin{frame}{Inverse probability weighting: Mean under treatment}{$A = 1$ indicates child completed college}
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% SUBGROUPS
+\draw (.07, .54) rectangle (.7, .86);
+\draw (.07, .2) rectangle (.7, .52);
+\node[anchor = east, align = right] at (.07, .7) {No Parent\\Completed\\College};
+\node[anchor = east, align = right] at (.07, .36) {A Parent\\Completed\\College};
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1) {Population\\Outcomes};
+\foreach \i in {.26,.36,.46,.6,.7,.8} { %-.04
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y^1_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y^1_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y^1_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.46) {$Y^1_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.36) {$Y^1_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.26) {$Y^1_\text{Jes\'us}$};
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Treatment};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$A_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$A_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$A_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.46) {$A_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.36) {$A_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.26) {$A_\text{Jes\'us} = 1$};
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Sampled\\Outcomes};
+\foreach \i in {.26,.46,.8} {
+	\draw[fill = ucla, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.62,.8) {$Y^1_\text{Maria}$};
+%\node[font = {\bf}, white] at (.75,.75) {$Y_\text{William}$};
+%\node[font = {\bf}, white] at (.75,.65) {$Y_\text{Rich}$};
+\node[font = {\bf}, white] at (.62,.46) {$Y^1_\text{Sarah}$};
+%\node[font = {\bf}, white] at (.75,.45) {$Y_\text{Alondra}$};
+\node[font = {\bf}, white] at (.62,.26) {$Y^1_\text{Jes\'us}$};
+\node[anchor = north west, align = left] at (.75,1) {How many\\people do\\Maria, Sarah,\\and Jes\'us\\each\\represent?};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Inverse probability weighting: Mean under treatment}{$A = 1$ indicates child completed college. $\vec{X}$ indicates parent completed college.}
+
+When estimating the mean outcome under treatment,
+$$\E(Y^1)$$
+each unit has a probability of being treated.
+$$P(A = 1\mid \vec{X})$$
+Weight treated units by the inverse probability of treatment.
+$$w = \frac{A}{\P(A = 1\mid\vec{X})}$$
+
+\end{frame}
+
+% UNEQUAL PROBABILITY SAMPLE
+\begin{frame}{Inverse probability weighting: Mean under control}{$A = 1$ indicates child completed college}
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+% SUBGROUPS
+\draw (.07, .54) rectangle (.7, .86);
+\draw (.07, .2) rectangle (.7, .52);
+\node[anchor = east, align = right] at (.07, .7) {No Parent\\Completed\\College};
+\node[anchor = east, align = right] at (.07, .36) {A Parent\\Completed\\College};
+% POPULATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.15,1) {Population\\Outcomes};
+\foreach \i in {.26,.36,.46,.6,.7,.8} { %-.04
+	\draw[fill = ucla, draw = white] (.08,\i - .05) rectangle (.22,\i + .05) {};
+}
+\node[font = {\bf}, white] at (.15,.8) {$Y^0_\text{Maria}$};
+\node[font = {\bf}, white] at (.15,.7) {$Y^0_\text{William}$};
+\node[font = {\bf}, white] at (.15,.6) {$Y^0_\text{Rich}$};
+\node[font = {\bf}, white] at (.15,.46) {$Y^0_\text{Sarah}$};
+\node[font = {\bf}, white] at (.15,.36) {$Y^0_\text{Alondra}$};
+\node[font = {\bf}, white] at (.15,.26) {$Y^0_\text{Jes\'us}$};
+% RANDOMIZATION
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.4,1) {Randomized\\Treatment};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.8) {$A_\text{Maria} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.7) {$A_\text{William} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.6) {$A_\text{Rich} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.46) {$A_\text{Sarah} = 1$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.36) {$A_\text{Alondra} = 0$};
+\node[font = {\bf}, anchor = east, ucla] at (.5,.26) {$A_\text{Jes\'us} = 1$};
+% SAMPLE
+\node[anchor = north, font = \bf, color = ucla, align = center] at (.62,1) {Sampled\\Outcomes};
+\foreach \i in {.36,.6,.7} {
+	\draw[fill = ucla, draw = white] (.55,\i - .05) rectangle (.69,\i + .05) {};
+}
+%\node[font = {\bf}, white] at (.62,.8) {$Y^1_\text{Maria}$};
+\node[font = {\bf}, white] at (.62,.7) {$Y^0_\text{William}$};
+\node[font = {\bf}, white] at (.62,.6) {$Y^0_\text{Rich}$};
+%\node[font = {\bf}, white] at (.62,.5) {$Y^1_\text{Sarah}$};
+\node[font = {\bf}, white] at (.62,.36) {$Y^0_\text{Alondra}$};
+%\node[font = {\bf}, white] at (.62,.3) {$Y^1_\text{Jes\'us}$};
+\node[anchor = north west, align = left] at (.75,1) {How many\\people do\\William, Rich,\\and Alondra\\each\\represent?};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Inverse probability weighting: Mean under control}{$A = 1$ indicates child completed college. $\vec{X}$ indicates parent completed college.}
+
+When estimating the mean outcome under treatment,
+$$\E(Y^0)$$
+each unit has a probability of being untreated.
+$$P(A = 0\mid \vec{X})$$
+Weight treated units by the inverse probability of treatment.
+$$w = \frac{1 - A}{\P(A = 0\mid\vec{X})}$$
+
+\end{frame}
+
+\begin{frame}{Inverse probability weighting: Average causal effect}
+
+Define inverse probability of treatment weights
+$$
+w_i = \begin{cases}
+\frac{1}{\P(A = 1\mid \vec{X} = \vec{x}_i)} &\text{ if treated} \\
+\frac{1}{\P(A = 0\mid \vec{X} = \vec{x}_i)} &\text{ if untreated}
+\end{cases}
+$$
+Estimate each mean potential outcome by a weighted mean
+$$
+\begin{aligned}
+\hat\E(Y^1) &= \sum_{i:A_i=1} w_i Y_i \quad / \quad \sum_{i:A_i=1}w_i \\
+\hat\E(Y^0) &= \sum_{i:A_i=0} w_i Y_i \quad / \quad \sum_{i:A_i=0}w_i
+\end{aligned}
+$$
+
+Take the difference between $\hat\E(Y^1)$ and $\hat\E(Y^0)$
+
+\end{frame}
+
+
+\begin{frame}{What if treatment probabilities are unknown?}
+
+We need to \textbf{estimate} the probability of treatment. \vskip .1in
+Example:
+\begin{itemize}
+\item Treatment $A$ is a college degree by age 25
+\item Outcome $Y$ is spouse at age 35 has a degree
+\item Confounders are sex, race, mom education, dad education, income, wealth, test percentile
+\end{itemize}
+
+How would you estimate each person's probability of being treated?
+
+\end{frame}
+
+\begin{frame}{Logistic regression for treatment probabilities}
+
+Model the probability of treatment
+$$
+\begin{aligned}
+\underbrace{\hat\P(A = 1\mid \vec{X})}_{\substack{\text{Estimated probability}\\\text{of college completion}}} &= \logit^{-1}\left(\hat\alpha + \hat{\vec\gamma}\vec{X}\right)
+\end{aligned}
+$$
+
+
+Estimate inverse probability of treatment weights
+$$
+\hat{w}_i = \begin{cases}
+\frac{1}{\hat\P(A = 1\mid \vec{X} = \vec{x}_i)} &\text{ if treated} \\
+\frac{1}{\hat\P(A = 0\mid \vec{X} = \vec{x}_i)} &\text{ if untreated}
+\end{cases}
+$$
+
+Estimate each mean potential outcome by a weighted mean
+$$
+\begin{aligned}
+\hat\E(Y^1) &= \sum_{i:A_i=1} \hat{w}_i Y_i \quad / \quad \sum_{i:A_i=1}w_i \\
+\hat\E(Y^0) &= \sum_{i:A_i=0} \hat{w}_i Y_i \quad / \quad \sum_{i:A_i=0}w_i
+\end{aligned}
+$$
+\end{frame}
+
+\begin{frame}{Unequal sampling and unequal treatment assignment} \pause
+
+Unit $i$ was sampled with probability 0.25.
+$$
+\begin{aligned}
+\P(S = 1\mid\vec{X} = \vec{x}_i) &= \frac{1}{4} = 0.25 \\
+w_i^\text{Sampling} &= 4
+\end{aligned}
+$$ \pause
+Given sampling, received treatment with probability 0.33.
+$$
+\begin{aligned}
+\P(A = 1\mid\vec{X} = \vec{x}_i, S = 1) &= \frac{1}{3} = 0.33 \\
+w_i^\text{Treatment} &= 3
+\end{aligned}
+$$ \pause
+How many population $Y^1$ values does unit $i$ represent? \pause
+$$
+w_i^\text{Sampling} \times w_i^\text{Treatment} = 4\times 3 = 12
+$$
+
+\end{frame}
+
+\begin{frame}{Outcome and treatment modeling: A visual summary}
+Outcome modeling: Model $Y^0$ and $Y^1$ given $\vec{X}$
+\begin{center}
+\begin{tikzpicture}
+\node (l) at (0,0) {$\vec{X}$};
+\node (a) at (1,0) {$A$};
+\node (y) at (2,0) {$Y$};
+\draw[->, thick] (l) -- (a);
+\draw[->, thick, line width = 2pt, blue] (a) -- (y);
+\draw[->, thick, line width = 2pt, blue] (l) to[bend left] (y);
+\end{tikzpicture}
+\end{center} \vskip .2in
+Treatment modeling: Model $A$ given $\vec{X}$. Reweight.
+\begin{center}
+\begin{tikzpicture}
+\node at (1,-1) {Original population};
+\node (l) at (0,0) {$\vec{X}$};
+\node (a) at (1,0) {$A$};
+\node (y) at (2,0) {$Y$};
+\draw[->, line width = 2pt, blue] (l) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l) to[bend left] (y);
+\end{tikzpicture} \qquad
+\begin{tikzpicture}
+\node at (1,-1) {Reweighted population};
+\node (l) at (0,0) {$\vec{X}$};
+\node (a) at (1,0) {$A$};
+\node (y) at (2,0) {$Y$};
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l) to[bend left] (y);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{What are the advantages of each strategy?\\How to choose?}
+
+\begin{enumerate}
+\item Outcome modeling
+\begin{itemize}
+\item Model $Y^1$ and $Y^0$ given $\vec{X}$
+\item Predict for everyone
+\item Unweighted average
+\end{itemize}
+\item Treatment modeling
+\begin{itemize}
+\item Model $A$ given $X$
+\item Create weights: how many units each case represents
+\item Weighted average
+\end{itemize}
+
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{An advantage of treatment modeling}
+
+how most social scientists think about research:\\model the outcome
+
+\end{frame}
+
+\begin{frame}{Advantages of each strategy: Treatment modeling}
+
+\begin{itemize}
+\item how we already think about population sampling:\\reweight observed cases to learn about all cases
+\item transparency about influential observations
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Transparency about influential observations}
+
+\includegraphics<1>[width = \textwidth]{../../assets/illustrations/treatment_big_weights_1}
+\includegraphics<2>[width = \textwidth]{../../assets/illustrations/treatment_big_weights_2}
+\includegraphics<3>[width = \textwidth]{../../assets/illustrations/treatment_big_weights_1}
+\includegraphics<4>[width = \textwidth]{../../assets/illustrations/treatment_big_weights_3}
+
+\end{frame}
+
+\begin{frame}
+See influential observations in a real case (website).
+\end{frame}
+
+\begin{frame}{What to do when some weights are big?}{Focus on a feasible subpopulation: Region of common support}
+
+\begin{tikzpicture}[x = \textwidth, y = .8\textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node<1>[anchor = west] at (0,.5) {\includegraphics[height = .8\textheight]{figures/propensity_overlap}};
+\node<2-3>[anchor = west] at (0,.5) {\includegraphics[height = .8\textheight]{figures/propensity_overlap_1}};
+\node<3->[anchor = west, align = left] at (.6,.7) {Restrict to a subgroup};
+\node<4->[anchor = west] at (0,.5) {\includegraphics[height = .8\textheight]{figures/propensity_overlap_trim}};
+\node<5->[anchor = west, align = left] at (.6,.4) {Estimate in the subgroup\\$\E\bigg(Y^1 - Y^0\mid$\\$\qquad k_1 < \P(A = 1\mid\vec{X}) < k_2\bigg)$};
+\end{tikzpicture}
+
+\end{frame}
+
+\goalsframe
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% OUTTAKES
+
+\begin{frame}{The parametric g-formula: Connection to $\hat\beta$} \pause
+Estimator for the effect $\E(Y^1) - \E(Y^0)$: \pause
+$$\begin{aligned}
+\hat\E(Y^1) - \hat\E(Y^0) 
+&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1\bigg)\right) \\
+&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0\bigg)\right) \\ \pause
+&= \frac{1}{n}\sum_{i=1}^n \hat\beta \\ \pause
+&= \hat\beta
+\end{aligned}$$ \pause
+With OLS, the parametric g-formula collapses on the coefficient.
+\end{frame}
+
+\begin{frame}{The parametric g-formula is more general}
+Suppose the effect of $A$ depends on $L$
+$$\E(Y\mid A, L) = \alpha + \gamma L + \beta A + \eta AL$$ \pause
+Estimator for the effect $\E(Y^1) - \E(Y^0)$:
+$$\begin{aligned}
+\hat\E(Y^1) - \hat\E(Y^0) 
+&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1 + \hat\eta \times  1\times \ell_i)\bigg) \right) \\
+&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0 + \hat\eta\times 0 \times \ell_i\bigg) \right) \\ \pause
+&= \frac{1}{n}\sum_{i=1}^n \left(\hat\beta + \hat\eta \ell_i\right)
+\end{aligned}$$
+The g-formula no longer collapses to a coefficient!
+\end{frame}
+
+\begin{frame}{Parametric g-formula: Outcome model recap}
+
+\begin{center}
+\begin{tikzpicture}
+\node (l) at (0,0) {$\vec{X}$};
 \node (a) at (1,0) {$A$};
 \node (y) at (2,0) {$Y$};
 \draw[->, thick] (l) -- (a);
@@ -99,20 +591,17 @@ Causal assumptions
 \end{tikzpicture}
 \end{center}
 
-Nonparametric estimator
-$$\begin{aligned}
-\hat\E(Y^a) &= \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{L} = \vec\ell_i, A = a)
-\end{aligned}$$
-
-For every unit $i$,
-\begin{itemize}
-\item find units who look like them on confounders $\vec{L}$
-\item who actually got treatment $A = a$
-\item take the average among those units
-\end{itemize}
-Then average over all units
+\begin{enumerate}
+\item Model the outcome mean $\E(Y\mid A,\vec{X})$
+\item Change everyone's treatment to the value of interest
+\item Predict for everyone
+\item Take the average
+\end{enumerate}
+$$\hat\E(Y^a) = \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{X} = \vec\ell_i, A = a)$$
 
 \end{frame}
+
+
 
 \begin{frame}{Nonparametric estimation breaks down}
 \begin{tikzpicture}[x = 1in, y = .4in]
@@ -161,7 +650,7 @@ Then average over all units
 Causal assumptions
 \begin{center}
 \begin{tikzpicture}
-\node (l) at (0,0) {$\vec{L}$};
+\node (l) at (0,0) {$\vec{X}$};
 \node (a) at (1,0) {$A$};
 \node (y) at (2,0) {$Y$};
 \draw[->, thick] (l) -- (a);
@@ -172,38 +661,12 @@ Causal assumptions
 
 Parametric estimator
 $$\begin{aligned}
-\hat\E(Y^a) &= \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{L} = \vec\ell_i, A = a)
+\hat\E(Y^a) &= \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{X} = \vec\ell_i, A = a)
 \end{aligned}$$ \pause
 
 Where $\hat{E}$ is a model-based prediction
-$$\hat\E(Y\mid \vec{L}, A) = \hat\alpha + \vec{L}'\hat{\vec\gamma} + A\hat\beta$$ \pause
+$$\hat\E(Y\mid \vec{X}, A) = \hat\alpha + \vec{X}'\hat{\vec\gamma} + A\hat\beta$$ \pause
 
-\end{frame}
-
-\begin{frame}
-\begin{center}
-\begin{tikzpicture}
-\node (l) at (0,0) {$\vec{L}$};
-\node (a) at (1,0) {$A$};
-\node (y) at (2,0) {$Y$};
-\draw[->, thick] (l) -- (a);
-\draw[->, thick, line width = 2pt, blue] (a) -- (y);
-\draw[->, thick, line width = 2pt, blue] (l) to[bend left] (y);
-\end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\begin{center}
-\begin{tikzpicture}
-\node (l) at (0,0) {$\vec{L}$};
-\node (a) at (1,0) {$A$};
-\node (y) at (2,0) {$Y$};
-\draw<1>[->, line width = 2pt, blue] (l) -- (a);
-\draw<1-2>[->, thick] (a) -- (y);
-\draw[->, thick] (l) to[bend left] (y);
-\end{tikzpicture}
-\end{center}
 \end{frame}
 
 \begin{frame}{Inverse probability of treatment weighting}
@@ -265,83 +728,6 @@ $$\hat\E(Y\mid \vec{L}, A) = \hat\alpha + \vec{L}'\hat{\vec\gamma} + A\hat\beta$
 
 \end{frame}
 
-\begin{frame}
-
-\begin{tikzpicture}[x = .3in, y = .3in]
-\node at (4.5,-.5) {$L_1$};
-\node at (-.5,4.5) {$L_2$};
-\draw (0,0) grid (9.2,9.2);
-\node[gray, font = \Huge] at (1,5.6) {$\bullet$};
-\node[gray, font = \Huge] at (2,1) {$\bullet$};
-\node[blue, font = \Huge] at (3,3) {$\bullet$};
-\node[gray, font = \Huge] at (4.8,3) {$\bullet$};
-\node[blue, font = \Huge] at (6,8.2) {$\bullet$};
-\node[gray, font = \Huge] at (8.5,3.2) {$\bullet$};
-\end{tikzpicture}
-
-\end{frame}
-
-\begin{frame}
-
-\bgray{Model} the treatment assignment
-
-$$\begin{aligned}
-\hat\P(A = 1\mid \vec{L}) &= \logit^{-1}\left(\hat\alpha + \hat{\vec\gamma}\vec{L}\right)
-\end{aligned}
-$$
-
-\bgray{Predict} the propensity score for each unit
-
-$$\begin{aligned}
-\hat\pi_i &= \begin{cases}
-\logit^{-1}\left(\hat\alpha + \hat{\vec\gamma}\vec{L}\right) &\text{if }A_i=1 \\
-1 - \logit^{-1}\left(\hat\alpha + \hat{\vec\gamma}\vec{L}\right) &\text{if }A_i=0 \\
-\end{cases}
-\end{aligned}$$
-
-\bgray{Estimate} by inverse probability weighting
-
-$$\begin{aligned}
-\hat\E(Y^a) &= \frac{1}{N}\sum_{i:A_i=a}\frac{Y_i}{\hat\pi_i}
-\end{aligned}$$
-
-\end{frame}
-
-\goalsframe
-
-\begin{frame}{Problem: Extreme weights create high variance}
-
-\pause
-Suppose a stratum $\vec{L} = \vec\ell$ contains
-\begin{itemize}
-\item 100 untreated units
-\item 1 treated unit
-\end{itemize} \pause
-The treated unit gets a weight of 100.\vskip .2in \pause
-The estimate depends heavily on which treated unit happens to be included in the sample $\rightarrow$ high-variance estimator \vskip .2in \pause
-Two solutions
-\begin{enumerate}
-\item Trim the weights
-\item Truncate the weights
-\end{enumerate} \pause
-Both solutions accept bias in order to reduce variance
-
-\end{frame}
-
-\begin{frame}{Accepting bias to reduce variance: Trimming}
-
-\begin{tikzpicture}[x = \textwidth, y = .8\textheight]
-\node at (0,0) {};
-\node at (1,1) {};
-\node<1>[anchor = west] at (0,.5) {\includegraphics[height = .8\textheight]{figures/propensity_overlap}};
-\node<2-3>[anchor = west] at (0,.5) {\includegraphics[height = .8\textheight]{figures/propensity_overlap_1}};
-\node<3->[anchor = west, align = left] at (.6,.7) {Drop units with\\extreme weights};
-\node<4->[anchor = west] at (0,.5) {\includegraphics[height = .8\textheight]{figures/propensity_overlap_trim}};
-\node<5->[anchor = west, align = left] at (.6,.5) {Changes target population\\--- Biased for full population};
-\end{tikzpicture}
-
-\end{frame}
-
 \begin{frame}{Accepting bias to reduce variance: Weight truncation}
 
 \begin{tikzpicture}[x = \textwidth, y = .8\textheight]
@@ -352,73 +738,5 @@ Both solutions accept bias in order to reduce variance
 \node<3->[anchor = west] at (0,.5) {\includegraphics[height = .8\textheight]{figures/propensity_overlap_truncate}};
 \node<4->[anchor = west, align = left] at (.6,.5) {Biased: Ignores\\some confounding};
 \end{tikzpicture}
-
-\end{frame}
-
-\goalsframe
-
-
-\end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% OUTTAKES
-
-\begin{frame}{The parametric g-formula: Connection to $\hat\beta$} \pause
-Estimator for the effect $\E(Y^1) - \E(Y^0)$: \pause
-$$\begin{aligned}
-\hat\E(Y^1) - \hat\E(Y^0) 
-&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1\bigg)\right) \\
-&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0\bigg)\right) \\ \pause
-&= \frac{1}{n}\sum_{i=1}^n \hat\beta \\ \pause
-&= \hat\beta
-\end{aligned}$$ \pause
-With OLS, the parametric g-formula collapses on the coefficient.
-\end{frame}
-
-\begin{frame}{The parametric g-formula is more general}
-Suppose the effect of $A$ depends on $L$
-$$\E(Y\mid A, L) = \alpha + \gamma L + \beta A + \eta AL$$ \pause
-Estimator for the effect $\E(Y^1) - \E(Y^0)$:
-$$\begin{aligned}
-\hat\E(Y^1) - \hat\E(Y^0) 
-&= \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 1 + \hat\eta \times  1\times \ell_i)\bigg) \right) \\
-&\qquad - \left(\frac{1}{n}\sum_{i=1}^n \bigg(\hat\alpha + \hat\gamma \ell_i + \hat\beta \times 0 + \hat\eta\times 0 \times \ell_i\bigg) \right) \\ \pause
-&= \frac{1}{n}\sum_{i=1}^n \left(\hat\beta + \hat\eta \ell_i\right)
-\end{aligned}$$
-The g-formula no longer collapses to a coefficient!
-\end{frame}
-
-\begin{frame}{Parametric g-formula: Outcome model recap}
-
-\begin{center}
-\begin{tikzpicture}
-\node (l) at (0,0) {$\vec{L}$};
-\node (a) at (1,0) {$A$};
-\node (y) at (2,0) {$Y$};
-\draw[->, thick] (l) -- (a);
-\draw[->, thick] (a) -- (y);
-\draw[->, thick] (l) to[bend left] (y);
-\end{tikzpicture}
-\end{center}
-
-\begin{enumerate}
-\item Model the outcome mean $\E(Y\mid A,\vec{L})$
-\item Change everyone's treatment to the value of interest
-\item Predict for everyone
-\item Take the average
-\end{enumerate}
-$$\hat\E(Y^a) = \frac{1}{n}\sum_{i=1}^n \hat\E(Y\mid \vec{L} = \vec\ell_i, A = a)$$
 
 \end{frame}

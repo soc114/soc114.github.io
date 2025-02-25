@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  14 FEB 2025 13:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  25 FEB 2025 08:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1090,15 +1090,15 @@ Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 78.
+(hyperref)                removing `\\' on input line 74.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 78.
+(hyperref)                removing `\\' on input line 74.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\color' on input line 78.
+(hyperref)                removing `\color' on input line 74.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
@@ -1108,24 +1108,24 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 (./ipw.aux)
 \openout1 = `ipw.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1183,66 +1183,66 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 81.
+Package hyperref Info: Link coloring OFF on input line 77.
 
 (./ipw.out) (./ipw.out)
 \@outlinefile=\write5
 \openout5 = `ipw.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 81.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 77.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 81.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 77.
 \symnumbers=\mathgroup11
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 81.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 77.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/cmss/m/it on input line 8
-1.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/cmss/m/it on input line 7
+7.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/bx/sl --> OT1/cmss/m/it on input line 
-81.
+77.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 81.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 81.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 81.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 77.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 81.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 81.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 81.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 77.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 81.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 81.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 81.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 77.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 81.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 81.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 77.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 81.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 77.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 81.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 81.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 81.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 81.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 81.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 77.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 81.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 81.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 77.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 77.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 8
-1.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 7
+7.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 8
-1.
+(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 7
+7.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 81.
+ut line 77.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/translator/translator-basic-dicti
 onary-English.dict
@@ -1283,19 +1283,19 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 (./ipw.nav) [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 85.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
 
  (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 81.
 
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 85.
+ut line 81.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
@@ -1306,60 +1306,54 @@ thkerncmss.
 
 ] [4
 
+] [5
+
 ]
-<figures/curse.pdf, id=45, 650.43pt x 650.43pt>
-File: figures/curse.pdf Graphic file (type pdf)
-<use figures/curse.pdf>
-Package pdftex.def Info: figures/curse.pdf  used on input line 157.
-(pdftex.def)             Requested size: 215.10196pt x 215.09909pt.
- [5
+Overfull \hbox (27.04573pt too wide) in paragraph at lines 154--154
+[][]  
+ []
 
- <./figures/curse.pdf>] [6
+[6
 
-] [7
+]
+Overfull \hbox (27.04573pt too wide) in paragraph at lines 196--196
+[][]  
+ []
+
+[7
 
 ] [8
 
-] [9
+]
+Overfull \hbox (27.04573pt too wide) in paragraph at lines 246--246
+[][]  
+ []
 
-] [10
+[9
+
+]
+Overfull \hbox (27.04573pt too wide) in paragraph at lines 288--288
+[][]  
+ []
+
+[10
 
 ] [11
 
 ]
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 266--266
+Overfull \hbox (30.16338pt too wide) in paragraph at lines 341--341
 [][]  
  []
 
 [12
 
-]
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 266--266
-[][]  
- []
+] [13
 
-[13
+] [14
 
-]
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 266--266
-[][]  
- []
+] [15
 
-[14
-
-]
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 266--266
-[][]  
- []
-
-[15
-
-]
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 266--266
-[][]  
- []
-
-[16
+] [16
 
 ] [17
 
@@ -1380,127 +1374,118 @@ Overfull \hbox (7.29922pt too wide) in paragraph at lines 266--266
 ] [25
 
 ]
-<figures/propensity_overlap.pdf, id=170, 289.08pt x 361.35pt>
+<../../assets/illustrations/treatment_big_weights_1.pdf, id=160, 433.62pt x 252
+.945pt>
+File: ../../assets/illustrations/treatment_big_weights_1.pdf Graphic file (type
+ pdf)
+<use ../../assets/illustrations/treatment_big_weights_1.pdf>
+Package pdftex.def Info: ../../assets/illustrations/treatment_big_weights_1.pdf
+  used on input line 516.
+(pdftex.def)             Requested size: 307.28987pt x 179.26027pt.
+ [26
+
+ <../../assets/illustrations/treatment_big_weights_1.pdf>]
+<../../assets/illustrations/treatment_big_weights_2.pdf, id=174, 433.62pt x 252
+.945pt>
+File: ../../assets/illustrations/treatment_big_weights_2.pdf Graphic file (type
+ pdf)
+<use ../../assets/illustrations/treatment_big_weights_2.pdf>
+Package pdftex.def Info: ../../assets/illustrations/treatment_big_weights_2.pdf
+  used on input line 516.
+(pdftex.def)             Requested size: 307.28987pt x 179.26027pt.
+ [27
+
+ <../../assets/illustrations/treatment_big_weights_2.pdf>]
+File: ../../assets/illustrations/treatment_big_weights_1.pdf Graphic file (type
+ pdf)
+<use ../../assets/illustrations/treatment_big_weights_1.pdf>
+Package pdftex.def Info: ../../assets/illustrations/treatment_big_weights_1.pdf
+  used on input line 516.
+(pdftex.def)             Requested size: 307.28987pt x 179.26027pt.
+ [28
+
+]
+<../../assets/illustrations/treatment_big_weights_3.pdf, id=195, 433.62pt x 252
+.945pt>
+File: ../../assets/illustrations/treatment_big_weights_3.pdf Graphic file (type
+ pdf)
+<use ../../assets/illustrations/treatment_big_weights_3.pdf>
+Package pdftex.def Info: ../../assets/illustrations/treatment_big_weights_3.pdf
+  used on input line 516.
+(pdftex.def)             Requested size: 307.28987pt x 179.26027pt.
+ [29
+
+ <../../assets/illustrations/treatment_big_weights_3.pdf>] [30
+
+]
+<figures/propensity_overlap.pdf, id=215, 289.08pt x 361.35pt>
 File: figures/propensity_overlap.pdf Graphic file (type pdf)
 <use figures/propensity_overlap.pdf>
-Package pdftex.def Info: figures/propensity_overlap.pdf  used on input line 343
+Package pdftex.def Info: figures/propensity_overlap.pdf  used on input line 534
 .
 (pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
 
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 343--343
-[][]  
- []
-
-[26
-
- <./figures/propensity_overlap.pdf>]
-<figures/propensity_overlap_1.pdf, id=185, 289.08pt x 361.35pt>
-File: figures/propensity_overlap_1.pdf Graphic file (type pdf)
-<use figures/propensity_overlap_1.pdf>
-Package pdftex.def Info: figures/propensity_overlap_1.pdf  used on input line 3
-43.
-(pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
-
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 343--343
-[][]  
- []
-
-[27
-
- <./figures/propensity_overlap_1.pdf>]
-File: figures/propensity_overlap_1.pdf Graphic file (type pdf)
-<use figures/propensity_overlap_1.pdf>
-Package pdftex.def Info: figures/propensity_overlap_1.pdf  used on input line 3
-43.
-(pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
-
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 343--343
-[][]  
- []
-
-[28
-
-]
-<figures/propensity_overlap_trim.pdf, id=205, 289.08pt x 361.35pt>
-File: figures/propensity_overlap_trim.pdf Graphic file (type pdf)
-<use figures/propensity_overlap_trim.pdf>
-Package pdftex.def Info: figures/propensity_overlap_trim.pdf  used on input lin
-e 343.
-(pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
-
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 343--343
-[][]  
- []
-
-[29
-
- <./figures/propensity_overlap_trim.pdf>]
-File: figures/propensity_overlap_trim.pdf Graphic file (type pdf)
-<use figures/propensity_overlap_trim.pdf>
-Package pdftex.def Info: figures/propensity_overlap_trim.pdf  used on input lin
-e 343.
-(pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
-
-Overfull \hbox (18.5095pt too wide) in paragraph at lines 343--343
-[][]  
- []
-
-[30
-
-]
-File: figures/propensity_overlap_1.pdf Graphic file (type pdf)
-<use figures/propensity_overlap_1.pdf>
-Package pdftex.def Info: figures/propensity_overlap_1.pdf  used on input line 3
-56.
-(pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
-
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 356--356
+Overfull \hbox (7.29922pt too wide) in paragraph at lines 534--534
 [][]  
  []
 
 [31
 
-]
+ <./figures/propensity_overlap.pdf>]
+<figures/propensity_overlap_1.pdf, id=231, 289.08pt x 361.35pt>
 File: figures/propensity_overlap_1.pdf Graphic file (type pdf)
 <use figures/propensity_overlap_1.pdf>
-Package pdftex.def Info: figures/propensity_overlap_1.pdf  used on input line 3
-56.
+Package pdftex.def Info: figures/propensity_overlap_1.pdf  used on input line 5
+34.
 (pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
 
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 356--356
+Overfull \hbox (7.29922pt too wide) in paragraph at lines 534--534
 [][]  
  []
 
 [32
 
-]
-<figures/propensity_overlap_truncate.pdf, id=236, 289.08pt x 361.35pt>
-File: figures/propensity_overlap_truncate.pdf Graphic file (type pdf)
-<use figures/propensity_overlap_truncate.pdf>
-Package pdftex.def Info: figures/propensity_overlap_truncate.pdf  used on input
- line 356.
+ <./figures/propensity_overlap_1.pdf>]
+File: figures/propensity_overlap_1.pdf Graphic file (type pdf)
+<use figures/propensity_overlap_1.pdf>
+Package pdftex.def Info: figures/propensity_overlap_1.pdf  used on input line 5
+34.
 (pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
 
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 356--356
+Overfull \hbox (7.29922pt too wide) in paragraph at lines 534--534
 [][]  
  []
 
 [33
 
- <./figures/propensity_overlap_truncate.pdf>]
-File: figures/propensity_overlap_truncate.pdf Graphic file (type pdf)
-<use figures/propensity_overlap_truncate.pdf>
-Package pdftex.def Info: figures/propensity_overlap_truncate.pdf  used on input
- line 356.
+]
+<figures/propensity_overlap_trim.pdf, id=251, 289.08pt x 361.35pt>
+File: figures/propensity_overlap_trim.pdf Graphic file (type pdf)
+<use figures/propensity_overlap_trim.pdf>
+Package pdftex.def Info: figures/propensity_overlap_trim.pdf  used on input lin
+e 534.
 (pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
 
-Overfull \hbox (7.29922pt too wide) in paragraph at lines 356--356
+Overfull \hbox (7.29922pt too wide) in paragraph at lines 534--534
 [][]  
  []
 
 [34
 
-] [35
+ <./figures/propensity_overlap_trim.pdf>]
+File: figures/propensity_overlap_trim.pdf Graphic file (type pdf)
+<use figures/propensity_overlap_trim.pdf>
+Package pdftex.def Info: figures/propensity_overlap_trim.pdf  used on input lin
+e 534.
+(pdftex.def)             Requested size: 172.25395pt x 215.31812pt.
+
+Overfull \hbox (28.3785pt too wide) in paragraph at lines 534--534
+[][]  
+ []
+
+[35
+
+] [36
 
 ]
 \tf@nav=\write6
@@ -1517,32 +1502,32 @@ Package rerunfilecheck Info: File `ipw.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 30110 strings out of 476025
- 620039 string characters out of 5790016
- 1872388 words of memory out of 5000000
- 49854 multiletter control sequences out of 15000+600000
- 547689 words of font info for 140 fonts, out of 8000000 for 9000
+ 30050 strings out of 476025
+ 619708 string characters out of 5790016
+ 1871388 words of memory out of 5000000
+ 49789 multiletter control sequences out of 15000+600000
+ 537171 words of font info for 108 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,19n,122p,398b,707s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,20n,122p,398b,709s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
-sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></us
-r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr
-/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/l
-ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/loc
-al/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/lo
-cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/lo
-cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/lo
-cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/loc
-al/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
-l/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
-texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on ipw.pdf (35 pages, 215553 bytes).
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
+usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr
+/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/
+local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/lo
+cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/loca
+l/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/loc
+al/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/loc
+al/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/loca
+l/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local
+/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
+texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
+xlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on ipw.pdf (36 pages, 249322 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 255 compressed objects within 3 object streams
- 71 named destinations out of 1000 (max. 500000)
- 68 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 358 PDF objects out of 1000 (max. 8388607)
+ 269 compressed objects within 3 object streams
+ 73 named destinations out of 1000 (max. 500000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
 

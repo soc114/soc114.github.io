@@ -452,6 +452,7 @@ window.Quarto = {
   <li><a href="#construct-weights" id="toc-construct-weights" class="nav-link" data-scroll-target="#construct-weights">2) Construct weights</a></li>
   <li><a href="#estimate-by-weighted-means" id="toc-estimate-by-weighted-means" class="nav-link" data-scroll-target="#estimate-by-weighted-means">3) Estimate by weighted means</a></li>
   </ul></li>
+  <li><a href="#why-each-strategy" id="toc-why-each-strategy" class="nav-link" data-scroll-target="#why-each-strategy">Why each strategy?</a></li>
   <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts">Concluding thoughts</a></li>
   </ul>
 </nav>
@@ -926,6 +927,21 @@ w_i = \begin{cases}
 </div>
 </div>
 </section>
+</section>
+<section id="why-each-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="why-each-strategy">Why each strategy?</h2>
+<p>Why would we choose outcome modeling or treatment modeling?</p>
+<p>In favor of outcome modeling, this is how many social scientists have thought about modeling social processes: build a regression model to predict outcomes. In favor of treatment modeling, this connects directly with how many researchers are trained to draw inferences about a population from a sample selected with unequal probabilities.</p>
+<p>One argument in favor of treatment modeling is that it makes more transparent which units get a very large amount of weight. To illustrate this, the figure below shows a simulation in a very dystopian world. In this world, 99% of the children of college graduates complete college compared with only 1% of the children of non-graduates. We could fit an outcome model to predict each child’s future income under college (<span class="math inline">\(Y^1\)</span>) and under no college (<span class="math inline">\(Y^0\)</span>). Alternatively, we could estimate by inverse probability of treatment weights. An advantage of the treatment weighting is that we can see that two observations are very influential: the first-generation college graduate has a very unlikely treatment status, and counts for 100 people! Likewise the child of college graduates who did not make it through college has a weight of 100.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="models_for_causal_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="concluding-thoughts" class="level2">
 <h2 class="anchored" data-anchor-id="concluding-thoughts">Concluding thoughts</h2>

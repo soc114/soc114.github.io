@@ -489,6 +489,86 @@ inverse_probability_weights |>
   mutate(effect = if_treated - if_untreated)
 ```
 
+## Why each strategy?
+
+Why would we choose outcome modeling or treatment modeling?
+
+In favor of outcome modeling, this is how many social scientists have thought about modeling social processes: build a regression model to predict outcomes. In favor of treatment modeling, this connects directly with how many researchers are trained to draw inferences about a population from a sample selected with unequal probabilities.
+
+One argument in favor of treatment modeling is that it makes more transparent which units get a very large amount of weight. To illustrate this, the figure below shows a simulation in a very dystopian world. In this world, 99\% of the children of college graduates complete college compared with only 1\% of the children of non-graduates. We could fit an outcome model to predict each child's future income under college ($Y^1$) and under no college ($Y^0$). Alternatively, we could estimate by inverse probability of treatment weights. An advantage of the treatment weighting is that we can see that two observations are very influential: the first-generation college graduate has a very unlikely treatment status, and counts for 100 people! Likewise the child of college graduates who did not make it through college has a weight of 100.
+
+```{r, echo = F}
+#| fig-height: 9
+sim <- tibble(
+  x = rep(0:1, each = 100),
+  a = c(rep(F,99),rep(T,1),rep(F,1),rep(T,99))
+) |>
+  group_by(x,a) |>
+  mutate(num_in_group = n(),
+         x_jittered = ifelse(num_in_group == 1, x, x + runif(n(), -.1,.1))) |>
+  ungroup() |>
+  mutate(y = case_when(
+    num_in_group == 1 ~ 40e3 + 40e3 * (x + a),
+    T ~ rnorm(n(), 40e3 + 40e3 * (x + a), sd = 5e3)
+  )) |>
+  ungroup()
+
+outcome_model <- lm(y ~ x * a, data = sim)
+
+p <- sim |>
+  mutate(yhat = predict(outcome_model)) |>
+  ggplot(aes(x = x, y = y, color = a)) +
+  geom_point(aes(x = x_jittered),
+             alpha = .6) +
+  theme_minimal() +
+  scale_x_continuous(
+    limits = c(-.5,1.5),
+    breaks = 0:1,
+    labels = c("FALSE","TRUE")
+  ) +
+  scale_color_discrete(guide = guide_legend(reverse = TRUE)) +
+  labs(
+    x = "Parent Completed College",
+    y = "Child Income",
+    color = "Child\nCompleted\nCollege"
+  )
+
+p1 <- p +
+  ggtitle("A dystopian example")
+
+p2 <- p +
+  geom_line(aes(x = as.numeric(x), y = yhat)) +
+  geom_text(
+    data = tibble(x = .5, a = c(F,T), y = c(50e3,110e3), label = c(expression('Model for'~Y^0),expression('Model for'~Y^1))),
+    aes(label = label),
+    vjust = c(1,0),
+    parse = T,
+    fontface = "bold",
+    show.legend = F
+  ) +
+  ggtitle("Outcome modeling")
+
+p3 <- p +
+  geom_text(
+    data = tibble(x = c(-.3,1.3), a = c(T,F), y = 80e3, label = c("Weight\n= 100!","Weight\n= 100!")),
+    aes(label = label),
+    #vjust = c(-.5,1.5),
+    fontface = "bold",
+    show.legend = F
+  ) +
+  geom_text(
+    data = tibble(x = c(-.3,1.3), a = c(F,T), y = c(45e3,120e3), label = c("These\nweights\n= 1.01","These\nweights\n= 1.01")),
+    aes(label = label),
+    fontface = "bold",
+    show.legend = F
+  ) +
+  ggtitle("Treatment weighting")
+gridExtra::grid.arrange(p1,p2,p3, nrow = 3)
+ggsave("../assets/illustrations/treatment_big_weights_1.pdf", plot = p1, height = 3.5, width = 6)
+ggsave("../assets/illustrations/treatment_big_weights_2.pdf", plot = p2, height = 3.5, width = 6)
+ggsave("../assets/illustrations/treatment_big_weights_3.pdf", plot = p3, height = 3.5, width = 6)
+```
+
 ## Concluding thoughts
 
 Outcome modeling is a powerful strategy because it bridges nonparametric causal identification to longstanding strategies where outcomes are modeled by parametric regression.
