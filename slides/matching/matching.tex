@@ -92,32 +92,33 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 \bgray{Debates:} What does it mean to be ``near''?
 \end{frame}
 
-\section{Matching overview}
+\begin{frame}{A concrete example}
 
-\begin{frame}{Matching: The big idea}
-\centering
-\begin{tikzpicture}[x = 2.5in, y = 1.5in]
-\node at (0,-.3) {};
-\draw[->, thick] (0,0) -- node[midway, below] {Confounder $L$} (1,0);
-\draw[->, thick] (0,0) -- node[midway, above, rotate = 90] {Outcome $Y$} (0,1);
-\node[anchor = north west, blue] at (1.1,1) {Treated};
-\node[blue, draw, circle, font = \footnotesize] (p1) at (.2,.8) {$1$};
-\node[blue, draw, circle, font = \footnotesize] (p2) at (.7,.76) {$2$};
-\onslide<2->{
-\node[anchor = north west, gray] at (1.1,.9) {Untreated};
-\node[gray, draw, circle, font = \footnotesize] (p3) at (.3,.3) {$3$};
-\node[gray, draw, circle, font = \footnotesize] (p4) at (.45,.42) {$4$};
-\node[gray, draw, circle, font = \footnotesize] (p5) at (.65,.34) {$5$};
-}
-\draw<4-> (p3) -| node[pos = .75, left] {$\hat\tau_1$} (p1);
-\draw<5-> (p5) -| node[pos = .75, right] {$\hat\tau_2$} (p2);
-\node<6->[anchor = south west] at (0,-.5) {$\widehat{\text{SATT}} = \frac{1}{2}(\hat\tau_1 + \hat\tau_2)$};
-\node<1>[anchor = south west] at (0,-.65) {You have a some treated units.};
-\node<2>[anchor = south west] at (0,-.65) {You go find some untreated units.};
-\node<3-5>[anchor = south west, align = left] at (0,-.65) {You find the closest matches along $L$.\\You estimate each effect.};
-\node<6>[anchor = south west] at (0,-.65) {(Sample Average Treatment Effect on the Treated)};
-\end{tikzpicture}
+\begin{itemize}
+\item In the 1970s, a research group selected disadvantaged workers \pause
+\item Randomized to two treatment conditions
+\begin{itemize}
+\item job training
+\item no job training
+\end{itemize} \pause
+\item \href{https://www.jstor.org/stable/1806062}{\blue{Lalonde (1986)}} subsequently did a methodological exercise: try to recover the truth by comparing to non-randomized units with no job training \pause
+\item \href{https://www.tandfonline.com/doi/abs/10.1080/01621459.1999.10473858}{\blue{Dehejia \& Wahba (1999)}} used this setting to illustrate matching 
+\end{itemize} \pause
+
+To get the data:\vskip .1in
+
+install.packages(``MatchIt'')\\
+data(``lalonde'', package = ``MatchIt'')
+
 \end{frame}
+
+\begin{frame}{A concrete example}
+
+\includegraphics[width = \textwidth]{figures/lalonde_data}
+
+\end{frame}
+
+\section{Matching overview}
 
 \begin{frame}{Why matching is great} \pause
 
@@ -196,6 +197,12 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 
 \end{frame}
 
+\begin{frame}{Caliper or no caliper matching}{Why might I be hesitant to find a match for Treated Unit 1?}
+
+\includegraphics[width = \textwidth]{figures/lalonde_caliper}
+
+\end{frame}
+
 \begin{frame}{Caliper or no caliper matching}
 
 \centering
@@ -228,6 +235,12 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 }
 \end{itemize}
 }
+\end{frame}
+
+\begin{frame}{1:1 vs $k$:1 matching}{Can we make use of Untreated Units 1 and 2?}
+
+\includegraphics[width = \textwidth]{figures/lalonde_k1}
+
 \end{frame}
 
 \begin{frame}{1:1 vs $k$:1 matching}
@@ -269,6 +282,12 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 }
 \end{frame}
 
+\begin{frame}{With replacement vs without replacement matching}{We match Treated 2 to Untreated 2. Who should be the match for Treated 1?}
+
+\includegraphics[width = \textwidth]{figures/lalonde_replacement}
+
+\end{frame}
+
 \begin{frame}{With replacement vs without replacement matching}
 
 \centering
@@ -300,6 +319,14 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 }
 \end{itemize}
 }
+\end{frame}
+
+\begin{frame}{Greedy vs optimal matching}
+North side: Start with Treated 1. Find the best match.\\
+South side: Start with Treated 2. Find the best match.\\
+Both sides: Who is left as the match for the other treated unit?
+\includegraphics[width = .8\textwidth]{figures/lalonde_replacement}
+
 \end{frame}
 
 \begin{frame}{Greedy vs optimal matching\footnote{Gu, X. S., \& Rosenbaum, P. R. (1993). \bref{https://www.tandfonline.com/doi/abs/10.1080/10618600.1993.10474623}{Comparison of multivariate matching methods: Structures, distances, and algorithms.} Journal of Computational and Graphical Statistics, 2(4), 405-420.}}
@@ -346,6 +373,22 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 
 \begin{frame}{What if $\vec{L}$ is multivariate?}
 
+\includegraphics[width = \textwidth]{figures/lalonde_multivariate}
+
+\end{frame}
+
+\begin{frame}{Key concept: Distance defines who is closer}
+
+To find the closest match, we need to define what it means for unit $i$ and $j$ to be \textbf{close} to each other.
+$$
+d(\vec{x}_i,\vec{x}_j) = \text{a number}
+$$
+will be the \textbf{distance} between confounder vectors $\vec{x}_i$ and $\vec{x}_j$.
+
+\end{frame}
+
+\begin{frame}{Who is closer? Euclidean and Manhattan distance}
+
 \centering
 \scalebox{.8}{
 \begin{tikzpicture}
@@ -380,7 +423,7 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 
 \end{frame}
 
-\begin{frame}{What if $\vec{L}$ is multivariate? We need a \bblue{distance metric}}
+\begin{frame}{Who is closer? Euclidean and Manhattan distance}
 
 \centering
 \scalebox{.4}{
@@ -422,6 +465,131 @@ $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\e
 }
 
 \end{frame}
+
+
+
+\begin{frame}{A common distance metric: Propensity scores}
+
+\centering
+
+Now suppose only $L_2$ is related to treatment.\\
+\begin{tikzpicture}
+\node (l2) at (0,0) {$L_2$};
+\node (l1) at (2,1) {$L_1$};
+\node (a) at (1,0) {$A$};
+\node (y) at (2,0) {$Y$};
+\draw[->, thick] (l2) -- (a);
+\draw[->, thick] (l2) to[bend right] (y);
+\draw[->, thick] (l1) -- (y);
+\draw[->, thick] (a) -- (y);
+\end{tikzpicture} \vskip .1in
+Which match do you pick? \onslide<2->{Untreated 2! Perfect match.} \\
+\scalebox{.6}{
+\begin{tikzpicture}
+\node at (-2.5,-1.5) {};
+\node at (6.5,5.5) {};
+\draw[->, thick] (-2,-1) -- node[midway, below] {$L_1$} (7,-1);
+\draw[->, thick] (-2,-1) -- node[midway, left] {$L_2$} (-2,5);
+\draw[thick, dashed] (0,0) -- node[midway, left, font = \small] {Length = 4} (0,4);
+\draw[thick, dashed] (0,4) -- node[midway, above, font = \small] {Length = 3} (3,4);
+\draw[thick, dashed] (0,0) -- node[midway, right, font = \small] {Length = 5} (3,4);
+\draw[thick, dashed] (0,0) -- node[midway, below, font = \small] {Length = 6} (6,0);
+\node[blue] (treated) at (0,0) {$\bullet$};
+\node[gray] (a) at (3,4) {$\bullet$};
+\node[gray] (b) at (6,0) {$\bullet$};
+\node[anchor = north east, font = \small, blue] at (treated) {Treated};
+\node[anchor = south west, font = \small, gray] at (a) {Untreated 1};
+\node[anchor = south west, font = \small, gray] at (b) {Untreated 2};
+\end{tikzpicture}
+}
+
+\end{frame}
+
+\begin{frame}{A common distance metric: Propensity scores}
+Propensity score: $\pi_i = \P(A = 1\mid \vec{L} = \vec\ell_i)$ \pause
+\begin{itemize}
+\item Univariate summary of all confounders \pause
+\item In expectation, a sample balanced on $\pi$ is balanced on $\vec{L}$
+\begin{itemize}
+\item Rosenbaum \& Rubin theorem\footnote{Rosenbaum, P. R., \& Rubin, D. B. (1983). \bref{https://doi.org/10.1093/biomet/70.1.41}{The central role of the propensity score in observational studies for causal effects.} Biometrika, 70(1), 41-55.}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{A common distance metric: Propensity scores}
+
+Propensity scores can be nonparametric or parametric.
+\begin{itemize} \pause
+\item Nonparametric: $\hat\pi_i$ is the proportion treated in the sample stratum $\vec{L} = \vec\ell_i$. \pause
+\item Parametric: Often estimated as
+\begin{itemize}
+\item Fit logistic regression
+$$\text{logit}\left(\P(A = 1\mid \vec{L})\right) = \alpha + \vec{L}\vec\beta$$ \pause
+\item Predict the probability of treatment
+$$\hat\pi_i = \text{logit}^{-1}\left(\hat\alpha + \vec\ell_i\hat{\vec\beta}\right)$$ \vspace{-.2in}
+\end{itemize}
+\end{itemize} \pause
+Propensity score distance for matching:
+$$d(i,j) = \lvert \hat\pi_i - \hat\pi_j\rvert $$
+
+\end{frame}
+
+\begin{frame}{Workflow for matching}
+
+\begin{itemize}
+\item Draw a DAG
+\item Select a sufficient adjustment set $\vec{X}$
+\item Define a distance: how far apart $\vec{x}_i$ and $\vec{x}_j$ are
+\item Choose a matching algorithm
+\begin{itemize}
+\item 1:1 without replacement, greedy
+\end{itemize}
+\item Conduct matching
+\item Estimate ATE by outcome modeling on the matched set
+\end{itemize} \vskip .2in
+
+The \href{https://kosukeimai.github.io/MatchIt/articles/MatchIt.html}{\bblue{MatchIt}} package makes it easy \vskip .1in
+Discuss: Why regression? Why matching?
+
+\end{frame}
+
+\goalsframe
+
+
+\end{document}
+
+\begin{frame}{Why propensity scores are nice} \pause
+
+\begin{itemize}
+\item Multivariate $\vec{L}_i$ to univariate $\pi_i$ \pause
+\begin{itemize}
+\item Easy to reason about \pause
+\item Can directly visualize the univariate matches
+\end{itemize} \pause
+\item Mathematical guarantees in expectation \pause
+\item Intuitive: Prioritizes covariates that predict treatment
+\end{itemize}
+
+\end{frame}
+
+\subsection{After matching: Evaluate matched sets}
+
+\tcframe
+
+\begin{frame}{Evaluate the matched sets}
+Why we match: So $\vec{L}$ follows a similar distribution
+\begin{itemize}
+\item in the treated sample
+\item in the untreated sample
+\end{itemize}
+Whatever method, you should check that.
+\begin{itemize}
+\item Compare means of $\vec{L}$ across groups
+\item Possibly compare interactive cells
+\item Ideally, before looking at $Y$!
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{A common distance metric: Mahalanobis distance}
 \pause
@@ -488,84 +656,7 @@ $$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{A common distance metric: Propensity scores}
 
-\centering
-\scalebox{.6}{
-\begin{tikzpicture}
-\node at (-2.5,-1.5) {};
-\node at (6.5,5.5) {};
-\draw[->, thick] (-2,-1) -- node[midway, below] {$L_1$} (7,-1);
-\draw[->, thick] (-2,-1) -- node[midway, left] {$L_2$} (-2,5);
-\draw[thick, dashed] (0,0) -- node[midway, left, font = \small] {Length = 4} (0,4);
-\draw[thick, dashed] (0,4) -- node[midway, above, font = \small] {Length = 3} (3,4);
-\draw[thick, dashed] (0,0) -- node[midway, right, font = \small] {Length = 5} (3,4);
-\draw[thick, dashed] (0,0) -- node[midway, below, font = \small] {Length = 6} (6,0);
-\node[blue] (treated) at (0,0) {$\bullet$};
-\node[gray] (a) at (3,4) {$\bullet$};
-\node[gray] (b) at (6,0) {$\bullet$};
-\node[anchor = north east, font = \small, blue] at (treated) {Treated};
-\node[anchor = south west, font = \small, gray] at (a) {Untreated 1};
-\node[anchor = south west, font = \small, gray] at (b) {Untreated 2};
-\end{tikzpicture}
-} \vskip .2in \pause
-Now suppose only $L_2$ is related to treatment. $L_1$ doesn't matter.\\
-\begin{tikzpicture}
-\node (l2) at (0,0) {$L_2$};
-\node (l1) at (2,1) {$L_1$};
-\node (a) at (1,0) {$A$};
-\node (y) at (2,0) {$Y$};
-\draw[->, thick] (l2) -- (a);
-\draw[->, thick] (l2) to[bend right] (y);
-\draw[->, thick] (l1) -- (y);
-\draw[->, thick] (a) -- (y);
-\end{tikzpicture}\\ \pause
-Which match do you pick? \pause Untreated 2! Perfect match.
-
-\end{frame}
-
-\begin{frame}{A common distance metric: Propensity scores}
-Propensity score: $\pi_i = \P(A = 1\mid \vec{L} = \vec\ell_i)$ \pause
-\begin{itemize}
-\item Univariate summary of all confounders \pause
-\item In expectation, a sample balanced on $\pi$ is balanced on $\vec{L}$
-\begin{itemize}
-\item Rosenbaum \& Rubin theorem\footnote{Rosenbaum, P. R., \& Rubin, D. B. (1983). \bref{https://doi.org/10.1093/biomet/70.1.41}{The central role of the propensity score in observational studies for causal effects.} Biometrika, 70(1), 41-55.}
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{A common distance metric: Propensity scores}
-
-Propensity scores can be nonparametric or parametric.
-\begin{itemize} \pause
-\item Nonparametric: $\hat\pi_i$ is the proportion treated in the sample stratum $\vec{L} = \vec\ell_i$. \pause
-\item Parametric: Often estimated as
-\begin{itemize}
-\item Fit logistic regression
-$$\text{logit}\left(\P(A = 1\mid \vec{L})\right) = \alpha + \vec{L}\vec\beta$$ \pause
-\item Predict the probability of treatment
-$$\hat\pi_i = \text{logit}^{-1}\left(\hat\alpha + \vec\ell_i\hat{\vec\beta}\right)$$ \vspace{-.2in}
-\end{itemize}
-\end{itemize} \pause
-Propensity score distance for matching:
-$$d(i,j) = \lvert \hat\pi_i - \hat\pi_j\rvert $$
-
-\end{frame}
-
-\begin{frame}{Why propensity scores are nice} \pause
-
-\begin{itemize}
-\item Multivariate $\vec{L}_i$ to univariate $\pi_i$ \pause
-\begin{itemize}
-\item Easy to reason about \pause
-\item Can directly visualize the univariate matches
-\end{itemize} \pause
-\item Mathematical guarantees in expectation \pause
-\item Intuitive: Prioritizes covariates that predict treatment
-\end{itemize}
-
-\end{frame}
 
 \begin{frame}{Multivariate distances: Recap}
 
@@ -581,36 +672,6 @@ When matching on multivariate $\vec{L}$, you have to define the distance between
 There is no right answer! Depends on the setting.
 
 \end{frame}
-
-\subsection{After matching: Evaluate matched sets}
-
-\tcframe
-
-\begin{frame}{Evaluate the matched sets}
-Why we match: So $\vec{L}$ follows a similar distribution
-\begin{itemize}
-\item in the treated sample
-\item in the untreated sample
-\end{itemize}
-Whatever method, you should check that.
-\begin{itemize}
-\item Compare means of $\vec{L}$ across groups
-\item Possibly compare interactive cells
-\item Ideally, before looking at $Y$!
-\end{itemize}
-\end{frame}
-
-\goalsframe
-
-
-\end{document}
-
-
-
-
-
-
-
 
 
 \begin{frame}{Propensity score problems: King \& Nielsen\footnote{King, G., \& Nielsen, R. (2019). \bref{https://www.cambridge.org/core/journals/political-analysis/article/whypropensity-scoresshould-not-be-usedformatching/94DDE7ED8E2A796B693096EB714BE68B}{Why propensity scores should not be used for matching.} Political Analysis, 27(4), 435-454.}}
@@ -650,4 +711,29 @@ Why might you use propensity scores? \pause
 \item Useful in other ways (e.g., weighting)
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}{Matching: The big idea}
+\centering
+\begin{tikzpicture}[x = 2.5in, y = 1.5in]
+\node at (0,-.3) {};
+\draw[->, thick] (0,0) -- node[midway, below] {Confounder $L$} (1,0);
+\draw[->, thick] (0,0) -- node[midway, above, rotate = 90] {Outcome $Y$} (0,1);
+\node[anchor = north west, blue] at (1.1,1) {Treated};
+\node[blue, draw, circle, font = \footnotesize] (p1) at (.2,.8) {$1$};
+\node[blue, draw, circle, font = \footnotesize] (p2) at (.7,.76) {$2$};
+\onslide<2->{
+\node[anchor = north west, gray] at (1.1,.9) {Untreated};
+\node[gray, draw, circle, font = \footnotesize] (p3) at (.3,.3) {$3$};
+\node[gray, draw, circle, font = \footnotesize] (p4) at (.45,.42) {$4$};
+\node[gray, draw, circle, font = \footnotesize] (p5) at (.65,.34) {$5$};
+}
+\draw<4-> (p3) -| node[pos = .75, left] {$\hat\tau_1$} (p1);
+\draw<5-> (p5) -| node[pos = .75, right] {$\hat\tau_2$} (p2);
+\node<6->[anchor = south west] at (0,-.5) {$\widehat{\text{SATT}} = \frac{1}{2}(\hat\tau_1 + \hat\tau_2)$};
+\node<1>[anchor = south west] at (0,-.65) {You have a some treated units.};
+\node<2>[anchor = south west] at (0,-.65) {You go find some untreated units.};
+\node<3-5>[anchor = south west, align = left] at (0,-.65) {You find the closest matches along $L$.\\You estimate each effect.};
+\node<6>[anchor = south west] at (0,-.65) {(Sample Average Treatment Effect on the Treated)};
+\end{tikzpicture}
 \end{frame}

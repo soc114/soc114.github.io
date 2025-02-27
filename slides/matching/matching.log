@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  14 FEB 2025 13:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  27 FEB 2025 09:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1318,14 +1318,19 @@ thkerncmss.
 
 ] [14
 
-] [15
+]
+<figures/lalonde_data.pdf, id=118, 361.35pt x 216.81pt>
+File: figures/lalonde_data.pdf Graphic file (type pdf)
+<use figures/lalonde_data.pdf>
+Package pdftex.def Info: figures/lalonde_data.pdf  used on input line 119.
+(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
+ [15
 
-] [16
+ <./figures/lalonde_data.pdf>] [16
 
 ] [17
 
-]
-[18
+] [18
 
 ] [19
 
@@ -1342,56 +1347,56 @@ thkerncmss.
 ] [25
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][] 
  []
 
 [26
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][] 
  []
 
 [27
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][] 
  []
 
 [28
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][] 
  []
 
 [29
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][] 
  []
 
 [30
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][][] 
  []
 
 [31
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][][] 
  []
 
 [32
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
+Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
 [][][][] 
  []
 
@@ -1403,16 +1408,21 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [36
 
-] [37
+]
+<figures/lalonde_caliper.pdf, id=264, 361.35pt x 216.81pt>
+File: figures/lalonde_caliper.pdf Graphic file (type pdf)
+<use figures/lalonde_caliper.pdf>
+Package pdftex.def Info: figures/lalonde_caliper.pdf  used on input line 204.
+(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
+ [37
 
-] [38
+ <./figures/lalonde_caliper.pdf>] [38
 
 ] [39
 
 ] [40
 
-]
-[41
+] [41
 
 ] [42
 
@@ -1420,9 +1430,16 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [44
 
-] [45
+]
+<figures/lalonde_k1.pdf, id=313, 361.35pt x 216.81pt>
+File: figures/lalonde_k1.pdf Graphic file (type pdf)
+<use figures/lalonde_k1.pdf>
+Package pdftex.def Info: figures/lalonde_k1.pdf  used on input line 244.
+(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
+ [45
 
-] [46
+ <./figures/lalonde_k1.pdf>]
+[46
 
 ] [47
 
@@ -1436,14 +1453,21 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [52
 
-] [53
+]
+<figures/lalonde_replacement.pdf, id=361, 361.35pt x 216.81pt>
+File: figures/lalonde_replacement.pdf Graphic file (type pdf)
+<use figures/lalonde_replacement.pdf>
+Package pdftex.def Info: figures/lalonde_replacement.pdf  used on input line 28
+9.
+(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
+ [53
 
-] [54
+ <./figures/lalonde_replacement.pdf>]
+[54
 
 ] [55
 
-]
-[56
+] [56
 
 ] [57
 
@@ -1451,7 +1475,13 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [59
 
-] [60
+]
+File: figures/lalonde_replacement.pdf Graphic file (type pdf)
+<use figures/lalonde_replacement.pdf>
+Package pdftex.def Info: figures/lalonde_replacement.pdf  used on input line 33
+0.
+(pdftex.def)             Requested size: 245.83282pt x 147.50162pt.
+ [60
 
 ] [61
 
@@ -1459,22 +1489,29 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [63
 
-] (./matching.toc) [64
+] [64
 
-] (./matching.toc)
-[65
+] [65
 
 ] [66
 
 ] [67
 
-] [68
+]
+(./matching.toc) [68
 
-] [69
+] (./matching.toc) [69
 
-] [70
+]
+<figures/lalonde_multivariate.pdf, id=473, 361.35pt x 216.81pt>
+File: figures/lalonde_multivariate.pdf Graphic file (type pdf)
+<use figures/lalonde_multivariate.pdf>
+Package pdftex.def Info: figures/lalonde_multivariate.pdf  used on input line 3
+78.
+(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
+ [70
 
-] [71
+ <./figures/lalonde_multivariate.pdf>] [71
 
 ] [72
 
@@ -1492,8 +1529,7 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [79
 
-]
-[80
+] [80
 
 ] [81
 
@@ -1501,7 +1537,8 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [83
 
-] [84
+]
+[84
 
 ] [85
 
@@ -1523,77 +1560,11 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 
 ] [94
 
-]
-[95
+] [95
 
 ] [96
 
 ] [97
-
-] [98
-
-] [99
-
-] [100
-
-] [101
-
-] [102
-
-] [103
-
-] [104
-
-] [105
-
-] [106
-
-] [107
-
-]
-[108
-
-] [109
-
-] [110
-
-] [111
-
-] [112
-
-] [113
-
-] [114
-
-] [115
-
-] [116
-
-] [117
-
-] [118
-
-] [119
-
-]
-[120
-
-] [121
-
-] [122
-
-] [123
-
-] [124
-
-] (./matching.toc) [125
-
-] (./matching.toc) [126
-
-]
-[127
-
-] [128
 
 ]
 \tf@nav=\write6
@@ -1605,18 +1576,19 @@ Overfull \hbox (27.2159pt too wide) in paragraph at lines 182--182
 \tf@snm=\write8
 \openout8 = `matching.snm'.
 
- (./matching.aux)
+
+(./matching.aux)
 Package rerunfilecheck Info: File `matching.out' has not changed.
-(rerunfilecheck)             Checksum: BD6E802E9E5119DC40DC7B58E5CCE1CB;1000.
+(rerunfilecheck)             Checksum: 7F566251F1BF426BADD8107541DC08C2;744.
  ) 
 Here is how much of TeX's memory you used:
- 30361 strings out of 476025
- 622145 string characters out of 5790016
+ 30333 strings out of 476025
+ 622771 string characters out of 5790016
  1868388 words of memory out of 5000000
- 49904 multiletter control sequences out of 15000+600000
- 540172 words of font info for 117 fonts, out of 8000000 for 9000
+ 49937 multiletter control sequences out of 15000+600000
+ 539878 words of font info for 116 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,12n,122p,436b,706s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,11n,122p,403b,688s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
@@ -1631,12 +1603,11 @@ local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/l
 ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
 cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/loca
 l/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
-texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/lo
-cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on matching.pdf (128 pages, 335512 bytes).
+texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on matching.pdf (97 pages, 325529 bytes).
 PDF statistics:
- 922 PDF objects out of 1000 (max. 8388607)
- 746 compressed objects within 8 object streams
- 261 named destinations out of 1000 (max. 500000)
- 75 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 742 PDF objects out of 1000 (max. 8388607)
+ 591 compressed objects within 6 object streams
+ 198 named destinations out of 1000 (max. 500000)
+ 92 words of extra memory for PDF output out of 10000 (max. 10000000)
 
