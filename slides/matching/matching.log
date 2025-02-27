@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  27 FEB 2025 09:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.20)  27 FEB 2025 15:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1346,81 +1346,49 @@ Package pdftex.def Info: figures/lalonde_data.pdf  used on input line 119.
 
 ] [25
 
-]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][] 
- []
+] (./matching.toc) [26
 
-[26
+] (./matching.toc) [27
 
-]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][] 
- []
-
-[27
+] [28
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][] 
- []
+<figures/lalonde_caliper.pdf, id=206, 361.35pt x 216.81pt>
+File: figures/lalonde_caliper.pdf Graphic file (type pdf)
+<use figures/lalonde_caliper.pdf>
+Package pdftex.def Info: figures/lalonde_caliper.pdf  used on input line 162.
+(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
+ [29
 
-[28
-
-]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][] 
- []
-
-[29
+ <./figures/lalonde_caliper.pdf>] [30
 
 ]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][] 
- []
-
-[30
-
-]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][][] 
- []
-
 [31
 
-]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][][] 
- []
+] [32
 
-[32
+] [33
 
-]
-Overfull \hbox (27.2159pt too wide) in paragraph at lines 183--183
-[][][][] 
- []
+] [34
 
-[33
-
-] (./matching.toc) [34
-
-] (./matching.toc) [35
+] [35
 
 ] [36
 
 ]
-<figures/lalonde_caliper.pdf, id=264, 361.35pt x 216.81pt>
-File: figures/lalonde_caliper.pdf Graphic file (type pdf)
-<use figures/lalonde_caliper.pdf>
-Package pdftex.def Info: figures/lalonde_caliper.pdf  used on input line 204.
+<figures/lalonde_k1.pdf, id=254, 361.35pt x 216.81pt>
+File: figures/lalonde_k1.pdf Graphic file (type pdf)
+<use figures/lalonde_k1.pdf>
+Package pdftex.def Info: figures/lalonde_k1.pdf  used on input line 202.
 (pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
  [37
 
- <./figures/lalonde_caliper.pdf>] [38
+ <./figures/lalonde_k1.pdf>] [38
 
 ] [39
 
-] [40
+]
+[40
 
 ] [41
 
@@ -1431,19 +1399,20 @@ Package pdftex.def Info: figures/lalonde_caliper.pdf  used on input line 204.
 ] [44
 
 ]
-<figures/lalonde_k1.pdf, id=313, 361.35pt x 216.81pt>
-File: figures/lalonde_k1.pdf Graphic file (type pdf)
-<use figures/lalonde_k1.pdf>
-Package pdftex.def Info: figures/lalonde_k1.pdf  used on input line 244.
+<figures/lalonde_replacement.pdf, id=304, 361.35pt x 216.81pt>
+File: figures/lalonde_replacement.pdf Graphic file (type pdf)
+<use figures/lalonde_replacement.pdf>
+Package pdftex.def Info: figures/lalonde_replacement.pdf  used on input line 24
+7.
 (pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
  [45
 
- <./figures/lalonde_k1.pdf>]
-[46
+ <./figures/lalonde_replacement.pdf>] [46
 
 ] [47
 
-] [48
+]
+[48
 
 ] [49
 
@@ -1451,19 +1420,17 @@ Package pdftex.def Info: figures/lalonde_k1.pdf  used on input line 244.
 
 ] [51
 
-] [52
-
 ]
-<figures/lalonde_replacement.pdf, id=361, 361.35pt x 216.81pt>
 File: figures/lalonde_replacement.pdf Graphic file (type pdf)
 <use figures/lalonde_replacement.pdf>
 Package pdftex.def Info: figures/lalonde_replacement.pdf  used on input line 28
-9.
-(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
- [53
+8.
+(pdftex.def)             Requested size: 245.83282pt x 147.50162pt.
+ [52
 
- <./figures/lalonde_replacement.pdf>]
-[54
+] [53
+
+] [54
 
 ] [55
 
@@ -1475,21 +1442,24 @@ Package pdftex.def Info: figures/lalonde_replacement.pdf  used on input line 28
 
 ] [59
 
+] (./matching.toc)
+[60
+
+] (./matching.toc) [61
+
 ]
-File: figures/lalonde_replacement.pdf Graphic file (type pdf)
-<use figures/lalonde_replacement.pdf>
-Package pdftex.def Info: figures/lalonde_replacement.pdf  used on input line 33
-0.
-(pdftex.def)             Requested size: 245.83282pt x 147.50162pt.
- [60
+<figures/lalonde_multivariate.pdf, id=416, 361.35pt x 216.81pt>
+File: figures/lalonde_multivariate.pdf Graphic file (type pdf)
+<use figures/lalonde_multivariate.pdf>
+Package pdftex.def Info: figures/lalonde_multivariate.pdf  used on input line 3
+36.
+(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
+ [62
 
-] [61
+ <./figures/lalonde_multivariate.pdf>] [63
 
-] [62
-
-] [63
-
-] [64
+]
+[64
 
 ] [65
 
@@ -1497,21 +1467,13 @@ Package pdftex.def Info: figures/lalonde_replacement.pdf  used on input line 33
 
 ] [67
 
-]
-(./matching.toc) [68
+] [68
 
-] (./matching.toc) [69
+] [69
 
-]
-<figures/lalonde_multivariate.pdf, id=473, 361.35pt x 216.81pt>
-File: figures/lalonde_multivariate.pdf Graphic file (type pdf)
-<use figures/lalonde_multivariate.pdf>
-Package pdftex.def Info: figures/lalonde_multivariate.pdf  used on input line 3
-78.
-(pdftex.def)             Requested size: 307.28987pt x 184.37538pt.
- [70
+] [70
 
- <./figures/lalonde_multivariate.pdf>] [71
+] [71
 
 ] [72
 
@@ -1527,7 +1489,8 @@ Package pdftex.def Info: figures/lalonde_multivariate.pdf  used on input line 3
 
 ] [78
 
-] [79
+]
+[79
 
 ] [80
 
@@ -1537,8 +1500,7 @@ Package pdftex.def Info: figures/lalonde_multivariate.pdf  used on input line 3
 
 ] [83
 
-]
-[84
+] [84
 
 ] [85
 
@@ -1550,22 +1512,6 @@ Package pdftex.def Info: figures/lalonde_multivariate.pdf  used on input line 3
 
 ] [89
 
-] [90
-
-] [91
-
-] [92
-
-] [93
-
-] [94
-
-] [95
-
-] [96
-
-] [97
-
 ]
 \tf@nav=\write6
 \openout6 = `matching.nav'.
@@ -1576,16 +1522,15 @@ Package pdftex.def Info: figures/lalonde_multivariate.pdf  used on input line 3
 \tf@snm=\write8
 \openout8 = `matching.snm'.
 
-
-(./matching.aux)
+ (./matching.aux)
 Package rerunfilecheck Info: File `matching.out' has not changed.
-(rerunfilecheck)             Checksum: 7F566251F1BF426BADD8107541DC08C2;744.
+(rerunfilecheck)             Checksum: 1B8B2855A9CDC75B3AF860BFDE87F5A4;744.
  ) 
 Here is how much of TeX's memory you used:
- 30333 strings out of 476025
- 622771 string characters out of 5790016
- 1868388 words of memory out of 5000000
- 49937 multiletter control sequences out of 15000+600000
+ 30277 strings out of 476025
+ 622075 string characters out of 5790016
+ 1867388 words of memory out of 5000000
+ 49897 multiletter control sequences out of 15000+600000
  539878 words of font info for 116 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,11n,122p,403b,688s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1604,10 +1549,10 @@ ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
 cal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/loca
 l/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
 texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on matching.pdf (97 pages, 325529 bytes).
+Output written on matching.pdf (89 pages, 305915 bytes).
 PDF statistics:
- 742 PDF objects out of 1000 (max. 8388607)
- 591 compressed objects within 6 object streams
- 198 named destinations out of 1000 (max. 500000)
+ 682 PDF objects out of 1000 (max. 8388607)
+ 539 compressed objects within 6 object streams
+ 182 named destinations out of 1000 (max. 500000)
  92 words of extra memory for PDF output out of 10000 (max. 10000000)
 

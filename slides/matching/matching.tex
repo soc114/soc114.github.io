@@ -140,48 +140,6 @@ data(``lalonde'', package = ``MatchIt'')
 
 \end{frame}
 
-\begin{frame}{Matching: A word of warning\footnote{Sekhon, J. S. (2009). \bref{http://sekhon.berkeley.edu/papers/annualreview.pdf}{Opiates for the matches: Matching methods for causal inference.} Annual Review of Political Science, 12(1), 487-508.}} \pause
-
-\begin{tikzpicture}
-\node at (11,-1.5) {};
-\node at (-.5,2) {};
-\node (l) at (0,0) {$L$};
-\node (a) at (1,0) {$A$};
-\node (y) at (2,0) {$Y$};
-\draw[->, thick] (l) -- (a);
-\draw[->, thick] (l) to[bend right] (y);
-\draw[->, thick] (a) -- (y); \pause
-\node[anchor = north, seagreen, font = \bf] at (1,2) {Matching works!}; \pause
-\node[anchor = north, red, font = \bf] at (5,2) {No help!};
-\node (l) at (4,0) {$L$};
-\node (a) at (5,0) {$A$};
-\node (u) at (5.5,1) {$U$};
-\node (y) at (6,0) {$Y$};
-\draw[->, thick] (l) -- (a);
-\draw[->, thick] (l) to[bend right] (y);
-\draw[->, thick] (a) -- (y);
-\draw[->, thick] (u) -- (a);
-\draw[->, thick] (u) -- (y); \pause
-\node[anchor = north, red, font = \bf] at (9,2) {No help!};
-\node (l) at (8,0) {$L$};
-\node (a) at (9,0) {$A$};
-\node (u1) at (8,1) {$U_1$};
-\node (u2) at (8,-1) {$U_2$};
-\node (y) at (10,0) {$Y$};
-\draw[->, thick] (l) -- (a);
-\draw[->, thick] (l) to[bend right] (y);
-\draw[->, thick] (a) -- (y);
-\draw[->, thick] (u1) -- (a);
-\draw[->, thick] (u1) -- (l);
-\draw[->, thick] (u2) -- (l);
-\draw[->, thick] (u2) to[bend right] (y);
-\end{tikzpicture}
-\onslide<6->{Matching is an estimation strategy.} \\
-\onslide<7->{It does not solve identification problems.}\\
-\onslide<8->{Matching is only as good as your DAG!}
-
-\end{frame}
-
 \subsection{Matching in univariate settings: Algorithms}
 
 \tcframe
@@ -736,4 +694,46 @@ Why might you use propensity scores? \pause
 \node<3-5>[anchor = south west, align = left] at (0,-.65) {You find the closest matches along $L$.\\You estimate each effect.};
 \node<6>[anchor = south west] at (0,-.65) {(Sample Average Treatment Effect on the Treated)};
 \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Matching: A word of warning\footnote{Sekhon, J. S. (2009). \bref{http://sekhon.berkeley.edu/papers/annualreview.pdf}{Opiates for the matches: Matching methods for causal inference.} Annual Review of Political Science, 12(1), 487-508.}} \pause
+
+\begin{tikzpicture}
+\node at (11,-1.5) {};
+\node at (-.5,2) {};
+\node (l) at (0,0) {$L$};
+\node (a) at (1,0) {$A$};
+\node (y) at (2,0) {$Y$};
+\draw[->, thick] (l) -- (a);
+\draw[->, thick] (l) to[bend right] (y);
+\draw[->, thick] (a) -- (y); \pause
+\node[anchor = north, seagreen, font = \bf] at (1,2) {Matching works!}; \pause
+\node[anchor = north, red, font = \bf] at (5,2) {No help!};
+\node (l) at (4,0) {$L$};
+\node (a) at (5,0) {$A$};
+\node (u) at (5.5,1) {$U$};
+\node (y) at (6,0) {$Y$};
+\draw[->, thick] (l) -- (a);
+\draw[->, thick] (l) to[bend right] (y);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (u) -- (a);
+\draw[->, thick] (u) -- (y); \pause
+\node[anchor = north, red, font = \bf] at (9,2) {No help!};
+\node (l) at (8,0) {$L$};
+\node (a) at (9,0) {$A$};
+\node (u1) at (8,1) {$U_1$};
+\node (u2) at (8,-1) {$U_2$};
+\node (y) at (10,0) {$Y$};
+\draw[->, thick] (l) -- (a);
+\draw[->, thick] (l) to[bend right] (y);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (u1) -- (a);
+\draw[->, thick] (u1) -- (l);
+\draw[->, thick] (u2) -- (l);
+\draw[->, thick] (u2) to[bend right] (y);
+\end{tikzpicture}
+\onslide<6->{Matching is an estimation strategy.} \\
+\onslide<7->{It does not solve identification problems.}\\
+\onslide<8->{Matching is only as good as your DAG!}
+
 \end{frame}
