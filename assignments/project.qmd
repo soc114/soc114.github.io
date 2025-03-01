@@ -102,7 +102,7 @@ We want to learn about your experience working in your group, for two reasons.
 1) We want to assess for the future how this group project went.
 2) As a secondary goal, in the rare case that a group member was consistently uninvolved, we want to assess some percentage penalty on that group member's score. We only anticipate doing this in rare cases.
 
-After the project has been submitted, we will ask everyone to complete this [**within-group peer evaluation form**](https://docs.google.com/forms/d/e/1FAIpQLSdIdrmZWVoAY8rpVf4_knaILO0DRPx9sMejIyAIUVC24P0R1g/viewform?usp=dialog) once to tell us about the contributions of each member of their group.
+After the project has been submitted, we will ask everyone to complete this [**within-group peer evaluation form**](https://docs.google.com/forms/d/e/1FAIpQLSdIdrmZWVoAY8rpVf4_knaILO0DRPx9sMejIyAIUVC24P0R1g/viewform?usp=dialog) once to tell us about the contributions of each member of their group. We have taken this rubric from a website by the [Center for Teaching Innovation at Cornell University](https://teaching.cornell.edu/teaching-resources/active-collaborative-learning/collaborative-learning/how-evaluate-group-work).
 
 ## Have fun
 
