@@ -58,6 +58,52 @@ With these components in mind, you will answer one descriptive and one causal re
 - **Aggregation.** Your data must begin with units (e.g., people) who you aggregate into subgroups (e.g., age groups). Your data might come pre-aggregated, such as data where each row contains data for all students in a particular college or university. Then you would need to aggregate further, such as to produce summaries for private versus public universities.
 - **Dropped cases.** As you move from raw data to the data that produce your graph, you might drop cases on the way. For example, some cases may have missing values on key predictors. Report how many are dropped, and why. Our goal here is transparent, open science.
 
+## Rubrics
+
+### Writeup rubric
+
+| Criteria	| Points |
+|---|---|
+|The descriptive research question is well motivated, feasible, and avoids causal language.	| 10 pts	 |
+|The causal research question is well motivated, feasible, and states appropriate causal assumptions.	| 10 pts	 |
+|Unit of analysis is defined clearly	| 5 pts	 |
+|Target population is defined clearly	| 5 pts	 |
+|Predictor(s) are defined clearly	| 5 pts	 |
+|Outcome is defined clearly	| 5 pts	 |
+|Summary statistic is defined clearly (e.g., mean, median, proportion)	| 5 pts	 |
+|Data source is described	| 5 pts	 |
+|Sample restrictions are precisely stated, with the number of cases dropped at each step	| 10 pts	 |
+|Weights are used appropriately, if applicable	| 5 pts	 |
+|Figure(s) are clearly labeled	| 10 pts	 |
+|Text explains and interprets the figure(s)	| 10 pts	 |
+|Writing is concise and grammatically correct	| 5 pts	 |
+|Code is well-formatted, well-documented, and easy to follow	| 5 pts	 |
+|Code lines fit on the PDF page	| 5 pts	 |
+| **Total** | **100 pts** |
+
+### Presentation rubric
+
+| Criteria	| Points |
+|---|---|
+| Slides are a PDF submitted in Canvas |	5 pts	 |
+| Slides use minimal text |	5 pts	 |
+| Presentation motivates the research question |	5 pts	 |
+| Presentation states the question precisely |	5 pts	 |
+| Presentation walks through how to read the graph |	5 pts	 |
+| All group members speak (excused absences will not be penalized) |	5 pts	 |
+| Presentation finishes on time |	5 pts	 |
+| Group listens to classmates and answers questions clearly |	5 pts	 |
+| **Total** | **40 pts** |	
+
+### Within-group peer evaluation
+
+We want to learn about your experience working in your group, for two reasons.
+
+1) We want to assess for the future how this group project went.
+2) As a secondary goal, in the rare case that a group member was consistently uninvolved, we want to assess some percentage penalty on that group member's score. We only anticipate doing this in rare cases.
+
+After the project has been submitted, we will ask everyone to complete this [**within-group peer evaluation form**](https://docs.google.com/forms/d/e/1FAIpQLSdIdrmZWVoAY8rpVf4_knaILO0DRPx9sMejIyAIUVC24P0R1g/viewform?usp=dialog) once to tell us about the contributions of each member of their group.
+
 ## Have fun
 
 As a teaching team, the project is our favorite part of the course. Preparing you to succeed in the project has been (in some sense) the entire goal of all that precedes the project in the course. We hope you will find joy in answering questions with data, as we do.
