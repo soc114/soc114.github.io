@@ -446,7 +446,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#your-turn-fit-a-regression-tree" id="toc-your-turn-fit-a-regression-tree" class="nav-link" data-scroll-target="#your-turn-fit-a-regression-tree">Your turn: Fit a regression tree</a></li>
   <li><a href="#tuning-parameter-depth" id="toc-tuning-parameter-depth" class="nav-link" data-scroll-target="#tuning-parameter-depth">Tuning parameter: Depth</a></li>
-  <li><a href="#trees-for-causal-inference" id="toc-trees-for-causal-inference" class="nav-link" data-scroll-target="#trees-for-causal-inference">Trees for causal inference</a></li>
   <li><a href="#what-to-read" id="toc-what-to-read" class="nav-link" data-scroll-target="#what-to-read">What to read</a></li>
   </ul>
 </nav>
@@ -473,6 +472,9 @@ window.Quarto = {
 </header>
 
 
+<blockquote class="blockquote">
+<p>Here are <a href="../slides/trees/trees.pdf">slides</a>.</p>
+</blockquote>
 <p>Regression models perform well when the the response surface <span class="math inline">\(E(Y\mid\vec{X})\)</span> follows a line (or some other assumed shape). In some settings, however, the response surface may be more complex. There may be nonlinearities and interaction terms that the researcher may not know about in advance. In these settings, one might desire an estimator that adaptively learns the functional form from the data. Trees are one such approach.</p>
 <section id="a-simulation-to-illustrate-trees" class="level2">
 <h2 class="anchored" data-anchor-id="a-simulation-to-illustrate-trees">A simulation to illustrate trees</h2>
@@ -822,10 +824,6 @@ window.Quarto = {
 <p>Shallow trees yield predictions that tend to be more biased because the terminal nodes are large. At the far right when <code>z = TRUE</code> and <code>x</code> is large, the predictions from the shallow trees are systematically lower than the true conditional mean.</p>
 <p>Deep trees yield predictions that tend to be high variance because the terminal nodes are small. While the flexibility of deep trees yields predictions that are less biased, the high variance can make deep trees poor predictors.</p>
 <p>The balance between shallow and deep trees can be chosen by various rules of thumb or out-of-sample performance metrics, many of which are built into functions like <code>rpart</code>. Another way out is to move beyond trees to forests, which involve a simple extension that yields substantial improvements in performance.</p>
-</section>
-<section id="trees-for-causal-inference" class="level2">
-<h2 class="anchored" data-anchor-id="trees-for-causal-inference">Trees for causal inference</h2>
-<p>TBD</p>
 </section>
 <section id="what-to-read" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-read">What to read</h2>

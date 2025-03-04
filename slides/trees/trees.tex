@@ -57,17 +57,15 @@
 \newcommand{\goalsframe}{\begin{frame}{Learning goals for today}
 By the end of class, you will be able to
 \begin{itemize}
-    \item use statistical learning to estimate when data are sparse
-    \item work with models that are ``wrong''
+    \item understand the notion of supervised machine learning
+    \begin{itemize}
+    \item an input-output machine
+    \item learned on some learning cases
+    \item used to predict for new cases
+    \end{itemize}
+    \item apply that notion to the specific case of regression trees
  \end{itemize} 
   \vskip .2in
-\end{frame}}
-
-\newcommand{\credible}{\begin{frame}{Credible science}
-\begin{enumerate}
-\item replicability
-\item reproducibility
-\end{enumerate}
 \end{frame}}
 
 \usepackage[round]{natbib}
@@ -87,7 +85,7 @@ By the end of class, you will be able to
 \node at (1,1) {};
 \node[anchor = north west, align = left, font = \huge] at (0,.9) {Social\\Data\\Science};
 \node[anchor = north east, align = right] (number) at (1,.9) {Soc 114\\Winter 2025};
-\node[anchor = north, font = \Large, align = center] at (.5,.5) {Supervised Machine Learning};
+\node[anchor = north, font = \Large, align = center] at (.5,.5) {Supervised Machine Learning\\Illustration with Trees};
 \end{tikzpicture}
 \end{frame}
 
@@ -229,12 +227,225 @@ where unit $j$ is the best match among the learning sample, which minimizes a di
 
 \end{frame}
 
-\begin{frame}{A tree can be interpretable}
+\begin{frame}{Trees as a prediction function: How that worked. \textbf{Summary.}}
 
-TODO: real data example. Have them run it if in class.
+\begin{enumerate}
+\item Begin with all data
+\item Consider many ways to partition into two parts
+\item Estimate the mean squared prediction error for each: $\E((\hat{Y} - Y)^2)$
+\item Choose the split that minimizes mean squared prediction error
+\end{enumerate}
+Repeatedly, apply steps (1--4) to each subgroup. \\
+Stop by a data-driven rule.
 
 \end{frame}
 
+\begin{frame}{Trees: Some terminology}
+
+\begin{itemize}
+\item Branch = one direction of a split
+\item Leaf = terminal node at the bottom
+\end{itemize}
+\begin{center}
+\includegraphics[width = .7\textwidth]{figures/tree_sim_viz}
+\end{center}
+When presented with a new case, find its leaf.\\Predict the mean of $Y$ among learning cases in that leaf.
+
+\end{frame}
+
+\begin{frame}{A tree can be interpretable: Realistic example}
+
+\begin{itemize}
+\item Outcome: Has spouse or partner with BA degree at age 35
+\item Predictors: Demographics and measures of family background
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{A tree can be interpretable: Realistic example}
+
+\includegraphics[width = \textwidth]{figures/tree_fitting_code}
+
+\end{frame}
+
+\begin{frame}{A tree can be interpretable: Realistic example}
+
+$Y = $ has spouse or partner with BA degree at age 35
+
+\includegraphics[width = \textwidth]{figures/tree_fitting_figure}
+
+\end{frame}
+
+\begin{frame}{Pruning a tree}
+Sometimes you want a simpler decision rule
+\begin{itemize}
+\item you worry you are fitting to noise
+\item you want to explain predictions more easily
+\end{itemize} \vskip .2in \pause
+Then you prune the tree: Trim back some branches
+
+\end{frame}
+
+\begin{frame}{Pruning a tree: Original tree}
+
+\includegraphics[width = \textwidth]{figures/tree_fitting_figure}
+
+\end{frame}
+
+\begin{frame}{Pruning a tree: Pruned tree}{pruned $<$- prune(rpart.out, cp = .02)}
+
+\includegraphics[width = \textwidth]{figures/tree_fitting_figure_pruned}
+
+\end{frame}
+
+\begin{frame}{Discussion: Why prefer a tree vs OLS?}
+
+\begin{itemize}
+\item Reasons to prefer a tree
+\onslide<2->{
+\begin{itemize}
+\item No need to assume a functional form
+\item Easy to explain how a prediction is made:\\follow the decision branches
+\end{itemize}
+}
+\item Reasons to prefer OLS
+\onslide<3->{
+\begin{itemize}
+\item More widely known in social science
+\item Better if the functional form is correct
+\end{itemize}
+}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{From regression to causal trees}
+
+What step would change if our goal was to discover heterogeneous causal effects? \vskip .2in
+\begin{minipage}{.48\textwidth}
+Regression Trees
+\begin{enumerate}
+\item Begin with all data.
+\item Split to two sides with very different average value of $Y$.
+\item Repeat 1--2 on each leaf until a stopping rule is reached.
+\end{enumerate}
+\end{minipage}
+\onslide<2->{
+\begin{minipage}{.48\textwidth}
+Causal Trees
+\begin{enumerate}
+\item Begin with all data.
+\item Split to two sides with very different average value of $Y^1-Y^0$.
+\item Repeat 1--2 on each leaf until a stopping rule is reached.
+\end{enumerate}
+\end{minipage}
+} \pause \vskip .2in
+Athey, S. \& G. Imbens. 2016. \bref{https://www.pnas.org/doi/abs/10.1073/pnas.1510489113}{Recursive partitioning for heterogeneous causal effects.} \textit{PNAS}.
+
+\end{frame}
+
+\begin{frame}{Causal trees in randomized experiments}
+
+Setting:
+\begin{itemize}
+\item Many pre-treatment variables $\vec{X}$
+\item Randomized treatment $A$
+\end{itemize} \vskip .2in
+Procedure:
+\begin{itemize}
+\item In sample 1, partition into leaves.
+\item In sample 2, estimate effects within leaves by difference in means.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Causal trees in observational studies}
+
+Setting:
+\begin{itemize}
+\item Many pre-treatment variables $\vec{X}$
+\item Non-randomized treatment $A$
+\end{itemize} \vskip .2in
+Procedure:
+\begin{itemize}
+\item In sample 1, partition into leaves.
+\item In sample 2, estimate effects within leaves by difference in means, adjusted for confounding by IPW or matching.
+\end{itemize} \vskip .2in
+Brand, Xu, Koch, \& Geraldo. 2021. \bref{https://doi.org/10.1177/0081175021993503}{``Uncovering sociological effect heterogeneity using tree-based machine learning.''} Sociological Methodology, 51(2), 189-223.
+
+\end{frame}
+
+\begin{frame}{Causal trees in observational studies}
+{\bref{https://doi.org/10.1177/0081175021993503}{Brand, Xu, Koch, \& Geraldo (2021)}}
+Causal question: Effect of college completion on the proportion of time in low-wage work. \vskip .1in
+\includegraphics[width = .7\textwidth]{figures/brand_etal_figure}
+\end{frame}
+
+\begin{frame}{Causal trees in observational studies}
+
+The setting:
+\begin{itemize}
+\item Many pre-treatment variables $\vec{X}$
+\item Non-randomized treatment $A$
+\item Conditional exchanngeability holds
+\end{itemize} \vskip .2in
+The procedure
+\begin{itemize}
+\item One sample: Learn the tree
+\item Learn propensity score function
+\item New sample: Inverse-probability-weighted or matching estimates in each leaf
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Recap: Machine learning as an input-output function}
+
+\begin{center}
+\begin{tikzpicture}[x = 1in, y = .2in]
+\node (x) at (1,0) {$\vec{x}$};
+\node (y) at (2,0) {$\hat{y}$};
+\draw[->, thick] (x) -- (y);
+\node[anchor = north, font = {\footnotesize\bf}] at (1,1.5) {Input};
+\node[anchor = north, font = {\footnotesize\bf}] at (2,1.5) {Output};
+\node[anchor = north, font = {\footnotesize\bf}, gray] at (0,-1) {Example:};
+\node[anchor = north, font = \footnotesize, gray] at (1,-1) {\{Sex,Age\}};
+\node[anchor = north, font = \footnotesize, gray, align = left] at (2,-1) {Probability of\\Employment\\Given Sex\\and Age};
+\end{tikzpicture} \vskip .2in
+\begin{tikzpicture}
+\node[anchor = north] at (.5,2.8) {Age};
+\node[anchor = north] at (1.5,2.8) {Sex};
+\node[anchor = north] at (4.5,2.8) {Employed};
+% Learning grids
+\draw[xstep = 1, ystep = .5] (0,0) grid (2,2);
+\draw[xstep = 1, ystep = .5] (4,0) grid (5,2);
+% Prediction grid
+\draw[xstep = 1, ystep = .5] (0,-2) grid (2,-1.5);
+\draw[xstep = 1, ystep = .5] (4,-2) grid (5,-1.5);
+% Ages
+\node[font = \small] at (.5,1.75) {26};
+\node[font = \small] at (.5,1.25) {40};
+\node[font = \small] at (.5,.75) {61};
+\node[font = \small] at (.5,.25) {32};
+% Sexes
+\node[font = \small] at (1.5,1.75) {F};
+\node[font = \small] at (1.5,1.25) {M};
+\node[font = \small] at (1.5,.75) {M};
+\node[font = \small] at (1.5,.25) {F};
+% Employment
+\node[font = \small] at (4.5,1.75) {1};
+\node[font = \small] at (4.5,1.25) {1};
+\node[font = \small] at (4.5,.75) {0};
+\node[font = \small] at (4.5,.25) {1};
+% To predict
+\node[font = \small] at (.5,-1.75) {63};
+\node[font = \small] at (1.5,-1.75) {F};
+\node[font = \small] at (4.5,-1.75) {?};
+% Label cases
+\node[anchor = east, align = right] at (-.5,1) {cases for learning};
+\node[anchor = east, align = right] at (-.5,-1.75) {case to predict};
+\end{tikzpicture}
+\end{center}
+\end{frame}
 
 \goalsframe
 

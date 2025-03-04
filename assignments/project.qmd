@@ -64,6 +64,8 @@ With these components in mind, you will answer one descriptive and one causal re
 
 ### Writeup rubric
 
+> Here are [slides](../slides/project_rubric/project_rubric.pdf) for discussion of the writeup rubric.
+
 | Criteria	| Points |
 |---|---|
 |The descriptive research question is well motivated, feasible, and avoids causal language.	| 10 pts	 |

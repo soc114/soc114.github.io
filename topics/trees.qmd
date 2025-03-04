@@ -3,6 +3,8 @@ title: "Trees"
 format: html
 ---
 
+> Here are [slides](../slides/trees/trees.pdf).
+
 ```{r, echo = F, message = F, warning = F}
 library(tidyverse)
 library(foreach)
@@ -299,10 +301,6 @@ Shallow trees yield predictions that tend to be more biased because the terminal
 Deep trees yield predictions that tend to be high variance because the terminal nodes are small. While the flexibility of deep trees yields predictions that are less biased, the high variance can make deep trees poor predictors.
 
 The balance between shallow and deep trees can be chosen by various rules of thumb or out-of-sample performance metrics, many of which are built into functions like `rpart`. Another way out is to move beyond trees to forests, which involve a simple extension that yields substantial improvements in performance.
-
-## Trees for causal inference
-
-TBD
 
 ## What to read
 
