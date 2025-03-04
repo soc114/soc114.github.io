@@ -1009,7 +1009,7 @@
     "href": "schedule.html#assignments",
     "title": "Schedule",
     "section": "Assignments",
-    "text": "Assignments\n\n\n\nDue Date\nAssignment\n\n\n\n\nFri, Jan 10 at 5pm\nProblem Set 0\n\n\nFri, Jan 17 at 5pm\nProblem Set 1\n\n\nFri, Jan 24 at 5pm\nPeer Review 1\n\n\nFri, Jan 31 at 5pm\nProblem Set 2\n\n\nFri, Feb 07 at 5pm\nPeer Review 2\n\n\nFri, Feb 14 at 5pm\nProblem Set 3\n\n\nFri, Feb 21 at 5pm\nPeer Review 3\n\n\nFri, Feb 28 at 5pm\nProblem Set 4\n\n\nFri, Mar 07 at 5pm\nProject\n\n\nFri, Mar 14 at 5pm\nProject Peer Review"
+    "text": "Assignments\n\n\n\nDue Date\nAssignment\n\n\n\n\nFri, Jan 10 at 5pm\nProblem Set 0\n\n\nFri, Jan 17 at 5pm\nProblem Set 1\n\n\nFri, Jan 24 at 5pm\nPeer Review 1\n\n\nFri, Jan 31 at 5pm\nProblem Set 2\n\n\nFri, Feb 07 at 5pm\nPeer Review 2\n\n\nFri, Feb 14 at 5pm\nProblem Set 3\n\n\nFri, Feb 21 at 5pm\nPeer Review 3\n\n\nFri, Feb 28 at 5pm\nProblem Set 4\n\n\nFri, Mar 07 at 5pm\nDraft Project Writeup\n\n\nMon, Mar 10 at 5pm\nProject Slides\n\n\nFri, Mar 14 at 5pm\nProject Writeup"
   },
   {
     "objectID": "forms.html",
@@ -1035,7 +1035,7 @@
     "href": "assignments/project.html#what-you-will-submit",
     "title": "Final Project",
     "section": "What you will submit",
-    "text": "What you will submit\nThere are two submitted items, both due 5pm on Friday, Mar 7.\nWriteup. A .qmd document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.\nSlides. A PDF that you will present in discussion. Keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. Your presentation should be 10 minutes or less.",
+    "text": "What you will submit\nThere are assignments on BruinLearn. Each will take one submission per group.\nDraft Writeup. Due 5pm Fri Mar 7. Worth 0 points, but an opportunity to send us your work and get feedback from the teaching team. Format is the same as your writeup (see below).\nSlides. Due 5pm Mon Mar 10. A PDF that you will present in discussion. Keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. Your presentation should be 10 minutes or less.\nWriteup. Due 5pm Fri Mar 14. A .qmd document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.",
     "crumbs": [
       " ",
       "Assignments",

@@ -13,11 +13,13 @@ You can answer any question using the ideas we learned in this course.
 
 ## What you will submit
 
-There are two submitted items, both due 5pm on Friday, Mar 7.
+There are assignments on BruinLearn. Each will take one submission per group.
 
-**Writeup.** A `.qmd` document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.
+**Draft Writeup. Due 5pm Fri Mar 7.** Worth 0 points, but an opportunity to send us your work and get feedback from the teaching team. Format is the same as your writeup (see below).
 
-**Slides.** A PDF that you will present in discussion. Keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. Your presentation should be 10 minutes or less.
+**Slides. Due 5pm Mon Mar 10.** A PDF that you will present in discussion. Keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. Your presentation should be 10 minutes or less.
+
+**Writeup. Due 5pm Fri Mar 14.** A `.qmd` document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.
 
 ## Group structure
 

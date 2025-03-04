@@ -70,6 +70,7 @@ Each date will be a link to the slides for that lecture.
 | Fri, Feb 14	at 5pm | Problem Set 3 |
 | Fri, Feb 21	at 5pm | Peer Review 3 |
 | Fri, Feb 28	at 5pm | Problem Set 4 |
-| Fri, Mar 07	at 5pm | Project |
-| Fri, Mar 14	at 5pm | Project Peer Review |
+| Fri, Mar 07	at 5pm | Draft Project Writeup |
+| Mon, Mar 10	at 5pm | Project Slides |
+| Fri, Mar 14	at 5pm | Project Writeup |
 
