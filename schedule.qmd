@@ -40,8 +40,8 @@ Each date will be a link to the slides for that lecture.
 | Tue, [Feb 25](slides/ipw/ipw.pdf) | [Model-based inverse probability weighting](topics/models_for_causal.qmd#doubly-robust-estimation#treatment-modeling) |
 | Thu, [Feb 27](slides/matching/matching.pdf)	| [Matching](topics/matching.qmd) |
 | Tue, [Mar 4](slides/trees/trees.pdf)	| [Trees](topics/trees.qmd) |
-| Thu, Mar 6	| TBD (forests or bootstrap) |
-| Tue, Mar 11	| [Data-driven selection of an estimator](data_driven_selection.qmd) |
+| Thu, [Mar 6](slides/bootstrap/bootstrap.pdf)	| [Bootstrap for statistical uncertainty](topics/bootstrap.qmd) |
+| Tue, Mar 11	| [Data-driven selection of an estimator](topics/data_driven_selection.qmd) |
 | Thur, Mar 13	| Course recap |
 
 <!-- continuous treatments? mediation? -->

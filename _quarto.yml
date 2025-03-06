@@ -61,13 +61,12 @@ website:
           - topics/matching.qmd
           - topics/trees.qmd
           - topics/forests.qmd
+          - topics/bootstrap.qmd
           - topics/data_driven_selection.qmd
           # - section: "Models for description"
           #   contents:
           #     - topics/learning_exercise.qmd
           #     - topics/sample_splitting.qmd
-          - section: "Machine learning"
-            contents:
       - href: discussion.qmd
       - section: "Assignments"
         contents:

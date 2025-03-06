@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Classical Inference}{5}{0}{1}
+\beamer@sectionintoc {2}{Bootstrap}{12}{0}{2}
+\beamer@sectionintoc {3}{Discussion}{30}{0}{3}
+\beamer@sectionintoc {4}{Complex Samples}{33}{0}{4}
+\beamer@sectionintoc {5}{Words of Warning}{43}{0}{5}
