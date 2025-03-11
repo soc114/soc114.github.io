@@ -5,6 +5,8 @@ format:
     fig-height: 3
 ---
 
+> Here are [slides](../slides/data_driven_selection/data_driven_selection.pdf).
+
 <!-- > If you are taking notes, here is a PDF of the [slides](slides/lec4/data_driven_selection_slides_handout.pdf) and a PDF of [this page](assets/pdf_chapters/data_driven_selection.pdf). If you are a Stata user, most of this page is R code. The one most important exercise is sample splitting, for which you can use [sample_split.do](assets/stata_code/sample_split.do). -->
 
 Quantitative social scientists have long faced the question of how to choose a model. Even within the scope of linear regression, one might wonder whether a model that interacts two predictors is better than one that includes them only additively. As computational advances have yielded new algorithms for prediction, the number of choices has exploded. Many models are possible. How should we choose?

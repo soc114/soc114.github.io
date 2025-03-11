@@ -41,7 +41,7 @@ Each date will be a link to the slides for that lecture.
 | Thu, [Feb 27](slides/matching/matching.pdf)	| [Matching](topics/matching.qmd) |
 | Tue, [Mar 4](slides/trees/trees.pdf)	| [Trees](topics/trees.qmd) |
 | Thu, [Mar 6](slides/bootstrap/bootstrap.pdf)	| [Bootstrap for statistical uncertainty](topics/bootstrap.qmd) |
-| Tue, Mar 11	| [Data-driven selection of an estimator](topics/data_driven_selection.qmd) |
+| Tue, [Mar 11](slides/data_driven_selection/data_driven_selection.pdf)	| [Data-driven selection of an estimator](topics/data_driven_selection.qmd) |
 | Thur, Mar 13	| Course recap |
 
 <!-- continuous treatments? mediation? -->

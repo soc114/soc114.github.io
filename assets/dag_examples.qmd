@@ -1,0 +1,67 @@
+---
+title: "DAG example"
+format: pdf
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
+---
+
+This document shows how to include a typeset DAG in your writeup. To see the code, you will need the .qmd version of this document.
+
+When producing a PDF, you can include a DAG by putting the `header-includes` things in your header and then writing code like this.
+
+\begin{tikzpicture}[x = .3in, y = .3in]
+    \node (x) at (0,-1) {$X$};
+    \node (a) at (0,0) {$A$};
+    \node (y) at (1,0) {$Y$};
+    \draw[->, thick] (x) -- (a);
+    \draw[->, thick] (a) -- (y);
+    \draw[->, thick] (x) -- (y);
+\end{tikzpicture}
+
+Each node has
+
+* a name in parentheses, such as `(x)`
+* a position in a grid such as (0,-1), which means 0 on the horizontal dimension and -1 on the vertical dimension
+* text or math in the curly braces for what should be written at that node
+
+Then you can draw edges between the nodes with the `draw` lines, where the `->` tells it to have an arrow and then you tell it what node to start at and what node to end at. In these lines, it is also possible to use `to[bend left]` or `to[bend right]` in place of `---` if you want a bent arrow.
+
+Below is an example from the models for causal page:
+
+\begin{tikzpicture}[x = 1in, y = .4in]
+\node (a) at (0,0) {$A$};
+\node (y) at (1,0) {$Y$};
+\node (l1) at (-1,2) {$X_1$};
+\node (l2) at (-1,1.66) {$X_2$};
+\node (l3) at (-1,1.33) {$X_3$};
+\node (l4) at (-1,1) {$X_4$};
+\node (l5) at (-1,.66) {$X_5$};
+\node (l6) at (-1,.33) {$X_6$};
+\node (l7) at (-1,0) {$X_7$};
+\draw[->, thick] (l1) -- (a);
+\draw[->, thick] (l2) -- (a);
+\draw[->, thick] (l3) -- (a);
+\draw[->, thick] (l4) -- (a);
+\draw[->, thick] (l5) -- (a);
+\draw[->, thick] (l6) -- (a);
+\draw[->, thick] (l7) -- (a);
+\draw[->, thick] (a) -- (y);
+\draw[->, thick] (l1) to[bend left] (y);
+\draw[->, thick] (l2) to[bend left] (y);
+\draw[->, thick] (l3) to[bend left] (y);
+\draw[->, thick] (l4) to[bend left] (y);
+\draw[->, thick] (l5) to[bend left] (y);
+\draw[->, thick] (l6) to[bend left] (y);
+\draw[->, thick] (l7) to[bend left] (y);
+\node[anchor = north, align = center, font = \footnotesize] at (a.south) {College\\Degree\\by Age 25};
+\node[anchor = north, align = center, font = \footnotesize] at (y.south) {Spouse\\at Age 35\\Has Degree};
+\node[anchor = east, align = center, font = \footnotesize] at (l1.west) {Sex};
+\node[anchor = east, align = center, font = \footnotesize] at (l2.west) {Race};
+\node[anchor = east, align = center, font = \footnotesize] at (l3.west) {Mom Education};
+\node[anchor = east, align = center, font = \footnotesize] at (l4.west) {Dad Education};
+\node[anchor = east, align = center, font = \footnotesize] at (l5.west) {Income};
+\node[anchor = east, align = center, font = \footnotesize] at (l6.west) {Wealth};
+\node[anchor = east, align = center, font = \footnotesize] at (l7.west) {Test Percentile};
+\end{tikzpicture}
+
