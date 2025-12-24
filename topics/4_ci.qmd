@@ -1,0 +1,973 @@
+---
+title: "Confidence Intervals"
+---
+
+> Topic for 1/14.
+
+> Here are [slides](../slides/bootstrap/bootstrap.pdf). Notation and ideas on this page loosely draw on [Efron \& Hastie (2016)](https://hastie.su.domains/CASI/) Ch 10--11.
+
+As researchers adopt algorithmic estimation methods for which analytical standard errors do not exist, methods to produce standard errors by resampling become all the more important. We will discuss the bootstrap for simple random samples and extensions to allow resampling-based standard error estimates in complex survey samples.
+
+```{r, warning = F, message = F}
+library(tidyverse)
+library(scales)
+library(foreach)
+set.seed(90095)
+```
+
+## A motivating problem
+
+Out of the population of baseball salaries on Opening Day 2023, imagine that we have a sample of 10 Dodger players.
+
+```{r, comment = F, message = F, echo = F}
+population <- read_csv("../data/baseball_population.csv")
+sample <- population |>
+  filter(team == "L.A. Dodgers") |>
+  sample_n(size = 10) |>
+  select(player, team, salary)
+```
+
+We calculate the mean salary among the sampled Dodgers to be \$`r round(mean(sample$salary) / 1e6, 1)` million. How much should we trust this estimate?
+
+For the sake of discussion, we provide the following information.
+
+```{r, echo = F}
+sample |>
+  summarize(
+    sample_mean = mean(salary),
+    sample_standard_deviation = sd(salary),
+    sample_size = n()
+  ) |>
+  pivot_longer(cols = everything(), names_to = "Salary Among Sampled Dodgers", values_to = "Value")
+```
+
+## Classical inference
+
+To know how confident to be in our sample-based estimate, we need to reason about why our sample-based estimate might differ from the true (but unknown) population parameter. Let $\hat\mu$ denote our estimate for the sample mean of $Y$.
+
+$$\hat\mu = \frac{1}{n}\sum_{i}Y_i$$
+
+Across repeated samples from the population, the estimate $\hat\mu$ equals the population mean on average but differs in any particular sample due to random sampling variance. The sample variance of the mean has a known formula.
+
+$$
+V(\hat\mu) = V\left(\frac{1}{n}\sum_i Y_i\right) = \frac{1}{n^2}\sum_i V(Y_i) = \frac{V(Y)}{n}
+$$
+
+The sample-to-sample variance of $\hat\mu$ will be greater to the degree that $Y$ varies substantially across individuals in the population (larger $V(Y)$), and will be smaller to the degree that many individuals are included in the sample (larger $n$).
+
+You might be more familiar with this equation expressed as the standard deviation of the estimator, sometimes referred to as the standard error, which is the square root of the variance of the estimator,
+
+$$
+\text{SD}(\hat\mu) = \sqrt{\text{V}(\hat\mu)} = \frac{\text{SD}(Y)}{\sqrt{n}}
+$$
+where $\text{SD}()$ is the standard deviation of $Y$ across individuals in the population.
+
+From the Central Limit Theorem, we know that even if $Y$ is not Normally distributed the sample mean of $Y$ converges to a Normal distribution as the sample size grows. Because we have formulas for these parameters, we can write down a formula for that sampling distribution.
+
+$$
+\hat\mu \rightarrow \text{Normal}\left(\text{Mean} = \text{E}(Y),\quad \text{SD} = \frac{\text{SD}(Y)}{\sqrt{n}}\right)
+$$
+The graph below visualizes the sampling variability of the sample mean. Across repeated samples, the sample mean $\hat\mu$ is normally distributed about its true population value. The middle 95\% of sample estimates $\hat\mu$ fall within a region that can be derived with known formulas,
+
+```{r, echo = F, fig.height = 2}
+normal_curve <- data.frame(x = qnorm(seq(.01,.99,.0025))) %>%
+  mutate(f = dnorm(x))
+
+normal_curve %>%
+  ggplot(aes(x = x, y = f)) +
+  geom_ribbon(data = normal_curve %>%
+                filter(x >= qnorm(.025) & x <= qnorm(.975)),
+              aes(ymin = 0, ymax = f),
+              color = "gray", alpha = .2) +
+  geom_line() +
+  geom_hline(yintercept = 0) +
+  annotate(geom = "segment", 
+           x = qnorm(c(.025,.5,.975)), 
+           xend = qnorm(c(.025,.5,.975)),
+           y = 0, yend = dnorm(qnorm(c(.025,.5,.975))),
+           linetype = "dashed") +
+  annotate(geom = "text", hjust = 0,
+           x = 0.05, y = .7 * dnorm(0),
+           label = "True\nPopulation\nValue") +
+  annotate(geom = "segment",
+           x = qnorm(.1), xend = qnorm(.9),
+           y = .2 * dnorm(0), yend = .2 * dnorm(0),
+           arrow = arrow(ends = "both", length = unit(8,"pt"))) +
+  annotate(geom = "label",
+           x = 0, y = .2*dnorm(0),
+           label = "'Middle 95% of Sample-Based Estimates'~hat(mu)",
+           parse = T,
+           fill = "gray", label.size = NA) +
+  annotate(geom = "text", label = "Estimate is normally distributed over\nhypothetical repeated samples by the\nCentral Limit Theorem because\nthe estimate is a sample mean",
+           size = 3,
+           x = qnorm(.99), y = dnorm(qnorm(.5)),
+           hjust = 1, vjust = 1) +
+  scale_x_continuous(breaks = c(-qnorm(.975),0,qnorm(.975)),
+                     labels = c(expression(mu - {Phi^{-1}} (.975)*SD(hat(mu)), 
+                                           mu, 
+                                           mu + {Phi^{-1}} (.975)*SD(hat(mu))))) +
+  theme_void() +
+  theme(axis.text.x = element_text(color = "black"))
+```
+
+where $\Phi^{-1}()$ is the inverse CDF of the standard Normal distribution.
+
+You might be concerned: can a Normal distribution be a good approximation when Dodger player salaries are highly right-skewed? After all this is the distribution of Dodger player salaries.
+
+```{r, echo = F}
+#| fig-height: 2
+population |> 
+  filter(team == "L.A. Dodgers") |> 
+  ggplot(aes(x = salary)) +
+  geom_histogram(bins = 10, alpha = .6) +
+  scale_y_continuous(name = "Frequency") +
+  scale_x_continuous(
+    name = "Salary Distribution Among Dodger Players",
+    labels = label_currency(accuracy = 1, scale = 1e-6, suffix = "m")
+  ) +
+  theme_minimal()
+```
+
+But the *sample mean* among 10 sampled Dodgers is actually quite close to a normal sampling distribution. This is because of the Central Limit Theorem.
+
+```{r, echo = F}
+#| fig-height: 2
+many_samples <- foreach(rep = 1:1000, .combine = "rbind") %do% {
+  population |> 
+    filter(team == "L.A. Dodgers") |> 
+    sample_n(size = 10) |>
+    summarize(salary = mean(salary))
+}
+theoretical_values <- population |> 
+  filter(team == "L.A. Dodgers") |> 
+  summarize(
+    mean = mean(salary), 
+    se = sd(salary) / sqrt(10)
+  )
+theoretical_curve <- tibble(
+  p = seq(.01,.99,.005)
+) |>
+  mutate(
+    x = qnorm(p, mean = theoretical_values$mean, sd = theoretical_values$se),
+    density = dnorm(x, mean = theoretical_values$mean, sd = theoretical_values$se)
+  )
+many_samples |>
+  ggplot() +
+  geom_histogram(aes(x = salary), bins = 20, alpha = .6) +
+  scale_y_continuous(name = "Frequency") +
+  scale_x_continuous(
+    name = "Sample Mean Salary Among Dodger Players",
+    labels = label_currency(accuracy = 1, scale = 1e-6, suffix = "m")
+  ) +
+  #geom_line(
+  #  data = theoretical_curve,
+  #  aes(x = x, y = density)
+  #) +
+  theme_minimal()
+```
+
+### Plug-in estimators
+
+We have a formula for the standard deviation of the sample mean, but it involves the term $\text{SD}(Y)$ which is the unknown population standard deviation of $Y$. It is common to plug in the sample estimate of this value in order to arrive at a sample estimate of the standard deviation of the estimator.
+
+$$
+\widehat{\text{SD}}(\hat\mu) = \frac{\widehat{\text{SD}}(Y)}{\sqrt{n}} = \sqrt{\frac{\frac{1}{n-1}\sum_i (Y_i - \bar{Y})^2}{n}}
+$$
+
+The idea of a plug-in estimator may seem obvious, but soon we will see that the step at which plug-ins occur changes dramatically when we move to resampling methods for statistical inference.
+
+### Classical confidence intervals
+
+A 95\% confidence interval $(\hat\mu_\text{Lower},\hat\mu_\text{Upper})$ is an interval that has the property that across repeated samples the probability that $\hat\mu_\text{Lower} < \mu < \hat\mu_\text{Upper}$ is 0.95. One way to think about this is that two properties should hold: the probability that the lower limit is too high and the probability that the upper limit is too low are each 0.025.
+
+$$
+\begin{aligned}
+\text{P}(\hat\mu_\text{Lower} > \mu) &= .025 \\
+\text{P}(\hat\mu_\text{Upper} < \mu) &= .025
+\end{aligned}
+$$
+
+You may know from statistics that a 95\% confidence interval for the sample mean can be derived as follows.
+
+$$
+\hat\mu \pm \Phi^{-1}(.975)\widehat{\text{SD}}(\hat\mu)
+$$
+where $\Phi^{-1}(.975)$ is the value 1.96 that you might look up in the back of a statistics textbook. We can show that these confidence limits have the desired properties. For example, taking the lower limit:
+
+$$
+\begin{aligned}
+&\text{P}\left(\hat\mu_\text{Lower} > \mu\right)\\
+&=\text{P}\left(\hat\mu - \Phi^{-1}(.975)\widehat{\text{SD}}(\hat\mu) > \mu\right)\\
+&= \text{P}\left(\hat\mu - \mu > \Phi^{-1}(.975)\widehat{\text{SD}}(\hat\mu)\right)\\
+&= \text{P}\left(\frac{\hat\mu - \mu}{\widehat{\text{SD}}(\hat\mu)} > \Phi^{-1}(.975)\right)\\
+&= .025
+\end{aligned}
+$$
+
+where the last line holds because $\frac{\hat\mu - \mu}{\text{SD}(\hat\mu)}$ follows a standard Normal distribution. The proof for the upper limit is similar.
+
+Across repeated samples, a 95\% confidence interval constructed in this way should contain the true mean 95\% of the time. We can visualize this behavior by taking repeated samples of 10 Dodger players from our data.
+
+```{r, echo = F}
+sample_cis <- foreach(rep = 1:1000, .combine = "rbind") %do% {
+  population |>
+    filter(team == "L.A. Dodgers") |>
+    sample_n(10) |>
+    summarize(
+      estimate = mean(salary),
+      se = sd(salary) / sqrt(n())
+    ) |>
+    mutate(
+      ci.lower = estimate - qnorm(.975) * se,
+      ci.upper = estimate + qnorm(.975) * se
+    )
+}
+truth <- population |>
+  filter(team == "L.A. Dodgers") |>
+  summarize(truth = mean(salary)) |>
+  pull(truth)
+sample_cis_evaluated <- sample_cis |>
+  mutate(
+    index = 1:n(),
+    contains_truth = ci.lower < truth & ci.upper > truth
+  )
+sample_cis_evaluated |>
+  ggplot(
+    aes(
+      x = index, color = contains_truth, y = estimate, 
+      ymin = ci.lower, ymax = ci.upper
+    )
+  ) +
+  geom_errorbar(data = sample_cis_evaluated |> filter(contains_truth), width = 0) +
+  geom_point(data = sample_cis_evaluated |> filter(contains_truth)) +
+  geom_errorbar(data = sample_cis_evaluated |> filter(!contains_truth), width = 0) +
+  geom_point(data = sample_cis_evaluated |> filter(!contains_truth)) +
+  geom_hline(color = "white", yintercept = truth, linetype = "dashed") +
+  scale_color_manual(
+    values = c("red","gray"),
+    labels = c("No","Yes"),
+    name = "Contains True\nParameter"
+  ) +
+  scale_x_continuous(
+    name = "Confidence Intervals in 1,000 Samples",
+    breaks = NULL
+  ) +
+  scale_y_continuous(
+    name = "Dodger Mean Salary",
+    labels = label_currency(accuracy = 1, scale = 1e-6, suffix = "m")
+  ) +
+  theme_minimal() +
+  ggtitle(
+    "Confidence intervals derived by math",
+    subtitle = paste0(
+      "Coverage in simulation: ",label_percent()(mean(sample_cis_evaluated$contains_truth)),
+      " contain the population parameter"
+    )
+  )
+```
+
+In this particular simulation, we have slight undercoverage and the upper confidence limit is often the one that is incorrect. These problems may arise because our asymptotic normality of mean salaries is an imperfect approximation at a sample size of $n = 10$.
+
+## Analytic vs computational inference procedures
+
+Analytical confidence intervals (derived by math) are the default for many researchers. Yet the exercise above reveals some of their shortcomings. First, there is a lot of math! Second, despite the math we still relied on the plug-in principle: for unknown quantities such as $\text{SD}(Y)$ we plug in sample-based estimates $\widehat{\text{SD}}(Y)$ and act as though these were known. Third, our results may still yield imperfect coverage because underlying assumptions may be only approximately met. For example, our confidence intervals may have undercovered because the asymptotics of the Central Limit Theorem are unreliable at $n = 10$.
+
+Now suppose you had a complicated data science approach, such as a predicted value $\hat{Y}_{\vec{x}}=\hat{\text{E}}(Y\mid \vec{X} = \vec{x})$ from a LASSO regression. How would you place a confidence interval on that predicted value?
+
+Computational inference procedures take a different approach. These procedures focus on a generic estimator $s()$ applied to data. Instead of deriving properties of the estimator by math, computational approaches seek to simulate what would happen when $s()$ is applied to samples from the population, often by using a plug-in principle at an earlier step.
+
+## The estimator function $s()$
+
+At the core of a resampling-based inference procedure is a broad sense of how our estimate comes to be. First, the world has some cumulative distribution function $F$ over data that could be generated. A particular sample $\texttt{data}$ is drawn from the probability distribution of the world. The researcher then applies an **estimator function** $s()$ that takes in \texttt{data} and returns an estimate $s(\texttt{data})$.
+
+$$F\rightarrow \texttt{data} \rightarrow s(\texttt{data})$$
+
+In our baseball example, the estimator function is the sample mean of the `salary` variable.
+
+```{r}
+estimator <- function(data) {
+  data |>
+    summarize(estimate = mean(salary)) |>
+    pull(estimate)
+}
+```
+
+We would like to repeatedly simulate $\texttt{data}$ from the world and see the performance of the estimator. But this is only possible in illustrations like the baseball example where the population data are known. When $F$ is unknown and we only see one $\texttt{data}$, we need a new procedure.
+
+## The nonparametric bootstrap
+
+The nonparametric bootstrap simulates repeated-sample behavior by a plug-in principle.
+
+1. Plug in the empirical distribution $\hat{F}$ of our sample data as an estimate of the true distribution $F$ for the unobserved full population of data
+2. Generate a bootstrap sample $\texttt{data}^*$ by sampling from our empirical data with replacement.
+3. Generate an estimate $s(\texttt{data}^*)$ using the bootstrap data.
+4. Repeat steps (2) and (3) many times to generate a large number $B$ of bootstrap replicate estimates.
+
+Visually, this procedure is analogous to the above.
+
+$$\hat{F}\rightarrow \texttt{data}^* \rightarrow s(\texttt{data}^*)$$
+
+## Nonparametric bootstrap standard errors
+
+In classical statistics, the standard error of an estimator is typically a mathematical expression derived for that particular estimator and then estimated by the plug-in principle. For example, the standard error of the mean is $\text{SD}(\hat\mu) = \text{SD}(Y) / \sqrt{n}$.
+
+With the bootstrap, we avoid this altogether because we have $B$ bootstrap replicate estimates. We can estimate the standard deviation of the estimator over repeated samples by the empirical standard deviation across bootstrap replicates.
+
+$$
+\widehat{\text{SD}}(s) = \frac{1}{B-1}\sum_{r=1}^B \bigg(s(\texttt{data}^*_r) - s(\texttt{data}^*_\bullet)\bigg)^2
+$$
+where $s(\texttt{data}^*_\bullet)$ is the mean of the estimate across the bootstrap samples. Note that just like the analytic standard errors, these have also relied on a plug-in principle: we plugged in the empirical distribution $\hat{F}$ for the population distribution $F$ when generating bootstrap samples from our empirical data instead of actual samples from the population.
+
+In our baseball example, we first load data and draw a sample of 10 Dodger players.
+
+```{r, eval = F}
+population <- read_csv("http://soc114.github.io/data/baseball_population.csv")
+sample <- population |>
+  filter(team == "L.A. Dodgers") |>
+  sample_n(size = 10) |>
+  select(player, team, salary)
+```
+```{r, echo = F}
+sample
+```
+
+The code below generates a bootstrap sample from these 10 players by sampling 10 players with replacement. You will see that some players in the original sample do not appear, and others appear more than once.
+
+```{r}
+one_sample <- sample |>
+  slice_sample(prop = 1, replace = TRUE) |>
+  print()
+```
+
+We can apply our estimator function to this sample to get one bootstrap estimate.
+```{r}
+estimator <- function(data) {
+  data |>
+    summarize(estimate = mean(salary)) |>
+    pull(estimate)
+}
+estimator(one_sample)
+```
+
+The code below carries out 500 bootstrap samples and estimates the sample mean in each one.
+
+```{r}
+bootstrap_estimates <- foreach(r = 1:1000, .combine = "c") %do% {
+  sample |>
+    # Draw a bootstrap sample
+    slice_sample(prop = 1, replace = TRUE) |>
+    # Apply the estimator
+    estimator()
+}
+```
+
+The figure below shows how that the bootstrap distribution of the estimator compares to the actual sampling distribution of the estimator (known in this case since the population is known).
+
+```{r, echo = F}
+many_samples |>
+  rename(estimate = salary) |>
+  mutate(setting = "Estimator distribution over actual\nresamples from the population") |>
+  bind_rows(
+    tibble(
+      estimate = bootstrap_estimates,
+      setting = "Estimator distribution over bootstrap\nresamples from the sample"
+    )
+  ) |>
+  ggplot() +
+  geom_histogram(aes(x = estimate), bins = 20, alpha = .6) +
+  scale_y_continuous(name = "Frequency") +
+  scale_x_continuous(
+    name = "Sample Mean Salary Among Dodger Players",
+    labels = label_currency(accuracy = 1, scale = 1e-6, suffix = "m")
+  ) +
+  facet_wrap(~setting) +
+  theme_minimal()
+```
+
+The bootstrap distribution is more heaped on 10 distinct salary values: the particular 10 Dodger player salaries included in our sample. When the variable being summarized takes continuous values, it will generally be more discretized in the bootstrap setting because there are only the sample size $n$ distinct values instead of the population size $N$ of distinct values. Otherwise, the two distributions are similar.
+
+The bootstrap estimate of the standard error in this case is
+
+```{r}
+bootstrap_estimates |> sd()
+```
+
+which is `r label_percent()((bootstrap_estimates |> sd()) / theoretical_values$se)` of the size of the theoretical standard error of `r theoretical_values$se`. Like all sample-based analogs to theoretical standard errors, the bootstrap estimate of the standard error can itself be sensitive to sampling variability.
+
+## Parallel processing
+
+The bootstrap is a computer-age approach to inference: present-day computers are what make it possible to apply the estimator thousands of repeated times.
+
+Parallel processing can make the bootstrap faster. Note that each bootstrap replicate is independent: the first bootstrap replicate results are not needed to carry out the second, and so on. If you had 5 or 10 computers, you could split the bootstrap samples across those computers and carry it out 5 or 10 times as fast!
+
+You may be surprised that you likely do have several effectively independent computers (called cores) within your computer. The `doParallel` package makes it possible to use these cores.
+
+```{r, warning = F, message = F}
+library(doParallel)
+```
+
+With the doParallel package loaded, you can see how many cores you have with the `detectCores()` function.
+
+```{r}
+detectCores()
+```
+
+In my case, there are `r detectCores()` cores on my computer. This means I can split my bootstrap over 8 parallel processors! First, initialize a cluster with these cores.
+```{r}
+cl <- makeCluster(spec = detectCores())
+```
+
+Then tell your computer to use that computing cluster for parallel processing.
+```{r}
+registerDoParallel(cl)
+```
+
+Finally, you can carry out your `foreach` loop using parallel processing, with the `%dopar%` operator clarifying that the loop should be done with parallel processing. You will also need the `.packages` argument to pass to the computing cores any packages that are used within the procedure.
+
+```{r}
+bootstrap_estimates <- foreach(
+  r = 1:1000, 
+  .combine = "c", 
+  .packages = c("tidyverse")
+) %dopar% {
+  sample |>
+    # Draw a bootstrap sample
+    slice_sample(prop = 1, replace = TRUE) |>
+    # Apply the estimator
+    estimator()
+}
+```
+
+In my case, parallel processing will make the entire procedure about `r detectCores()` times faster. As computers have become faster with more cores, bootstrapping has become an increasingly feasible method of statistical inference.
+
+## Bootstrap confidence intervals
+
+The discussion above has focused on using the bootstrap to estimate standard errors. There are many methods to construct confidence intervals using bootstrap procedures. Two of the most common are the Normal approximation method and the percentile method.
+
+### Normal approximation
+
+The beginning of this page reviewed classical statistics in which we routinely rely on the Central Limit Theorem which ensures that sample mean estimators are asymptotically Normal. Likewise with the bootstrap, if we believe that $s(\texttt{data})$ has a Normal sampling distribution, then we can construct a confidence interval by the Normal approximation with the bootstrap estimate of the standard error.
+
+$$
+s(\texttt{data}) \pm \Phi^{-1}(.975)\text{SD}\big(s(\text{data}^*)\big)
+$$
+```{r}
+estimator(sample) + c(-1,1) * qnorm(.975) * sd(bootstrap_estimates)
+```
+
+### Percentile method
+
+The bootstrap also offers another way to calculate the confidence interval: the middle 95\% of the bootstrap estimates. 
+
+```{r}
+quantile(bootstrap_estimates, probs = c(.025, .975))
+```
+
+<!-- Should add more justification of percentile intervals. In what sense do they guarantee that the probability of the lower limit being above the truth is 2.5%? -->
+
+The percentile method can work better than the Normal approximation method in cases where normality does not hold. For example, in the beginning of this page we used analytic intervals that seemed imperfect in part because the Central Limit Theorem had not adequately yielded normality at a sample size of 10.
+
+```{r, echo = F, message = F, warning = F}
+library(doParallel)
+library(doRNG)
+cl <- makeCluster(detectCores())
+registerDoParallel(cl)
+```
+```{r, echo = F, cache = T}
+percentile_sims <- foreach(rep = 1:100, .combine = "rbind") %do% {
+  this_sample <- population |> filter(team == "L.A. Dodgers") |> slice_sample(n = 10)
+  this_estimate_star <- foreach(rep = 1:1000, .combine = "rbind", .packages = "tidyverse") %dorng% {
+    this_sample |>
+      slice_sample(prop = 1, replace = TRUE) |>
+      pull(salary) |>
+      mean()
+  }
+  tibble(
+    estimate = this_sample |> pull(salary) |> mean(),
+    ci.lower = quantile(this_estimate_star, .025),
+    ci.upper = quantile(this_estimate_star, .975)
+  )
+} |>
+  mutate(
+    contains_truth = ci.lower < truth & ci.upper > truth,
+    index = 1:n()
+  )
+
+percentile_sims |>
+  ggplot(
+    aes(
+      x = index, color = contains_truth, y = estimate, 
+      ymin = ci.lower, ymax = ci.upper
+    )
+  ) +
+  geom_errorbar(data = percentile_sims |> filter(contains_truth), width = 0) +
+  geom_point(data = percentile_sims |> filter(contains_truth)) +
+  geom_errorbar(data = percentile_sims |> filter(!contains_truth), width = 0) +
+  geom_point(data = percentile_sims |> filter(!contains_truth)) +
+  geom_hline(color = "black", yintercept = truth, linetype = "dashed") +
+  scale_color_manual(
+    values = c("red","gray"),
+    labels = c("No","Yes"),
+    name = "Contains True\nParameter"
+  ) +
+  scale_x_continuous(
+    name = "Confidence Intervals in 100 Samples",
+    breaks = NULL
+  ) +
+  scale_y_continuous(
+    name = "Dodger Mean Salary",
+    labels = label_currency(accuracy = 1, scale = 1e-6, suffix = "m")
+  ) +
+  theme_minimal() +
+  ggtitle(
+    "Confidence intervals by the bootstrap percentile method",
+    subtitle = paste0(
+      "Coverage in simulation: ",label_percent()(mean(percentile_sims$contains_truth)),
+      " contain the population parameter"
+    )
+  )
+```
+
+## Bootstrap for machine learning algorithms
+
+Suppose a researcher carries out the following procedure.
+
+1. Sample $n$ units from the population
+2. Learn an algorithm $\hat{f}:\vec{X}\rightarrow Y$ to minimize squared error
+3. Report a prediction $\hat{\text{E}}(Y\mid\vec{X} = \vec{x}) = \hat{f}(\vec{x})$
+
+How would the researcher use the bootstrap to carry out this process?
+
+1. Draw a bootstrap sample $\texttt{data}^*$ of size $n$
+2. Learn the algorithm $\hat{f}^*$ in the bootstrap sample
+3. Store the bootstrap estimate $\hat{f}^*(\vec{x})$
+
+Then the researcher could create a confidence interval with either the Normal approximation or the percentile method. Note that the bootstrap confidence interval may have undercoverage if the estimator is biased; see the words of warning at the end of this page.
+
+## Discussion: What belongs in $s()$?
+
+In each example, describe the steps the researcher might use to bootstrap this estimate while capturing all sources of uncertainty.
+
+1. A researcher first truncates the values of a skewed predictor variable $x$ at the 1st and 99th percentile. Then the researcher learns a regression model and reports $\hat\beta$.
+2. A researcher first uses cross-validation to select the tuning parameter $\lambda$ for ridge regression. Then, they estimate ridge regression with the chosen $\lambda$ value and make a prediction $\hat{f}(\vec{x})$ at some predictor value $\vec{x}$ of interest.
+3. A researcher first learns a prediction function $\hat{f}:\vec{X}\rightarrow Y$ and then sees which subgroup $\vec{x}$ has the highest predicted value $\hat{f}(\vec{x})$, which the researcher reports.
+
+::: {.callout-note collapse="true"}
+## Answers
+
+Many steps of the analysis involve uncertainty. It can be ideal to include them all in your bootstrap! Write your estimator function to take in your raw data and return an estimate. The estimator function would include steps like truncating predictors at sample quantiles, choosing tuning parameters, and choosing subgroups of interest on which to focus.
+:::
+
+## Beyond simple random samples
+
+The bootstrap in its simplest form is designed for simple random samples. Straightforward generalizations make it possible to move beyond simple random samples to more complex sampling designs.
+
+### Stratified bootstrap
+
+Suppose we draw a sample of players stratified by team: 10 players per team. No matter which random sample is drawn, there will always be 10 Dodgers, 10 Angels, 10 Yankees, and so on. Stratified sampling is often a more efficient estimator than simple random sampling, and our estimator should reflect that!
+
+As an example, suppose we have a stratified sample of 10 players per team.
+
+```{r}
+stratified_sample <- population |>
+  group_by(team) |>
+  slice_sample(n = 10) |>
+  ungroup()
+```
+
+We would generate a stratified bootstrap sample^[Called the "multi-sample bootstrap" in Efron \& Hastie.] by stratifying by team, exactly as the data were generated.
+
+```{r}
+stratified_bootstrap_sample <- stratified_sample |>
+  group_by(team) |>
+  slice_sample(prop = 1, replace = T)
+```
+
+Stratified bootstrapping can be important. Using our baseball example, suppose our estimator is the predicted mean salary of the Dodgers from a linear regression.
+
+```{r}
+estimator <- function(data) {
+  ols <- lm(salary ~ team_past_salary, data = data)
+  to_predict <- population |> 
+    filter(team == "L.A. Dodgers") |> 
+    distinct(team_past_salary)
+  predicted <- predict(ols, newdata = to_predict)
+  return(predicted)
+}
+```
+
+We get different estimates if we carry out simple vs stratified bootstrap sampling.
+
+```{r, echo = F, cache = T}
+many_stratified_samples <- foreach(rep = 1:500, .combine = "c") %do% {
+  population |> group_by(team) |> slice_sample(n = 10) |> ungroup() |> estimator()
+}
+samples <- foreach(i = 1:10) %do% {
+    population |> group_by(team) |> slice_sample(n = 10) |> ungroup()
+}
+simple_bootstrap <- foreach(sample_rep = 1:10, .combine = "c") %do% {
+  sample <- samples[[sample_rep]]
+  foreach(rep = 1:500, .combine = "c") %do% {
+    sample |> slice_sample(prop = 1, replace = T) |> ungroup() |> estimator()
+  } |>
+    sd()
+} |> mean()
+stratified_bootstrap <- foreach(sample_rep = 1:10, .combine = "c") %do% {
+  sample <- samples[[sample_rep]]
+  foreach(rep = 1:500, .combine = "c") %do% {
+    sample |> group_by(team) |> slice_sample(prop = 1, replace = T) |> ungroup() |> estimator()
+  } |>
+    sd()
+} |> mean()
+tibble(
+  setting = factor(
+    1:3,
+    labels = c(
+      "True Standard Deviation\nover Samples from the Population",
+      "Correct Bootstrap Estimate:\nStratified Bootstrap",
+      "Incorrect Bootstrap Estimate:\nSimple Bootstrap"
+    )
+  ),
+  se = c(
+    many_stratified_samples |> sd(),
+    stratified_bootstrap,
+    simple_bootstrap
+  )
+) |>
+  ggplot(aes(x = setting, y = se)) +
+  geom_point() +
+  labs(x = "Setting") +
+  theme_bw() +
+  scale_y_continuous(
+    "Standard Error of\nEstimated Dodger Mean Salary",
+    labels = label_currency(scale = 1e-6, suffix = "m")
+  ) +
+  ggtitle("In a stratified sample, you need a stratified bootstrap.")
+```
+
+### Cluster bootstrap
+
+Suppose we draw a sample of players clustered by team: all players on 10 sampled teams. Clustered sampling is often less expensive than simple random sampling because it can be easier for the person carrying out the survey. This often comes at a cost of statistical efficiency.
+
+As an example, suppose we have a clustered sample of 10 teams.
+
+```{r}
+clustered_sample <- population |>
+  distinct(team) |>
+  slice_sample(n = 10) |>
+  left_join(population, by = join_by(team))
+```
+
+We would generate a clustered bootstrap sample by resampling teams instead of players, exactly as the data were sampled.
+
+```{r}
+chosen_teams <- clustered_sample |>
+  distinct(team) |>
+  slice_sample(prop = 1, replace = T)
+clustered_bootstrap_sample <- foreach(i = 1:nrow(chosen_teams), .combine = "rbind") %do% {
+  chosen_teams[i,] |>
+    left_join(clustered_sample, by = join_by(team))
+}
+```
+
+As before, we get different estimated standard errors if we carry out clustered bootstrap sampling vs standard bootstrap sampling.
+
+```{r, echo = F, cache = T}
+many_clustered_samples <- foreach(rep = 1:5000, .combine = "c") %do% {
+  population |>
+    distinct(team) |>
+    slice_sample(n = 10) |>
+    left_join(population, by = join_by(team)) |> 
+    ungroup() |> 
+    estimator()
+}
+comparison <- foreach(sample_rep = 1:10, .combine = "rbind") %do% {
+  sample <- population |>
+    distinct(team) |>
+    slice_sample(n = 10) |>
+    left_join(population, by = join_by(team)) |> 
+    ungroup()
+  simple <- foreach(rep = 1:500, .combine = "c") %do% {
+    sample |> slice_sample(prop = 1, replace = T) |> ungroup() |> estimator()
+  } |> sd()
+  clustered <- foreach(rep = 1:500, .combine = "c") %do% {
+    chosen_teams <- sample |>
+      distinct(team) |>
+      slice_sample(prop = 1, replace = T) |>
+      pull(team)
+    foreach(team_case = chosen_teams, .combine = "rbind") %do% {
+      sample |>
+        filter(team == team_case)
+    } |> estimator()
+  } |> sd()
+  tibble(
+    setting = c("simple","clustered"),
+    se = c(simple, clustered)
+  )
+}
+
+tibble(
+  setting = "truth",
+  se = many_clustered_samples |> sd()
+) |>
+  bind_rows(
+    comparison |>
+      group_by(setting) |>
+      summarize_all(mean)
+  ) |>
+  mutate(
+    setting = factor(
+      case_when(
+        setting == "truth" ~ 1,
+        setting == "clustered" ~ 2,
+        setting == "simple" ~ 3
+      ),
+      labels = c("True Standard Deviation\nover Samples from the Population",
+                 "Correct Bootstrap Estimate:\nClustered Bootstrap",
+                 "Incorrect Bootstrap Estimate:\nSimple Bootstrap")
+    )
+  ) |>
+  ggplot(aes(x = setting, y = se)) +
+  geom_point() +
+  labs(x = "Setting") +
+  theme_bw() +
+  scale_y_continuous(
+    "Standard Error of\nEstimated Dodger Mean Salary",
+    labels = label_currency(scale = 1e-6, suffix = "m")
+  ) +
+  ggtitle("In a clustered sample, you need a clustered bootstrap.")
+```
+
+### Complex survey samples
+
+Many surveys involve complex samples, such as samples stratified by state and then clustered in regions within states. Often the variables that define sampling strata or clusters are geographic, and therefore they are often redacted from the data made available to researchers due to privacy concerns.
+
+Thankfully, many surveys make **replicate weights** available to researchers. The goal of replicate weights is to enable you to resample the data in a way that mimics the (hidden) ways in which the sample was originally drawn. The rest of this section walks through the use of replicate weights, first in a hypothetical example and then in real data.
+
+When we download data, we typically download a column of weights. For simplicity, suppose we are given a sample of four people. The `weight` column tells us how many people in the population each person represents. The `employed` column tells us whether each person employed.
+
+```{r, echo = F}
+sim <- data.frame(name = c("Luis","William","Susan","Ayesha"),
+                  weight = c(4,1,1,4),
+                  employed = c(1, 0, 0, 1)) |>
+  print()
+```
+
+If we take an unweighted mean, we would conclude that only 50\% of the population is employed. But with a weighted mean, we would conclude that 80\% of the population is employed! This might be the case if the sample was designed to oversample people at a high risk of unemployment.
+
+| Estimator | Math | Example | Result |
+|:--|:--|:--|:--|
+| Unweighted mean | $=\frac{\sum_{i=1}^n Y_i}{n}$ | $=\frac{1 + 0 + 0 + 1}{4}$ | = 50\% employed |
+| Weighted mean | $=\frac{\sum_{i=1}^n w_iY_i}{\sum_{i=1}^n w_i}$ | $=\frac{4*1 + 1*0 + 1*0 + 4*1}{4 + 1 + 1 + 4}$ | = 80\% employed |
+
+In R, the [`weighted.mean(x, w)`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/weighted.mean.html) function will calculate weighted means where `x` is an argument for the outcome variable and `w` is an argument for the weight variable.
+
+When you face a complex survey sample, those who administer the survey might provide
+
+- a vector of $n$ weights for making a point estimate
+- a matrix of $n\times k$ replicate weights for making standard errors
+
+By providing $k$ different ways to up- and down-weight various observations, the replicate weights enable you to generate $k$ estimates that vary in a way that mimics how the estimator might vary if applied to different samples from the population. For instance, our employment sample might come with 3 replicate weights.
+
+```{r, echo = F}
+sim_rep <- sim |>
+  mutate(repwt1 = c(3,1,3,5),
+         repwt2 = c(5,2,1,3),
+         repwt3 = c(3,2,1,4)) |>
+  print()
+replicates <- sim_rep |>
+  select(-weight) |>
+  pivot_longer(cols = starts_with("repwt"),
+               names_to = "replicate",
+               values_to = "weight") |>
+  group_by(replicate) |>
+  summarize(estimate = weighted.mean(employed, w = weight)) |>
+  pull(estimate)
+
+replicate_weights <- tibble(
+  repwt1 = c(3,1,3,5),
+  repwt2 = c(5,2,1,3),
+  repwt3 = c(3,2,1,4)
+)
+```
+
+The procedure to use replicate weights depends on how they are constructed. Often, it is relatively straightforward:
+
+- use `weight` to create a point estimate $\hat\tau$
+- use `repwt*` to generate $k$ replicate estimates $\hat\tau^*_1,\dots,\hat\tau^*_k$
+- calculate the standard error of $\hat\tau$ using the replicate estimates $\hat\tau^*$. The formula will depend on how the replicate weights were constructed, but it will likely involve the standard deviation of the $\hat\tau^*$ multiplied by some factor
+- construct a confidence interval^[If we hypothetically drew many complex survey samples from the population in this way, an interval generated this way would contain the true population mean 95\% of the time.] by a normal approximation
+$$(\text{point estimate}) \pm 1.96 * (\text{standard error estimate})$$
+
+In our concrete example, the point estimate is 80\% employed. The replicate estimates are `r paste0(format(round(replicates,2), nsmall = 2), collapse = ", ")`. Variation across the replicate estimates tells us something about how the estimate would vary across hypothetical repeated samples from the population.
+
+### Computational strategy for replicate weights
+
+Using replicate weights can be computationally tricky! It becomes much easier if you write an `estimator()` function. Your function accepts two arguments
+
+- `data` is the `tibble` containing the data
+- `weight_name` is the name of a column containing the weight to be used (e.g., "repwt1")
+
+**Example.** If our estimator is the weighted mean of employment,
+
+```{r}
+estimator <- function(data, weight_name) {
+  data |>
+    summarize(
+      estimate = weighted.mean(
+        x = employed,
+        # extract the weight column
+        w = sim_rep |> pull(weight_name)
+      )
+    ) |> 
+    # extract the scalar estimate
+    pull(estimate)
+}
+```
+
+In the code above, `sim_rep |> pull(weight_name)` takes the data frame `sim_rep` and extracts the weight variable that is named `weight_name`. There are other ways to do this also.
+
+We can now apply our estimator to get a point estimate with the main sampling weight,
+```{r}
+estimate <- estimator(data = sim_rep, weight_name = "weight")
+```
+which yields the point estimate `r format(round(estimate,2),nsmall = 2)`. We can use the same function to produce the replicate estimates,
+```{r}
+replicate_estimates <- c(
+  estimator(data = sim_rep, weight_name = "repwt1"),
+  estimator(data = sim_rep, weight_name = "repwt2"),
+  estimator(data = sim_rep, weight_name = "repwt3")
+)
+```
+yielding the three estimates: `r format(round(replicate_estimates,2),nsmall = 2)`. In real data, you will want to apply this in a loop because there may be dozens of replicate weights.
+
+The standard error of the estimator will be some function of the replicate estimates, likely involving the standard deviation of the replicate estimates. Check with the data distributor for a formula for your case. Once you estimate the standard error, a 95\% confidence interval can be constructed with a Normal approximation, as discussed above.
+
+### Application in the CPS
+
+Starting in 2005, the CPS-ASEC samples include 160 replicate weights. If you download replicate weights for many years, the file size will be enormous. We illustrate the use of replicate weights with a question that can be explored with only one year of data: among 25-year olds in 2023, how did the proportion holding four-year college degrees differ across those identifying as male and female?
+
+We first load some packages, including the `foreach` package which will be helpful when looping through replicate weights.
+```{r, comment = F, message = F}
+library(tidyverse)
+library(haven)
+library(foreach)
+```
+
+To answer our research question, we download 2023 CPS-ASEC data including the variables [`sex`](https://cps.ipums.org/cps-action/variables/SEX), [`educ`](https://cps.ipums.org/cps-action/variables/EDUC), [`age`](https://cps.ipums.org/cps-action/variables/AGE), the weight variable [`asecwt`](https://cps.ipums.org/cps-action/variables/ASECWT), and the replicate weights [`repwtp*`](https://cps.ipums.org/cps-action/variables/REPWTP).
+
+```{r, message = F, comment = F}
+cps_data <- read_dta("../data_raw/cps_00079.dta")
+```
+
+We then define an estimator to use with these data. It accepts a tibble `data` and a character `weight_name` identifying the name of the weight variable, and it returns a tibble with two columns: `sex` and `estimate` for the estimated proportion with a four-year degree.
+
+```{r}
+estimator <- function(data, weight_name) {
+  data |>
+    # Define focal_weight to hold the selected weight
+    mutate(focal_weight = data |> pull(weight_name)) |>
+    # Restrict to those age 25+
+    filter(age >= 25) |>
+    # Restrict to valid reports of education
+    filter(educ > 1 & educ < 999) |>
+    # Define a binary outcome: a four-year degree
+    mutate(college = educ >= 110) |>
+    # Estimate weighted means by sex
+    group_by(sex) |>
+    summarize(estimate = weighted.mean(
+      x = college,
+      w = focal_weight
+    ))
+}
+```
+
+We produce a point estimate by applying that estimator with the `asecwt`.
+
+```{r}
+estimate <- estimator(data = cps_data, weight_name = "asecwt")
+```
+```{r, echo = F}
+estimate
+```
+
+Using the `foreach` package, we apply the estimator 160 times---once with each replicate weight---and use the argument `.combine = "rbind"` to stitch results together by rows.
+
+```{r}
+library(foreach)
+replicate_estimates <- foreach(r = 1:160, .combine = "rbind") %do% {
+  estimator(data = cps_data, weight_name = paste0("repwtp",r))
+}
+```
+```{r, echo = F}
+replicate_estimates
+```
+
+We estimate the standard error of our estimator by a formula
+$$\text{StandardError}(\hat\tau) = \sqrt{\frac{4}{160}\sum_{r=1}^{160}\left(\hat\tau^*_r - \hat\tau\right)^2}$$
+where the formula comes from the [survey documentation](https://cps.ipums.org/cps/repwt.shtml#q40). We carry out this procedure within groups defined by sex, since we are producing estimate for each sex.
+
+```{r}
+standard_error <- replicate_estimates |>
+  # Denote replicate estimates as estimate_star
+  rename(estimate_star = estimate) |>
+  # Merge in the point estimate
+  left_join(estimate,
+            by = join_by(sex)) |>
+  # Carry out within groups defined by sex
+  group_by(sex) |>
+  # Apply the formula from survey documentation
+  summarize(standard_error = sqrt(4 / 160 * sum((estimate_star - estimate) ^ 2)))
+```
+```{r, echo = F}
+standard_error
+```
+
+Finally, we combine everything and construct a 95\% confidence interval by a Normal approximation.
+```{r}
+result <- estimate |>
+  left_join(standard_error, by = "sex") |>
+  mutate(ci_min = estimate - 1.96 * standard_error,
+         ci_max = estimate + 1.96 * standard_error)
+```
+```{r, echo = F}
+result
+```
+
+We use `ggplot()` to visualize the result.
+```{r}
+result |>
+  mutate(sex = as_factor(sex)) |>
+  ggplot(aes(
+    x = sex, 
+    y = estimate,
+    ymin = ci_min, 
+    ymax = ci_max,
+    label = scales::percent(estimate)
+  )) +
+  geom_errorbar(width = .2) +
+  geom_label() +
+  scale_x_discrete(
+    name = "Sex", 
+    labels = str_to_title
+  ) +
+  scale_y_continuous(name = "Proportion with 4-Year College Degree") +
+  ggtitle(
+    "Sex Disparities in College Completion",
+    subtitle = "Estimates from the 2023 CPS-ASEC among those age 25+"
+  )
+```
+
+We conclude that those identifying as female are more likely to hold a college degree. Because we can see the confidence intervals generated using the replicate weights, we are reasonably confident in the statistical precision of our point estimates.
+
+## A word of warning
+
+The bootstrap is a powerful tool, but there are notable cases in which it fails.
+
+First, all frequentist confidence intervals that are based solely on sampling variance may suffer undercoverage if applied to biased estimators. For example, many machine learning algorithms induce bias through regularization. This means that even if we correctly approximate sampling variance, the center of our confidence intervals may be systematically misaligned from the true population parameter, yielding undercoverage.
+
+Second, the bootstrap can exhibit unexpected performance with statistics such as the maximum or minimum value, since these statistics can be sensitive to a particular data point. Taking the maximum as an example, the value $\text{max}(\vec{y}^*)$ in a bootstrap sample will never be higher than $\text{max}(\vec{y})$ in the sample from which that bootstrap was drawn. The entire bootstrap distribution of $\text{max}(\vec{y}^*)$ will be at or below the original estimate of $\text{max}(\vec{y})$. Like the max or min, quantiles of $\vec{y}$ can also lead to unexpected bootstrap behavior. Generally the bootstrap will have the best performance for statistics such as the mean for which no particular unit plays an especially determining role.
+
+
+
+

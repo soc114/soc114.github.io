@@ -1,0 +1,58 @@
+---
+title: "Empirical Questions"
+---
+
+> Topic for 1/5. [Slides](../slides/lec01_empirical_questions/lec01_empirical_questions.pdf)
+
+Data science should begin with clarity about what questions data can (and cannot) answer. The questions data science can most directly answer are empirical questions, which involve quantities that could (at least hypothetically) be measured in the world. Empirical questions include:
+
+* What proportion of U.S. adults were employed last month?
+* What is the median household income in the U.S.?
+* To what degree would employment and median household income increase if we adopted a tax policy to incentivize hiring?
+
+## Empirical questions: Descriptive and causal
+
+This class will focus on two categories of empirical questions. Descriptive questions describe the world as it is. The first two questions above are descriptive: they summarize the proportion employed and the median household income. If we everyone would tell us their employment and income, we could estimate these quantities directly.
+
+Causal questions involve counterfactual outcomes that do not exist, but would be realized if some aspect of the world were different in a specific way. The third question above is causal because it involves a counterfactual state of the world: what would happen if a new tax policy were implemented.
+
+## Non-empirical questions
+
+Other questions are not empirical. One common category of non-empirical questions is normative questions that involve a judgment about what is right or what ought to be. Normative questions include:
+
+* The median household income in the U.S. is too low.
+* The U.S. should address inequality with the policies common in Sweden.
+
+Data alone cannot answer non-empirical questions. It is impossible to prove with data that the median household income is too low, for example. You might personally believe that it is too low, and your own subjective beliefs might motivate your analysis. If you want to convince people that median incomes are too low, you might answer empirical questions about the median income and the median value of various costs such as rent, educational expenses, and food. Data science provides empirical answers to these questions. But data science stops short of value judgments about the results.
+
+This class takes inequality as a motivating class of examples. Inequality is a topic for which many people bring normative commitments. As a scholar of inequality, you might hope that your objective evidence might spur people to action to promote equality and fairness. Our own normative commitments are often a good motivator for new empirical investigations. But for the credibility of the analysis it is also important to keep normative judgments separate from empirical claims. The most credible data science claims are precise and focus on the questions that data can most directly answer.
+
+<!-- >As a motivating example, we will discuss questions about inequality as introduced in p. 49--53 of this paper: -->
+
+<!-- > Jencks, C. (2002). [Does inequality matter?](https://www.jstor.org/stable/20027737) Daedalus, 131(1). -->
+
+<!-- We will emphasize two key ideas in this paper: -->
+
+<!-- * choosing a summary of a distribution -->
+<!-- * normative and objective claims -->
+
+<!-- ## Normative and objective claims -->
+
+<!-- Inequality is a topic that brings out normative commitments: beliefs about how the world should be. Many of us study inequality because of our own moral beliefs in fairness, equality, and opportunity. Inequality is also a topic full of objective facts, such as quantitative evidence describing the U.S. household income distribution. When studying inequality, it is important to distinguish between normative claims (what should be) and objective claims (what is). -->
+
+<!-- ### Normative claims: An illustration with manna -->
+
+<!-- Normative claims are the focus of moral philosophy. Because this is a course on data science, we will mostly avoid normative claims. To illustrate the difference between the kinds of approaches useful in the two settings, we consider a story from the Hebrew scriptures as retold by [Jencks (2002)](https://www.jstor.org/stable/2002773). -->
+
+<!-- In the story, the Israelites are wandering in the desert without food. God provides a form of bread (manna) that falls down from heaven every day. People do not work for their manna; it is provided freely by God. Taking this example, Jencks considers a normative question about inequality: how should the manna be distributed among the people? -->
+
+<!-- ![The Israelites Collecting Manna from Heaven. Austria. About 1400–1410. Unknown artist. -->
+<!-- Getty Open Content Program. [getty.edu/art/collection/object/105T6R](https://www.getty.edu/art/collection/object/105T6R)](../slides/lec1/manna_small.jpeg){ width=25% } -->
+
+<!-- Jencks presents a utilitarian moral argument. Suppose that (1) we want to maximize overall societal welfare. Suppose also that (2) each person gets diminishing welfare returns to additional amounts of manna: the first pound of manna relieves you from starvation, the second pound is a bit less helpful, and the third pound even less than that. Under premises (1) and (2), it would make no sense to give lots of manna to a few people while others go hungry. Instead, the welfare-maximizing distribution of manna would be one in which each person receives an equal share. -->
+
+<!-- The story of the manna illustrates the elements of a moral argument. One must argue for premises, such as the notion that we should maximize welfare and the notion that each person receives diminishing returns from manna. A debate could happen by challenging some of these premises, such as by arguing that a child might need less manna than a full-grown adult to achieve the same level of welfare. Applying these arguments to present-day inequality is further complicated by the fact that money is earned through work instead of falling freely from the sky. Moral arguments about inequality are important and should be the subject of more thorough treatments in classes on moral and political philosophy. -->
+
+<!-- ## Summary video: What we covered today -->
+
+<!-- {{< video https://www.youtube.com/embed/sN35dvXeNv0 >}} -->

@@ -1,0 +1,47 @@
+---
+title: "Using Data"
+---
+
+> Topic for 1/5 (Part 2)
+
+Our empirical questions will always involve at least two key elements:
+
+* Outcome: The variable being summarized
+* Unit of analysis: Unit for which the outcome is defined
+
+These elements of empirical questions correspond to components of the data we will use, which will appear in the format of spreadsheets. Below is one hypothetical data table.
+
+| Address | Income | Number of People |
+|---------|-----|-----|
+| 5462 Park St | 54,896 | 2 |
+| 4596 Ocean Ave Apt B | 22,465 | 1 |
+| 6831 River Dr | 134,297 | 4 |
+
+: A hypothetical data table with three households
+
+The unit of analysis in these data is a household. Each row represents one unit. It is typical that a row of your dataset will correspond to a unit of analysis. Each column contains a variable defined for every unit: the address of the household, annual the household income, and the number of people in the household.
+
+## Data in R
+
+Next we will load these data into R.
+
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+basicData <- tibble(
+  address = c(
+    "5462 Park St",
+    "4596 Ocean Ave Apt B",
+    "6831 River Dr"
+    ),
+  income = c(54896,22465,134297),
+  numPeople = c(2,1,4)
+)
+write_csv(basicData, file = "../data/basicData.csv")
+```
+
+```{r, eval = F}
+library(tidyverse)
+basicData <- read_csv("https://soc114.github.io/data/basicData.csv")
+```
+
+If you type `basciData` in your R console, you will see a printout of the data. In class, we will use these data to become familiar with the RStudio environment.

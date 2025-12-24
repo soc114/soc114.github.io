@@ -10,7 +10,7 @@ execute:
 
 website:
   title: "Social Data Science"
-  description: "Generate new knowledge about social inequality using the tools of data science."
+  description: "A course on applied data science using inequality as a motivating example from social science."
   page-navigation: true
   navbar:
     pinned: true
@@ -19,81 +19,87 @@ website:
         text: " "
       - href: assets/syllabus.pdf
         text: Syllabus
-      - href: who_we_are.qmd
-        text: Team
       - href: schedule.qmd
         text: Schedule
-      - href: office_hours.qmd
-        text: Office Hours
-      - href: "https://piazza.com/class/m3q7dpj6kqd2fn"
+      - href: "https://piazza.com/class/miyskvk64nv4y1"
         text: Piazza
       - href: forms.qmd
         text: Forms
+      - past_sites.qmd
         
   sidebar:
     style: "docked"
     search: true
-    collapse-level: 2
+    collapse-level: 1
     contents:
-      - href: index.qmd
-        text: Home
-      - href: topics/working_with_data.qmd
-        text: "Working with Data"
+      - section: "Summarizing Distributions"
+        contents: 
+          - topics/1_empirical_questions.qmd
+          - topics/2a_dataset.qmd
+          - topics/2b_summary_statistic.qmd
+          - topics/3_sampling.qmd
+          - topics/4_ci.qmd
+      - section: "Models for Subgroup Summaries"
         contents:
-          - topics/asking_questions.qmd
-          - topics/r_basics.qmd
-          - topics/visualization.qmd
-          - topics/data_transformation.qmd
-      - section: "Inference Without Models"
+          - topics/5_models.qmd
+          - topics/6_forests.qmd
+          - topics/7_data_driven_selection.qmd
+          - topics/8_are_complex_better.qmd
+      - section: "Causal Inference under Measured Confounding"
         contents:
-          - topics/sampling.qmd
-          - topics/weights.qmd
-          - topics/define_causal.qmd
-          - topics/exchangeability.qmd
-          - topics/conditional_exchangeability.qmd
-          - topics/nonparametric_estimation.qmd
-          - topics/DAGs.qmd
-      - section: "Inference with Models"
+          - topics/9_define_causal.qmd
+          - topics/10_exchangeability.qmd
+          #- topics/nonparametric_estimation.qmd
+          - topics/11_DAGs.qmd
+          #- topics/why_model.qmd
+          - topics/12_models_for_causal.qmd
+          - topics/13_continuous_treatments.qmd
+          #- topics/matching.qmd
+          #- topics/trees.qmd
+          #- topics/forests.qmd
+      - section: "Causal Inference with Unmeasured Confounding"
         contents:
-          - topics/what_is_a_model.qmd
-          - topics/why_model.qmd
-          - topics/models_for_causal.qmd
-          - topics/matching.qmd
-          - topics/trees.qmd
-          - topics/forests.qmd
-          - topics/bootstrap.qmd
-          - topics/data_driven_selection.qmd
-          # - section: "Models for description"
-          #   contents:
-          #     - topics/learning_exercise.qmd
-          #     - topics/sample_splitting.qmd
-      - href: discussion.qmd
-      - section: "Assignments"
+         - topics/14_did.qmd
+         - topics/15_rd.qmd
+         - topics/16_iv.qmd
+      # - href: discussion.qmd
+      - section: "Software and Coding"
         contents:
-          - section: "Problem Sets"
-            contents:
-              - href: assignments/pset0.qmd
-                text: "Problem Set 0"
-              - href: assignments/pset1.qmd
-                text: "Problem Set 1"
-              - href: assignments/pset2.qmd
-                text: "Problem Set 2"
-              - href: assignments/pset3.qmd
-                text: "Problem Set 3"
-              - href: assignments/pset4.qmd
-                text: "Problem Set 4"
-          - href: assignments/project.qmd
-            text: "Project"
+          - topics/s1_r_basics.qmd
+          - topics/s2_visualization.qmd
+          - topics/s3_data_transformation.qmd
+      # - section: "Assignments"
+      #   contents:
+      #     - section: "Problem Sets"
+      #       contents:
+      #         - href: assignments/pset0.qmd
+      #           text: "Problem Set 0"
+      #         - href: assignments/pset1.qmd
+      #           text: "Problem Set 1"
+      #     #     - topics/learning_exercise.qmd
+      #         - href: assignments/pset2.qmd
+      #           text: "Problem Set 2"
+      #         - href: assignments/pset3.qmd
+      #           text: "Problem Set 3"
+      #         - href: assignments/pset4.qmd
+      #           text: "Problem Set 4"
+      #     - href: assignments/project.qmd
+      #       text: "Project"
+      #       # - topics/asking_questions.qmd
 
   back-to-top-navigation: true
 
 format:
   html:
-    theme:
-      light: flatly
-      dark: darkly
+    #theme:
+    #  light: flatly
+    #  dark: darkly
     css: styles.css
     toc: true
+    linkcolor: '#2774AE'
+    highlight: '#2774AE'
+    navbarbg: '#2774AE'
+    tucolor: '#2774AE'
     # grid: 
     #   sidebar-width: 300px
 

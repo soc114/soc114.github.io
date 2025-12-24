@@ -1,6 +1,6 @@
 ---
 title: "Social Data Science"
-subtitle: UCLA SOCIOL [114](https://catalog.registrar.ucla.edu/course/2023/sociol114) (Winter '25)
+subtitle: UCLA SOCIOL [114](https://catalog.registrar.ucla.edu/course/2025/sociol114) (Winter '26)
 page-layout: full
 format:
   html:
@@ -13,11 +13,34 @@ Together, we will use tools from data science to answer social science questions
 
 As a result of participating in this course, students will be able to
 
-- visualize economic inequality with graphs that summarize survey data
 - connect theories about inequality to quantitative empirical evidence
 - evaluate the effects of hypothetical interventions to reduce inequality
 - conduct data analysis using the R programming language
 
----
-#{{< video https://www.youtube.com/embed/h6wocn6LT9g>}}
----
+## Team
+
+::: {.grid}
+
+::: {.g-col-2}
+<img src="assets/profiles/ian.png" style="width:100%;">
+:::
+
+::: {.g-col-10}
+[**Ian Lundberg**](https://www.ianlundberg.org/)  
+[**ianlundberg@ucla.edu**](mailto:ianlundberg@ucla.edu)  
+(_he / him_)
+
+Working with data to understand inequality brings me joy and meaning, as I first discovered as a college student years ago. I hope to share that joy with you! Other joys of mine include hiking, surfing, and oatmeal with blueberries.
+:::
+
+::: {.g-col-2}
+
+:::
+
+::: {.g-col-10}
+[**Taylor Aquino**](https://soc.ucla.edu/person/taylor-aquino/)  
+[**taquino7@g.ucla.edu**](mailto:taquino7@g.ucla.edu)
+
+:::
+
+:::

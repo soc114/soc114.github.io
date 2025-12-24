@@ -1,0 +1,17 @@
+{
+  "hash": "1716e5875c18462f1c09e2f0951ddb5f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Using Data\"\n---\n\n> Topic for 1/5 (Part 2)\n\nOur empirical questions will always involve at least two key elements:\n\n* Outcome: The variable being summarized\n* Unit of analysis: Unit for which the outcome is defined\n\nThese elements of empirical questions correspond to components of the data we will use, which will appear in the format of spreadsheets. Below is one hypothetical data table.\n\n| Address | Income | Number of People |\n|---------|-----|-----|\n| 5462 Park St | 54,896 | 2 |\n| 4596 Ocean Ave Apt B | 22,465 | 1 |\n| 6831 River Dr | 134,297 | 4 |\n\n: A hypothetical data table with three households\n\nThe unit of analysis in these data is a household. Each row represents one unit. It is typical that a row of your dataset will correspond to a unit of analysis. Each column contains a variable defined for every unit: the address of the household, annual the household income, and the number of people in the household.\n\n## Data in R\n\nNext we will load these data into R.\n\n\n::: {.cell}\n\n:::\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nbasicData <- read_csv(\"https://soc114.github.io/data/basicData.csv\")\n```\n:::\n\n\nIf you type `basciData` in your R console, you will see a printout of the data. In class, we will use these data to become familiar with the RStudio environment.\n",
+    "supporting": [
+      "2a_dataset_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

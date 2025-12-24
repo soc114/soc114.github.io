@@ -1,0 +1,10 @@
+---
+title: "Past Year Sites"
+page-layout: full
+---
+
+The material on this site draws on the websites of several past courses that I have taught.
+
+* UCLA SOC 114 ([Winter 2025](https://soc114.github.io/2025/))
+* Cornell INFO 3370 ([Spring 2024](https://info3370.github.io/)) ([Spring 2023](https://info3370.github.io/sp23/))
+* Cornell INFO 3900 ([Fall 2023](https://causal3900.github.io/fa23/))

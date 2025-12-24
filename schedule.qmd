@@ -8,69 +8,15 @@ format:
     toc: true
 ---
 
-## Lecture topics
-
-The course is divided into three broad sections:
-
-* Jan 7--16: Working with data
-* Jan 21--Feb 6: Inference without models
-* Feb 11 onward: Inference with models
-
-Each date will be a link to the slides for that lecture.
-
-| Date | Website Page |
-|---|---|---|
-| [Jan 7](slides/lec01_asking_questions/lec01_asking_questions.pdf)	| [Welcome](index.qmd) |
-| | [Asking questions](topics/asking_questions.qmd) |
-| | [Setting up your computer](topics/r_basics.qmd) |
-| [Jan 9](slides/lec02_visualization/lec02_visualization.pdf)	| [Visualization](topics/visualization.qmd) |
-| Jan 14 & Jan 16	| [Data transformation](topics/data_transformation.qmd) |
-| Thu, Jan 16	| Data transformation |
-| Tue, [Jan 21](slides/lec05_sampling/lec05_sampling.pdf)	| [Population sampling](topics/sampling.qmd) |
-| Thu, [Jan 23](slides/lec06_sampling/lec06_sampling.pdf)	| [Population sampling](topics/sampling.qmd) |
-| Tue, [Jan 28](slides/lec07_define_causal/lec07.pdf)	| [Defining causal effects](topics/define_causal.qmd) |
-| Thu, [Jan 30](slides/lec08_experiments/lec08_experiments.pdf)	| Exchangeability and experiments |
-| Tue, [Feb 4](slides/lec09_conditional_exchangeability/lec09_conditional_exchangeability.pdf)	| [Conditional exchangeability](topics/conditional_exchangeability.qmd) |
-| 	| [Nonparametric estimation](topics/nonparametric_estimation.qmd) |
-| Thu, [Feb 6](slides/lec10_dags/lec10_dags.pdf)	| [Directed Acyclic Graphs (DAGs)](topics/DAGs.qmd) |
-| Tue, Feb 11 [A](slides/lec11a_whymodel/lec11a_whymodel.pdf) and [B](slides/lec11b_what_is_a_model/lec11b_what_is_a_model.pdf)	| [Why model?](topics/why_model.qmd) and [What is a model?](topics/what_is_a_model.qmd) |
-| Thu, [Feb 13](slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf) | Intro of outcome models for causal inference
-| Tue, Feb 18	| With coding: [Outcome models for causal inference](topics/models_for_causal.qmd#outcome-modeling)
-| Thu, Feb 20	| [Logistic regression](topics/what_is_a_model.qmd#logistic-regression) and its use in a [causal outcome model](topics/models_for_causal.qmd#generalizing-to-logistic-regression)
-| Tue, [Feb 25](slides/ipw/ipw.pdf) | [Model-based inverse probability weighting](topics/models_for_causal.qmd#doubly-robust-estimation#treatment-modeling) |
-| Thu, [Feb 27](slides/matching/matching.pdf)	| [Matching](topics/matching.qmd) |
-| Tue, [Mar 4](slides/trees/trees.pdf)	| [Trees](topics/trees.qmd) |
-| Thu, [Mar 6](slides/bootstrap/bootstrap.pdf)	| [Bootstrap for statistical uncertainty](topics/bootstrap.qmd) |
-| Tue, [Mar 11](slides/data_driven_selection/data_driven_selection.pdf)	| [Data-driven selection of an estimator](topics/data_driven_selection.qmd) |
-| Thur, Mar 13	| Course recap |
-
-<!-- continuous treatments? mediation? -->
-
-
-<!-- | Tue, Mar 11	| Machine learning vs regression: A case study (FF Challenge) | -->
-
-<!-- | Thu, Feb 20	| [Doubly-robust estimation](topics/models_for_causal.qmd#doubly-robust-estimation) | -->
-<!-- | Tue, Feb 18	| Properties of estimators | -->
-<!-- | Thu, Feb 20	| Estimating the properties of estimators | -->
-<!-- | Tue, Feb 25	| Machine learning as a plug-in: Descriptive and causal | -->
-<!-- | Tue, Feb 27	| Machine learning as a plug-in: Descriptive and causal | -->
-<!-- | Thu, Mar 4	| Machine learning: Penalized regression | -->
-<!-- | Tue, Mar 6	| Machine learning: Trees and forests | -->
-<!-- | Thu, Mar 11	| Machine learning vs regression: A case study (FF Challenge) | -->
-
 ## Assignments
 
-| Due Date | Assignment |
-|---|---|
-| Fri, Jan 10	at 5pm | Problem Set 0 |
-| Fri, Jan 17	at 5pm | Problem Set 1 |
-| Fri, Jan 24	at 5pm | Peer Review 1 |
-| Fri, Jan 31	at 5pm | Problem Set 2 |
-| Fri, Feb 07	at 5pm | Peer Review 2 |
-| Fri, Feb 14	at 5pm | Problem Set 3 |
-| Fri, Feb 21	at 5pm | Peer Review 3 |
-| Fri, Feb 28	at 5pm | Problem Set 4 |
-| Fri, Mar 07	at 5pm | Draft Project Writeup |
-| Mon, Mar 10	at 5pm | Project Slides |
-| Fri, Mar 14	at 5pm | Project Writeup |
+* M 5pm: Post-lecture quiz due
+* W 5pm: Post-lecture quiz due
+* F 5pm: Problem set due
+
+## Lecture topics
+
+The course is divided into broad sections that appear in the left panel of this site. Each section contains several pages, one for each lecture. The top of each page will denote the tentative date that the material will be covered, though dates may adjust based on feedback in lecture.
+
+One deviation from the order is that "Software and Coding" is a reference topic at the bottom of the set.
 

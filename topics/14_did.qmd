@@ -1,0 +1,8 @@
+---
+title: "Difference in difference"
+format: html
+---
+
+> Topic for 3/2.
+
+Page to be written.
