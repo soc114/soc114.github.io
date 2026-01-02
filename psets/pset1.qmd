@@ -1,0 +1,28 @@
+---
+title: "Problem Set 1: Code Basics"
+---
+
+**Due: 5pm on Friday, January 9.**
+
+> The goal of this problem set is to learn the basics of coding in R.
+
+<!-- Create an R script named `pset1.R`. Follow the steps below to write code that can run to produce the objects described. Submit `pset1.R` by uploading it on Gradescope (accessible via BruinLearn). -->
+
+<!-- We will grade your assignment by running the code and evaluating whether it produces the requested objects. You do not have to label the question numbers in your code. -->
+
+<!-- Much of the material for this problem set corresponds to [R4DS Chapter 2](https://r4ds.hadley.nz/workflow-basics.html). If you are stuck, look at examples there! -->
+
+<!-- 1. **Working with numbers.** -->
+<!--      a. Create an object called `one_number`. Store the value `1` in this object. -->
+<!--      b. Create an object called `two_numbers`. Store a vector of length two holding two values: 1 and 2. You will want the `c()` function described in the chapter. -->
+<!--      c. Create an object called `two_numbers_doubled`. Multiply `two_numbers` by 2 and store the result in this object. -->
+<!-- 2. **Working with functions.** This problem practices functions (see [R4DS 2.4](https://r4ds.hadley.nz/workflow-basics.html#calling-functions)). A function takes arguments and returns an output. -->
+<!--      a. The `length(x)` function tells you the length of any R object `x`. Use it to determine the length of `two_numbers`. Store the result in an objects called `length_two_numbers`. -->
+<!--      b. The `class(x)` function tells us what type of object `x` is. Use it to determine the class of `two_numbers`. Store the result in `class_two_numbers`. -->
+<!--      c. The `sum()` function sums all elements of a numeric vector. Use it to determine the sum of `two_numbers`. Store the result in `sum_two_numbers`. -->
+<!-- 3. **Working with a data frame.** -->
+<!--      a. Create an object called `lifeCourse`. Use `read_csv(file = "https://soc114.github.io/data/lifeCourse.csv")` to read a dataset from the course website and store it in this object. -->
+<!--           * Tip: On loading data, see [R4DS Ch 7.2](https://r4ds.hadley.nz/data-import.html#reading-data-from-a-file) -->
+<!--           * Tip: If you get the error message "could not find function", that is because you first need to load the `tidyverse` package with the line `library(tidyverse)`. This can go at the top of your code file. If you have not installed the package, see the [software prerequisites](topics/s1_r_basics.qmd) page. -->
+<!--      b. Use the `nrow()` function to find the number of rows in the data. Store the result in an object called `numberOfRows`. -->
+<!--      c. Use the `ncol()` function to find the number of columns in the data. Store the result in an object called `numberOfColumns`. -->

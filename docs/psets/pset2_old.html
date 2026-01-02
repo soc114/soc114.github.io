@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Final Project – Social Data Science</title>
+<title>Problem Set 2: Data Transformation – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -96,17 +131,24 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../assets/syllabus.pdf"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-problem-sets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Problem Sets</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-problem-sets">    
+        <li>
+    <a class="dropdown-item" href="../psets/pset1.html">
+ <span class="dropdown-text">Problem Set 1: Code Basics</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html"> 
-<span class="menu-text">Schedule</span></a>
+    <a class="nav-link" href="../honors.html"> 
+<span class="menu-text">Honors Section</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://piazza.com/class/miyskvk64nv4y1"> 
 <span class="menu-text">Piazza</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../forms.html"> 
-<span class="menu-text">Forms</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../past_sites.html"> 
@@ -123,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Final Project</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 2: Data Transformation</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -328,17 +370,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-you-will-submit" id="toc-what-you-will-submit" class="nav-link active" data-scroll-target="#what-you-will-submit">What you will submit</a></li>
-  <li><a href="#group-structure" id="toc-group-structure" class="nav-link" data-scroll-target="#group-structure">Group structure</a></li>
-  <li><a href="#key-components-of-the-project" id="toc-key-components-of-the-project" class="nav-link" data-scroll-target="#key-components-of-the-project">Key components of the project</a></li>
-  <li><a href="#considerations-to-bear-in-mind" id="toc-considerations-to-bear-in-mind" class="nav-link" data-scroll-target="#considerations-to-bear-in-mind">Considerations to bear in mind</a></li>
-  <li><a href="#rubrics" id="toc-rubrics" class="nav-link" data-scroll-target="#rubrics">Rubrics</a>
-  <ul class="collapse">
-  <li><a href="#writeup-rubric" id="toc-writeup-rubric" class="nav-link" data-scroll-target="#writeup-rubric">Writeup rubric</a></li>
-  <li><a href="#presentation-rubric" id="toc-presentation-rubric" class="nav-link" data-scroll-target="#presentation-rubric">Presentation rubric</a></li>
-  <li><a href="#within-group-peer-evaluation" id="toc-within-group-peer-evaluation" class="nav-link" data-scroll-target="#within-group-peer-evaluation">Within-group peer evaluation</a></li>
-  </ul></li>
-  <li><a href="#have-fun" id="toc-have-fun" class="nav-link" data-scroll-target="#have-fun">Have fun</a></li>
+  <li><a href="#data-analysis-existing-question" id="toc-data-analysis-existing-question" class="nav-link active" data-scroll-target="#data-analysis-existing-question">1. Data analysis: Existing question</a></li>
+  <li><a href="#a-new-outcome" id="toc-a-new-outcome" class="nav-link" data-scroll-target="#a-new-outcome">2. A new outcome</a></li>
+  <li><a href="#recap-and-connections-to-your-project" id="toc-recap-and-connections-to-your-project" class="nav-link" data-scroll-target="#recap-and-connections-to-your-project">Recap and connections to your project</a></li>
   </ul>
 </nav>
     </div>
@@ -347,7 +381,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Final Project</h1>
+<h1 class="title">Problem Set 2: Data Transformation</h1>
 </div>
 
 
@@ -364,221 +398,80 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The culmination of the course is a group research project. You will</p>
+<p><strong>Due: 5pm on Friday, Jan 31.</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfl7t-b4nPRIzIy9C3KBjTnBUGSfwTo7gW8-l2BjyQN3sZwdQ/viewform?usp=dialog">rubric</a></p>
+</div>
+</div>
+<p>Student identifer: [type your anonymous identifier here]</p>
 <ul>
-<li>create your own research question (one descriptive and one causal)</li>
-<li>download your own data</li>
-<li>visualize the data</li>
-<li>interpret your findings</li>
+<li>Use this <a href="../assets/pset2/pset2.qmd" download="">pset2.qmd</a> template to complete the problem set</li>
+<li>In Canvas, you will upload the PDF produced by your .qmd file</li>
+<li>Put your identifier above, not your name! We want anonymous grading to be possible</li>
 </ul>
-<p>You can answer any question using the ideas we learned in this course.</p>
-<section id="what-you-will-submit" class="level2">
-<h2 class="anchored" data-anchor-id="what-you-will-submit">What you will submit</h2>
-<p>There are assignments on BruinLearn. Each will take one submission per group.</p>
-<p><strong>Draft Writeup. Due 5pm Fri Mar 7.</strong> Worth 0 points, but an opportunity to send us your work and get feedback from the teaching team. Format is the same as your writeup (see below).</p>
-<p><strong>Slides. Due 5pm Mon Mar 10.</strong> A PDF that you will present in discussion. Keep text to a minimum in the slides. You should plan to have all group members speak during the presentation. Your presentation should be 10 minutes or less.</p>
-<p><strong>Writeup. Due 5pm Fri Mar 14.</strong> A <code>.qmd</code> document compiled into a PDF. It should include all code that produces your results. This must be no more than 1,000 words and will contain 1 or more visualizations.</p>
-</section>
-<section id="group-structure" class="level2">
-<h2 class="anchored" data-anchor-id="group-structure">Group structure</h2>
-<p>We will form groups of about 5 students each within discussion sections. Groups will be formed during discussion in the middle of the quarter.</p>
-</section>
-<section id="key-components-of-the-project" class="level2">
-<h2 class="anchored" data-anchor-id="key-components-of-the-project">Key components of the project</h2>
-<p>Your goal should be to <strong>tell us a story</strong> using the data. What do we learn by studying this outcome, aggregated this way, in these subgroups from this population?</p>
-<p>A few points should be part of your writeup:</p>
-<ol type="1">
-<li>Define your unit of analysis</li>
-<li>Define your target population
-<ul>
-<li>Motivate: why is this population interesting to study?</li>
-</ul></li>
-<li>Describe how your sample was chosen from that population
-<ul>
-<li>this may be a probability sample, such as those available via IPUMS. If so, tell us a little bit about the sampling design</li>
-<li>this may be a convenience sample. If so, why does it speak to the population and what are the limitations?</li>
-<li>this may be data on the entire population, as in our <a href="../topics/sampling.qmd#sec-baseball">baseball</a> example</li>
-</ul></li>
-<li>Choose an outcome variable, which is defined for each unit in the population.
-<ul>
-<li>example: annual wage and salary income</li>
-</ul></li>
-<li>Choose one or more variables on which to create population subgroups
-<ul>
-<li>example: subgroups defined by sex (male and female)</li>
-</ul></li>
-<li>Choose a summary statistic, which aggregates the outcome distribution to one summary per subgroup
-<ul>
-<li>examples: proportion, mean, median, 90th percentile</li>
-</ul></li>
-<li>Answer one descriptive and one causal question (see below)</li>
-<li>Present results using <code>ggplot()</code></li>
-</ol>
-<p>With these components in mind, you will answer one descriptive and one causal research question.</p>
-<p><strong>Descriptive research question.</strong> For this question, write your results carefully using only descriptive language. As a heuristic, if your goal is descriptive then you should not be using the sentence structure “X [verb] Y”, such as “going to college increases earnings.” This claim suggests a college graduate would have earned less if they had not gone to college—a counterfactual outcome we did not see. For truly descriptive claims, you should phrase more like: “There is a difference in earnings among those who did and did not go to college.” A heuristic to recognize a non-causal claim is that it can be phrased it in an “among” statement: “Among subgroup A, we find ___. Among subgroup B, we find ___.” Or “There is a disparity in Y across subgroups defined by X.”</p>
-<p><strong>Causal research question.</strong> Define your potential outcomes. Draw a DAG in which those potential outcomes can be identified by an assumption of conditional exchangeability. If there are unmeasured confounders, discuss how their omission from your DAG may threaten the credibility of your estimates. It is ok if the assumptions are doubtful as long as you write them down clearly.</p>
-</section>
-<section id="considerations-to-bear-in-mind" class="level2">
-<h2 class="anchored" data-anchor-id="considerations-to-bear-in-mind">Considerations to bear in mind</h2>
-<ul>
-<li><strong>Weights.</strong> If your sample is drawn from the population with unequal probabilities, you should use sampling weights</li>
-<li><strong>Models.</strong> If your question involves many subgroups (e.g., ages) with few observations in each subgroup, you can (but are not required to) use a statistical model to estimate your summary statistic in the subgroup by a predicted value. For example, you could use OLS to predict the proportion mean income at each age. If you do this, you should report the predicted value of the summary statistic, not the coefficients of the model.</li>
-<li><strong>Aggregation.</strong> Your data must begin with units (e.g., people) who you aggregate into subgroups (e.g., age groups). Your data might come pre-aggregated, such as data where each row contains data for all students in a particular college or university. Then you would need to aggregate further, such as to produce summaries for private versus public universities.</li>
-<li><strong>Dropped cases.</strong> As you move from raw data to the data that produce your graph, you might drop cases on the way. For example, some cases may have missing values on key predictors. Report how many are dropped, and why. Our goal here is transparent, open science.</li>
-</ul>
-</section>
-<section id="rubrics" class="level2">
-<h2 class="anchored" data-anchor-id="rubrics">Rubrics</h2>
-<section id="writeup-rubric" class="level3">
-<h3 class="anchored" data-anchor-id="writeup-rubric">Writeup rubric</h3>
+<p>This problem set draws on the following paper.</p>
 <blockquote class="blockquote">
-<p>Here are <a href="../slides/project_rubric/project_rubric.pdf">slides</a> for discussion of the writeup rubric.</p>
+<p>England, Paula, Andrew Levine, and Emma Mishel. 2020. <a href="https://www.pnas.org/doi/full/10.1073/pnas.1918891117">Progress toward gender equality in the United States has slowed or stalled,</a> PNAS 117(13):6990–6997.</p>
 </blockquote>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Criteria</th>
-<th>Points</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>The descriptive research question is well motivated, feasible, and avoids causal language.</td>
-<td>10 pts</td>
-</tr>
-<tr class="even">
-<td>The causal research question is well motivated, feasible, and states appropriate causal assumptions.</td>
-<td>10 pts</td>
-</tr>
-<tr class="odd">
-<td>Unit of analysis is defined clearly</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>Target population is defined clearly</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Predictor(s) are defined clearly</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>Outcome is defined clearly</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Summary statistic is defined clearly (e.g., mean, median, proportion)</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>Data source is described</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Sample restrictions are precisely stated, with the number of cases dropped at each step</td>
-<td>10 pts</td>
-</tr>
-<tr class="even">
-<td>Weights are used appropriately, if applicable</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Figure(s) are clearly labeled</td>
-<td>10 pts</td>
-</tr>
-<tr class="even">
-<td>Text explains and interprets the figure(s)</td>
-<td>10 pts</td>
-</tr>
-<tr class="odd">
-<td>Writing is concise and grammatically correct</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>Code is well-formatted, well-documented, and easy to follow</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Code lines fit on the PDF page</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td><strong>Total</strong></td>
-<td><strong>100 pts</strong></td>
-</tr>
-</tbody>
-</table>
+<p><strong>A note about sex and gender</strong>. Sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.</p>
+<section id="data-analysis-existing-question" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis-existing-question">1. Data analysis: Existing question</h2>
+<p><strong>25 points.</strong> Reproduce Figure 1 from the paper.</p>
+<p>Visit <a href="https://cps.ipums.org/cps/">cps.ipums.org</a> to download data. Include these variables in your cart: <a href="https://cps.ipums.org/cps-action/variables/SEX">sex</a>, <a href="https://cps.ipums.org/cps-action/variables/AGE">age</a>, <a href="https://cps.ipums.org/cps-action/variables/ASECWT">asecwt</a>, <a href="https://cps.ipums.org/cps-action/variables/EMPSTAT">empstat</a>. One way to find them is to click “Select Data” and then use the “Search” button under “Select Variables.”</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Look ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.</p>
+</div>
+</div>
+<p>Once you select your variables, click “Select Samples.” We will download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. To achieve this, under the ASEC tab you can click “Select All Samples.” Under the Basic Monthly tab, you can click and then unclick “Select All Samples” to remove these samples that we will not use.</p>
+<p>Once you have selected variables and selected samples, you can click “View Cart.” Optionally, reduce the size of your extract by un-checking any variables that have been automatically added which you won’t be using. Note that one automatically-added variable is <code>year</code>, which you should keep because you will be using it. Then click “Create Data Extract.” On the next page, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.</p>
+<p>On your computer, analyze these data.</p>
+<ul>
+<li>filter to <code>asecwt &gt; 0</code> (see paper footnote on p.&nbsp;6995 about negative weights)</li>
+<li>mutate to create an <code>employed</code> variable indicating that <code>empstat == 10 | empstat == 12</code></li>
+<li>mutate to convert <code>sex</code> to a factor variable using <code>as_factor</code></li>
+<li>group by <code>sex</code> and <code>year</code></li>
+<li>summarize the proportion employed: use <code>weighted.mean</code> to take the mean of <code>employed</code> using the weight <code>asecwt</code></li>
+</ul>
+<p>Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="presentation-rubric" class="level3">
-<h3 class="anchored" data-anchor-id="presentation-rubric">Presentation rubric</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Criteria</th>
-<th>Points</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Slides are a PDF submitted in Canvas</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>Slides use minimal text</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Presentation motivates the research question</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>Presentation states the question precisely</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Presentation walks through how to read the graph</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>All group members speak (excused absences will not be penalized)</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td>Presentation finishes on time</td>
-<td>5 pts</td>
-</tr>
-<tr class="even">
-<td>Group listens to classmates and answers questions clearly</td>
-<td>5 pts</td>
-</tr>
-<tr class="odd">
-<td><strong>Total</strong></td>
-<td><strong>40 pts</strong></td>
-</tr>
-</tbody>
-</table>
+<section id="a-new-outcome" class="level2">
+<h2 class="anchored" data-anchor-id="a-new-outcome">2. A new outcome</h2>
+<p><strong>25 points.</strong> The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.</p>
+<p>As in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.</p>
+<p>Your answer should include</p>
+<ul>
+<li>a written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable</li>
+<li>a written interpretation of what you found</li>
+<li>code following style conventions</li>
+<li>your publication-quality visualization</li>
+</ul>
 </section>
-<section id="within-group-peer-evaluation" class="level3">
-<h3 class="anchored" data-anchor-id="within-group-peer-evaluation">Within-group peer evaluation</h3>
-<p>We want to learn about your experience working in your group, for two reasons.</p>
-<ol type="1">
-<li>We want to assess for the future how this group project went.</li>
-<li>As a secondary goal, in the rare case that a group member was consistently uninvolved, we want to assess some percentage penalty on that group member’s score. We only anticipate doing this in rare cases.</li>
-</ol>
-<p>After the project has been submitted, we will ask everyone to complete this <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIdrmZWVoAY8rpVf4_knaILO0DRPx9sMejIyAIUVC24P0R1g/viewform?usp=dialog"><strong>within-group peer evaluation form</strong></a> once to tell us about the contributions of each member of their group. We have taken this rubric from a website by the <a href="https://teaching.cornell.edu/teaching-resources/active-collaborative-learning/collaborative-learning/how-evaluate-group-work">Center for Teaching Innovation at Cornell University</a>.</p>
-</section>
-</section>
-<section id="have-fun" class="level2">
-<h2 class="anchored" data-anchor-id="have-fun">Have fun</h2>
-<p>As a teaching team, the project is our favorite part of the course. Preparing you to succeed in the project has been (in some sense) the entire goal of all that precedes the project in the course. We hope you will find joy in answering questions with data, as we do.</p>
+<section id="recap-and-connections-to-your-project" class="level2">
+<h2 class="anchored" data-anchor-id="recap-and-connections-to-your-project">Recap and connections to your project</h2>
+<p>A few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.</p>
 
 
 </section>

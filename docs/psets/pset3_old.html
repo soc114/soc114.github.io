@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 2: Data Transformation – Social Data Science</title>
+<title>Problem Set 3: Causal Inference – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,6 +102,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -131,17 +160,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../assets/syllabus.pdf"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-problem-sets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Problem Sets</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-problem-sets">    
+        <li>
+    <a class="dropdown-item" href="../psets/pset1.html">
+ <span class="dropdown-text">Problem Set 1: Code Basics</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html"> 
-<span class="menu-text">Schedule</span></a>
+    <a class="nav-link" href="../honors.html"> 
+<span class="menu-text">Honors Section</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://piazza.com/class/miyskvk64nv4y1"> 
 <span class="menu-text">Piazza</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../forms.html"> 
-<span class="menu-text">Forms</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../past_sites.html"> 
@@ -158,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 2: Data Transformation</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 3: Causal Inference</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,9 +399,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-analysis-existing-question" id="toc-data-analysis-existing-question" class="nav-link active" data-scroll-target="#data-analysis-existing-question">1. Data analysis: Existing question</a></li>
-  <li><a href="#a-new-outcome" id="toc-a-new-outcome" class="nav-link" data-scroll-target="#a-new-outcome">2. A new outcome</a></li>
-  <li><a href="#recap-and-connections-to-your-project" id="toc-recap-and-connections-to-your-project" class="nav-link" data-scroll-target="#recap-and-connections-to-your-project">Recap and connections to your project</a></li>
+  <li><a href="#analyzing-the-experimental-data-25-points" id="toc-analyzing-the-experimental-data-25-points" class="nav-link active" data-scroll-target="#analyzing-the-experimental-data-25-points">Analyzing the experimental data (25 points)</a></li>
+  <li><a href="#causal-inference-concepts" id="toc-causal-inference-concepts" class="nav-link" data-scroll-target="#causal-inference-concepts">Causal inference concepts</a></li>
+  <li><a href="#how-to-type-math" id="toc-how-to-type-math" class="nav-link" data-scroll-target="#how-to-type-math">How to type math</a></li>
+  <li><a href="#how-to-include-hand-written-math" id="toc-how-to-include-hand-written-math" class="nav-link" data-scroll-target="#how-to-include-hand-written-math">How to include hand-written math</a></li>
   </ul>
 </nav>
     </div>
@@ -374,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Problem Set 2: Data Transformation</h1>
+<h1 class="title">Problem Set 3: Causal Inference</h1>
 </div>
 
 
@@ -391,7 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Due: 5pm on Friday, Jan 31.</strong></p>
+<p><strong>Due: 5pm on Friday, February 14.</strong></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -402,69 +439,104 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfl7t-b4nPRIzIy9C3KBjTnBUGSfwTo7gW8-l2BjyQN3sZwdQ/viewform?usp=dialog">rubric</a></p>
+<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSergD75cuFfLm0RCobrPVZ6qmOwrRtTVUb0fRjZ0xfnTCSuYg/viewform?usp=header">peer review form</a>.</p>
 </div>
 </div>
 <p>Student identifer: [type your anonymous identifier here]</p>
 <ul>
-<li>Use this <a href="../assets/pset2/pset2.qmd" download="">pset2.qmd</a> template to complete the problem set</li>
+<li>Use this <a href="../assets/pset3/pset3.qmd" download="">pset3.qmd</a> to complete the problem set</li>
 <li>In Canvas, you will upload the PDF produced by your .qmd file</li>
 <li>Put your identifier above, not your name! We want anonymous grading to be possible</li>
 </ul>
-<p>This problem set draws on the following paper.</p>
-<blockquote class="blockquote">
-<p>England, Paula, Andrew Levine, and Emma Mishel. 2020. <a href="https://www.pnas.org/doi/full/10.1073/pnas.1918891117">Progress toward gender equality in the United States has slowed or stalled,</a> PNAS 117(13):6990–6997.</p>
-</blockquote>
-<p><strong>A note about sex and gender</strong>. Sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.</p>
-<section id="data-analysis-existing-question" class="level2">
-<h2 class="anchored" data-anchor-id="data-analysis-existing-question">1. Data analysis: Existing question</h2>
-<p><strong>25 points.</strong> Reproduce Figure 1 from the paper.</p>
-<p>Visit <a href="https://cps.ipums.org/cps/">cps.ipums.org</a> to download data. Include these variables in your cart: <a href="https://cps.ipums.org/cps-action/variables/SEX">sex</a>, <a href="https://cps.ipums.org/cps-action/variables/AGE">age</a>, <a href="https://cps.ipums.org/cps-action/variables/ASECWT">asecwt</a>, <a href="https://cps.ipums.org/cps-action/variables/EMPSTAT">empstat</a>. One way to find them is to click “Select Data” and then use the “Search” button under “Select Variables.”</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Look ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.</p>
-</div>
-</div>
-<p>Once you select your variables, click “Select Samples.” We will download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. To achieve this, under the ASEC tab you can click “Select All Samples.” Under the Basic Monthly tab, you can click and then unclick “Select All Samples” to remove these samples that we will not use.</p>
-<p>Once you have selected variables and selected samples, you can click “View Cart.” Optionally, reduce the size of your extract by un-checking any variables that have been automatically added which you won’t be using. Note that one automatically-added variable is <code>year</code>, which you should keep because you will be using it. Then click “Create Data Extract.” On the next page, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.</p>
-<p>On your computer, analyze these data.</p>
+<p>This problem set is based on:</p>
+<p>Bertrand, M &amp; Mullainathan, S. 2004. “<a href="https://search.library.ucla.edu/permalink/01UCS_LAL/192ecse/cdi_unpaywall_primary_10_1257_0002828042002561">Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination</a>.” American Economic Review 94(4):991–1013.</p>
+<p>Read the first 10 pages of the paper (through the end of section 2). In this paper,</p>
 <ul>
-<li>filter to <code>asecwt &gt; 0</code> (see paper footnote on p.&nbsp;6995 about negative weights)</li>
-<li>mutate to create an <code>employed</code> variable indicating that <code>empstat == 10 | empstat == 12</code></li>
-<li>mutate to convert <code>sex</code> to a factor variable using <code>as_factor</code></li>
-<li>group by <code>sex</code> and <code>year</code></li>
-<li>summarize the proportion employed: use <code>weighted.mean</code> to take the mean of <code>employed</code> using the weight <code>asecwt</code></li>
+<li>the unit of analysis is a resume submitted to a job opening</li>
+<li>the treatment is the name at the top of the resume</li>
+<li>the outcome is whether the employer called or emailed back for an interview</li>
 </ul>
-<p>Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels.</p>
+<section id="analyzing-the-experimental-data-25-points" class="level2">
+<h2 class="anchored" data-anchor-id="analyzing-the-experimental-data-25-points">Analyzing the experimental data (25 points)</h2>
+<p>Load packages that our code will use.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Download the study’s data from OpenICPSR: <a href="https://www.openicpsr.org/openicpsr/project/116023/version/V1/view">https://www.openicpsr.org/openicpsr/project/116023/version/V1/view</a>. This will require creating an account and agreeing to terms for using the data ethically. Put the data in the folder on your computer where this .Rmd is located. Read the data into R using <code>read_dta</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"lakisha_aer.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>If you have an error, you might need to set your working directory first. This tells R where to look for data files. At the top of RStudio, click Session -&gt; Set Working Directory -&gt; To Source File Location.</p>
+</blockquote>
+<p>You will now see <code>d</code> in your Global Environment at the top right of RStudio.</p>
+<p>We will use two variables:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>call</code></td>
+<td>outcome</td>
+<td>1 if resume submission yielded a callback</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>0 if not</td>
+</tr>
+<tr class="odd">
+<td><code>race</code></td>
+<td>category of treatments</td>
+<td><code>b</code> if first name signals Black</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td><code>w</code> if first name signals white</td>
+</tr>
+</tbody>
+</table>
+<p>The top of Table 1 reports callback rates: 9.65% for white names and 6.45% for Black names. Reproduce those numbers. Write code that reproduces these numbers.</p>
 </section>
-<section id="a-new-outcome" class="level2">
-<h2 class="anchored" data-anchor-id="a-new-outcome">2. A new outcome</h2>
-<p><strong>25 points.</strong> The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.</p>
-<p>As in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.</p>
-<p>Your answer should include</p>
+<section id="causal-inference-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="causal-inference-concepts">Causal inference concepts</h2>
+<p><strong>2.1. (5 points) Fundamental problem </strong></p>
+<p>One submitted resume had the name “Emily Baker.” It yielded a callback. The same resume could have had the name “Lakisha Washington.” Explain how the Fundamental Problem of Causal Inference applies to this case (1–2 sentences).</p>
+<p><strong>2.2. (5 points) Potential outcomes</strong>. Using math, write the following in potential outcomes notation: resume submission 5 would receive a callback if it signaled the name “Emily Baker”. (There are several ways to write a correct answer.) You can either type math or include a picture of handwritten math. See the bottom of this page for help.</p>
+<p><strong>2.3. (5 points) Exchangeability </strong></p>
+<p>In a sentence, what is the exchangeability assumption in this study? For concreteness, for this question you may suppose that the only names in the study were “Emily Baker” and “Lakisha Washington.” Be sure to explicitly state the treatment and the potential outcomes.</p>
+<p><strong>2.4. (5 points) Observational study</strong></p>
+<p>Suppose that instead of randomly assigning names to fictitious resumes, the authors had instead analyzed real job applications by people named “Emily Baker” and “Lakisha Washington.” Use mathematical notation with a conditional probability <span class="math inline">\(P(\text{A}\mid \text{B})\)</span> to state the following: the probability of being called back was higher among resumes from Emily Baker than among resumes from Lakisha Washington.</p>
+<p><strong>2.5 (5 points) Exchangeability violated</strong></p>
+<p>The descriptive estimand in the observational study (2.4) is different than the causal estimand in the experimental study (2.2). Suppose the researchers wanted to use the observational study to learn about the quantity in (2.2). Explain one way the exchangeability assumption would be violated.</p>
+</section>
+<section id="how-to-type-math" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-type-math">How to type math</h2>
+<p>There are two ways to type math within your .qmd file, outside of a code chunk.</p>
 <ul>
-<li>a written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable</li>
-<li>a written interpretation of what you found</li>
-<li>code following style conventions</li>
-<li>your publication-quality visualization</li>
+<li>To type in-line math surround your math in a single <code>$</code> at each side. Typing <code>$X = 1$</code> will produce <span class="math inline">\(X = 1\)</span>.</li>
+<li>To type math that goes on its own equation line, use <code>$$</code> before and after the math. Typing <code>$$X = 1$$</code> will produce <span class="math display">\[ X = 1\]</span></li>
+</ul>
+<p>When typing math, there are a few things you will want to know.</p>
+<ul>
+<li><code>_</code> indicates the start of a subscript: <code>$Y_i$</code> becomes <span class="math inline">\(Y_i\)</span></li>
+<li><code>^</code> indicates the start of a superscript: <code>$Y^a$</code> becomes <span class="math inline">\(Y^a\)</span></li>
+<li><code>{}</code> will let you use several characters in a subscript or superscript: <code>$Y_{unit}^{treatment}$</code>becomes <span class="math inline">\(Y_{unit}^{treatment}\)</span></li>
+<li><code>\mid</code> is the vertical conditioning bar: <code>$E(Y\mid X)$</code> becomes <span class="math inline">\(E(Y\mid X)\)</span>.</li>
 </ul>
 </section>
-<section id="recap-and-connections-to-your-project" class="level2">
-<h2 class="anchored" data-anchor-id="recap-and-connections-to-your-project">Recap and connections to your project</h2>
-<p>A few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.</p>
+<section id="how-to-include-hand-written-math" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-include-hand-written-math">How to include hand-written math</h2>
+<p>You are also welcome to handwrite math and take a picture of it. Put your picture in the folder where your .qmd document is located. To include the picture in your writeup, type</p>
+<p><code>![](NameOfYourPictureFile.png)</code></p>
+<p>(remove the backticks before and after to use this line)</p>
 
 
 </section>

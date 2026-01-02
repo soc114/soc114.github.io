@@ -19,12 +19,12 @@ website:
         text: " "
       - href: assets/syllabus.pdf
         text: Syllabus
-      - href: schedule.qmd
-        text: Schedule
+      - text: Problem Sets
+        menu:
+          - psets/pset1.qmd
+      - honors.qmd
       - href: "https://piazza.com/class/miyskvk64nv4y1"
         text: Piazza
-      - href: forms.qmd
-        text: Forms
       - past_sites.qmd
         
   sidebar:

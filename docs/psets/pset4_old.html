@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 0: Computing environment – Social Data Science</title>
+<title>Problem Set 4: DAGs and Statistical Learning – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,6 +102,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -131,17 +160,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../assets/syllabus.pdf"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-problem-sets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Problem Sets</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-problem-sets">    
+        <li>
+    <a class="dropdown-item" href="../psets/pset1.html">
+ <span class="dropdown-text">Problem Set 1: Code Basics</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html"> 
-<span class="menu-text">Schedule</span></a>
+    <a class="nav-link" href="../honors.html"> 
+<span class="menu-text">Honors Section</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://piazza.com/class/miyskvk64nv4y1"> 
 <span class="menu-text">Piazza</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../forms.html"> 
-<span class="menu-text">Forms</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../past_sites.html"> 
@@ -158,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 0: Computing environment</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 4: DAGs and Statistical Learning</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,8 +399,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#help-with-getting-started" id="toc-help-with-getting-started" class="nav-link active" data-scroll-target="#help-with-getting-started">Help with getting started</a></li>
-  <li><a href="#issues" id="toc-issues" class="nav-link" data-scroll-target="#issues">Issues</a></li>
+  <li><a href="#points-dags" id="toc-points-dags" class="nav-link active" data-scroll-target="#points-dags">1. (30 points) DAGs</a></li>
+  <li><a href="#causal-inference-with-statistical-modeling" id="toc-causal-inference-with-statistical-modeling" class="nav-link" data-scroll-target="#causal-inference-with-statistical-modeling">2. Causal inference with statistical modeling</a>
+  <ul class="collapse">
+  <li><a href="#prepare-your-data" id="toc-prepare-your-data" class="nav-link" data-scroll-target="#prepare-your-data">Prepare your data</a></li>
+  <li><a href="#estimate-by-linear-model-predictions" id="toc-estimate-by-linear-model-predictions" class="nav-link" data-scroll-target="#estimate-by-linear-model-predictions">Estimate by linear model predictions</a></li>
+  <li><a href="#points-report-a-predicted-value" id="toc-points-report-a-predicted-value" class="nav-link" data-scroll-target="#points-report-a-predicted-value">2.1. (10 points) Report a predicted value</a></li>
+  <li><a href="#points-report-an-att-estimate" id="toc-points-report-an-att-estimate" class="nav-link" data-scroll-target="#points-report-an-att-estimate">2.2. (10 points) Report an ATT estimate</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -373,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Problem Set 0: Computing environment</h1>
+<h1 class="title">Problem Set 4: DAGs and Statistical Learning</h1>
 </div>
 
 
@@ -390,35 +432,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Due: 5pm on Friday, January 10.</strong></p>
-<p>This problem set is a Quarto document, which embeds code, results, and written work. You will edit it and then create a PDF. If you are new to Quarto, see the <a href="https://quarto.org/docs/get-started/hello/rstudio.html">Quarto tutorial</a> for additional information.</p>
-<p>To complete the problem set, download <a href="../assets/pset0/pset0.qmd" download="">pset0.qmd</a>. Add these four lines of code to the top if they do not appear in your download,</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Problem Set 0: Computing environment"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> pdf</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>and render to a PDF. You will then submit two things:</p>
-<ol type="1">
-<li>Upload the rendered PDF to BruinLearn</li>
-<li>In our <a href="https://docs.google.com/forms/d/e/1FAIpQLSfMxlewBaz7QJ3uKNCsj2g5rukOOumqrZVAnu-ckybbfwvFsg/viewform?usp=sf_link">Google Form</a>, tell us your anonymous identifier that appears in your rendered PDF.</li>
-</ol>
-<section id="help-with-getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="help-with-getting-started">Help with getting started</h2>
-<p>If you are stuck, make sure that you first follow the installation instructions in <a href="../topics/r_basics.qmd">setting up your computer</a>.</p>
-<p>Open the downloaded problem set in RStudio. You should then click the “Render” button as shown in the image below.</p>
-<p><img src="../assets/pset0/render.png" class="img-fluid"> This will run the R code and combine the output with the text in the document into a PDF. By default, this PDF will be output in the same directory that you saved <code>pset0.qmd</code> in. You will then submit the PDF on Canvas.</p>
-<!-- ::: {.callout-tip} -->
-<!-- If you're not sure what your working directory is, run `getwd()` in your -->
-<!-- RStudio console. This will print your working directory. You can set it to the place you've saved this file by clicking the top menu Session -> Set Working Directory -> To Source File Location. -->
-<!-- ::: -->
+<p><strong>Due: 5pm on Friday, Feb 28.</strong></p>
+<p>Student identifier: [type your anonymous identifier here]</p>
+<p>The format of this problem set is different from the others.</p>
+<ul>
+<li>the assignment is a quiz in BruinLearn</li>
+<li>you will upload your PDF in that quiz</li>
+<li>you will also enter answer values in that quiz</li>
+</ul>
+<p>The reason for this is that we are all busy with the final project! So you can have time for the project, there will be no peer review on this problem set. So the TAs can focus on helping with the project, some grading will be done automatically via the BruinLearn quiz.</p>
+<p>Here is how to do this problem set:</p>
+<ul>
+<li>Use this <a href="../assets/pset4/pset4.qmd" download="">pset4.qmd</a> to complete the problem set.</li>
+<li>When you are finished, complete the quiz on BruinLearn
+<ul>
+<li>you will upload your PDF there</li>
+<li>you will type some answers from your PDF there</li>
+</ul></li>
+</ul>
+<section id="points-dags" class="level2">
+<h2 class="anchored" data-anchor-id="points-dags">1. (30 points) DAGs</h2>
+<p>For 1.1–1.5, answer True or False: <span class="math inline">\(X\)</span> is a sufficient adjustment set to identify the causal effect of <span class="math inline">\(A\)</span> on <span class="math inline">\(Y\)</span>. Recall that as you work on these problems, a good strategy is to first list all non-causal paths between <span class="math inline">\(A\)</span> and <span class="math inline">\(Y\)</span> and then cross out any that are blocked when conditioning on <span class="math inline">\(X\)</span>.</p>
+<p><img src="dags_tf.png" class="img-fluid"></p>
+<p><strong>1.1.</strong> [answer here]</p>
+<p><strong>1.2.</strong> [answer here]</p>
+<p><strong>1.3.</strong> [answer here]</p>
+<p><strong>1.4.</strong> [answer here]</p>
+<p><strong>1.5.</strong> [answer here]</p>
 </section>
-<section id="issues" class="level2">
-<h2 class="anchored" data-anchor-id="issues">Issues</h2>
-<p>If you run into issues while attempting to render the Problem Set, be sure to open a question on <a href="&quot;https://piazza.com/class/m3q7dpj6kqd2fn&quot;">Piazza</a>!</p>
+<section id="causal-inference-with-statistical-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="causal-inference-with-statistical-modeling">2. Causal inference with statistical modeling</h2>
+<blockquote class="blockquote">
+<p>The paragraphs below introduce this part of the problem set. Your work begins at “Prepare your data.”</p>
+</blockquote>
+<p>How does parenthood affect labor market outcomes? For an outcome <span class="math inline">\(Y\)</span> such as employment, we can imagine that each person <span class="math inline">\(i\)</span> has a potential outcome as a parent <span class="math inline">\(Y_i^1\)</span> and a potential outcome as a non-parent, <span class="math inline">\(Y_i^0\)</span>. Parenthood casually shapes an outcome like employment to the degree that these differ.</p>
+<p>The effect of parenthood on labor market outcomes has been the subject of extensive social science research which has revealed a consistent finding: parenthood may improve men’s labor market outcomes while harming women’s labor market outcomes (e.g., <a href="https://pubs.aeaweb.org/doi/pdf/10.1257/jep.12.1.137">Waldfogel 1998</a>, <a href="https://doi.org/10.1177/000312240106600203">Budig &amp; England 2001</a>, <a href="https://doi.org/10.1086/511799">Correll et al.&nbsp;2007</a>). The disparate effects of parenthood for men and women are thus one source of gender disparities in labor market outcomes.</p>
+<p>This problem set estimates the causal effect of motherhood on mothers’ employment, using data simulated to approximate data that exist in the National Longitudinal Survey of Youth 1997 cohort. The NLSY97 interviews people repeatedly across years. We manipulated these data so that each row contains information from a pre- and a post-observation, separated by 21+ months. In the pre-observation, we measure confounding variables. In the post-observation, we measure the outcome (<code>y</code>, employment). Between the pre- and post-observation, some women experience a first birth (<code>treated == TRUE</code>) and others do not (<code>treated == FALSE</code>).</p>
+<p><img src="motherhood_data_structure.png" class="img-fluid"></p>
+<p>The dataset <a href="../data/motherhood_simulated.csv"><code>motherhood_simulated.csv</code></a> contains the following variables.</p>
+<ul>
+<li><code>observation_id</code> is an index for each observation</li>
+<li><code>sampling_weight</code> is the weight due to unequal probability sampling</li>
+<li><code>treated</code> indicates a first birth (<code>TRUE</code> or <code>FALSE</code>)
+<ul>
+<li>This occurred between the pre- and post-periods.</li>
+</ul></li>
+<li><code>y</code> is the outcome, coded <code>TRUE</code> if employed or <code>FALSE</code> if not employed.
+<ul>
+<li>This was measured in the post-period.</li>
+</ul></li>
+</ul>
+<p>The data include a set of variables measured in the pre-period. We will consider these to be a sufficient adjustment set. These were measured in the pre-period.</p>
+<ul>
+<li><code>race</code> is a categorical variable coded <code>Hispanic</code>, <code>Non-Hispanic Black</code>, and <code>Non-Hispanic Non-Black</code></li>
+<li><code>pre_age</code> is age in years</li>
+<li><code>pre_educ</code> is an ordinal variable for educational attainment, coded <code>Less than high school</code>, <code>High school</code>, <code>2-year degree</code>, and <code>4-year degree</code> with those with higher levels of education also coded in this last category</li>
+<li><code>pre_marital</code> is a categorical variable of marital status, coded <code>no_partner</code>, <code>cohabiting</code>, or <code>married</code></li>
+<li><code>pre_employed</code> is a lag measure of employment in the prior survey wave, coded <code>TRUE</code> and <code>FALSE</code></li>
+<li><code>pre_fulltime</code> indicates full-time employment in the prior survey wave, coded <code>TRUE</code> and <code>FALSE</code></li>
+<li><code>pre_tenure</code> is years of experience with a current employer, as of the prior survey wave</li>
+<li><code>pre_experience</code> is total years of full-time work experience, as of the prior survey wave</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>motherhood_simulated <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/motherhood_simulated.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="prepare-your-data" class="level3">
+<h3 class="anchored" data-anchor-id="prepare-your-data">Prepare your data</h3>
+<p>Filter to create two data objects: one with mothers who have <code>treated == TRUE</code> and one with non-mothers who have <code>treated == FALSE</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimate-by-linear-model-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="estimate-by-linear-model-predictions">Estimate by linear model predictions</h3>
+<p>Among non-mothers, model the probability of employment with a linear model. As predictors, use an additive function of the sufficient adjustment set.</p>
+<p>Hints:</p>
+<ul>
+<li>Use the <code>lm()</code> function.</li>
+<li>use this model formula: <code>y ~ race + pre_age + pre_educ + pre_marital + pre_employed + pre_fulltime + pre_tenure + pre_experience</code></li>
+<li>for the <code>data</code> argument, use your data containing non-mothers.</li>
+<li>you will need the argument <code>weights = sampling_weight</code> to specify to weight the model by the <code>sampling_weight</code> variable</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="points-report-a-predicted-value" class="level3">
+<h3 class="anchored" data-anchor-id="points-report-a-predicted-value">2.1. (10 points) Report a predicted value</h3>
+<p>Using your model estimated among non-mothers, make predictions of <span class="math inline">\(\hat{Y}^0\)</span> among mothers. Report the predicted value for the first mother in the data.</p>
+<p>Hints:</p>
+<ul>
+<li>Use <code>predict()</code> to make predictions.</li>
+<li>We suggest your store the variables in a new variable in your dataset using <code>mutate()</code>.</li>
+<li>To see the first predicted value in your predicted data, one strategy is to use <code>select()</code> to keep only the variable you’ve created that contains your predicted value.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="points-report-an-att-estimate" class="level3">
+<h3 class="anchored" data-anchor-id="points-report-an-att-estimate">2.2. (10 points) Report an ATT estimate</h3>
+<p>Across mothers, estimate the Average Treatment Effect on the Treated (ATT) by the weighted mean difference between <span class="math inline">\(Y\)</span> (observed) and <span class="math inline">\(\hat{Y}^0\)</span> (predicted from linear regression), weighted by sampling weights.</p>
+<ul>
+<li>For each mother, take the difference between the observed outcome <code>y</code> and the probability of employment that you predict for her in the absence of motherhood.</li>
+<li>Then take the weighted mean across mothers weighted by the sampling weight.</li>
+<li>Report this weighted mean.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->

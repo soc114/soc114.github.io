@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Learning Exercise – Social Data Science</title>
+<title>Problem Set 1: Visualization – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,17 +131,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../assets/syllabus.pdf"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-problem-sets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Problem Sets</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-problem-sets">    
+        <li>
+    <a class="dropdown-item" href="../psets/pset1.html">
+ <span class="dropdown-text">Problem Set 1: Code Basics</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html"> 
-<span class="menu-text">Schedule</span></a>
+    <a class="nav-link" href="../honors.html"> 
+<span class="menu-text">Honors Section</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://piazza.com/class/miyskvk64nv4y1"> 
 <span class="menu-text">Piazza</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../forms.html"> 
-<span class="menu-text">Forms</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../past_sites.html"> 
@@ -158,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Learning Exercise</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 1: Visualization</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -363,9 +370,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#synthetic-data" id="toc-synthetic-data" class="nav-link active" data-scroll-target="#synthetic-data">Synthetic data</a></li>
-  <li><a href="#your-task-predict-at-child-age-1" id="toc-your-task-predict-at-child-age-1" class="nav-link" data-scroll-target="#your-task-predict-at-child-age-1">Your task: Predict at child age 1</a></li>
-  <li><a href="#one-approach-to-the-task" id="toc-one-approach-to-the-task" class="nav-link" data-scroll-target="#one-approach-to-the-task">One approach to the task</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link active" data-scroll-target="#data-analysis">Data analysis</a></li>
+  <li><a href="#visualize-40-points" id="toc-visualize-40-points" class="nav-link" data-scroll-target="#visualize-40-points">1. Visualize (40 points)</a></li>
+  <li><a href="#understand-components-of-research-question" id="toc-understand-components-of-research-question" class="nav-link" data-scroll-target="#understand-components-of-research-question">2. Understand components of research question</a></li>
+  <li><a href="#recap-and-connections-to-your-project" id="toc-recap-and-connections-to-your-project" class="nav-link" data-scroll-target="#recap-and-connections-to-your-project">Recap and connections to your project</a></li>
   </ul>
 </nav>
     </div>
@@ -374,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Learning Exercise</h1>
+<h1 class="title">Problem Set 1: Visualization</h1>
 </div>
 
 
@@ -391,70 +399,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> with a 1-year-old child at home. Our data include those with at least one child age 0–18.</p>
-<section id="synthetic-data" class="level2">
-<h2 class="anchored" data-anchor-id="synthetic-data">Synthetic data</h2>
-<p>To speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010–2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated <strong>synthetic data</strong>: we created a new dataset for you to use with simulated people using these known probabilities.</p>
-<p>Synthetic data is good in our setting for two reasons</p>
-<ol type="1">
-<li>we know the answer</li>
-<li>you can download the synthetic data right from this website</li>
-</ol>
-<p>For transparency, here is the <a href="../code/synthetic_parents.R">code</a> with which we created the synthetic data. The line below will load the <a href="../data/parents.csv">synthetic data</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>parents <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://info3370.github.io/data/parents.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Due: 5pm on Friday, January 17.</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Your synthetic data intentionally omits any parents with child age 1! Here is a graph showing the averages in your data, grouped by child age and sex.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="learning_exercise_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfZDC4zNsn4aKboRiFDKGtQysgMYgcWnKkSxboz9ORKkUJHbg/viewform?usp=sf_link">rubric</a></p>
 </div>
-</section>
-<section id="your-task-predict-at-child-age-1" class="level2">
-<h2 class="anchored" data-anchor-id="your-task-predict-at-child-age-1">Your task: Predict at child age 1</h2>
-<p>Your task is to answer the question: what proportion are employed among female respondents whose youngest child is 1 year old?</p>
+</div>
+<p>Student identifer: [type your anonymous identifier here]</p>
 <ul>
-<li>you can use a model with the other ages</li>
-<li>you can use strategies from the <a href="statistical_learning.qmd">statistical learning</a> page</li>
-<li>you can use the male respondents if you think they are helpful</li>
+<li>Use this <a href="../assets/pset1/pset1.qmd" download="">pset1.qmd</a> to complete the problem set</li>
+<li>In Canvas, you will upload the PDF produced by your .qmd file</li>
+<li>Put your identifier above, not your name! We want anonymous grading to be possible</li>
 </ul>
-<p>Near the end of discussion, we will ask every table to make one estimate. Then we will reveal the truth and see who is closest!</p>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/PL5V5HtuW1c" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-<section id="one-approach-to-the-task" class="level2">
-<h2 class="anchored" data-anchor-id="one-approach-to-the-task">One approach to the task</h2>
-<p>One approach is to estimate a linear regression model with <code>child_age</code> interacted with <code>sex</code>. We would first create a fitted model object,</p>
+<p>This problem set involves both data analysis and reading.</p>
+<section id="data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-analysis">Data analysis</h3>
+<p>This problem set uses the data <a href="../data/lifeCourse.csv"><code>lifeCourse.csv</code></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(at_work <span class="sc">~</span> sex <span class="sc">*</span> child_age, <span class="at">data =</span> parents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lifeCourse <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/lifeCourse.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>then define the target population to predict</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>target_population <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">sex =</span> <span class="st">"female"</span>, <span class="at">child_age =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>and report a predicted value for the employment rate of female respondents with a 1-year-old youngest child.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> target_population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        1 
-0.5468421 </code></pre>
-</div>
-</div>
-
-
-</section>
-
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Each married pair need not be of different sex. The data include same-sex couples.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<p>The data contain life course earnings profiles for four cohorts of American workers: those born in 1940, 1950, 1960, and 1970. Each row contains a summary of the annual earnings distribution for a particular birth cohort at a particular age, among the subgroup with a particular level of education. To prepare these data, we aggregated microdata from the <a href="https://cps.ipums.org/cps/">Current Population Survey</a>, provided through the Integrated Public Use Microdata Series.</p>
+<p>The data contain five variables.</p>
+<ol type="1">
+<li><code>quantity</code> is the metric by which the earnings distribution is summarized: 10th, 50th, or 90th percentile</li>
+<li><code>education</code> is the educational subgroup being summarized: College Degree, Less than College</li>
+<li><code>cohort</code> is the cohort (people with a given birth year) to which these data apply: 1940, 1950, 1960, 1970</li>
+<li><code>age</code> is the age at which earnings were measured: 30–45</li>
+<li><code>income</code> is the value for the given earnings percentile in the given subgroup. Income values are provided in 2022 dollars</li>
 </ol>
-</section></div></main> <!-- /main -->
+</section>
+<section id="visualize-40-points" class="level2">
+<h2 class="anchored" data-anchor-id="visualize-40-points">1. Visualize (40 points)</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Functions named in this problem are links to helper pages that provide documentation.</p>
+</div>
+</div>
+<p>Use <a href="https://ggplot2.tidyverse.org/"><code>ggplot</code></a> to visualize these data. To denote the different trajectories,</p>
+<ul>
+<li>make your plot using <a href="https://ggplot2.tidyverse.org/reference/geom_point.html"><code>geom_point()</code></a> or <a href="https://ggplot2.tidyverse.org/reference/geom_path.html"><code>geom_line()</code></a></li>
+<li>use the x-axis for <code>age</code></li>
+<li>use the y-axis for <code>income</code></li>
+<li>use <a href="https://r4ds.hadley.nz/data-visualize.html#sec-adding-aesthetics-layers"><code>color</code></a> for <code>quantity</code></li>
+<li>use <a href="https://ggplot2-book.org/facet#facet-grid"><code>facet_grid</code></a> to make a panel of facets where each row is an education value and each column is a cohort value</li>
+</ul>
+<p>You should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Optionally, try using the <a href="https://scales.r-lib.org/reference/label_currency.html"><code>label_currency()</code></a> function from the <code>scales</code> package so that the y-axis uses dollar values.</p>
+<p>Your code should be well-formatted as defined by <a href="https://r4ds.hadley.nz/workflow-style.html">R4DS</a>. In your produced PDF, no lines of code should run off the page.</p>
+<p>Many different graphs can be equally correct. You will be evaluated by</p>
+<ul>
+<li>having publication-ready graph aesthetics</li>
+<li>code that follows style conventions</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="understand-components-of-research-question" class="level2">
+<h2 class="anchored" data-anchor-id="understand-components-of-research-question">2. Understand components of research question</h2>
+<p>The graph above answered a descriptive research question. Here are a few components of that question:</p>
+<ol type="A">
+<li>Annual income in 2022 dollars</li>
+<li>American workers in each subgroup defined by birth cohort, age, and education</li>
+<li>10th, 50th, and 90th percentile</li>
+<li>A person</li>
+</ol>
+<p>For 2.1–2.4, write the letter of the corresponding component of the research question.</p>
+<p><strong>2.1 (2.5 points)</strong> What is the unit of analysis?</p>
+<p><strong>2.2 (2.5 points)</strong> What is the outcome variable?</p>
+<p><strong>2.3 (2.5 points)</strong> What are the target populations?</p>
+<p><strong>2.4 (2.5 points)</strong> What are the summary statistics?</p>
+<!-- ## 3. Interpret the graph -->
+<!-- Write 2-3 sentences summarizing what your figure shows. -->
+<!-- **3.1 (3 points).** Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course? -->
+<!-- > Type your answer here. -->
+<!-- **3.2 (3 points).** Focus on those born in 1970. How does the pattern in the 90th percentile differ for those with and without college degrees? -->
+<!-- > Type your answer here. -->
+<!-- ## 4. Connect to reading -->
+<!-- Read p. 1--7 of following paper. Stop before the section "Analytic Framework for Decomposing Inequality." -->
+<!-- > Cheng, Siwei. 2021. [The shifting life course patterns of wage inequality.](https://doi.org/10.1093/sf/soab003). _Social Forces_ 100(1):1--28. -->
+<!-- Our data are not the same as Cheng's. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less. -->
+<!-- Cheng discusses period trends, cohort trends, and age trends.  -->
+<!-- **4.1 (3 points)** Describe a cohort trend that you see in your graph. -->
+<!-- > Type your answer here. -->
+<!-- **4.2 (3 points)** Describe an age trend that you see in your graph. -->
+<!-- > Type your answer here. -->
+<!-- **4.3 (5 points)** Describe two ways that our results align with the arguments in the paper. -->
+<!-- > Type your answer here. -->
+</section>
+<section id="recap-and-connections-to-your-project" class="level2">
+<h2 class="anchored" data-anchor-id="recap-and-connections-to-your-project">Recap and connections to your project</h2>
+<p>The visualization you produced in this problem set is an example of the kind of visualization you will produce in the final project. As in this problem set, your visualization in the project should include well-written labels to make the graph readable. A difference between the two is that in this problem set we provided a dataset in which each row was already a summary statistic. In the final project, you will manipulate data in which each row corresponds to a unit of analysis that you aggregate to produce a summary statistic. This is a skill you will practice on the next problem set.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

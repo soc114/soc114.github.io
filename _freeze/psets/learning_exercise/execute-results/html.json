@@ -1,0 +1,17 @@
+{
+  "hash": "92ada0062556aa945f2f5df9e796ea6a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Learning Exercise\"\n---\n\n\n::: {.cell}\n\n:::\n\n\nGender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women^[Each married pair need not be of different sex. The data include same-sex couples.] with a 1-year-old child at home. Our data include those with at least one child age 0--18.\n\n## Synthetic data\n\nTo speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010--2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated **synthetic data**: we created a new dataset for you to use with simulated people using these known probabilities.\n\nSynthetic data is good in our setting for two reasons\n\n1) we know the answer\n2) you can download the synthetic data right from this website\n\nFor transparency, here is the [code](../code/synthetic_parents.R) with which we created the synthetic data. The line below will load the [synthetic data](../data/parents.csv).\n\n\n::: {.cell}\n\n```{.r .cell-code}\nparents <- read_csv(\"https://info3370.github.io/data/parents.csv\")\n```\n:::\n\n\n::: {.cell}\n\n:::\n\n\nYour synthetic data intentionally omits any parents with child age 1! Here is a graph showing the averages in your data, grouped by child age and sex.\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](learning_exercise_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n\n\n## Your task: Predict at child age 1\n\nYour task is to answer the question: what proportion are employed among female respondents whose youngest child is 1 year old?\n\n- you can use a model with the other ages\n- you can use strategies from the [statistical learning](statistical_learning.qmd) page\n- you can use the male respondents if you think they are helpful\n\nNear the end of discussion, we will ask every table to make one estimate. Then we will reveal the truth and see who is closest!\n\n{{< video https://www.youtube.com/embed/PL5V5HtuW1c >}}\n\n## One approach to the task\n\nOne approach is to estimate a linear regression model with `child_age` interacted with `sex`. We would first create a fitted model object,\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmodel <- lm(at_work ~ sex * child_age, data = parents)\n```\n:::\n\n\nthen define the target population to predict\n\n\n::: {.cell}\n\n```{.r .cell-code}\ntarget_population <- tibble(sex = \"female\", child_age = 0)\n```\n:::\n\n\nand report a predicted value for the employment rate of female respondents with a 1-year-old youngest child.\n\n\n::: {.cell}\n\n```{.r .cell-code}\npredict(model, newdata = target_population)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n        1 \n0.5468421 \n```\n\n\n:::\n:::\n\n",
+    "supporting": [
+      "learning_exercise_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

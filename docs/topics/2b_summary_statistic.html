@@ -133,17 +133,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../assets/syllabus.pdf"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-problem-sets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Problem Sets</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-problem-sets">    
+        <li>
+    <a class="dropdown-item" href="../psets/pset1.html">
+ <span class="dropdown-text">Problem Set 1: Code Basics</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html"> 
-<span class="menu-text">Schedule</span></a>
+    <a class="nav-link" href="../honors.html"> 
+<span class="menu-text">Honors Section</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://piazza.com/class/miyskvk64nv4y1"> 
 <span class="menu-text">Piazza</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../forms.html"> 
-<span class="menu-text">Forms</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../past_sites.html"> 
@@ -461,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1 × 1
   estimated_median
              &lt;dbl&gt;
-1           68146.</code></pre>
+1           63303.</code></pre>
 </div>
 </div>
 <p>This code starts with the <code>incomeSimulated</code> data and uses the pipe operator <code>|&gt;</code> to pass the data to the <code>summarize()</code> function. The summarize function creates a new variable <code>estimated_median</code> which contains the median value of <code>hhincome</code>, calculated by applying the <code>median()</code> function to this variable. The <code>median()</code> function takes a vector of values and returns a single summary. The <code>summarize()</code> function converts our data that had 1000 rows into a new format that has only 1 row containing the summary statistic.</p>
@@ -487,7 +494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1 × 3
   estimated_median estimated_10th_percentile estimated_90th_percentile
              &lt;dbl&gt;                     &lt;dbl&gt;                     &lt;dbl&gt;
-1           68146.                    17480.                   219228.</code></pre>
+1           63303.                    17855.                   218230.</code></pre>
 </div>
 </div>
 <!-- One can combine summary statistics. The 90/10 income ratio ($\frac{\text{90th percentile}}{\text{10th percentile}}$) is one measure of inequality: how many dollars does a household at the 90th percentile get for every dollar that goes to a household at the 10th percentile? We might say that inequality is high to the degree that the 90/10 income ratio is large. -->
@@ -495,47 +502,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-to-choose-a-summary-statistic" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-choose-a-summary-statistic">How to choose a summary statistic?</h2>
 <p>The choice of summary statistic involves a subjective (non-empirical) choice about what aspect of the distribution is important to report. If you are normatively concerned with the growth of high incomes, you might want to summarize the 90th or even 99th percentile of the distribution. If you are concerned with the typical household, you might want to summarize by the median. If you are interested in patterns of inequality among low earners, you might summarize with the 10th percentile.</p>
-<!-- [slides](../slides/lec01_asking_questions/lec01_asking_questions.pdf) -->
-<!-- Asking your own research question is fun, and it is also daunting. There is no formula for asking a good question, and much research involves trial and error. In this lecture, we will discuss together what makes a good research question. -->
-<!-- ## Some characteristics of a good question -->
-<!-- While good questions come in many forms, good research questions often has a few characteristics. -->
-<!-- ### A unit of analysis -->
-<!-- The unit of analysis is the bedrock of a good research question. What will a row of your dataset represent? While the answer may seem straightforward, many units of analysis are possible: a person, a school, a neighborhood, a country, etc. In settings with repeated observations, the unit of analysis might be a person observed at a particular age: Jose at age 29 may be one row of your dataset and Jose at age 30 may be another row. The unit of analysis is the unit at which the outcome is defined, so getting it right is important. -->
-<!-- ### A clear population -->
-<!-- A good research question addresses a population that is relevant to the author's argument. A well-defined population could be a set of units, such as American residents in a certain age range. It could be the set of all students at Cornell. It could also be a set of aggregate entities, such as the population of all four-year colleges and universities in the U.S., where each unit in the population is a college or university. -->
-<!-- When the population is well-defined, a reader should be able to imagine making a list of all the units in that population. When presented with a new unit and asked whether that unit is part of the population, you should be able to confidently answer "yes" or "no" and not "maybe." -->
-<!-- It is rarely satisfying to answer the question "who is being studied?" with the answer "the people in my sample." While full-count enumerations of interesting populations exist, usually your sample is a subset of a broader population of interest. Good research tells us who that population is. -->
-<!-- ### A precise outcome -->
-<!-- For each unit in the population, there is an outcome. This might be the income of an individual person, or the graduation rate of an individual college. A good research question tells you what the outcome is, and why it matters. -->
-<!-- ### The potential for surprising results -->
-<!-- This may be the hardest to pin down. Before you work with data, try to tell a story about why the results might go one way or another way. Perhaps you study a particular population of employed people where there is one set of reasons to expect men to earn more and another set of reasons to expect women to earn more. Try to convince yourself that the results could go either way! This builds excitement about the empirical answer, because it shows that the answer is really unknown before data analysis. Write down your arguments because they will also help readers be excited about your questions. -->
-<!-- Questions where only one answer is plausible are often tedious. Questions that are exciting are often the ones where results could surprise you by going several possible directions. -->
-<!-- <!-- ### Examples -->
-<p>–&gt;</p>
-<!-- <!-- The [slides](../slides/lec9/lec9.pdf) contain some examples of good research questions, and some examples of hypothetical questions that could be improved. -->
-<p>–&gt;</p>
-<!-- <!--  -->
-<p>–&gt;</p>
-<!-- <!-- ## Examples -->
-<p>–&gt;</p>
-<!-- <!-- For each example below, consider how you might encourage the researcher to ask a better question. -->
-<p>–&gt;</p>
-<!-- <!-- 1. A researcher within a company takes a new machine learning method---call it "black box"---to aggregate thousands of administrative records on worker performance into an aggregate score of "productivity." The researcher thinks the state-of-the-art use of "black box" creates a new measure of productivity, and its application in a massive set of administrative records is sure to be a winner. -->
-<p>–&gt;</p>
-<!-- <!-- 2. A researcher at a government statistical agency uses a probability sample survey to estimate the share of total wealth held by the top 1% of households. Some households refused to answer the survey question, and the researcher thinks they might be households with extremely high wealth but isn't sure. The researcher drops them and says that the study is about the top 1% wealth share among households willing to respond to the survey. -->
-<p>–&gt;</p>
-<!-- <!-- 3. A researcher finds that American with extremely high annual wage and salary incomes in 2019 worked more hours per week than others in 2020. -->
-<p>–&gt;</p>
-<!-- <!-- ## Some responses to examples -->
-<p>–&gt;</p>
-<!-- <!-- These responses are not exhaustive; they are a few ways the question could be made more interesting. -->
-<p>–&gt;</p>
-<!-- <!-- 1. The researcher with "black box" measure of productivity has a few hurdles. Among them, the outcome is hard to define! The researcher is excited about a new measure of productivity, but they haven't defined what "productivity" is outside of this black-box algorithm that is hard to explain. They might first tell us a bit about what they mean by productivity. Then, they might help us see how the black-box algorithm operationalizes that idea, or they might choose a simpler method to study an outcome that is easier to explain. -->
-<p>–&gt;</p>
-<!-- <!-- 2. The researcher studying the wealth share has a difficulty with the target population. We might care about the top 1% of wealth among all households, but it is more difficult to motivate a study of the wealth share among responding households. The author could address this better by telling us what proportion of households were dropped due to missing data, and what else he knows about them. Do they tend to be households that reported high incomes? High values for education? If the researcher could admit that the target population is all households, it would become easier to provide additional evidence to assuage our concerns. -->
-<p>–&gt;</p>
-<!-- <!-- 3. The researcher's claim might seem unsurprising---people with high pay might have big incentives to work many hours the next year. The study would be more interesting if the researcher had developed an argument why this might or might not be the case before looking at the data. Perhaps those with high wage and salary incomes in 2019 would choose to ride out the pandemic of 2020 while relaxing at their mansion in the Hamptons! The empirical evidence is more interesting if we have a reason to wonder about what result it might show. -->
-<p>–&gt;</p>
 
 
 </section>
