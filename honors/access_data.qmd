@@ -1,0 +1,16 @@
+---
+title: "Accessing data"
+---
+
+We will analyze data managed by the Integrated Public Use Microdata Series (IPUMS), a project at the University of Minnesota that provides access to many survey datasets containing responses from thousands of people. IPUMS is especially helpful because it is easy to use with clear documentation.
+
+Get started by visiting the website: [www.ipums.org](https://www.ipums.org/)
+
+IPUMS is an aggregate data administrator for many different data sources, each of which has its own site linked from the main site. For example, our initial activity will use IPUMS-CPS ([cps.ipums.org](https://cps.ipums.org/cps/)), which contains data from the survey that the Bureau of Labor Statistics uses to estimate the unemployment rate. The next page walks through the data access process for IPUMS-CPS with a worked example.
+
+Later in the quarter, you may choose to use another IPUMS data source. There are many possibilities, covering topics including the labor market, education, health, and time use.
+
+On the next page, practice [**preparing data**](prepare_data.qmd).
+
+
+

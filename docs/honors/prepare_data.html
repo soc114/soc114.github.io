@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data transformation – Social Data Science</title>
+<title>Preparing data – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../topics/s2_visualization.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -144,13 +143,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../honors.html"> 
-<span class="menu-text">Honors Section</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="https://piazza.com/class/miyskvk64nv4y1"> 
 <span class="menu-text">Piazza</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-honors-section" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Honors Section</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-honors-section">    
+        <li>
+    <a class="dropdown-item" href="../honors/welcome.html">
+ <span class="dropdown-text">Welcome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/ask_good_questions.html">
+ <span class="dropdown-text">Asking questions with data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/access_data.html">
+ <span class="dropdown-text">Accessing data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/prepare_data.html">
+ <span class="dropdown-text">Preparing data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/sketch_a_visualization.html">
+ <span class="dropdown-text">Sketching a visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/writing.html">
+ <span class="dropdown-text">Writing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/presentation.html">
+ <span class="dropdown-text">Presenting orally</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../past_sites.html"> 
 <span class="menu-text">Past Year Sites</span></a>
@@ -166,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/s1_r_basics.html">Software and Coding</a></li><li class="breadcrumb-item"><a href="../topics/s3_data_transformation.html">Data transformation</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Preparing data</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -189,12 +219,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Summarizing Distributions</span></a>
+ <span class="menu-text">Getting Started</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/s1_r_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software Prerequisites</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/1_empirical_questions.html" class="sidebar-item-text sidebar-link">
@@ -205,6 +241,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../topics/2a_dataset.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/s2_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -332,35 +374,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Software and Coding</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/s1_r_basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Software Prerequisites</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/s2_visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Visualization</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/s3_data_transformation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Data transformation</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -396,9 +409,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/s1_r_basics.html">Software and Coding</a></li><li class="breadcrumb-item"><a href="../topics/s3_data_transformation.html">Data transformation</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data transformation</h1>
+<h1 class="title">Preparing data</h1>
 </div>
 
 
@@ -416,14 +429,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <blockquote class="blockquote">
-<p>This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use <a href="https://soc114.github.io/assets/data_transformation_exercise.qmd">data_transformation_exercise.qmd</a>.</p>
+<p>If you want to download a full .qmd instead of copying codes from the website, you can use <a href="https://soc114.github.io/assets/preparing_data_exercise.qmd">preparing_data_exercise.qmd</a>.</p>
 </blockquote>
 <p>This exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The goal is to produce a graph like this one.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="s3_data_transformation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="prepare_data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -792,7 +805,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="s3_data_transformation_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="prepare_data_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -807,6 +820,7 @@ Note
 <li>try <a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html"><code>geom_histogram()</code></a> for people’s incomes in a specific year</li>
 <li>explore <a href="https://cps.ipums.org/">IPUMS-CPS</a> for other variables and begin your own visualization</li>
 </ul>
+<p>Now that you have followed this guided exercise, in the next page you will learn to plan your own research question by <a href="../honors/sketch_a_visualization.html">sketching a visualization</a>.</p>
 
 
 </section>
@@ -1217,15 +1231,6 @@ Note
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../topics/s2_visualization.html" class="pagination-link" aria-label="Visualization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Visualization</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

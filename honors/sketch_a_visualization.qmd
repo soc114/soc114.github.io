@@ -1,0 +1,29 @@
+---
+title: "Sketching a visualization"
+---
+
+How do you begin to ask a research question of your own? One way to start is by sketching a visualization that you might like to make.
+
+Take a pen and paper and draw a possible visualization.
+
+* What variable would you put on the x-axis?
+* What variable on the y-axis?
+* Are any other variables denoted by other elements, such as color?
+
+As you plan your graph, consider that the elements of the graph often have a temporal order. It is common that the x-axis and colors (if relevant) exist before the variable depicted on the y-axis is realized.
+
+You may also consider what kind of visualization will be most compelling: bar graph, line graph, scatterplot, histogram, etc.
+
+Pretend that you already have results and draw the whole graph. How would you label the axes?
+
+## Using actual variables
+
+At some point, look through IPUMS to find data that contains the variables that would enable you to make your visualization. This may require modifying your plan in an iterative process.
+
+## Exchange graphs
+
+Through an online submission, we will exchange visualization sketches and provide feedback.
+
+* What is especially clear in this graph?
+* Are there parts that are confusing?
+* What might make the graph more compelling?

@@ -22,9 +22,18 @@ website:
       - text: Problem Sets
         menu:
           - psets/pset1.qmd
-      - honors.qmd
       - href: "https://piazza.com/class/miyskvk64nv4y1"
         text: Piazza
+      - text: Honors Section
+        menu:
+          - href: honors/welcome.qmd
+            text: Welcome
+          - honors/ask_good_questions.qmd
+          - honors/access_data.qmd
+          - honors/prepare_data.qmd
+          - honors/sketch_a_visualization.qmd
+          - honors/writing.qmd
+          - honors/presentation.qmd
       - past_sites.qmd
         
   sidebar:
@@ -32,10 +41,12 @@ website:
     search: true
     collapse-level: 1
     contents:
-      - section: "Summarizing Distributions"
+      - section: "Getting Started"
         contents: 
+          - topics/s1_r_basics.qmd
           - topics/1_empirical_questions.qmd
           - topics/2a_dataset.qmd
+          - topics/s2_visualization.qmd
           - topics/2b_summary_statistic.qmd
           - topics/3_sampling.qmd
           - topics/4_ci.qmd
@@ -63,11 +74,6 @@ website:
          - topics/15_rd.qmd
          - topics/16_iv.qmd
       # - href: discussion.qmd
-      - section: "Software and Coding"
-        contents:
-          - topics/s1_r_basics.qmd
-          - topics/s2_visualization.qmd
-          - topics/s3_data_transformation.qmd
       # - section: "Assignments"
       #   contents:
       #     - section: "Problem Sets"

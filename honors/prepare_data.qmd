@@ -1,8 +1,8 @@
 ---
-title: "Data transformation"
+title: "Preparing data"
 ---
 
-> This topic is covered on Jan 16. If you want to download a full .qmd instead of copying codes from the website, you can use [data_transformation_exercise.qmd](https://soc114.github.io/assets/data_transformation_exercise.qmd).
+> If you want to download a full .qmd instead of copying codes from the website, you can use [preparing_data_exercise.qmd](https://soc114.github.io/assets/preparing_data_exercise.qmd).
 
 This exercise examines how income inequality has changed over time in the U.S. We will measure inequality by the 10th, 50th, and 90th percentiles of wage and salary income from 1962 to 2022.^[Thanks to past TA Abby Sachar for designing the base of this exercise.] The goal is to produce a graph like this one.
 
@@ -436,4 +436,4 @@ If you have finished and want to do more, you could
 - try [`geom_histogram()`](https://ggplot2.tidyverse.org/reference/geom_histogram.html) for people's incomes in a specific year
 - explore [IPUMS-CPS](https://cps.ipums.org/) for other variables and begin your own visualization
 
-
+Now that you have followed this guided exercise, in the next page you will learn to plan your own research question by [sketching a visualization](sketch_a_visualization.qmd).

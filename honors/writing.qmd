@@ -1,0 +1,18 @@
+---
+title: "Writing"
+---
+
+The text you write to accompany your graph can help to tell the story.
+
+You might start with a puzzle or question for which the answer is unknown. You might also start with a surprising finding: in this project, we find that \_\_\_. Your goal is to help the reader want to read more.
+
+To help us read the graph, one good strategy is to walk us through a particular point. Tell us how to read the information in that particular point. Then, you can tell us about a trend across the points (or bars, or whatever elements create your graph).
+
+For example, suppose you have a scatterplot with age on the x-axis and median income on the y-axis. You might explain a particular dot that represents people who are 54 years old (on the x-axis) among whom the median annual income is \$63,000 (on the y-axis). Then you might say something about how median incomes trend upwards across ages.
+
+Once you finish your writeup, you will upload it and write feedback for peers.
+
+* What is especially clear in this written summary?
+* Are there parts that are confusing?
+* What might make the writeup more compelling?
+
