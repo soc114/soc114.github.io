@@ -1,7 +1,7 @@
 ---
 title: "Welcome to the Honors Section"
 aliases:
-  - "honors.html"
+  - "../honors.html"
 page-layout: full
 format:
   html:
