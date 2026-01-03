@@ -1,6 +1,0 @@
----
-title: "Instrumental variables"
-format: html
----
-
-> Topic for 3/9.

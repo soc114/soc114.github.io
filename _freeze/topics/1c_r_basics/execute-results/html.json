@@ -1,0 +1,15 @@
+{
+  "hash": "7fd18c3120612ab911c0dbcbd5f3f257",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Basics of R\"\n---\n\nNow that you have installed R, it is time to try using R for the first time. Because there already exist many excellent resources on this topic, we will walk together in class through the material in [R4DS Ch 2](https://r4ds.hadley.nz/workflow-basics.html). This material will prepare you to complete Problem Set 1.\n\nAfter the basics in [R4DS Ch 2](https://r4ds.hadley.nz/workflow-basics.html), return to this page and continue below to learn about an object we will often use in this course: a data frame.\n\n## Using a data frame\n\nThe class of object we will use in this course most often is a `data.frame` or `tibble`, which is a particular type of data frame. A data frame is an object like the rectangular spreadsheet below.\n\n| Address | Income | Number of People |\n|---------|-----|-----|\n| 5462 Park St | 54,896 | 2 |\n| 4596 Ocean Ave Apt B | 22,465 | 1 |\n| 6831 River Dr | 134,297 | 4 |\n\n: A hypothetical data table with three households\n\nThe code below will load this data into an object in R.\n\n\n::: {.cell}\n\n:::\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nbasicData <- read_csv(\"https://soc114.github.io/data/basicData.csv\")\n```\n:::\n\n\nIf you type `basciData` in your R console, you will see a printout of the data.\n\n## Data frames and empirical questions\n\nThe structure of these data correspond to elements of empirical questions we study.\n\n* The **outcome** is a variable to be summarized. It appears as a column in the data. Here, the outcome might be `income`.\n* The **unit of analysis** is the unit for which the outcome is defined. Each unit corresponds to a row of the data. Here, the unit of analysis is a household.\n\nThe data may also contain other columns, such as the address of the household in this example. The other columns may represent **predictor variables** or variables that define **population subgroups**.\n\nNow that you understand a data frame object, we will next use one to produce a visualization.\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

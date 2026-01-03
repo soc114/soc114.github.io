@@ -1,0 +1,347 @@
+---
+title: "Linear Regression"
+format: 
+  html:
+    fig-height: 3
+---
+
+To be written.
+
+<!-- Could use same example for all modeling, potentially (linear, logistic, forest). -->
+
+<!-- > This is the second part of lecture for Feb 11. Slides are [here](../slides/lec11b_what_is_a_model/lec11b_what_is_a_model.pdf) -->
+
+<!-- <!-- > The reading with this class is [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play." --> -->
+
+<!-- What is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression.  -->
+<!-- <!-- Then, we discuss why we would use a model. --> -->
+
+<!-- At a high level, a model is a tool to share information across units with different $\vec{X}$ values when estimating subgroup summaries, such as the conditional mean $\text{E}(Y\mid\vec{X} = \vec{x})$ within the subgroup taking predictor value $\vec{X} = \vec{x}$. By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren't very many units observed in each subgroup. -->
+
+<!-- Later in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics. -->
+
+<!-- <!-- ::: columns --> -->
+
+<!-- <!-- ::: {.column width="30%"} --> -->
+<!-- <!-- {{< video https://www.youtube.com/embed/srf9eZ5lq68 >}} --> -->
+<!-- <!-- ::: --> -->
+
+<!-- <!-- ::: {.column width="30%"} --> -->
+<!-- <!-- {{< video https://www.youtube.com/embed/3sHWUN-3pZE >}} --> -->
+<!-- <!-- ::: --> -->
+
+<!-- <!-- ::: {.column width="30%"} --> -->
+<!-- <!-- {{< video https://www.youtube.com/embed/Pk6uNM74cKE >}} --> -->
+<!-- <!-- ::: --> -->
+
+<!-- <!-- ::: --> -->
+
+<!-- ## A simple example -->
+
+<!-- As an example, we continue to use the data on baseball salaries, with a small twist. The file [`baseball_population.csv`](../data/baseball_population.csv) contains the following variables -->
+
+<!-- ```{r, echo = F, message = F, warning = F} -->
+<!-- library(tidyverse) -->
+<!-- library(scales) -->
+<!-- ``` -->
+
+<!-- ```{r, eval = F} -->
+<!-- population <- read_csv("https://soc114.github.io/data/baseball_population.csv") -->
+<!-- ``` -->
+<!-- ```{r, message = F, warning = F, echo = F} -->
+<!-- population <- read_csv("../data/baseball_population.csv") -->
+<!-- set.seed(14853) -->
+<!-- ``` -->
+
+<!-- - `player` is the player name -->
+<!-- - `team` is the team name -->
+<!-- - `salary` is the 2023 salary -->
+<!-- - `team_past_record` is the 2022 proportion of games won by that team -->
+<!-- - `team_past_salary` is the 2022 mean salary in that team -->
+
+<!-- ```{r, echo = F} -->
+<!-- truth <- population |> filter(team == "L.A. Dodgers") |> summarize(salary = mean(salary)) |> mutate(salary = label_dollar(scale = 1e-6, suffix = "m")(salary)) |> pull(salary) -->
+<!-- ``` -->
+
+<!-- Our goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is `r truth`. We will imagine that we don't know this number. Instead of having the full population, we will imagine we have -->
+
+<!-- * information on predictors for all players: position, team, team past record -->
+<!-- * information on salary for a random sample of 5 players per team -->
+
+<!-- Our estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams' players to help us make a better estimate of the Dodger mean salary. -->
+
+<!-- Our predictor will be the `team_past_salary` from the previous year. We assume that a team's past salary in 2022 tells us something about their mean salary in 2023. -->
+
+<!-- For illustration, draw a sample of 5 players per team -->
+
+<!-- ```{r} -->
+<!-- sample <- population |> -->
+<!--   group_by(team) |> -->
+<!--   sample_n(5) |> -->
+<!--   ungroup() -->
+<!-- ``` -->
+
+<!-- Construct a tibble with the observations to be predicted: the Dodgers. -->
+
+<!-- ```{r} -->
+<!-- to_predict <- population |> -->
+<!--   filter(team == "L.A. Dodgers") -->
+<!-- ``` -->
+
+<!-- ## Ordinary Least Squares -->
+
+<!-- We could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction -->
+<!-- $$\hat{Y}_i = \hat\alpha + \hat\beta X_i$$  -->
+<!-- with $\hat\alpha$ and $\hat\beta$ chosen to minimize the sum of squared errors, $\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2$. Visually, it minimizes all the line segments below. -->
+
+<!-- ```{r, echo = F, fig.height = 2} -->
+<!-- fit <- lm(salary ~ team_past_salary, data = sample) -->
+<!-- sample |> -->
+<!--   mutate(fitted = predict(fit)) |> -->
+<!--   arrange(team == "L.A. Dodgers") |> -->
+<!--   ggplot(aes(x = team_past_salary, y = salary)) + -->
+<!--   geom_point( -->
+<!--     aes(color = team == "L.A. Dodgers"), -->
+<!--     size = 1 -->
+<!--   ) + -->
+<!--   geom_line(aes(y = fitted)) + -->
+<!--   scale_y_continuous( -->
+<!--     name = "Mean Salary on Team in 2023", -->
+<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
+<!--   ) + -->
+<!--   scale_x_continuous( -->
+<!--     name = "Mean Salary on Team in 2022", -->
+<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
+<!--   ) + -->
+<!--   theme_minimal() + -->
+<!--   scale_color_manual( -->
+<!--     values = c("gray","dodgerblue"), -->
+<!--     name = element_blank(), -->
+<!--     labels = c("Other Teams","L.A. Dodgers") -->
+<!--   ) + -->
+<!--   ggtitle("Ordinary Least Squares") -->
+<!-- ``` -->
+
+<!-- Here is how to estimate an OLS model using R. -->
+
+<!-- ```{r} -->
+<!-- model <- lm(salary ~ team_past_salary, data = sample) -->
+<!-- ``` -->
+
+<!-- Then we could predict the mean salary for the Dodgers. -->
+<!-- ```{r} -->
+<!-- predicted <- to_predict |> -->
+<!--   mutate(predicted = predict(model, newdata = to_predict)) -->
+<!-- ``` -->
+
+<!-- We would report the mean predicted salary for the Dodgers. -->
+
+<!-- ```{r} -->
+<!-- predicted |> -->
+<!--   summarize(estimated_Dodger_mean = mean(predicted)) -->
+<!-- ``` -->
+
+<!-- Our model-based estimate compares to the true population mean of `r truth`. -->
+
+<!-- ## Logistic regression -->
+
+<!-- Sometimes the outcome is binary (taking the values `{0,1}` or `{FALSE,TRUE}`). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (`position == "DH"`) as a linear function of player salary. For illustration, we do this on the full population. -->
+
+<!-- ```{r} -->
+<!-- ols_binary_outcome <- lm( -->
+<!--   position == "C" ~ salary, -->
+<!--   data = population -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- Catchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making \$40 million is `r label_percent()(predict(ols_binary_outcome, newdata = tibble(salary = 40e6)))`! This prediction doesn't make a lot of sense. -->
+
+<!-- ```{r} -->
+<!-- #| code-fold: true -->
+<!-- population |> -->
+<!--   mutate(yhat = predict(ols_binary_outcome)) |> -->
+<!--   ggplot(aes(x = salary, y = yhat)) + -->
+<!--   geom_line() + -->
+<!--   geom_hline(yintercept = 0, linetype = "dashed") + -->
+<!--   scale_x_continuous( -->
+<!--     name = "Player Salary", -->
+<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
+<!--   ) + -->
+<!--   scale_y_continuous( -->
+<!--     name = "Predicted Probability\nof Being a Catcher" -->
+<!--   ) + -->
+<!--   theme_minimal() + -->
+<!--   ggtitle("Modeling a binary outcome with a line") -->
+<!-- ``` -->
+
+<!-- Logistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval. -->
+
+<!-- ```{r, echo = F} -->
+<!-- tibble(p = seq(.01,.99,.001)) |> -->
+<!--   mutate(x = qlogis(p)) |> -->
+<!--   ggplot(aes(x = x, y = p)) + -->
+<!--   geom_line() + -->
+<!--   scale_x_continuous(name = expression(atop("Logistic Function of Probability","e.g."~hat(alpha)+X*hat(beta)))) + -->
+<!--   scale_y_continuous(name = "Probability\nP(Y = 1 | X)") + -->
+<!--   theme_minimal() + -->
+<!--   geom_hline(yintercept = c(0,1), linetype = "dashed", color = "gray") -->
+<!-- ``` -->
+
+<!-- Mathematically, logistic regression replaces $\text{E}(Y\mid\vec{X})$ on the left side of the equation with the logistic function. -->
+
+<!-- $$ -->
+<!-- \underbrace{\log\left(\frac{\text{P}(Y\mid\vec{X})}{1 - \text{P}(Y\mid\vec{X})}\right)}_\text{Logistic Function} = \alpha + \vec{X}'\vec\beta -->
+<!-- $$ -->
+
+<!-- In our example with the catchers, we can use logistic regression to model the probability of being a catcher using the `glm()` function. The `family = "binomial"` line tells the function that we want to estimate logistic regression (since "binomial" is a distribution for outcomes drawn at random with a given probability). -->
+
+<!-- ```{r} -->
+<!-- logistic_regression <- glm( -->
+<!--   position == "C" ~ salary, -->
+<!--   data = population, -->
+<!--   family = "binomial" -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- We can predict exactly as with OLS, except that we need to add the `type = "response"` argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined ($-\inf,\inf$). -->
+
+<!-- ```{r} -->
+<!-- #| code-fold: true -->
+<!-- population |> -->
+<!--   mutate(yhat = predict(logistic_regression, type = "response")) |> -->
+<!--   distinct(salary, yhat) |> -->
+<!--   ggplot(aes(x = salary, y = yhat)) + -->
+<!--   geom_line() + -->
+<!--   geom_hline(yintercept = 0, linetype = "dashed") + -->
+<!--   scale_x_continuous( -->
+<!--     name = "Player Salary", -->
+<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
+<!--   ) + -->
+<!--   scale_y_continuous( -->
+<!--     name = "Predicted Probability\nof Being a Catcher" -->
+<!--   ) + -->
+<!--   theme_minimal() + -->
+<!--   ggtitle("Modeling a binary outcome with logistic regression") -->
+<!-- ``` -->
+
+<!-- Below is code to make a prediction for the L.A. Dodgers. -->
+
+<!-- ```{r} -->
+<!-- predicted_logistic <- predict( -->
+<!--   logistic_regression, -->
+<!--   newdata = to_predict, -->
+<!--   type = "response" -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- To summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of $\vec{X}$ when estimating $\text{E}(Y\mid \vec{X})$ or $\text{P}(Y = 1\mid\vec{X})$. This is especially useful any time when we do not get to observe many units at each value of $\vec{X}$. -->
+
+<!-- <!-- ## Why model? --> -->
+
+<!-- <!-- Why would we use a model? One case where the need for a model is especiall --> -->
+
+<!-- <!-- ## Penalized regression --> -->
+
+<!-- <!-- Penalized regression is just like OLS, except that it prefers coefficient estimates that are closer to 0. This can reduce sampling variability. One penalized regression is ridge regression, which penalizes the sum of squared coefficients. In our example, it estimates the parameters to minimize --> -->
+
+<!-- <!-- $$\underbrace{\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2}_\text{Squared Error} + \underbrace{\lambda\beta^2}_\text{Penalty}$$ --> -->
+
+<!-- <!-- where the positive scalar penalty $\lambda$ encodes our preference for coefficients to be near zero. Otherwise, penalized regression is just like OLS! --> -->
+
+<!-- <!-- The `gam()` function in the `mgcv` package will allow you to fit a ridge regression as follows. --> -->
+
+<!-- <!-- ```{r, message = F, warning = F} --> -->
+<!-- <!-- library(mgcv) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- ```{r} --> -->
+<!-- <!-- model <- gam( --> -->
+<!-- <!--   salary ~ s(record, bs = "re"), --> -->
+<!-- <!--   data = sample --> -->
+<!-- <!-- ) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- Predict the Dodger mean salary just as before, --> -->
+
+<!-- <!-- ```{r} --> -->
+<!-- <!-- to_predict |> --> -->
+<!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- ## Splines --> -->
+
+<!-- <!-- We may want to allow a nonlinear relationship between the predictor and the outcome. One way to do that is with splines, which estimate part of the model locally within regions of the predictor space separated by **knots**. The code below uses a linear spline with knots at 0.4 and 0.6. --> -->
+
+<!-- <!-- ```{r} --> -->
+<!-- <!-- library(splines) --> -->
+<!-- <!-- model <- lm( --> -->
+<!-- <!--   salary ~ bs(record, degree = 1, knots = c(.4,.6)), --> -->
+<!-- <!--   data = sample --> -->
+<!-- <!-- ) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- ```{r, echo = F, fig.height = 2} --> -->
+<!-- <!-- to_predict_all <- population |> --> -->
+<!-- <!--   distinct(team, record, target_subgroup) --> -->
+<!-- <!-- to_predict_all |> --> -->
+<!-- <!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> --> -->
+<!-- <!--   ggplot(aes(x = record, y = fitted)) + --> -->
+<!-- <!--   geom_line() + --> -->
+<!-- <!--   geom_point(aes(color = target_subgroup), size = 2) + --> -->
+<!-- <!--   scale_color_manual(values = c("black","dodgerblue")) + --> -->
+<!-- <!--   theme_classic() + --> -->
+<!-- <!--   theme(legend.position = "none") + --> -->
+<!-- <!--   scale_y_continuous( --> -->
+<!-- <!--     name = "Team Mean Salary", --> -->
+<!-- <!--     labels = label_dollar(scale = 1e-6, suffix = "m"), --> -->
+<!-- <!--     limits = c(0,10e6) --> -->
+<!-- <!--   ) + --> -->
+<!-- <!--   scale_x_continuous(name = "Past Team Win-Loss Record") --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- We can predict the Dodger mean salary just as before! --> -->
+
+<!-- <!-- ```{r} --> -->
+<!-- <!-- to_predict |> --> -->
+<!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- ## Trees --> -->
+
+<!-- <!-- Perhaps our response surface is bumpy, and poorly approximated by a smooth function. Decision trees search the predictor space for discrete places where the outcome changes, and assume that the response is flat within those regions. --> -->
+
+<!-- <!-- ```{r} --> -->
+<!-- <!-- library(rpart) --> -->
+<!-- <!-- model <- rpart(salary ~ record, data = sample) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- ```{r, echo = F, fig.height = 2} --> -->
+<!-- <!-- to_predict_all |> --> -->
+<!-- <!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> --> -->
+<!-- <!--   ggplot(aes(x = record, y = fitted)) + --> -->
+<!-- <!--   geom_step() + --> -->
+<!-- <!--   geom_point(aes(color = target_subgroup), size = 2) + --> -->
+<!-- <!--   scale_color_manual(values = c("black","dodgerblue")) + --> -->
+<!-- <!--   theme_classic() + --> -->
+<!-- <!--   theme(legend.position = "none") + --> -->
+<!-- <!--   scale_y_continuous( --> -->
+<!-- <!--     name = "Team Mean Salary", --> -->
+<!-- <!--     labels = label_dollar(scale = 1e-6, suffix = "m"), --> -->
+<!-- <!--     limits = c(0,10e6) --> -->
+<!-- <!--   ) + --> -->
+<!-- <!--   scale_x_continuous(name = "Past Team Win-Loss Record") --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- Predict as in the other strategies. --> -->
+<!-- <!-- ```{r} --> -->
+<!-- <!-- to_predict |> --> -->
+<!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- <!-- ## Conclusion --> -->
+
+<!-- <!-- Statistical learning in this framing is all about --> -->
+
+<!-- <!-- - we have a subgroup with few sampled units (the Dodgers) --> -->
+<!-- <!-- - we want to use other units to help us learn --> -->
+<!-- <!-- - our goal is to predict the population mean in the subgroup --> -->

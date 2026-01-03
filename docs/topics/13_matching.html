@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Matching – Social Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../topics/14_models_for_causal.html" rel="next">
+<link href="../topics/12_DAGs.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3a5424b299dd0b10ec444f85821f6826.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Social Data Science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../assets/syllabus.pdf"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../calendar.html"> 
+<span class="menu-text">Calendar</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-problem-sets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Problem Sets</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-problem-sets">    
+        <li>
+    <a class="dropdown-item" href="../psets/pset1.html">
+ <span class="dropdown-text">Problem Set 1: Code Basics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://piazza.com/class/miyskvk64nv4y1"> 
+<span class="menu-text">Piazza</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-honors-section" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Honors Section</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-honors-section">    
+        <li>
+    <a class="dropdown-item" href="../honors/welcome.html">
+ <span class="dropdown-text">Welcome</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/ask_good_questions.html">
+ <span class="dropdown-text">Asking questions with data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/access_data.html">
+ <span class="dropdown-text">Accessing data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/prepare_data.html">
+ <span class="dropdown-text">Preparing data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/sketch_a_visualization.html">
+ <span class="dropdown-text">Sketching a visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/writing.html">
+ <span class="dropdown-text">Writing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../honors/presentation.html">
+ <span class="dropdown-text">Presenting orally</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/KZUdBH6bhkXtRxZX7"> 
+<span class="menu-text">Extension Requests</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../past_sites.html"> 
+<span class="menu-text">Past Year Sites</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/10_define_causal.html">Causal Inference with Measured Confounding</a></li><li class="breadcrumb-item"><a href="../topics/13_matching.html">Matching</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Getting Started</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/1a_empirical_questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research Questions in Social Data Science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/1b_software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software Prerequisites</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/1c_r_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basics of R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/2a_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing a Distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/2b_summary_statistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary Statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/3_sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population Sampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/4_ci.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Confidence Intervals</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Models for Subgroup Summaries</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/5_linear_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/6_logistic_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/7_forests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Forests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/8_data_driven_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data-Driven Estimator Selection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/9_are_complex_better.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Are Complex Models Better?</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Causal Inference with Measured Confounding</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/10_define_causal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Defining Causal Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/11_exchangeability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exchangeability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/12_DAGs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Directed Acyclic Graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/13_matching.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Matching</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/14_models_for_causal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models for Causal Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Causal Inference with Unmeasured Confounding</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/15_did.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Difference in Difference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/16_rd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression Discontinuity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/17_iv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instrumental Variables</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#matching-in-math" id="toc-matching-in-math" class="nav-link active" data-scroll-target="#matching-in-math">Matching in math</a></li>
+  <li><a href="#matching-vs.-regression" id="toc-matching-vs.-regression" class="nav-link" data-scroll-target="#matching-vs.-regression">Matching vs.&nbsp;regression</a></li>
+  <li><a href="#distances-for-multivariate-matching" id="toc-distances-for-multivariate-matching" class="nav-link" data-scroll-target="#distances-for-multivariate-matching">Distances for multivariate matching</a>
+  <ul class="collapse">
+  <li><a href="#manhattan-distance" id="toc-manhattan-distance" class="nav-link" data-scroll-target="#manhattan-distance">Manhattan distance</a></li>
+  <li><a href="#euclidean-distance" id="toc-euclidean-distance" class="nav-link" data-scroll-target="#euclidean-distance">Euclidean distance</a></li>
+  <li><a href="#propensity-score-distance" id="toc-propensity-score-distance" class="nav-link" data-scroll-target="#propensity-score-distance">Propensity score distance</a></li>
+  </ul></li>
+  <li><a href="#choices-after-the-distance" id="toc-choices-after-the-distance" class="nav-link" data-scroll-target="#choices-after-the-distance">Choices after the distance</a>
+  <ul class="collapse">
+  <li><a href="#with-and-without-replacement" id="toc-with-and-without-replacement" class="nav-link" data-scroll-target="#with-and-without-replacement">With and without replacement</a></li>
+  <li><a href="#k1-matching" id="toc-k1-matching" class="nav-link" data-scroll-target="#k1-matching">k:1 matching</a></li>
+  <li><a href="#calipers" id="toc-calipers" class="nav-link" data-scroll-target="#calipers">Calipers</a></li>
+  </ul></li>
+  <li><a href="#regression-after-matching" id="toc-regression-after-matching" class="nav-link" data-scroll-target="#regression-after-matching">Regression after matching</a></li>
+  <li><a href="#matching-in-code" id="toc-matching-in-code" class="nav-link" data-scroll-target="#matching-in-code">Matching in code</a></li>
+  <li><a href="#what-to-read" id="toc-what-to-read" class="nav-link" data-scroll-target="#what-to-read">What to read</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/10_define_causal.html">Causal Inference with Measured Confounding</a></li><li class="breadcrumb-item"><a href="../topics/13_matching.html">Matching</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Matching</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p>Here are <a href="../slides/matching/matching.pdf">slides</a> on matching.</p>
+</blockquote>
+<p>Matching is a method for causal inference that is analogous to model-based estimation, but is often easier to explain. Suppose we have a set of 5 units, of whom 2 are treated.</p>
+<p><img src="../assets/illustrations/matching_visual.png" class="img-fluid" style="width:50.0%"></p>
+<p>We would like to infer that treatment causes higher outcomes, but the units also differ along a confounding variable <span class="math inline">\(L\)</span>. How can we infer the average treatment effect for units 1 and 2?</p>
+<p>One way to draw inference is by a model: model <span class="math inline">\(Y^0\)</span> as a function of <span class="math inline">\(L\)</span> among the untreated units, and then use our model to predict for the treated units.</p>
+<p>Another strategy might involve no model at all. We notice that unit 3 is very similar to unit 1 along <span class="math inline">\(L\)</span>. Likewise, unit 2 is very similar to unit 5. We could match these units together and use the matches to infer the unobserved potential outcomes.</p>
+<p><img src="../assets/illustrations/matched_visual.png" class="img-fluid" style="width:50.0%"></p>
+<p>We then estimate the average effect for units 1 and 2 by the difference of</p>
+<ol type="1">
+<li>The average outcome among treated units: <span class="math inline">\(\frac{1}{2}(Y_1 + Y_2)\)</span> and</li>
+<li>The average outcome among matched controls: <span class="math inline">\(\frac{1}{2}(Y_3 + Y_5)\)</span></li>
+</ol>
+<section id="matching-in-math" class="level2">
+<h2 class="anchored" data-anchor-id="matching-in-math">Matching in math</h2>
+<p>Formally, let <span class="math inline">\(\text{match}(i)\)</span> denote the index of the match for unit <span class="math inline">\(i\)</span>. Our goal is to estimate the average treatment effect on the treated,</p>
+<p><span class="math display">\[\tau = \frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - Y_i^0\right)\]</span></p>
+<p>where <span class="math inline">\(n_1\)</span> is the number of treated units and the sum is taken over all units <span class="math inline">\(i\)</span> such that the treatment took the value 1 for those units.</p>
+<p>The fundamental problem of causal inference is that for these units <span class="math inline">\(Y_i^1\)</span> is observed but <span class="math inline">\(Y_i^0\)</span> is not. But for each treated unit <span class="math inline">\(i\)</span>, we find an untreated match <span class="math inline">\(j = \text{match}(i)\)</span> who is very simialr to <span class="math inline">\(i\)</span> but for whom <span class="math inline">\(Y_j^0\)</span> is observed. We then estimate by the mean difference between the treated units and their matched controls.</p>
+<p><span class="math display">\[\hat\tau_\text{Matching} = \frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - Y_{\text{match}(i)}^0\right)\]</span></p>
+</section>
+<section id="matching-vs.-regression" class="level2">
+<h2 class="anchored" data-anchor-id="matching-vs.-regression">Matching vs.&nbsp;regression</h2>
+<p>Why should we prefer matching or regression?</p>
+<p>We have already learned a regression solution to this problem: assume a sufficient adjustment set <span class="math inline">\(\vec{X}\)</span>, model the <span class="math inline">\(Y_i^0\)</span> outcomes as a function of <span class="math inline">\(\vec{X}\)</span> for a set of units who factually were untreated, and use the model to predict what would happen for the treated units if they had been untreated <span class="math inline">\((\hat{Y}_i^0)\)</span>. Then our estimator of the ATT would be:</p>
+<p><span class="math display">\[\hat\tau_\text{Regression} = \frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \hat{\text{E}}(Y\mid\vec{X} = \vec{x}_i, A = 0)\right)\]</span></p>
+<p>Matching is actually doing the same thing—we are just using the outcome of unit <span class="math inline">\(j\)</span> as an estimator of <span class="math inline">\(\hat{\text{E}}(Y\mid\vec{X} = \vec{x}_i, A = 0)\)</span>.</p>
+<p>Why would we then prefer matching? One reason is explainability. A model is easy to explain to social scientists and statisticians who are familiar with models. It isn’t as good when you are speaking to policymakers and others who are unfamiliar with models.</p>
+</section>
+<section id="distances-for-multivariate-matching" class="level2">
+<h2 class="anchored" data-anchor-id="distances-for-multivariate-matching">Distances for multivariate matching</h2>
+<p>Suppose we have treated and untreated units that differ along two confounding variables, <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span>.</p>
+<p><img src="../assets/illustrations/matching_multivariate.png" class="img-fluid" style="width:50.0%"></p>
+<p>Which control unit should be chosen as the match? With more than one variable, it is not immediately obvious which control points is “closest” to the treated point—we first need to define “closest.” Which one we would choose requires one to choose a distance metric.</p>
+<blockquote class="blockquote">
+<p><strong>Distance metric.</strong> A function <span class="math inline">\(d()\)</span> that takes two vectors <span class="math inline">\(\vec{x}\)</span> and <span class="math inline">\(\vec{x}'\)</span> and returns a scalar numeric distance <span class="math inline">\(d(\vec{x},\vec{x}')\)</span>.</p>
+</blockquote>
+<p><img src="../assets/illustrations/matching_multivariate_distances.png" class="img-fluid" style="width:50.0%"></p>
+<section id="manhattan-distance" class="level3">
+<h3 class="anchored" data-anchor-id="manhattan-distance">Manhattan distance</h3>
+<p>Imagine that the points are places in Manhattan, where the streets are arranged in a grid. The way to travel from <code>Treated</code> to <code>Untreated 1</code> is by traveling 4 blocks north and then 3 blocks east, for a total distance of 7 units. This distance metric is called Manhattan distance.</p>
+<blockquote class="blockquote">
+<p><strong>Manhattan distance.</strong> The distance between two vectors <span class="math inline">\(\vec{x}\)</span> and <span class="math inline">\(\vec{x}'\)</span> is the sum of their absolute differences on each element: <span class="math display">\[d_\text{Manhattan}(\vec{x},\vec{x}') = \sum_p \lvert x_p - x'_p \rvert \]</span></p>
+</blockquote>
+<p>By Manhattan distance, we might determine that the unit (Untreated 2) is closest to (Treated) because its Manhattan distance from the treated unit is 6 instead of 7.</p>
+</section>
+<section id="euclidean-distance" class="level3">
+<h3 class="anchored" data-anchor-id="euclidean-distance">Euclidean distance</h3>
+<p>Imagine instead that the points are in a field, and you are a crow. The distance that is relevant to you is the most direct line—the distance as the crow flies! This is Euclidean distance.</p>
+<blockquote class="blockquote">
+<p><strong>Euclidean distance.</strong> The distance between two vectors <span class="math inline">\(\vec{x}\)</span> and <span class="math inline">\(\vec{x}'\)</span> is the square root of the sum of their squared differences on each element: <span class="math display">\[d_\text{Euclidean}(\vec{x},\vec{x}') = \sqrt{\sum_p \left( x_p - x'_p \right)^2} \]</span></p>
+</blockquote>
+<p>By Euclidean distance, we would choose a different matched control unit! The unit (Untreated 2) is 6 units away from the (Treated) unit in terms of Euclidean distance, and the unit (Untreated 1) is only 5 units away. By Euclidean distance, the match to choose is (Untreated 1).</p>
+<p>The comparison between Euclidean and Manhattan distances shows that our choice of distance metric can shape who we choose as matches.</p>
+<p>In practice, neither Manhattan nor Euclidean distance is commonly used for matching. Instead, researchers often use Mahalanobis distance, which is a generalization of Euclidean distance that takes into account the variance and covariance of <span class="math inline">\(\vec{X}\)</span>. And an even more common distance metric is propensity score distance, which we discuss next.</p>
+</section>
+<section id="propensity-score-distance" class="level3">
+<h3 class="anchored" data-anchor-id="propensity-score-distance">Propensity score distance</h3>
+<p>A distance metric requires us to map a pair of vectors <span class="math inline">\((\vec{x},\vec{x}')\)</span> into a single-number distance. Thankfully, there is already a way we often map a vector of confounders to a number: predict the probability of treatment.</p>
+<p>Suppose we estimate each unit’s probability of being treated, <span class="math inline">\(\text{P}(A = 1\mid \vec{X} = \vec{x}_i)\)</span>. We might then define the distance between two units as the distance between their predicted probabilities of being treated.</p>
+<blockquote class="blockquote">
+<p><strong>Propensity score distance.</strong> The distance between two vectors <span class="math inline">\(\vec{x}\)</span> and <span class="math inline">\(\vec{x}'\)</span> is the squared difference in the probability of treatment under these two vectors. <span class="math display">\[d_\text{PropensityScore}(\vec{x},\vec{x}') = \left(\text{P}(A = 1\mid \vec{X} = \vec{x}) - \text{P}(A = 1\mid \vec{X} = \vec{x}')\right)^2\]</span></p>
+</blockquote>
+<p>Often, the propensity score <span class="math inline">\(\text{P}(A = 1\mid \vec{X})\)</span> is estimated by a logistic regression model, but one could estimate by any machine learning strategy or nonparametrically if <span class="math inline">\(\vec{X}\)</span> is discrete.</p>
+<p>Propensity score matching is especially intuitive. With propensity score matching, the researcher matches each treated unit to a control unit who had a similar probability of being treated.</p>
+</section>
+</section>
+<section id="choices-after-the-distance" class="level2">
+<h2 class="anchored" data-anchor-id="choices-after-the-distance">Choices after the distance</h2>
+<p>After you define the distance, there are many additional choices for how to conduct matching! These choices often involve a tradeoff between bias and variance.</p>
+<section id="with-and-without-replacement" class="level3">
+<h3 class="anchored" data-anchor-id="with-and-without-replacement">With and without replacement</h3>
+<p>Below are two treated and two untreated units who differ on one confounding variable <span class="math inline">\(L\)</span>. The left-most treated unit is matched to the left-most control unit. The algorithm then moves to the right-most treated unit: which control unit should serve as its match?</p>
+<p><img src="../assets/illustrations/matching_replacement.png" class="img-fluid"></p>
+<p>One argument is that the left-most control unit should again serve as the match—it is clearly the closest control unit. But it has already been used! If we want to enforce that each treated unit gets its own unique untreated match, then we should match to the unit at the right.</p>
+<p>This is the choice between matching with and without replacement.</p>
+<ul>
+<li>With replacement: After an untreated unit is used as a match for one treated unit, it is returned to the pool of untreated units to be considered for future matches.</li>
+<li>Without replacement: After an untreated unit is used as a match for one treated unit, it is never again used as a match.</li>
+</ul>
+<p>Matching with replacement yields the closest possible matches: each treated unit gets paired with the closest control unit that can be found. In this sense, matching with replacement reduces bias.</p>
+<p>But matching with replacement can also produce a high-variance estimator. Suppose you have 50 treated units who all get matched to a single untreated unit—the random chance that included that particular untreated unit in the sample has huge influence on the resulting estimate!</p>
+<p>The choice of with and without replacement has no correct answer; whether one or the other is better will depend on the bias and variance in a particular research setting.</p>
+</section>
+<section id="k1-matching" class="level3">
+<h3 class="anchored" data-anchor-id="k1-matching">k:1 matching</h3>
+<p>Should each treated unit be matched to only one untreated unit, or should we match to more than one untreated unit and take the average? A k:1 matching algorithm matches each treated unit to <span class="math inline">\(k\)</span> untreated units.</p>
+<p><img src="../assets/illustrations/matching_k1.png" class="img-fluid"></p>
+<p>The advantage of k:1 matching is a reduction in variance: by averaging over a larger number of untreated units, the resulting estimator will vary less from sample to sample. But the cost of k:1 matching bias: the two closest matches are not generally going to be collectively as close to the treated unit as the single closest match.</p>
+</section>
+<section id="calipers" class="level3">
+<h3 class="anchored" data-anchor-id="calipers">Calipers</h3>
+<p>Suppose we have a treated unit, and there seem to be no comparable control units. Is there a point at which we give up the search?</p>
+<p><img src="../assets/illustrations/matching_calipers.png" class="img-fluid"></p>
+<p>In our illustration, the treated point at the far right is very far from both untreated units. It is not clear that we should try to match this unit. To formalize that it is too far, we might define the black bars as the farthest distance we are willing to look for a match. The width of these bars is known as a caliper.</p>
+<blockquote class="blockquote">
+<p><strong>Caliper.</strong> The maximum distance between a treated and untreated unit such that we will consider them possible matches.</p>
+</blockquote>
+<p>In caliper matching, we would not match the right-most treated unit to any untreated unit. Instead, we would update the estimand to be the average treatment effect on the treated among those within the caliper distance from the control units.</p>
+<p>Caliper matching can be good because it avoids bad matches. But caliper matching comes with a cost—it changes the causal estimand to the causal effect in a subgroup who can be hard to explain!</p>
+</section>
+</section>
+<section id="regression-after-matching" class="level2">
+<h2 class="anchored" data-anchor-id="regression-after-matching">Regression after matching</h2>
+<p>After matching, there are two estimators we could consider.</p>
+<ol type="1">
+<li>Mean <span class="math inline">\(Y\)</span> among treated units - mean <span class="math inline">\(Y\)</span> of matched control units</li>
+<li>Coefficient on <span class="math inline">\(A\)</span> in a regression of <span class="math inline">\(Y\)</span> on <span class="math inline">\(A\)</span> and <span class="math inline">\(\vec{X}\)</span> among matches</li>
+</ol>
+<p>Estimator (2) is preferable in the sense that the regression model can correct for imperfections in our matching. Despite our best efforts, the matched controls will not be quite equal to the treated units along <span class="math inline">\(\vec{X}\)</span>! Regression can fix this. In this sense, we can think of matching as a preprocessing step before regression.</p>
+</section>
+<section id="matching-in-code" class="level2">
+<h2 class="anchored" data-anchor-id="matching-in-code">Matching in code</h2>
+<p>The <code>MatchIt</code> package in R carries out all kinds of matching applications. You can do all of the above using <code>MatchIt</code>.</p>
+<p>Here is one example, using our data from the model-based inference page.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MatchIt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/nlsy97_simulated.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>matched <span class="ot">&lt;-</span> <span class="fu">matchit</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A formula for treatment given confounders.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Treatment must be a binary or logical variable.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> (a <span class="sc">==</span> <span class="st">"treated"</span>) <span class="sc">~</span> sex <span class="sc">+</span> race <span class="sc">+</span> mom_educ <span class="sc">+</span> dad_educ <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    log_parent_income <span class="sc">+</span> log_parent_wealth <span class="sc">+</span> test_percentile,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data containing variables</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conduct propensity score matching</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance =</span> <span class="st">"glm"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">link =</span> <span class="st">"logit"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimand =</span> <span class="st">"ATT"</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A `matchit` object
+ - method: 1:1 nearest neighbor matching without replacement
+ - distance: Propensity score
+             - estimated with logistic regression
+ - number of obs.: 7688 (original), 2958 (matched)
+ - target estimand: ATT
+ - covariates: sex, race, mom_educ, dad_educ, log_parent_income, log_parent_wealth, test_percentile</code></pre>
+</div>
+</div>
+<p>We see that this carried out 1:1 nearest neighbor matching without replacement, with distance estimated by the propensity score estimated with logistic regression. We can extract the resulting matches with the <code>match.data()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>matches <span class="ot">&lt;-</span> <span class="fu">match.data</span>(matched)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can estimate by the mean difference across matched treated and control units. In the event of matching with replacement or k:1 matching, it is important to include <code>weights</code> since each unit may be used as a match multiple times.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>matches <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(a) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">estimate =</span> <span class="fu">weighted.mean</span>(y, <span class="at">w =</span> weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  a         estimate
+  &lt;chr&gt;        &lt;dbl&gt;
+1 treated      0.518
+2 untreated    0.254</code></pre>
+</div>
+</div>
+<p>Alternatively, we can carry out regression after matching.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lm_after_matching <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span> (a <span class="sc">==</span> <span class="st">"treated"</span>) <span class="sc">+</span> sex <span class="sc">+</span> race <span class="sc">+</span> mom_educ <span class="sc">+</span> dad_educ <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    log_parent_income <span class="sc">+</span> log_parent_wealth <span class="sc">+</span> test_percentile,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> matches,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> weights</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then our estimate could be the coefficient on the treatment variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_after_matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ (a == "treated") + sex + race + mom_educ + dad_educ + 
+    log_parent_income + log_parent_wealth + test_percentile, 
+    data = matches, weights = weights)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.7731 -0.3592 -0.1666  0.4412  1.2364 
+
+Coefficients:
+                             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                -0.1667709  0.0904700  -1.843  0.06537 .  
+a == "treated"TRUE          0.2350511  0.0169415  13.874  &lt; 2e-16 ***
+sexMale                     0.1119653  0.0170433   6.569 5.95e-11 ***
+raceNon-Hispanic Black     -0.1501000  0.0341049  -4.401 1.12e-05 ***
+raceNon-Hispanic Non-Black -0.0232965  0.0275414  -0.846  0.39769    
+mom_educCollege            -0.0421786  0.0442361  -0.953  0.34042    
+mom_educHigh school        -0.1016445  0.0422265  -2.407  0.01614 *  
+mom_educNo mom             -0.1125961  0.0654962  -1.719  0.08570 .  
+mom_educSome college       -0.0691847  0.0427370  -1.619  0.10559    
+dad_educCollege             0.0872352  0.0451752   1.931  0.05357 .  
+dad_educHigh school         0.0010773  0.0448006   0.024  0.98082    
+dad_educNo dad              0.0713750  0.0452732   1.577  0.11501    
+dad_educSome college        0.0662214  0.0449126   1.474  0.14047    
+log_parent_income           0.0058689  0.0063126   0.930  0.35260    
+log_parent_wealth           0.0155895  0.0049802   3.130  0.00176 ** 
+test_percentile             0.0029745  0.0004176   7.122 1.33e-12 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4505 on 2942 degrees of freedom
+Multiple R-squared:  0.1482,    Adjusted R-squared:  0.1438 
+F-statistic: 34.11 on 15 and 2942 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Using the regression-after-matching strategy, we estimate that going to college leads to a 0.24 increase in the probability of having a college-educated spouse or residential partner.</p>
+</section>
+<section id="what-to-read" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-read">What to read</h2>
+<p>To learn more about matching, a good article is:</p>
+<ul>
+<li>Stuart, Elizabeth. 2010. <a href="https://projecteuclid.org/journals/statistical-science/volume-25/issue-1/Matching-Methods-for-Causal-Inference--A-Review-and-a/10.1214/09-STS313.full">“Matching Methods for Causal Inference: A Review and a Look Forward.”</a>. Statistical Science 25(1):1-21.</li>
+</ul>
+<p>To see how matching methods have been used in questions of social stratification, see this book and papers cited in it.</p>
+<ul>
+<li>Brand, Jennie E. 2023. <a href="https://www.russellsage.org/publications/overcoming-odds">Overcoming the Odds: The Benefits of Completing College for Unlikely Graduates.</a> Russell Sage Foundation. Here is a link to read online through the <a href="https://search.library.ucla.edu/permalink/01UCS_LAL/17p22dp/alma9919490742806531">UCLA Library</a>.</li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../topics/12_DAGs.html" class="pagination-link" aria-label="Directed Acyclic Graphs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Directed Acyclic Graphs</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../topics/14_models_for_causal.html" class="pagination-link" aria-label="Models for Causal Inference">
+        <span class="nav-page-text">Models for Causal Inference</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

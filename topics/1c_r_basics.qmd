@@ -1,0 +1,55 @@
+---
+title: "Basics of R"
+---
+
+Now that you have installed R, it is time to try using R for the first time. Because there already exist many excellent resources on this topic, we will walk together in class through the material in [R4DS Ch 2](https://r4ds.hadley.nz/workflow-basics.html). This material will prepare you to complete Problem Set 1.
+
+After the basics in [R4DS Ch 2](https://r4ds.hadley.nz/workflow-basics.html), return to this page and continue below to learn about an object we will often use in this course: a data frame.
+
+## Using a data frame
+
+The class of object we will use in this course most often is a `data.frame` or `tibble`, which is a particular type of data frame. A data frame is an object like the rectangular spreadsheet below.
+
+| Address | Income | Number of People |
+|---------|-----|-----|
+| 5462 Park St | 54,896 | 2 |
+| 4596 Ocean Ave Apt B | 22,465 | 1 |
+| 6831 River Dr | 134,297 | 4 |
+
+: A hypothetical data table with three households
+
+The code below will load this data into an object in R.
+
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+basicData <- tibble(
+  address = c(
+    "5462 Park St",
+    "4596 Ocean Ave Apt B",
+    "6831 River Dr"
+    ),
+  income = c(54896,22465,134297),
+  numPeople = c(2,1,4)
+)
+write_csv(basicData, file = "../data/basicData.csv")
+```
+
+```{r, eval = F}
+library(tidyverse)
+basicData <- read_csv("https://soc114.github.io/data/basicData.csv")
+```
+
+If you type `basciData` in your R console, you will see a printout of the data.
+
+## Data frames and empirical questions
+
+The structure of these data correspond to elements of empirical questions we study.
+
+* The **outcome** is a variable to be summarized. It appears as a column in the data. Here, the outcome might be `income`.
+* The **unit of analysis** is the unit for which the outcome is defined. Each unit corresponds to a row of the data. Here, the unit of analysis is a household.
+
+The data may also contain other columns, such as the address of the household in this example. The other columns may represent **predictor variables** or variables that define **population subgroups**.
+
+Now that you understand a data frame object, we will next use one to produce a visualization.
+
+

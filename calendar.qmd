@@ -1,0 +1,52 @@
+---
+title: "Calendar"
+page-layout: full
+format:
+  html:
+    toc: true
+---
+
+## Assignments
+
+Assignment due dates will be visible in BruinLearn and Gradescope. They follow a pattern:
+
+* M 5pm: Post-lecture quiz due
+* W 5pm: Post-lecture quiz due
+* F 5pm: Problem set due
+
+## Lecture topics
+
+Below is a tentative plan for the dates each topic will be covered. If you are absent, you can review the corresponding course page to learn the material.
+
+| Date | Website Page |
+|------|:-----|
+| 1/5  | [Research Questions in Social Data Science](topics/1a_empirical_questions.qmd) |
+|      | [Software Prerequisites](topics/1b_software.qmd) |
+|      | [Basics of R](topics/1c_r_basics.qmd) |
+| 1/7  | [Visualizing a Distribution](topics/2a_visualization.qmd) |
+|      | [Summary Statistics](topics/2b_summary_statistic.qmd) |
+| 1/12 | [Population Sampling](topics/3_sampling.qmd) |
+| 1/14 | [Confidence Intervals](topics/4_ci.qmd) |
+| 1/19 | No class: Martin Luther King, Jr. Day |
+|      | **Models for Subgroup Summaries** |
+| 1/21 | [Linear Regression](topics/5_linear_regression.qmd) |
+| 1/26 | [Logistic Regression](topics/6_logistic_regression.qmd) |
+| 1/28 | [Forests](topics/7_forests.qmd) |
+| 2/2  | [Data-Driven Estimator Selection](topics/8_data_driven_selection.qmd) |
+| 2/4  | [Are Complex Models Better?](topics/9_are_complex_better.qmd) |
+|      | **Causal Inference under Measured Confounding** |
+| 2/9  | [Defining Causal Effects](topics/10_define_causal.qmd) |
+| 2/11 | [Exchangeability](topics/11_exchangeability.qmd) |
+| 2/16 | No class: Presidents' Day|
+| 2/18 | [Directed Acyclic Graphs](topics/12_DAGs.qmd) |
+| 2/23 | [Matching](topics/13_matching.qmd) |
+| 2/25 | [Models for Causal Inference](topics/14_models_for_causal.qmd) |
+|      | **Causal Inference with Unmeasured Confounding** |
+| 3/2  | [Difference in Difference](topics/15_did.qmd) |
+| 3/4  | [Regression Discontinuity](topics/16_rd.qmd) |
+| 3/9  | [Instrumental Variables](topics/17_iv.qmd) |
+| 3/11 | Course Recap |
+
+: Schedule of topics
+
+

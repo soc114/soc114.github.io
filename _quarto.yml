@@ -15,10 +15,9 @@ website:
   navbar:
     pinned: true
     right:
-      - href: index.qmd
-        text: " "
       - href: assets/syllabus.pdf
         text: Syllabus
+      - calendar.qmd
       - text: Problem Sets
         menu:
           - psets/pset1.qmd
@@ -34,64 +33,45 @@ website:
           - honors/sketch_a_visualization.qmd
           - honors/writing.qmd
           - honors/presentation.qmd
+      - href: "https://forms.gle/KZUdBH6bhkXtRxZX7"
+        text: Extension Requests
       - past_sites.qmd
         
   sidebar:
     style: "docked"
     search: true
-    collapse-level: 1
+    collapse-level: 2
     contents:
+      - href: index.qmd
+        text: "Home"
       - section: "Getting Started"
         contents: 
-          - topics/s1_r_basics.qmd
-          - topics/1_empirical_questions.qmd
-          - topics/2a_dataset.qmd
-          - topics/s2_visualization.qmd
+          - topics/1a_empirical_questions.qmd
+          - topics/1b_software.qmd
+          - topics/1c_r_basics.qmd
+          - topics/2a_visualization.qmd
           - topics/2b_summary_statistic.qmd
           - topics/3_sampling.qmd
           - topics/4_ci.qmd
       - section: "Models for Subgroup Summaries"
         contents:
-          - topics/5_models.qmd
-          - topics/6_forests.qmd
-          - topics/7_data_driven_selection.qmd
-          - topics/8_are_complex_better.qmd
-      - section: "Causal Inference under Measured Confounding"
+          - topics/5_linear_regression.qmd
+          - topics/6_logistic_regression.qmd
+          - topics/7_forests.qmd
+          - topics/8_data_driven_selection.qmd
+          - topics/9_are_complex_better.qmd
+      - section: "Causal Inference with Measured Confounding"
         contents:
-          - topics/9_define_causal.qmd
-          - topics/10_exchangeability.qmd
-          #- topics/nonparametric_estimation.qmd
-          - topics/11_DAGs.qmd
-          #- topics/why_model.qmd
-          - topics/12_models_for_causal.qmd
-          - topics/13_continuous_treatments.qmd
-          #- topics/matching.qmd
-          #- topics/trees.qmd
-          #- topics/forests.qmd
+          - topics/10_define_causal.qmd
+          - topics/11_exchangeability.qmd
+          - topics/12_DAGs.qmd
+          - topics/13_matching.qmd
+          - topics/14_models_for_causal.qmd
       - section: "Causal Inference with Unmeasured Confounding"
         contents:
-         - topics/14_did.qmd
-         - topics/15_rd.qmd
-         - topics/16_iv.qmd
-      # - href: discussion.qmd
-      # - section: "Assignments"
-      #   contents:
-      #     - section: "Problem Sets"
-      #       contents:
-      #         - href: assignments/pset0.qmd
-      #           text: "Problem Set 0"
-      #         - href: assignments/pset1.qmd
-      #           text: "Problem Set 1"
-      #     #     - topics/learning_exercise.qmd
-      #         - href: assignments/pset2.qmd
-      #           text: "Problem Set 2"
-      #         - href: assignments/pset3.qmd
-      #           text: "Problem Set 3"
-      #         - href: assignments/pset4.qmd
-      #           text: "Problem Set 4"
-      #     - href: assignments/project.qmd
-      #       text: "Project"
-      #       # - topics/asking_questions.qmd
+         - topics/15_did.qmd
+         - topics/16_rd.qmd
+         - topics/17_iv.qmd
 
   back-to-top-navigation: true
 

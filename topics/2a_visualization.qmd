@@ -1,0 +1,122 @@
+---
+title: "Visualizing a Distribution"
+---
+
+Data science questions often involve many units, each of whom may have a unique value of the outcome variable. How do we summarize all of these outcome values? This page focuses on two approaches: visualizing the distribution and producing one or more summary statistics.
+
+As an example, below we study household income (an outcome) which is defined for each household (a unit of analysis) among all U.S. households in 2022 (a target population).
+
+## Visualizing the distribution
+
+Not all households have the same income: there is a **distribution** of incomes across households. One way to study a distribution is by visualizing it with a histogram.
+
+To produce this graph, we first downloaded survey data on [annual household income](https://cps.ipums.org/cps-action/variables/hhincome#description_section) from the 2022 [Current Population Survey](https://cps.ipums.org/cps/index.shtml). The histogram categorizes households into discrete income groups that are each \$25,000 wide. The height of each bar corresponds to the number of households falling in that income group. We can see that the most common household income values are below \$100,000, but a small number of households have very high incomes that create a long upper tail at the right.
+
+```{r, echo = F, comment = F, message = F, warning = F, fig.width = 6, fig.height = 2}
+library(tidyverse)
+library(scales)
+library(haven)
+
+# 1. LOAD DATA
+
+# Load microdata from the Current Population Survey
+# https://cps.ipums.org/
+micro <- read_dta("../data_raw/cps_00062.dta") |>
+  filter(year == 2022)
+
+prepared <- micro |>
+  # Remove missing household incomes
+  filter(hhincome != 99999999) |>
+  mutate(hhincome = case_when(hhincome < 0 ~ 0,
+                              T ~ hhincome)) |>
+  # Restrict to one row per household
+  # instead of one row per person
+  group_by(year, serial) %>%
+  filter(1:n() == 1) |>
+  ungroup() |>
+  write_dta("../data_raw/prepared.dta")
+
+# Big visualization of U.S. household income distribution
+
+p <- prepared |>
+  filter(hhincome < 500e3) |>
+  ggplot(aes(x = hhincome, weight = asecwth)) +
+  geom_histogram(binwidth = 25e3, alpha = .4) +
+  scale_x_continuous(labels = scales::label_dollar(),
+                     name = "Household Income") +
+  scale_y_continuous(breaks = NULL,
+                     name = "Density") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1),
+        panel.grid.minor = element_blank()) +
+  theme_bw()
+p
+#ggsave(filename = "../slides/lec1/us2022_hh_dist_big.pdf",
+#       height = 3, width = 4.5)
+```
+
+The simulated dataset [`incomeSimulated.csv`](../data/incomeSimulated.csv) available on the course website will enable you to produce a similar graph.
+
+```{r, echo = F, warning = F, message = F}
+# Produce simulated version
+p0 <- prepared |>
+  summarize(estimate = weighted.mean(hhincome < 5e3, w = asecwth)) |>
+  pull(estimate)
+
+meanlog <- prepared |>
+  filter(hhincome >= 5e3) |>
+  summarize(estimate = weighted.mean(log(hhincome), w = asecwth)) |>
+  pull(estimate)
+
+sdlog <- prepared |>
+  filter(hhincome >= 5e3) |>
+  summarize(estimate = sqrt(weighted.mean((log(hhincome) - meanlog) ^ 2, w = asecwth))) |>
+  pull(estimate)
+
+incomeSimulated <- tibble(id = 1:1000) |>
+  mutate(
+    is0 = rbinom(n(), 1, p0),
+    hhincome = case_when(
+      is0 == 1 ~ 0,
+      is0 == 0 ~ exp(rnorm(n(), meanlog, sdlog))
+    ),
+    hhincome = case_when(
+      hhincome <= 500e3 ~ hhincome,
+      hhincome > 500e3 ~ 500e3
+    )
+  ) |>
+  select(-is0) |>
+  write_csv("../data/incomeSimulated.csv")
+```
+
+The code below will produce a basic version of this graph. First, you will need to prepare your environment by loading packages.
+
+```{r, eval = F}
+library(tidyverse) # for manipulating data
+library(scales)    # for labeling graphs easily
+```
+
+Then, you can load the data from the course website.
+
+```{r, eval = F}
+incomeSimulated <- read_csv("https://soc114.github.io/data/incomeSimulated.csv")
+```
+
+The code below produces the graph.
+
+```{r}
+incomeSimulated |>
+  ggplot(mapping = aes(x = hhincome)) +
+  geom_histogram(binwidth = 25e3) +
+  scale_x_continuous(
+    name = "Household Income",
+    labels = label_currency()
+  )
+```
+
+Let's walk through this code in steps.
+
+This code starts with the dataset `incomeSimulated`. The pipe operator `|>` passes this object as the first argument to the next line (the `data` argument of ``ggplot`). The `ggplot()` line creates the plot. The `mapping` argument defines the aethetics (`aes`) of the plot, with the `hhincome` variable being assigned to the `x`-axis. The `geom_histogram` line produces the plot. The `scale_x_continuous()` lines are an optional part to improve readability of the x-axis.
+
+For more practice with `ggplot`, see [R4DS Ch 1](https://r4ds.hadley.nz/data-visualize.html). A particularly good example you can try is section [R4DS 1.2.3](https://r4ds.hadley.nz/data-visualize.html#creating-a-ggplot).
+

@@ -155,12 +155,12 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text"> </span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../assets/syllabus.pdf"> 
 <span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../calendar.html"> 
+<span class="menu-text">Calendar</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-problem-sets" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -213,6 +213,10 @@ window.Quarto = {
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/KZUdBH6bhkXtRxZX7"> 
+<span class="menu-text">Extension Requests</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../past_sites.html"> 
 <span class="menu-text">Past Year Sites</span></a>
   </li>  
@@ -227,7 +231,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/s1_r_basics.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../topics/3_sampling.html">Population sampling</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1a_empirical_questions.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../topics/3_sampling.html">Population Sampling</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -247,6 +251,12 @@ window.Quarto = {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -258,38 +268,38 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/s1_r_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/1a_empirical_questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research Questions in Social Data Science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/1b_software.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Software Prerequisites</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/1_empirical_questions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Empirical Questions</span></a>
+  <a href="../topics/1c_r_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basics of R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/2a_dataset.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/s2_visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Visualization</span></a>
+  <a href="../topics/2a_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing a Distribution</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/2b_summary_statistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Distributions and Summaries</span></a>
+ <span class="menu-text">Summary Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/3_sampling.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Population sampling</span></a>
+ <span class="menu-text">Population Sampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -302,105 +312,111 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Models for Subgroup Summaries</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/5_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Subgroup Summaries by Prediction</span></a>
+  <a href="../topics/5_linear_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/6_forests.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/6_logistic_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/7_forests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Forests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/7_data_driven_selection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data-driven selection of an estimator</span></a>
+  <a href="../topics/8_data_driven_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data-Driven Estimator Selection</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/8_are_complex_better.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Are complex models better?</span></a>
+  <a href="../topics/9_are_complex_better.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Are Complex Models Better?</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Causal Inference under Measured Confounding</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Causal Inference with Measured Confounding</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/9_define_causal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Defining causal effects</span></a>
+  <a href="../topics/10_define_causal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Defining Causal Effects</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/10_exchangeability.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/11_exchangeability.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exchangeability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/11_DAGs.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/12_DAGs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Directed Acyclic Graphs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/12_models_for_causal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Models for causal inference</span></a>
+  <a href="../topics/13_matching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matching</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/13_continuous_treatments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Continuous treatments</span></a>
+  <a href="../topics/14_models_for_causal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models for Causal Inference</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Causal Inference with Unmeasured Confounding</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/14_did.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Difference in difference</span></a>
+  <a href="../topics/15_did.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Difference in Difference</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/15_rd.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Regression discontinuity</span></a>
+  <a href="../topics/16_rd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression Discontinuity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/16_iv.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Instrumental variables</span></a>
+  <a href="../topics/17_iv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instrumental Variables</span></a>
   </div>
 </li>
       </ul>
@@ -442,7 +458,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/s1_r_basics.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../topics/3_sampling.html">Population sampling</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1a_empirical_questions.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../topics/3_sampling.html">Population Sampling</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Population sampling</h1>
 </div>
@@ -635,18 +651,18 @@ Note
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 60 × 6
-   player             team         position   salary p_sampled sampling_weight
-   &lt;chr&gt;              &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
- 1 Walker, Christian  Arizona      1B        6500000    0.0636            15.7
- 2 Fujinami, Shintaro Oakland      RHP       3250000    0.0636            15.7
- 3 Tatis, Fernando**  San Diego    OF        7000000    0.0636            15.7
- 4 McCann, James*     Baltimore    C        12000000    0.0636            15.7
- 5 Merrifield, Whit   Toronto      2B        6750000    0.0636            15.7
- 6 Pena, Jeremy       Houston      SS         754900    0.0636            15.7
- 7 Harper, Bryce*     Philadelphia OF       27538462    0.0636            15.7
- 8 Stubbs, Garrett    Philadelphia C          741000    0.0636            15.7
- 9 Mancini, Trey      Chicago Cubs 1B        7000000    0.0636            15.7
-10 Walsh, Jared*      L.A. Angels  1B        2650000    0.0636            15.7
+   player              team         position   salary p_sampled sampling_weight
+   &lt;chr&gt;               &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
+ 1 Gurriel, Lourdes    Arizona      OF        5400000    0.0636            15.7
+ 2 Tarnok, Freddy*     Oakland      RHP        720000    0.0636            15.7
+ 3 Bednar, David       Pittsburgh   RHP        745000    0.0636            15.7
+ 4 Strzelecki, Peter   Milwaukee    RHP        726400    0.0636            15.7
+ 5 Winker, Jesse       Milwaukee    OF        8250000    0.0636            15.7
+ 6 Cueto, Johnny       Miami        RHP       6000000    0.0636            15.7
+ 7 Schmidt, Clarke     N.Y. Yankees RHP        740475    0.0636            15.7
+ 8 Olson, Matt         Atlanta      1B       21000000    0.0636            15.7
+ 9 Cleavinger, Garrett Tampa Bay    LHP        725100    0.0636            15.7
+10 Capel, Conner       Oakland      OF         720000    0.0636            15.7
 # ℹ 50 more rows</code></pre>
 </div>
 </div>
@@ -718,7 +734,7 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_example <span class="ot">&lt;-</span> <span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimator</span>(<span class="at">sample =</span> sample_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4708913</code></pre>
+<pre><code>[1] 6522086</code></pre>
 </div>
 </div>
 <p>Try it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?</p>
@@ -1509,8 +1525,8 @@ Example redux: California and Wyoming
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../topics/2b_summary_statistic.html" class="pagination-link" aria-label="Distributions and Summaries">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Distributions and Summaries</span>
+      <a href="../topics/2b_summary_statistic.html" class="pagination-link" aria-label="Summary Statistics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Summary Statistics</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

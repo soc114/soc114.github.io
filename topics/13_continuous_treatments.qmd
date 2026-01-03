@@ -1,7 +1,0 @@
----
-title: "Continuous treatments"
----
-
-> Topic for 2/25.
-
-Most examples previously have focused on binary treatment variables (e.g., complete college versus not). A treatment variable can also be continuous (e.g., family income at age 17). This class will generalize our logic from binary to continuous treatments and discuss one approach to study continuous treatments: the average effect of an additive shift to the factual treatment values. The example for this class comes from [Lundberg and Brand (in progress)](https://osf.io/preprints/socarxiv/3a6zu).
