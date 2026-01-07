@@ -8,7 +8,7 @@ format:
     toc: true
 ---
 
-See the [**honors section syllabus**](assets/syllabus_honors.pdf).
+See the [**honors section syllabus**](../assets/syllabus_honors.pdf).
 
 Any student enrolled in Soc 114 is welcome to enroll in the honors section (Soc 189 Sem 3). The honors section is graded as a separate 1.0 credit course. It is an opportunity to engage in a small creative research project and interact with the professor and peers in a seminar format.
 

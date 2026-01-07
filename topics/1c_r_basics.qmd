@@ -18,7 +18,7 @@ The class of object we will use in this course most often is a `data.frame` or `
 
 : A hypothetical data table with three households
 
-The code below will load this data into an object in R.
+The code below will load [basicData.csv](../data/basicData.csv) into an object in R.
 
 ```{r, echo = F, warning = F, message = F}
 library(tidyverse)
@@ -39,7 +39,7 @@ library(tidyverse)
 basicData <- read_csv("https://soc114.github.io/data/basicData.csv")
 ```
 
-If you type `basciData` in your R console, you will see a printout of the data.
+If you type `basicData` in your R console, you will see a printout of the data.
 
 ## Data frames and empirical questions
 

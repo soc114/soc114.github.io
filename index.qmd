@@ -34,13 +34,15 @@ Working with data to understand inequality brings me joy and meaning, as I first
 :::
 
 ::: {.g-col-2}
-
+<img src="assets/profiles/taylor.png" style="width:100%;">
 :::
 
 ::: {.g-col-10}
 [**Taylor Aquino**](https://soc.ucla.edu/person/taylor-aquino/)  
-[**taquino7@g.ucla.edu**](mailto:taquino7@g.ucla.edu)
+[**taquino7@g.ucla.edu**](mailto:taquino7@g.ucla.edu)  
+(_she / her_)
 
+I use data to understand the experiences of multiracial people in the U.S., specifically their occupational attainment and dating outcomes. My hobbies include cooking, baking, and watching tv with my dog, Blue.
 :::
 
 :::
