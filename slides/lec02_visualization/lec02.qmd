@@ -1,0 +1,310 @@
+---
+title: "Visualization and Summary Statistics"
+subtitle: "UCLA Soc 114"
+format:
+  revealjs: default # For the web slides
+  beamer: default      # To generate the PDF version
+resources: 
+  - lec02.pdf
+---
+
+```{r, echo = F, message = F, warning = F, comment = F}
+library(tidyverse)
+library(scales)
+```
+
+## Review of last class
+
+Say this code in English:
+
+```{r, echo = T}
+numbers <- c(1,2,3)
+x_length <- length(numbers)
+```
+
+. . .
+
+* Store the vector `c(1,2,3)` in the object `numbers`
+* Use the `length()` function to get the length of `numbers`
+
+## Learning goals for today
+
+* Reason about distributions
+     * and visualize with `ggplot()`
+* Understand summary statistics
+     * and construct with `summarize()`
+* Write clean code with the pipe `|>`
+
+## How to visualize?
+
+How might we visualize the U.S. income distribution?
+
+Here are some data:
+```{r, echo = T}
+library(tidyverse)
+incomeSimulated <- read_csv(
+  file = "https://soc114.github.io/data/incomeSimulated.csv"
+)
+```
+```{r}
+incomeSimulated |> print(n = 3)
+```
+
+## Visualize with a histogram
+
+```{r, echo = F, fig.height = 2}
+incomeSimulated |>
+  ggplot(mapping = aes(x = hhincome)) +
+  geom_histogram(binwidth = 25e3) +
+  scale_x_continuous(
+    name = "Household Income",
+    labels = label_currency()
+  )
+```
+
+* Bins of \$25,000
+* In each bin, count number of people
+
+## Learning a new function: `ggplot`
+
+```{r, echo = T, fig.height = 2}
+ggplot(
+  data = incomeSimulated,
+  mapping = aes(x = hhincome)
+)
+```
+
+Two arguments get us started:
+
+* `data` argument contains data
+* `mapping` argument maps data to plot elements
+
+Within `mapping`,
+
+* `aes()` defines the aesthetics of the plot
+* i.e. which variable goes along x-axis
+
+## Adding a layer: `geom_histogram()`
+
+```{r, echo = T, fig.height = 2}
+ggplot(
+  data = incomeSimulated,
+  mapping = aes(x = hhincome)
+) +
+  geom_histogram()
+```
+
+. . .
+
+* The `+` indicates that a new layer is coming
+* `geom_histogram()` is the new layer
+* Inherits the `data` and `mapping` of the plot
+
+## Update axis titles
+
+```{r, echo = T, fig.height = 2}
+ggplot(
+  data = incomeSimulated,
+  mapping = aes(x = hhincome)
+) +
+  geom_histogram() +
+  labs(
+    x = "Household Income", 
+    y = "Count of Households in Bin"
+  )
+```
+
+## Learning goals for today
+
+* Reason about distributions
+     * and visualize with `ggplot()`
+* Understand summary statistics
+     * and construct with `summarize()`
+* Write clean code with the pipe `|>`
+
+## Imagine 3 income distributions
+
+| Household | Distribution 1 | Distribution 2 | Distribution 3 |
+| ---- | ---- | --- | ---- |
+| 1 | \$10k | \$40k | \$50k |
+| 2 | \$60k | \$65k | \$60k |
+| 3 | \$150k | \$70k | \$65k | 
+
+Normative question: Which one is better?
+
+## Summary statistic
+
+A **summary statistic** aggregates a distribution to one number
+
+. . .
+
+For example, the mean
+$$\text{mean}(\vec{x}) = \frac{x_1 + x_2 +\cdots}{n}$$
+
+## Summary statistic: Mean
+
+| Household | Distribution 1 | Distribution 2 | Distribution 3 |
+| ---- | ---- | --- | ---- |
+| 1 | \$10k | \$40k | \$50k |
+| 2 | \$60k | \$65k | \$60k |
+| 3 | \$150k | \$70k | \$65k |
+| **Mean** | **\$73k** | **\$58k** | **\$58k** |
+
+. . .
+
+By the mean, **Distribution 1** seems the best.
+
+## Summary statistic: Median
+
+1. Sort households by income.
+2. Find where 50\% of households have higher incomes
+
+| Household | Distribution 1 | Distribution 2 | Distribution 3 |
+| ---- | ---- | --- | ---- |
+| 1 | \$10k | \$40k | \$50k |
+| 2 | \$60k | \$65k | \$60k |
+| 3 | \$150k | \$70k | \$65k | . . .
+| **Median** | **\$60k** | **\$65k** | **\$60k** |
+
+. . .
+
+By the median, **Distribution 2** seems the best.
+
+## Aside: Percentiles generalize the median
+
+The median is the value in the middle
+
+* 50\% of people have lower values
+* Also called the 50th percentile
+
+. . .
+
+Generalizes to other percentiles
+
+* 10th percentile: Value such that 10\% are lower
+* 90th percentile: Value such that 90\% are lower
+
+These summarize the bottom and top of a distribution.
+
+## Summary statistic: Minimum
+
+Find the lowest value.
+
+| Household | Distribution 1 | Distribution 2 | Distribution 3 |
+| ---- | ---- | --- | ---- |
+| 1 | \$10k | \$40k | \$50k |
+| 2 | \$60k | \$65k | \$60k |
+| 3 | \$150k | \$70k | \$65k | . . .
+| **Minimum** | **\$10k** | **\$40k** | **\$50k** |
+
+. . .
+
+By the minimum, **Distribution 3** seems the best.
+
+## Which summary statistic to choose?
+
+| Household | Distribution 1 | Distribution 2 | Distribution 3 |
+| ---- | ---- | --- | ---- |
+| 1 | \$10k | \$40k | \$50k |
+| 2 | \$60k | \$65k | \$60k |
+| 3 | \$150k | \$70k | \$65k | . . .
+| **Minimum** | **\$10k** | **\$40k** | **\$50k** |
+| **Median** | **\$60k** | **\$65k** | **\$60k** |
+| **Mean** | **\$73k** | **\$58k** | **\$58k** |
+
+. . .
+
+## Choosing a summary statistic
+
+Which summary to choose is not an empirical question.
+
+* Depends on what aspect of the distribution matters to you
+
+The value of a chosen summary statistic is empirical.
+
+* Data can tell us a value for the mean, the median, the minimum, etc.
+
+## The `summarize()` function
+
+The `summarize()` function aggregates data to summaries.
+
+* Input is a dataset with $n$ rows
+* Output is a summary with 1 row
+
+## The `summarize()` function
+
+```{r, echo = T, eval = F}
+incomeSimulated
+```
+```{r, echo = F}
+incomeSimulated |> print(n = 3)
+```
+
+## The `summarize()` function
+
+```{r, echo = T}
+summarize(
+  .data = incomeSimulated,
+  estimated_mean = mean(hhincome)
+)
+```
+
+* `.data` is input data
+* `estimated_mean` is a variable in output data
+* `mean(hhincome)` is the mean household income
+
+## The `summarize()` function: Several summaries
+
+```{r, echo = T}
+summarize(
+  .data = incomeSimulated,
+  estimated_mean = mean(hhincome),
+  estimated_median = median(hhincome),
+  esitmated_min = min(hhincome)
+)
+```
+
+## Learning goals for today
+
+* Reason about distributions
+     * and visualize with `ggplot()`
+* Understand summary statistics
+     * and construct with `summarize()`
+* Write clean code with the pipe `|>`
+
+## Piping code with `|>`
+
+```{r, echo = T}
+x <- c(1,2,3)
+length(x)
+x |> length()
+```
+
+The pipe `|>` passes `x` as the first argument to the `length()` function.
+
+## Piping code with `|>`
+
+Stylistically helpful
+
+* Data is a different kind of argument
+* Pipes will help us in the future
+
+```{r, echo = T}
+incomeSimulated |>
+  summarize(
+    estimated_mean = mean(hhincome),
+    estimated_median = median(hhincome),
+    esitmated_min = min(hhincome)
+  )
+```
+
+## Learning goals for today
+
+* Reason about distributions
+     * and visualize with `ggplot()`
+* Understand summary statistics
+     * and construct with `summarize()`
+* Write clean code with the pipe `|>`
+
+You can now learn more: R4DS [Ch 1](https://r4ds.hadley.nz/data-visualize.html) and [Ch 3](https://r4ds.hadley.nz/data-transform.html)
+

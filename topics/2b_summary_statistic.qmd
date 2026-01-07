@@ -2,7 +2,7 @@
 title: "Summary Statistics"
 ---
 
-> Topic for 1/7.
+> Here are slides in [web](../slides/lec02_visualization/lec02.qmd) and [pdf](../slides/lec02_visualization/lec02.pdf) format. This page is part 2 of the slides.
 
 We often want to take a distribution and convert it to a **summary statistic**: a one-number parameter that summarizes a fact about the distribution. A summary statistic collapses the entire distribution down to a single number.
 

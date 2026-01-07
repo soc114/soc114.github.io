@@ -428,6 +428,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<blockquote class="blockquote">
+<p>Here are slides in <a href="../slides/lec02_visualization/lec02.html">web</a> and <a href="../slides/lec02_visualization/lec02.pdf">pdf</a> format.</p>
+</blockquote>
 <p>Data science questions often involve many units, each of whom may have a unique value of the outcome variable. How do we summarize all of these outcome values? This page focuses on two approaches: visualizing the distribution and producing one or more summary statistics.</p>
 <p>As an example, below we study household income (an outcome) which is defined for each household (a unit of analysis) among all U.S. households in 2022 (a target population).</p>
 <section id="visualizing-the-distribution" class="level2">
@@ -455,13 +458,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The code below produces the graph.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>incomeSimulated <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> hhincome)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">25e3</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Household Income"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_currency</span>()</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> incomeSimulated,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> hhincome)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">25e3</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Household Income"</span>, </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count of Households in Bin"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -471,7 +476,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Let’s walk through this code in steps.</p>
-<p>This code starts with the dataset <code>incomeSimulated</code>. The pipe operator <code>|&gt;</code> passes this object as the first argument to the next line (the <code>data</code> argument of `<code>ggplot</code>). The <code>ggplot()</code> line creates the plot. The <code>mapping</code> argument defines the aethetics (<code>aes</code>) of the plot, with the <code>hhincome</code> variable being assigned to the <code>x</code>-axis. The <code>geom_histogram</code> line produces the plot. The <code>scale_x_continuous()</code> lines are an optional part to improve readability of the x-axis.</p>
+<ul>
+<li>Initialize with the <code>ggplot()</code> function
+<ul>
+<li><code>data</code> argument contains the data</li>
+<li><code>mapping</code> argument maps data to plot elements</li>
+<li><code>aes()</code> is an aesthetics function that helps</li>
+</ul></li>
+<li>Add a layer with <code>+</code></li>
+<li><code>geom_histogram()</code> layer makes a histogram
+<ul>
+<li>Optional argument <code>binwidth</code> sets the width of each bin</li>
+</ul></li>
+<li><code>labs()</code> layer modifies axis labels</li>
+</ul>
 <p>For more practice with <code>ggplot</code>, see <a href="https://r4ds.hadley.nz/data-visualize.html">R4DS Ch 1</a>. A particularly good example you can try is section <a href="https://r4ds.hadley.nz/data-visualize.html#creating-a-ggplot">R4DS 1.2.3</a>.</p>
 
 
