@@ -94,8 +94,7 @@ incomeSimulated <- tibble(id = 1:1000) |>
 The code below will produce a basic version of this graph. First, you will need to prepare your environment by loading packages.
 
 ```{r, eval = F}
-library(tidyverse) # for manipulating data
-library(scales)    # for labeling graphs easily
+library(tidyverse) # package with many functions we use
 ```
 
 Then, you can load the data from the course website.

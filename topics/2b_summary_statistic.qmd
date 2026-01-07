@@ -12,7 +12,7 @@ In this example, we will continue with the household income data from the previo
 library(tidyverse)
 incomeSimulated <- read_csv("https://soc114.github.io/data/incomeSimulated.csv")
 ```
-```{r, echo = F}
+```{r, echo = F, comment = F, message = F, warning = F}
 library(tidyverse)
 incomeSimulated <- read_csv("../data/incomeSimulated.csv")
 ```
