@@ -1282,7 +1282,7 @@
     "href": "slides/lec02_visualization/lec02.html#how-to-visualize",
     "title": "Visualization and Summary Statistics",
     "section": "How to visualize?",
-    "text": "How to visualize?\nHow might we visualize the U.S. income distribution?\nHere are some data:\n\nlibrary(tidyverse)\nincomeSimulated &lt;- read_csv(\n  file = \"https://soc114.github.io/data/incomeSimulated.csv\"\n)\n\n\n\n# A tibble: 1,000 × 2\n     id hhincome\n  &lt;dbl&gt;    &lt;dbl&gt;\n1     1  221761.\n2     2   90446.\n3     3   48439.\n# ℹ 997 more rows"
+    "text": "How to visualize?\nHow might we visualize the U.S. income distribution?\nHere are some data:\n\nlibrary(tidyverse)\nincomeSimulated &lt;- read_csv(\n  file = \"https://soc114.github.io/data/incomeSimulated.csv\"\n)\n\n\n\n# A tibble: 1,000 × 2\n     id hhincome\n  &lt;dbl&gt;    &lt;dbl&gt;\n1     1   19170.\n2     2  124474.\n3     3   25114.\n# ℹ 997 more rows"
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#visualize-with-a-histogram",
@@ -1296,7 +1296,7 @@
     "href": "slides/lec02_visualization/lec02.html#learning-a-new-function-ggplot",
     "title": "Visualization and Summary Statistics",
     "section": "Learning a new function: ggplot",
-    "text": "Learning a new function: ggplot\n\nggplot(\n  data = incomeSimulated,\n  mapping = aes(x = hhincome)\n)\n\n\nTwo arguments get us started:\n\ndata argument contains data\nmapping argument maps data to plot elements\n\nWithin mapping,\n\naes() defines the aesthetics of the plot\ni.e. which variable goes along x-axis"
+    "text": "Learning a new function: ggplot\n\nggplot(\n  data = incomeSimulated,\n  mapping = aes(x = hhincome)\n)\n\n\n\nTwo arguments get us started:\n\ndata argument contains data\nmapping argument maps data to plot elements\n\n\n\nWithin mapping,\n\naes() defines the aesthetics of the plot\ni.e. which variable goes along x-axis"
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#adding-a-layer-geom_histogram",
@@ -1345,6 +1345,13 @@
     "href": "slides/lec02_visualization/lec02.html#summary-statistic-median",
     "title": "Visualization and Summary Statistics",
     "section": "Summary statistic: Median",
+    "text": "Summary statistic: Median\n\nSort households by income.\nFind where 50% of households have higher incomes\n\n\n\n\nHousehold\nDistribution 1\nDistribution 2\nDistribution 3\n\n\n\n\n1\n$10k\n$40k\n$50k\n\n\n2\n$60k\n$65k\n$60k\n\n\n3\n$150k\n$70k\n$65k"
+  },
+  {
+    "objectID": "slides/lec02_visualization/lec02.html#summary-statistic-median-1",
+    "href": "slides/lec02_visualization/lec02.html#summary-statistic-median-1",
+    "title": "Visualization and Summary Statistics",
+    "section": "Summary statistic: Median",
     "text": "Summary statistic: Median\n\nSort households by income.\nFind where 50% of households have higher incomes\n\n\n\n\nHousehold\nDistribution 1\nDistribution 2\nDistribution 3\n\n\n\n\n1\n$10k\n$40k\n$50k\n\n\n2\n$60k\n$65k\n$60k\n\n\n3\n$150k\n$70k\n$65k\n\n\nMedian\n$60k\n$65k\n$60k\n\n\n\n\nBy the median, Distribution 2 seems the best."
   },
   {
@@ -1359,6 +1366,13 @@
     "href": "slides/lec02_visualization/lec02.html#summary-statistic-minimum",
     "title": "Visualization and Summary Statistics",
     "section": "Summary statistic: Minimum",
+    "text": "Summary statistic: Minimum\nFind the lowest value.\n\n\n\nHousehold\nDistribution 1\nDistribution 2\nDistribution 3\n\n\n\n\n1\n$10k\n$40k\n$50k\n\n\n2\n$60k\n$65k\n$60k\n\n\n3\n$150k\n$70k\n$65k"
+  },
+  {
+    "objectID": "slides/lec02_visualization/lec02.html#summary-statistic-minimum-1",
+    "href": "slides/lec02_visualization/lec02.html#summary-statistic-minimum-1",
+    "title": "Visualization and Summary Statistics",
+    "section": "Summary statistic: Minimum",
     "text": "Summary statistic: Minimum\nFind the lowest value.\n\n\n\nHousehold\nDistribution 1\nDistribution 2\nDistribution 3\n\n\n\n\n1\n$10k\n$40k\n$50k\n\n\n2\n$60k\n$65k\n$60k\n\n\n3\n$150k\n$70k\n$65k\n\n\nMinimum\n$10k\n$40k\n$50k\n\n\n\n\nBy the minimum, Distribution 3 seems the best."
   },
   {
@@ -1366,14 +1380,14 @@
     "href": "slides/lec02_visualization/lec02.html#which-summary-statistic-to-choose",
     "title": "Visualization and Summary Statistics",
     "section": "Which summary statistic to choose?",
-    "text": "Which summary statistic to choose?\n\n\n\nHousehold\nDistribution 1\nDistribution 2\nDistribution 3\n\n\n\n\n1\n$10k\n$40k\n$50k\n\n\n2\n$60k\n$65k\n$60k\n\n\n3\n$150k\n$70k\n$65k\n\n\nMinimum\n$10k\n$40k\n$50k\n\n\nMedian\n$60k\n$65k\n$60k\n\n\nMean\n$73k\n$58k\n$58k"
+    "text": "Which summary statistic to choose?\nMinimum? Median? Mean?\n\n\n\nHousehold\nDistribution 1\nDistribution 2\nDistribution 3\n\n\n\n\n1\n$10k\n$40k\n$50k\n\n\n2\n$60k\n$65k\n$60k\n\n\n3\n$150k\n$70k\n$65k"
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#choosing-a-summary-statistic",
     "href": "slides/lec02_visualization/lec02.html#choosing-a-summary-statistic",
     "title": "Visualization and Summary Statistics",
     "section": "Choosing a summary statistic",
-    "text": "Choosing a summary statistic\nWhich summary to choose is not an empirical question.\n\nDepends on what aspect of the distribution matters to you\n\nThe value of a chosen summary statistic is empirical.\n\nData can tell us a value for the mean, the median, the minimum, etc."
+    "text": "Choosing a summary statistic\nWhich summary to choose is not an empirical question.\n\n\nDepends on what aspect of the distribution matters to you\n\n\n\nThe value of a chosen summary statistic is empirical.\n\nData can tell us a value for the mean, the median, the minimum, etc."
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#the-summarize-function",
@@ -1387,21 +1401,21 @@
     "href": "slides/lec02_visualization/lec02.html#the-summarize-function-1",
     "title": "Visualization and Summary Statistics",
     "section": "The summarize() function",
-    "text": "The summarize() function\n\nincomeSimulated\n\n\n\n# A tibble: 1,000 × 2\n     id hhincome\n  &lt;dbl&gt;    &lt;dbl&gt;\n1     1  221761.\n2     2   90446.\n3     3   48439.\n# ℹ 997 more rows"
+    "text": "The summarize() function\n\nincomeSimulated\n\n\n\n# A tibble: 1,000 × 2\n     id hhincome\n  &lt;dbl&gt;    &lt;dbl&gt;\n1     1   19170.\n2     2  124474.\n3     3   25114.\n# ℹ 997 more rows"
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#the-summarize-function-2",
     "href": "slides/lec02_visualization/lec02.html#the-summarize-function-2",
     "title": "Visualization and Summary Statistics",
     "section": "The summarize() function",
-    "text": "The summarize() function\n\nsummarize(\n  .data = incomeSimulated,\n  estimated_mean = mean(hhincome)\n)\n\n# A tibble: 1 × 1\n  estimated_mean\n           &lt;dbl&gt;\n1        100136.\n\n\n\n.data is input data\nestimated_mean is a variable in output data\nmean(hhincome) is the mean household income"
+    "text": "The summarize() function\n\nsummarize(\n  .data = incomeSimulated,\n  estimated_mean = mean(hhincome)\n)\n\n# A tibble: 1 × 1\n  estimated_mean\n           &lt;dbl&gt;\n1        100899.\n\n\n\n.data is input data\nestimated_mean is a variable in output data\nmean(hhincome) is the mean household income"
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#the-summarize-function-several-summaries",
     "href": "slides/lec02_visualization/lec02.html#the-summarize-function-several-summaries",
     "title": "Visualization and Summary Statistics",
     "section": "The summarize() function: Several summaries",
-    "text": "The summarize() function: Several summaries\n\nsummarize(\n  .data = incomeSimulated,\n  estimated_mean = mean(hhincome),\n  estimated_median = median(hhincome),\n  esitmated_min = min(hhincome)\n)\n\n# A tibble: 1 × 3\n  estimated_mean estimated_median esitmated_min\n           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;\n1        100136.           64377.             0"
+    "text": "The summarize() function: Several summaries\n\nsummarize(\n  .data = incomeSimulated,\n  estimated_mean = mean(hhincome),\n  estimated_median = median(hhincome),\n  esitmated_min = min(hhincome)\n)\n\n# A tibble: 1 × 3\n  estimated_mean estimated_median esitmated_min\n           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;\n1        100899.           69035.             0"
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#learning-goals-for-today-2",
@@ -1422,7 +1436,7 @@
     "href": "slides/lec02_visualization/lec02.html#piping-code-with-1",
     "title": "Visualization and Summary Statistics",
     "section": "Piping code with |>",
-    "text": "Piping code with |&gt;\nStylistically helpful\n\nData is a different kind of argument\nPipes will help us in the future\n\n\nincomeSimulated |&gt;\n  summarize(\n    estimated_mean = mean(hhincome),\n    estimated_median = median(hhincome),\n    esitmated_min = min(hhincome)\n  )\n\n# A tibble: 1 × 3\n  estimated_mean estimated_median esitmated_min\n           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;\n1        100136.           64377.             0"
+    "text": "Piping code with |&gt;\nStylistically helpful\n\nData is a different kind of argument\nPipes will help us in the future\n\n\nincomeSimulated |&gt;\n  summarize(\n    estimated_mean = mean(hhincome),\n    estimated_median = median(hhincome),\n    esitmated_min = min(hhincome)\n  )\n\n# A tibble: 1 × 3\n  estimated_mean estimated_median esitmated_min\n           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;\n1        100899.           69035.             0"
   },
   {
     "objectID": "slides/lec02_visualization/lec02.html#learning-goals-for-today-3",

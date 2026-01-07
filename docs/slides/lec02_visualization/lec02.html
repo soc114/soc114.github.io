@@ -242,9 +242,9 @@
 <pre><code># A tibble: 1,000 × 2
      id hhincome
   &lt;dbl&gt;    &lt;dbl&gt;
-1     1  221761.
-2     2   90446.
-3     3   48439.
+1     1   19170.
+2     2  124474.
+3     3   25114.
 # ℹ 997 more rows</code></pre>
 </div>
 </div>
@@ -266,16 +266,20 @@
 <span id="cb4-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="lec02_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><p>Two arguments get us started:</p>
+<img data-src="lec02_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><div class="fragment">
+<p>Two arguments get us started:</p>
 <ul>
 <li><code>data</code> argument contains data</li>
 <li><code>mapping</code> argument maps data to plot elements</li>
 </ul>
+</div>
+<div class="fragment">
 <p>Within <code>mapping</code>,</p>
 <ul>
 <li><code>aes()</code> defines the aesthetics of the plot</li>
 <li>i.e.&nbsp;which variable goes along x-axis</li>
 </ul>
+</div>
 </section>
 <section id="adding-a-layer-geom_histogram" class="slide level2">
 <h2>Adding a layer: <code>geom_histogram()</code></h2>
@@ -441,6 +445,43 @@
 <td>$70k</td>
 <td>$65k</td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="summary-statistic-median-1" class="slide level2">
+<h2>Summary statistic: Median</h2>
+<ol type="1">
+<li>Sort households by income.</li>
+<li>Find where 50% of households have higher incomes</li>
+</ol>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Household</th>
+<th>Distribution 1</th>
+<th>Distribution 2</th>
+<th>Distribution 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>$10k</td>
+<td>$40k</td>
+<td>$50k</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>$60k</td>
+<td>$65k</td>
+<td>$60k</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>$150k</td>
+<td>$70k</td>
+<td>$65k</td>
+</tr>
 <tr class="even">
 <td><strong>Median</strong></td>
 <td><strong>$60k</strong></td>
@@ -500,20 +541,12 @@
 <td>$70k</td>
 <td>$65k</td>
 </tr>
-<tr class="even">
-<td><strong>Minimum</strong></td>
-<td><strong>$10k</strong></td>
-<td><strong>$40k</strong></td>
-<td><strong>$50k</strong></td>
-</tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>By the minimum, <strong>Distribution 3</strong> seems the best.</p>
-</div>
 </section>
-<section id="which-summary-statistic-to-choose" class="slide level2">
-<h2>Which summary statistic to choose?</h2>
+<section id="summary-statistic-minimum-1" class="slide level2">
+<h2>Summary statistic: Minimum</h2>
+<p>Find the lowest value.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -548,17 +581,42 @@
 <td><strong>$40k</strong></td>
 <td><strong>$50k</strong></td>
 </tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>By the minimum, <strong>Distribution 3</strong> seems the best.</p>
+</div>
+</section>
+<section id="which-summary-statistic-to-choose" class="slide level2">
+<h2>Which summary statistic to choose?</h2>
+<p>Minimum? Median? Mean?</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Household</th>
+<th>Distribution 1</th>
+<th>Distribution 2</th>
+<th>Distribution 3</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td><strong>Median</strong></td>
-<td><strong>$60k</strong></td>
-<td><strong>$65k</strong></td>
-<td><strong>$60k</strong></td>
+<td>1</td>
+<td>$10k</td>
+<td>$40k</td>
+<td>$50k</td>
 </tr>
 <tr class="even">
-<td><strong>Mean</strong></td>
-<td><strong>$73k</strong></td>
-<td><strong>$58k</strong></td>
-<td><strong>$58k</strong></td>
+<td>2</td>
+<td>$60k</td>
+<td>$65k</td>
+<td>$60k</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>$150k</td>
+<td>$70k</td>
+<td>$65k</td>
 </tr>
 </tbody>
 </table>
@@ -566,13 +624,17 @@
 <section id="choosing-a-summary-statistic" class="slide level2">
 <h2>Choosing a summary statistic</h2>
 <p>Which summary to choose is not an empirical question.</p>
+<div class="fragment">
 <ul>
 <li>Depends on what aspect of the distribution matters to you</li>
 </ul>
+</div>
+<div class="fragment">
 <p>The value of a chosen summary statistic is empirical.</p>
 <ul>
 <li>Data can tell us a value for the mean, the median, the minimum, etc.</li>
 </ul>
+</div>
 </section>
 <section id="the-summarize-function" class="slide level2">
 <h2>The <code>summarize()</code> function</h2>
@@ -592,9 +654,9 @@
 <pre><code># A tibble: 1,000 × 2
      id hhincome
   &lt;dbl&gt;    &lt;dbl&gt;
-1     1  221761.
-2     2   90446.
-3     3   48439.
+1     1   19170.
+2     2  124474.
+3     3   25114.
 # ℹ 997 more rows</code></pre>
 </div>
 </div>
@@ -610,7 +672,7 @@
 <pre><code># A tibble: 1 × 1
   estimated_mean
            &lt;dbl&gt;
-1        100136.</code></pre>
+1        100899.</code></pre>
 </div>
 </div>
 <ul>
@@ -632,7 +694,7 @@
 <pre><code># A tibble: 1 × 3
   estimated_mean estimated_median esitmated_min
            &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-1        100136.           64377.             0</code></pre>
+1        100899.           69035.             0</code></pre>
 </div>
 </div>
 </section>
@@ -683,7 +745,7 @@
 <pre><code># A tibble: 1 × 3
   estimated_mean estimated_median esitmated_min
            &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-1        100136.           64377.             0</code></pre>
+1        100899.           69035.             0</code></pre>
 </div>
 </div>
 </section>

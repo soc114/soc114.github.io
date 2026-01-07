@@ -74,10 +74,14 @@ ggplot(
 )
 ```
 
+. . .
+
 Two arguments get us started:
 
 * `data` argument contains data
 * `mapping` argument maps data to plot elements
+
+. . .
 
 Within `mapping`,
 
@@ -163,7 +167,18 @@ By the mean, **Distribution 1** seems the best.
 | ---- | ---- | --- | ---- |
 | 1 | \$10k | \$40k | \$50k |
 | 2 | \$60k | \$65k | \$60k |
-| 3 | \$150k | \$70k | \$65k | . . .
+| 3 | \$150k | \$70k | \$65k | 
+
+## Summary statistic: Median
+
+1. Sort households by income.
+2. Find where 50\% of households have higher incomes
+
+| Household | Distribution 1 | Distribution 2 | Distribution 3 |
+| ---- | ---- | --- | ---- |
+| 1 | \$10k | \$40k | \$50k |
+| 2 | \$60k | \$65k | \$60k |
+| 3 | \$150k | \$70k | \$65k | 
 | **Median** | **\$60k** | **\$65k** | **\$60k** |
 
 . . .
@@ -194,7 +209,17 @@ Find the lowest value.
 | ---- | ---- | --- | ---- |
 | 1 | \$10k | \$40k | \$50k |
 | 2 | \$60k | \$65k | \$60k |
-| 3 | \$150k | \$70k | \$65k | . . .
+| 3 | \$150k | \$70k | \$65k | 
+
+## Summary statistic: Minimum
+
+Find the lowest value.
+
+| Household | Distribution 1 | Distribution 2 | Distribution 3 |
+| ---- | ---- | --- | ---- |
+| 1 | \$10k | \$40k | \$50k |
+| 2 | \$60k | \$65k | \$60k |
+| 3 | \$150k | \$70k | \$65k | 
 | **Minimum** | **\$10k** | **\$40k** | **\$50k** |
 
 . . .
@@ -203,22 +228,23 @@ By the minimum, **Distribution 3** seems the best.
 
 ## Which summary statistic to choose?
 
+Minimum? Median? Mean?
+
 | Household | Distribution 1 | Distribution 2 | Distribution 3 |
 | ---- | ---- | --- | ---- |
 | 1 | \$10k | \$40k | \$50k |
 | 2 | \$60k | \$65k | \$60k |
-| 3 | \$150k | \$70k | \$65k | . . .
-| **Minimum** | **\$10k** | **\$40k** | **\$50k** |
-| **Median** | **\$60k** | **\$65k** | **\$60k** |
-| **Mean** | **\$73k** | **\$58k** | **\$58k** |
-
-. . .
+| 3 | \$150k | \$70k | \$65k |
 
 ## Choosing a summary statistic
 
-Which summary to choose is not an empirical question.
+Which summary to choose is not an empirical question. 
+
+. . .
 
 * Depends on what aspect of the distribution matters to you
+
+. . .
 
 The value of a chosen summary statistic is empirical.
 
