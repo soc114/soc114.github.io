@@ -1,0 +1,126 @@
+---
+title: "Problem Set 2: Visualization"
+---
+
+This problem set draws on the following paper on gender^[The measure of gender is limited in this study. In social science, sex typically refers to categories assigned at birth (e.g., female, male) while gender is a performed construct with many possible values: man, woman, non-binary, etc. Survey data often contain a variable named "sex" containing the values "male" or "female." When studying sex/gender disparities over decades of history, this binary categorization is often the only measure available. Researchers often refer to them as "gender" because they are the best available measure that approximates gender. We expect improved measures of gender to become available in the future as quantitative research improves.] equality.
+
+> England, Paula, Andrew Levine, and Emma Mishel. 2020. [Progress toward
+> gender equality in the United States has slowed or
+> stalled,](https://www.pnas.org/doi/full/10.1073/pnas.1918891117) PNAS
+> 117(13):6990–6997.
+
+Your task is to produce a figure similar to Figure 1 from the paper.
+
+<img src="../assets/gender_emp.png" width="40%" />
+
+We have simulated data ready for you! We downloaded data from the 1962--2024 Annual Social and Economic Supplement of the Current Population Survey. We then produced estimates and simulated new hypothetical data to share here. Our simulated data has 100 fictional people per sex $\times$ year subgroup. The simulated data are in [gender_gap.csv](https://soc114.github.io/data/gender_gap.csv).
+
+```{r, comment = F, message = F, echo = F}
+library(tidyverse)
+library(scales)
+library(haven)
+
+# Load data
+data <- read_dta("../data_raw/cps_00091.dta")
+
+# Prepare data
+prepared <- data |>
+  # Restrict to positive weights
+  filter(asecwt > 0) |>
+  # Create an employment indicator variable
+  mutate(employed = empstat == 10 | empstat == 12) |>
+  # Convert sex to a factor type to get labels
+  mutate(sex = as_factor(sex)) |>
+  # Summarize by weighted mean within groups defined by sex and year
+  group_by(sex, year) |>
+  summarize(
+    estimate = weighted.mean(employed, w = asecwt), 
+    .groups = "drop"
+  )
+
+# Simulate data
+set.seed(90095)
+gender_gap <- prepared |>
+  group_by(sex, year) |>
+  mutate(
+    n1 = round(1000 * estimate), 
+    n0 = 1000 - n1
+  ) |>
+  nest() |>
+  mutate(data = map(data, \(d) c(rep(TRUE, d$n1), rep(FALSE, d$n0)))) |>
+  unnest(cols = data) |>
+  rename(employed = data)
+write_csv(gender_gap, file = "../data/gender_gap.csv")
+```
+
+This code will load the data in R:
+
+```{r, eval = F}
+library(tidyverse)
+gender_gap <- read_csv("https://soc114.github.io/data/gender_gap.csv")
+```
+
+## Summarize the data
+
+Your first task is to aggregate the data to summary statistics. For help, see [R4DS Ch 3.5](https://r4ds.hadley.nz/data-transform.html#groups).
+
+- your input is `gender_gap`, which has 126,000 rows
+- you will produce an object named `summarized`, which has
+    - 126 rows (one for each sex $\times$ year subgroup)
+    - 3 columns: `sex`, `year`, and `estimate`
+    - The column `estimate` is the column you will create, which will contain the summary statistic (proportion employed) in each subgroup
+
+## Visualize
+
+```{r, echo = F}
+prepared |>
+  filter(year %% 10 == 0) |>
+  write_csv("../data/gender_summarized.csv")
+```
+
+Your second task is to visualize. For help with this part, see [R4DS Ch 1](https://r4ds.hadley.nz/data-visualize.html). Ideally, the input to this part is the `summarized` object you created above. In case you did not succeed at the first part, here is another [summarized](../data/gender_summarized.csv) file you could use.
+
+```{r, eval = F}
+# Note: Only use this code if you did not succeed at the first part.
+summarized <- read_csv("https://soc114.github.io/data/gender_summarized.csv")
+```
+
+Using your summarized data, create the graph.
+
+In your graph, use `labs()` to:
+
+* modify x- and y-axis titles
+      * The y-axis title should match its values. If your graph has values between 0 and 1, your summary statistic is a proportion. If your graph has values between 0 and 100, your summary statistic is a percent.
+* add a plot title
+* add a caption
+
+For this question, none of the above should stay at their default values. Choose readable statements that help to clarify what is in the plot. (You Can Use Title Case) or (You can use sentence case). It should not be all lower case.
+
+Then choose at least one of the following:
+
+* change the theme of the graph (making sure it retains the elements above)
+* change the colors of the lines
+* use `linetype` in addition to `color` to distinguish groups
+
+Store your graph in an object called `my_plot`. This is so we can grade it. The code below gives an example.
+
+```{r}
+my_plot <- ggplot(
+  data = gender_gap,
+  mapping = aes()
+)
+```
+
+Note that when you store a graph in an object, R does not print the graph. To see the graph you've stored, run this command.
+```{r, eval = F}
+print(my_plot)
+```
+
+We recommend first building your plot (without storing it in `my_plot`) and then adding the storage part only at the end when you are happy. This way you will always be viewing your current plot.
+
+<!-- ## Another variable -->
+
+<!-- This part asks you to visit the website where we sourced the data. Look at some of the variables in [work](https://cps.ipums.org/cps-action/variables/group?id=asec_work) and [income](https://cps.ipums.org/cps-action/variables/group?id=asec_work). If you were going to produce another visualization on the historical pattern of gender inequality, -->
+
+<!-- * which one of these variables would you pick as the outcome? -->
+<!-- * what story might it tell beyond the story we saw for employment? -->

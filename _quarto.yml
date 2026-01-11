@@ -21,6 +21,7 @@ website:
       - text: Problem Sets
         menu:
           - psets/pset1.qmd
+          - psets/pset2.qmd
       - href: "https://piazza.com/class/miyskvk64nv4y1"
         text: Piazza
       - text: Honors Section

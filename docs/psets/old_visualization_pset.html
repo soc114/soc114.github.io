@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 2: Data Transformation – Social Data Science</title>
+<title>Problem Set 2: Visualization – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,6 +140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../psets/pset1.html">
  <span class="dropdown-text">Problem Set 1: Code Basics</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../psets/pset2.html">
+ <span class="dropdown-text">Problem Set 2: Visualization</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -200,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 2: Data Transformation</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 2: Visualization</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -400,8 +404,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-analysis-existing-question" id="toc-data-analysis-existing-question" class="nav-link active" data-scroll-target="#data-analysis-existing-question">1. Data analysis: Existing question</a></li>
-  <li><a href="#a-new-outcome" id="toc-a-new-outcome" class="nav-link" data-scroll-target="#a-new-outcome">2. A new outcome</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link active" data-scroll-target="#data-analysis">Data analysis</a></li>
+  <li><a href="#visualize-40-points" id="toc-visualize-40-points" class="nav-link" data-scroll-target="#visualize-40-points">1. Visualize (40 points)</a></li>
+  <li><a href="#understand-components-of-research-question" id="toc-understand-components-of-research-question" class="nav-link" data-scroll-target="#understand-components-of-research-question">2. Understand components of research question</a></li>
   <li><a href="#recap-and-connections-to-your-project" id="toc-recap-and-connections-to-your-project" class="nav-link" data-scroll-target="#recap-and-connections-to-your-project">Recap and connections to your project</a></li>
   </ul>
 </nav>
@@ -411,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Problem Set 2: Data Transformation</h1>
+<h1 class="title">Problem Set 2: Visualization</h1>
 </div>
 
 
@@ -428,35 +433,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Due: 5pm on Friday, Jan 31.</strong></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>This problem set involves both data analysis and reading.</p>
+<section id="data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-analysis">Data analysis</h3>
+<p>This problem set uses the data <a href="../data/lifeCourse.csv"><code>lifeCourse.csv</code></a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lifeCourse <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/lifeCourse.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Want to see how you’ll be evaluated? Check out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfl7t-b4nPRIzIy9C3KBjTnBUGSfwTo7gW8-l2BjyQN3sZwdQ/viewform?usp=dialog">rubric</a></p>
-</div>
-</div>
-<p>Student identifer: [type your anonymous identifier here]</p>
-<ul>
-<li>Use this <a href="../assets/pset2/pset2.qmd" download="">pset2.qmd</a> template to complete the problem set</li>
-<li>In Canvas, you will upload the PDF produced by your .qmd file</li>
-<li>Put your identifier above, not your name! We want anonymous grading to be possible</li>
-</ul>
-<p>This problem set draws on the following paper.</p>
-<blockquote class="blockquote">
-<p>England, Paula, Andrew Levine, and Emma Mishel. 2020. <a href="https://www.pnas.org/doi/full/10.1073/pnas.1918891117">Progress toward gender equality in the United States has slowed or stalled,</a> PNAS 117(13):6990–6997.</p>
-</blockquote>
-<p><strong>A note about sex and gender</strong>. Sex typically refers to categories assigned at birth (e.g., female, male). Gender is a performed construct with many possible values: man, woman, nonbinary, etc. The measure in the CPS-ASEC is “sex,” coded male or female. We will use these data to study sex disparities between those identifying as male and female. The paper at times uses “gender” to refer to this construct.</p>
-<section id="data-analysis-existing-question" class="level2">
-<h2 class="anchored" data-anchor-id="data-analysis-existing-question">1. Data analysis: Existing question</h2>
-<p><strong>25 points.</strong> Reproduce Figure 1 from the paper.</p>
-<p>Visit <a href="https://cps.ipums.org/cps/">cps.ipums.org</a> to download data. Include these variables in your cart: <a href="https://cps.ipums.org/cps-action/variables/SEX">sex</a>, <a href="https://cps.ipums.org/cps-action/variables/AGE">age</a>, <a href="https://cps.ipums.org/cps-action/variables/ASECWT">asecwt</a>, <a href="https://cps.ipums.org/cps-action/variables/EMPSTAT">empstat</a>. One way to find them is to click “Select Data” and then use the “Search” button under “Select Variables.”</p>
+<p>The data contain life course earnings profiles for four cohorts of American workers: those born in 1940, 1950, 1960, and 1970. Each row contains a summary of the annual earnings distribution for a particular birth cohort at a particular age, among the subgroup with a particular level of education. To prepare these data, we aggregated microdata from the <a href="https://cps.ipums.org/cps/">Current Population Survey</a>, provided through the Integrated Public Use Microdata Series.</p>
+<p>The data contain five variables.</p>
+<ol type="1">
+<li><code>quantity</code> is the metric by which the earnings distribution is summarized: 10th, 50th, or 90th percentile</li>
+<li><code>education</code> is the educational subgroup being summarized: College Degree, Less than College</li>
+<li><code>cohort</code> is the cohort (people with a given birth year) to which these data apply: 1940, 1950, 1960, 1970</li>
+<li><code>age</code> is the age at which earnings were measured: 30–45</li>
+<li><code>income</code> is the value for the given earnings percentile in the given subgroup. Income values are provided in 2022 dollars</li>
+</ol>
+</section>
+<section id="visualize-40-points" class="level2">
+<h2 class="anchored" data-anchor-id="visualize-40-points">1. Visualize (40 points)</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -467,41 +464,63 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Look ahead: you will later study a new outcome of your own choosing. You could add it to your cart now if you want.</p>
+<p>Functions named in this problem are links to helper pages that provide documentation.</p>
 </div>
 </div>
-<p>Once you select your variables, click “Select Samples.” We will download data from the 1962–2023 March Annual Social and Economic Supplement. When choosing samples, you want all samples in the “ASEC” tab and none of the samples in the “Basic Monthly” tab. To achieve this, under the ASEC tab you can click “Select All Samples.” Under the Basic Monthly tab, you can click and then unclick “Select All Samples” to remove these samples that we will not use.</p>
-<p>Once you have selected variables and selected samples, you can click “View Cart.” Optionally, reduce the size of your extract by un-checking any variables that have been automatically added which you won’t be using. Note that one automatically-added variable is <code>year</code>, which you should keep because you will be using it. Then click “Create Data Extract.” On the next page, select cases to those ages 25–54. Before submitting your extract, we recommend changing the data format to “Stata (.dta)” so that you get value labels.</p>
-<p>On your computer, analyze these data.</p>
+<p>Use <a href="https://ggplot2.tidyverse.org/"><code>ggplot</code></a> to visualize these data. To denote the different trajectories,</p>
 <ul>
-<li>filter to <code>asecwt &gt; 0</code> (see paper footnote on p.&nbsp;6995 about negative weights)</li>
-<li>mutate to create an <code>employed</code> variable indicating that <code>empstat == 10 | empstat == 12</code></li>
-<li>mutate to convert <code>sex</code> to a factor variable using <code>as_factor</code></li>
-<li>group by <code>sex</code> and <code>year</code></li>
-<li>summarize the proportion employed: use <code>weighted.mean</code> to take the mean of <code>employed</code> using the weight <code>asecwt</code></li>
+<li>make your plot using <a href="https://ggplot2.tidyverse.org/reference/geom_point.html"><code>geom_point()</code></a> or <a href="https://ggplot2.tidyverse.org/reference/geom_path.html"><code>geom_line()</code></a></li>
+<li>use the x-axis for <code>age</code></li>
+<li>use the y-axis for <code>income</code></li>
+<li>use <a href="https://r4ds.hadley.nz/data-visualize.html#sec-adding-aesthetics-layers"><code>color</code></a> for <code>quantity</code></li>
+<li>use <a href="https://ggplot2-book.org/facet#facet-grid"><code>facet_grid</code></a> to make a panel of facets where each row is an education value and each column is a cohort value</li>
 </ul>
-<p>Your figure will be close but not identical to the original. Yours will include some years that the original did not. Feel free to change aesthetics of the plot, such as the words used in labels.</p>
+<p>You should prepare the graph as though you were going to publish it. Modify the axis titles so that a reader would know what is on the axis. Use appropriate capitalization in all labels. Optionally, try using the <a href="https://scales.r-lib.org/reference/label_currency.html"><code>label_currency()</code></a> function from the <code>scales</code> package so that the y-axis uses dollar values.</p>
+<p>Your code should be well-formatted as defined by <a href="https://r4ds.hadley.nz/workflow-style.html">R4DS</a>. In your produced PDF, no lines of code should run off the page.</p>
+<p>Many different graphs can be equally correct. You will be evaluated by</p>
+<ul>
+<li>having publication-ready graph aesthetics</li>
+<li>code that follows style conventions</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="a-new-outcome" class="level2">
-<h2 class="anchored" data-anchor-id="a-new-outcome">2. A new outcome</h2>
-<p><strong>25 points.</strong> The CPS-ASEC has numerous variables. Pick another variable of your choosing. Add it to your cart in IPUMS, and visualize how that variable has changed over time for those identifying as male and female.</p>
-<p>As in the previous plot, year should be on the x-axis and color should represent sex. The y-axis is up to you. You can examine something like median income, proportion holding college degrees, or the 90th percentile of usual weekly work hours. You can restrict to some subset if you want, such as those who are employed.</p>
-<p>Your answer should include</p>
-<ul>
-<li>a written statement of what you estimated: the variable you chose, any sample restrictions you made, and how you summarized that variable</li>
-<li>a written interpretation of what you found</li>
-<li>code following style conventions</li>
-<li>your publication-quality visualization</li>
-</ul>
+<section id="understand-components-of-research-question" class="level2">
+<h2 class="anchored" data-anchor-id="understand-components-of-research-question">2. Understand components of research question</h2>
+<p>The graph above answered a descriptive research question. Here are a few components of that question:</p>
+<ol type="A">
+<li>Annual income in 2022 dollars</li>
+<li>American workers in each subgroup defined by birth cohort, age, and education</li>
+<li>10th, 50th, and 90th percentile</li>
+<li>A person</li>
+</ol>
+<p>For 2.1–2.4, write the letter of the corresponding component of the research question.</p>
+<p><strong>2.1 (2.5 points)</strong> What is the unit of analysis?</p>
+<p><strong>2.2 (2.5 points)</strong> What is the outcome variable?</p>
+<p><strong>2.3 (2.5 points)</strong> What are the target populations?</p>
+<p><strong>2.4 (2.5 points)</strong> What are the summary statistics?</p>
+<!-- ## 3. Interpret the graph -->
+<!-- Write 2-3 sentences summarizing what your figure shows. -->
+<!-- **3.1 (3 points).** Focus on those born in 1970. For those with a college degree, how do the top and bottom of the income distribution change over the life course? -->
+<!-- > Type your answer here. -->
+<!-- **3.2 (3 points).** Focus on those born in 1970. How does the pattern in the 90th percentile differ for those with and without college degrees? -->
+<!-- > Type your answer here. -->
+<!-- ## 4. Connect to reading -->
+<!-- Read p. 1--7 of following paper. Stop before the section "Analytic Framework for Decomposing Inequality." -->
+<!-- > Cheng, Siwei. 2021. [The shifting life course patterns of wage inequality.](https://doi.org/10.1093/sf/soab003). _Social Forces_ 100(1):1--28. -->
+<!-- Our data are not the same as Cheng's. But our analysis is able to reproduce many of her findings. Answer each question in two sentences or less. -->
+<!-- Cheng discusses period trends, cohort trends, and age trends.  -->
+<!-- **4.1 (3 points)** Describe a cohort trend that you see in your graph. -->
+<!-- > Type your answer here. -->
+<!-- **4.2 (3 points)** Describe an age trend that you see in your graph. -->
+<!-- > Type your answer here. -->
+<!-- **4.3 (5 points)** Describe two ways that our results align with the arguments in the paper. -->
+<!-- > Type your answer here. -->
 </section>
 <section id="recap-and-connections-to-your-project" class="level2">
 <h2 class="anchored" data-anchor-id="recap-and-connections-to-your-project">Recap and connections to your project</h2>
-<p>A few skills relevant to the project were practiced in this problem set. In your project, you should clearly define your unit of analysis and target population. You should use sample weights if appropriate. And you should write readable, well-organized code that carries out your data transformation and visualization.</p>
+<p>The visualization you produced in this problem set is an example of the kind of visualization you will produce in the final project. As in this problem set, your visualization in the project should include well-written labels to make the graph readable. A difference between the two is that in this problem set we provided a dataset in which each row was already a summary statistic. In the final project, you will manipulate data in which each row corresponds to a unit of analysis that you aggregate to produce a summary statistic. This is a skill you will practice on the next problem set.</p>
 
 
 </section>
