@@ -1,0 +1,653 @@
+
+\documentclass{beamer}
+\usecolortheme{dove}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[text line]{%
+\parbox{\linewidth}{\vspace*{-8pt}\bgray{Sampling} \insertsectionnavigationhorizontal{.85\paperwidth}{}{\hfill\hfill}}}
+\usepackage{amsmath,amssymb,amsfonts,amsthm, multicol, subfigure, color}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\definecolor{seagreen}{RGB}{46, 139, 87}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\log{\text{log}}
+\newcommand\logit{\text{logit}}
+\newcommand\iid{\stackrel{\text{iid}}{\sim}}
+\newcommand\E{\text{E}}
+\newcommand\V{\text{V}}
+\renewcommand\P{\text{P}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\Cor}{\text{Cor}}
+\newcommand\doop{\texttt{do}}
+\usepackage{stackrel}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes.arrows,positioning,shapes,patterns,calc}
+\newcommand\slideref[1]{\vskip .1cm \tiny \textcolor{gray}{{#1}}}
+\newcommand\red[1]{\color{red}#1}
+\newcommand\blue[1]{\color{blue}#1}
+\newcommand\gray[1]{\color{gray}#1}
+\newcommand\seagreen[1]{\color{seagreen}#1}
+\newcommand\purple[1]{\color{purple}#1}
+\newcommand\orange[1]{\color{orange}#1}
+\newcommand\black[1]{\color{black}#1}
+\newcommand\white[1]{\color{white}#1}
+\newcommand\teal[1]{\color{teal}#1}
+\newcommand\magenta[1]{\color{magenta}#1}
+\newcommand\Fuchsia[1]{\color{Fuchsia}#1}
+\newcommand\BlueGreen[1]{\color{BlueGreen}#1}
+\newcommand\bblue[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand\bred[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand\bgray[1]{\textcolor{gray}{\textbf{#1}}}
+\newcommand\bgreen[1]{\textcolor{seagreen}{\textbf{#1}}}
+\newcommand\bref[2]{\href{#1}{\color{blue}{#2}}}
+\colorlet{lightgray}{gray!40}
+\pgfdeclarelayer{bg}    % declare background layer for tikz
+\pgfsetlayers{bg,main} % order layers for tikz
+\newcommand\mycite[1]{\begin{scriptsize}\textcolor{darkgray}{(#1)}\end{scriptsize}}
+\newcommand{\tcframe}{\frame{
+%\small{
+\only<1|handout:0>{\tableofcontents}
+\only<2|handout:1>{\tableofcontents[currentsubsection]}}
+%}
+}
+
+\newcommand{\goalsframe}{\begin{frame}{Learning goals for today}
+By the end of class, you will understand key concepts of sampling:
+\begin{itemize}
+    \item target population
+    \item sampling frame
+    \item undercoverage
+    \item simple random sample
+    \item unequal probability sample
+    \item stratified sample
+    \item clustered sample
+\end{itemize} \vskip .2in
+\end{frame}}
+
+\usepackage[round]{natbib}
+\bibliographystyle{humannat-mod}
+\setbeamertemplate{enumerate items}[default]
+\usepackage{mathtools}
+
+\title{Studying Social Inequality with Data Science}
+\author{Ian Lundberg}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\begin{tikzpicture}[x = \textwidth, y = \textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node[anchor = north west, align = left, font = \huge] at (0,.9) {Social Data Science};
+\node[anchor = north east, align = right] (number) at (1,.9) {SOCIOL 114\\Winter 2026};
+\node[anchor = north, font = \Large, align = right] at (.5,.5) {\bblue{Sampling for Population Inference}};
+\end{tikzpicture}
+\end{frame}
+
+\goalsframe
+
+\begin{frame}
+Do you prefer the front or the back of the room?
+\begin{itemize}
+\item A) Front of the room
+\item B) Back of the room
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Full count enumeration}
+\begin{itemize}
+\item find everyone in the target population
+\item ask them all the question
+\end{itemize}
+\end{frame}
+
+\section{Simple Random}
+
+\begin{frame}
+\huge
+Simple Random Sampling
+\end{frame}
+
+\begin{frame}{Simple random sampling}
+
+Open R. Run this line
+
+\texttt{runif(n = 1)}
+
+If answer $< .1$, then answer the question
+\begin{itemize}
+\item Do you prefer the front or the back of the room?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{tikzpicture}[x = \textwidth, y = .8\textheight]
+\node (full) at (.25,.5) {\includegraphics{fullcount}};
+\node<1> (srs) at (.75,.5) {\includegraphics{srs1}};
+\node<2> (srs) at (.75,.5) {\includegraphics{srs2}};
+\node<3> (srs) at (.75,.5) {\includegraphics{srs3}};
+\node[anchor = south, align = center, font = \bf] at (full.north) {Full Count\\Enumeration};
+\node[anchor = south, align = center, font = \bf] at (srs.north) {Probability\\Sample};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{What are the advantages of each strategy?}
+\centering
+\scalebox{.8}{
+\begin{tikzpicture}[x = \textwidth, y = .8\textheight]
+\node (full) at (.25,.5) {\includegraphics{fullcount}};
+\node (srs) at (.75,.5) {\includegraphics{srs1}};
+\node[anchor = south, align = center, font = \bf] at (full.north) {Full Count\\Enumeration};
+\node[anchor = south, align = center, font = \bf] at (srs.north) {Probability\\Sample};
+\end{tikzpicture}
+}
+\end{frame}
+
+\begin{frame}{Probability sampling}
+\begin{tikzpicture}[x = 1.5in, y = .25in]
+\node at (1,7) {};
+\node[anchor = north west, font = \bf] at (1,5) {What you need};
+\pause
+\node[anchor = north west] at (1,4) {target population};
+\node[anchor = north west] at (2,4) {who you want to study};
+\pause
+\node[anchor = north west] at (1,3) {sampling frame};
+\node[anchor = north west] at (2,3) {list of those people};
+\pause
+\node[anchor = north west] at (1,2) {sampling probability};
+\node[anchor = north west] at (2,2) {e.g.~10\%}; 
+\pause
+\node[anchor = north west] at (1,1) {people you sampled};
+\pause
+\node[anchor = north west] at (1,0) {people who responded};
+\pause
+\node[anchor = north west, font = \bf, red] at (.1,5) {Sources of error}; \pause
+\node[anchor = north west, red] at (.1,3) {undercoverage}; \pause
+\node[anchor = north west, red] at (.1,1) {sampling variability}; \pause
+\node[anchor = north west, red] at (.1,0) {nonresponse}; \pause
+\node[anchor = north west, font = \footnotesize, align = left] at (.1,-3) {Groves \& Lyberg. 2010.\\\bref{https://doi.org/10.1093/poq/nfq065}{Total Survey Error: Past, Present, and Future.}\\Public Opinion Quarterly 74(5).};
+\end{tikzpicture}
+\end{frame}
+
+\section{Unequal Probability}
+
+\begin{frame}
+\huge
+Unequal Probability Sampling
+\end{frame}
+
+\begin{frame}{Subgroup estimates}
+Do the people in the first 3 rows prefer the front? \vskip .2in \pause
+Simple random sample
+\begin{itemize}
+\item everyone run \texttt{runif}
+\item everyone respond if $< .1$
+\end{itemize} \vskip .2in \pause
+Unequal probability sample
+\begin{itemize}
+\item everyone run \texttt{runif}
+\item first 3 rows: respond if $< .5$
+\item others: respond if $< .1$
+\end{itemize}
+\end{frame}
+
+\begin{frame}%{Unequal probability sampling}
+\begin{tikzpicture}[x = \textwidth, y = .8\textheight]
+\node (design) at (.25,.5) {\includegraphics{unequal}};
+\node<1> (sample) at (.75,.5) {\includegraphics{unequal1}};
+\node<2> (sample) at (.75,.5) {\includegraphics{unequal2}};
+\node<3> (sample) at (.75,.5) {\includegraphics{unequal3}};
+\node[anchor = south, align = center, font = \bf] at (design.north) {Sample Design};
+\node[anchor = south, align = center, font = \bf] at (sample.north) {Sample};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+\centering
+\begin{tabular}{ll}
+full count enumeration & talk to everyone \\ & \onslide<2->{(ideal but costly!)} \\ \\
+simple random sample & sampling frame \\ & known, equal probabilities \\ & \onslide<3->{(good for population average)} \\ \\
+unequal probability sample & sampling frame \\ & known, unequal probabilities \\ & \onslide<4->{(good for subgroups)}
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Population total from unequal probability sample}
+
+\begin{itemize}
+\item People indexed $i = 1,\dots N$
+\item Sample $S_i = 1$ with probability $\pi_i$
+\item Observe $Y_i$ for $n$ units with $S_i = 1$
+\end{itemize} \vskip .2in
+\textbf{Question:}\\How to estimate the population total $\sum_{i=1}^N Y_i$ using the sample, all $i$ such that $S_i = 1$?
+
+\end{frame}
+
+\begin{frame}{Population total from unequal probability sample}
+
+Suppose $\pi_i = \frac{1}{10}$ \pause
+\begin{itemize}
+\item For each 1 sampled person there are 9 unsampled people \pause
+\item Each sampled $i$ counts for 10 people
+\end{itemize} \vskip .2in \pause
+
+Suppose $\pi_i = \frac{1}{2}$ \pause
+\begin{itemize}
+\item For each 1 sampled person there is 1 unsampled person \pause
+\item Each sampled $i$ counts for 2 people
+\end{itemize} \vskip .2in \pause
+
+General: Each sampled person counts for $\frac{1}{\pi_i}$ people.
+
+$$\text{Estimator of population total:} \underbrace{\sum_{i:S_i=1}}_{\substack{\text{Sum over}\\\text{sampled}\\\text{people}}} \underbrace{Y_i}_{\substack{\text{Observed}\\\text{Outcome}}} \underbrace{\frac{1}{\pi_i}}_{\substack{\text{Number}\\\text{of people}\\\text{represented}}}$$
+
+\end{frame}
+
+\begin{frame}{Population mean from unequal probability sample}
+
+For population total $\tau = \sum_{i=1}^N Y_i$,\\
+let our estimator be $\hat\tau = \sum_{i:S_i=1} \frac{Y_i}{\pi_i}$ \vskip .2in \pause
+
+Suppose we know the population size $N$.\\How could we estimate the population mean? \pause
+
+The Horvitz-Thompson estimator:
+$$\begin{aligned}
+\hat\mu &= \frac{1}{N}\hat\tau \\ &= \frac{1}{N}\sum_{i:S_i=1} \frac{Y_i}{\pi_i}
+\end{aligned}$$
+
+\end{frame}
+
+\begin{frame}{Recap: Sampling strategies so far}
+\centering
+\begin{tabular}{ll}
+full count enumeration & talk to everyone \\ & (ideal but costly!) \\ \\
+simple random sample & sampling frame \\ & known, equal probabilities \\ & (good for population average) \\ \\
+unequal probability sample & sampling frame \\ & known, unequal probabilities \\ & (good for subgroups) \\ & \bblue{(weight for population average)}
+\end{tabular}
+\end{frame}
+
+\section{Stratified and Clustered}
+
+\begin{frame}
+\huge
+Stratified and Clustered Sampling
+\end{frame}
+
+\begin{frame}{Baseball salaries}
+\begin{tikzpicture}[x = \textwidth, y = \textheight]
+\node at (0,0) {};
+\node[anchor = west] at (0,.5) {\includegraphics[width = .5\textwidth]{judge}};
+\node[anchor = west] at (.5,.5) {\includegraphics[width = .5\textwidth]{ohtani}};
+%\node<2->[anchor = north west, align = left, font = \Large] at (0, .1) {Major League Baseball Minimum: \textbf{\$720,000}};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Baseball salaries}
+\begin{tikzpicture}
+\node[anchor = north west, font = \scriptsize, fill = gray, fill opacity = .2, text opacity = 1, rounded corners] at (0,0) {\texttt{baseball <- read\_csv("https://soc114.github.io/data/baseball.csv")}};
+\end{tikzpicture}\vskip .2in
+\includegraphics[width = .6\textwidth]{baseball_source}\\
+\bref{https://databases.usatoday.com/major-league-baseball-salaries-2023/}{databases.usatoday.com/major-league-baseball-salaries-2023/}
+\end{frame}
+
+\begin{frame}{Baseball salaries}
+\includegraphics[width = \textwidth]{baseball_histogram}
+\end{frame}
+
+\begin{frame}{Baseball salaries}
+\includegraphics[width = \textwidth]{all_team_mean}
+\end{frame}
+
+\begin{frame}{How to sample baseball players: Clustered}
+
+Players are grouped in 30 teams.
+\begin{itemize}
+\item Suppose it is costly to contact a team
+\item It is cheap to gather salary for many players on the team
+\item How would you draw a survey of 150 players?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{How to sample baseball players: Stratified}
+
+Players are grouped in 30 teams.
+\begin{itemize}
+\item Suppose salary varies a lot across teams
+\item You want a sample that represents the salary distribution well
+\item How would you draw a survey of 60 players?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Three sampling strategies}
+\begin{itemize}
+\item Simple random: 60 players at random
+\item Stratified by team: 2 players per team
+\item Clustered by team: 20 players on each of 3 teams
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Three sampling strategies}
+\includegraphics[height = .8\textheight]{baseball_sampling}
+\end{frame}
+
+\begin{frame}{Three sampling strategies}
+\begin{itemize}
+\item Simple random: 60 players at random
+\item Stratified by team: 2 players per team
+\begin{itemize}
+\item less variable sample-to-sample
+\item more costly
+\end{itemize}
+\item Clustered by team: 20 players on each of 3 teams
+\begin{itemize}
+\item more variable sample-to-sample
+\item less costly
+\end{itemize}
+\end{itemize}
+For reference:  \bref{https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm}{reading}
+\end{frame}
+
+\section{The Future}
+
+\begin{frame}{The Future of Sample Surveys}{Groves, R. M. (2011). \bref{https://doi.org/10.1093/poq/nfr057}{Three eras of survey research.} Public Opinion Quarterly.}
+
+\begin{tikzpicture}[x = \textwidth, y = .6\textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\onslide<2-8>{
+\node[anchor = north west, font = \large] at (0,1) {1930--1960: Era of Invention};
+\node<3-4>[anchor = west] (lange) at (0,.5) {\includegraphics[width = .3\textwidth]{migrantmother}};
+\node<4>[anchor = west] at (lange.east)  {\includegraphics[width = .7\textwidth]{usda}};
+\node<5->[anchor = north west] at (0,.7) {sampling frame};
+\node<5->[anchor = north west] at (.4,.7) {pieces of land};
+\node<6->[anchor = north west] at (0,.6) {mode};
+\node<6->[anchor = north west] at (.4,.6) {face-to-face interviews};
+\node<7->[anchor = north west] at (0,.5) {cost};
+\node<7->[anchor = north west] at (.4,.5) {high};
+\node<8->[anchor = north west] at (0,.4) {response rate};
+\node<8->[anchor = north west] at (.4,.4) {over 90 percent};
+}
+\onslide<9-13>{
+\node[anchor = north west, font = \large] at (0,1) {1960--1990: Era of Expansion};
+\node[anchor = north east] (phone) at (1,1) {\includegraphics[width = .4\textwidth]{telephone}};
+\node[anchor = north east, font = \tiny] at (phone.south east) {Source: \href{https://commons.wikimedia.org/wiki/File:AT\%26T_push_button_telephone_western_electric_model_2500_dmg_black.jpg}{Wikimedia}};
+\node[anchor = north west] at (0,.8) {Technology helped: Telephones};
+\node<10->[anchor = north west] at (0,.7) {--- sampling frame};
+\node<11->[anchor = north west] at (0,.6) {--- mode of data collection};
+\node<12->[anchor = north west] at (0,.5) {--- falling costs};
+\node<13->[anchor = north west] at (0,.4) {--- falling response rates};
+%\node[anchor = north west] at (0,.3) {Computer to aid interviewing and analysis};
+}
+\onslide<14-19>{
+\node[anchor = north west, font = \large] at (0,1) {1990--Present};%: Designed and Organic Data};
+\node[anchor = north west] at (0,.85) {Technology brought challenges};
+\node<15->[anchor = north west] at (0,.75) {--- answering machines};
+\node<16->[anchor = north west] at (0,.65) {--- cell phones};
+\node<17->[anchor = north west] at (0,.55) {--- caller ID};
+\node<18->[anchor = north west] at (0,.45) {--- response rates plummeted};
+\node[anchor = north west] at (.5,.85) {Technology brought opportunities};
+\node<19->[anchor = north west] at (.5,.75) {--- digital trace data};
+\node<19->[anchor = north west] at (.5,.65) {--- internet panels};
+}
+\onslide<20->{
+\node[anchor = north west, font = \large] at (0,1) {1990--Present: Designed and Organic Data};
+\node<21->[anchor = north west] at (0,.85) {Designed data};
+\node<21->[anchor = north west] at (.5,.85) {Organic data};
+\draw<21-24>[fill = yellow, fill opacity = 1, draw opacity = 0] (.5,.43) -- (.5,.2) -- (.73,.2) -- (.73,.43) -- cycle;
+\draw<21-24>[fill = blue, fill opacity = .6, draw opacity = 0] (0,.43) -- (0,.2) -- (.38,.2) --(.38,.2) -- (.38,.43) -- cycle;
+\node<22->[anchor = north west] at (0,.75) {--- high cost};
+\node<22->[anchor = north west] at (.5,.75) {--- almost free};
+\node<23->[anchor = north west] at (0,.66) {--- becoming scarce};
+\node<23->[anchor = north west] at (.5,.66) {--- becoming abundant};
+\node<24->[anchor = north west] at (0,.57) {--- speak to population};
+\node<24->[anchor = north west] at (.5,.57) {--- iffy for population};
+\draw<25>[fill = yellow, fill opacity = 1, draw opacity = 0] (.5,.43) -- (.5,.15) -- (.97,.15) -- (1,.2) -- (.97,.25) -- (.73,.25) -- (.73,.43) -- cycle;
+\draw<26->[fill = yellow, fill opacity = 1, draw opacity = 0] (.5,.43) -- (.5,0) -- (.97,0) -- (1,.05) -- (.97,.1) -- (.73,.1) -- (.73,.43) -- cycle;
+\draw<25->[fill = blue, fill opacity = .6, draw opacity = 0] (0,.43) -- (0,0) -- (.97,0) -- (1,.05) -- (.97,.1) -- (.38,.1) -- (.38,.43) -- cycle;
+\draw<26->[fill = green, fill opacity = .6, draw opacity = 0] (.5,.1) -- (.5,0) -- (.97,0) -- (1,.05) -- (.97,.1) -- cycle;
+\node<21->[anchor = north west, align = left, color = white] at (0,.43) {\textbf{Example}\\Census age distribution};
+\node<21->[anchor = north west, align = left, color = black] at (.5,.43) {\textbf{Example}\\Web histories};
+\node<25>[anchor = north east, align = center, black] at (.97,.25) {future of \textbf{organic data}};
+\node<25>[anchor = north east, align = center, white] at (.97,.1) {future of \textbf{designed data}};
+\node<26->[anchor = north east, align = center, white] at (.97,.1) {the future is \textbf{together}};
+}
+% 
+% Technology: Telephone
+% Computer: Analysis and survey flow
+% Post-stratification for falling response rates
+%
+% 1990--Present: Designed and Organic Data
+% Answering machines became affordable
+% Then cell phones became affordable
+% Caller ID
+% Internet panels
+% "Digital exhaust." Google Flu
+\end{tikzpicture}
+
+\end{frame}
+
+\goalsframe
+
+\end{document}
+
+
+
+% UNEMPLOYMENT RATE OUTTAKE
+
+\begin{frame}{A real question: The unemployment rate}
+
+Imagine you are the Bureau of Labor Statistics. \\
+How would you design a sample to estimate unemployment?
+\begin{enumerate}
+\item What would be your sampling frame?
+\item How would you define sampling probabilities?
+\item What mode of data collection?
+\begin{itemize}
+\item Mail, phone, web, in person, etc.
+\end{itemize}
+\item What if people didn't respond?
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Current Population Survey: Sample Design}
+
+\begin{center}
+\includegraphics[width = .2\textwidth]{bls}
+\end{center} \pause
+
+Begin with a \bblue{sampling frame}: all housing units in the U.S.\vskip .1in \pause
+\begin{itemize}
+\item 1,987 Primary Sampling Units (PSUs)
+\begin{itemize}
+\item County or contiguous counties within a state
+\end{itemize}\vskip .1in \pause
+\item Stratified (grouped) within states
+\begin{itemize}
+\item Stratum: Group of PSUs with similar characteristics
+\item One PSU always chosen per stratum
+\item \bgray{Why?} Ensure representation across strata
+\end{itemize} \vskip .1in \pause
+\item Within PSU, sample geographic clusters of housing units
+\begin{itemize}
+\item \bgray{Why?} Reduce travel costs for field representatives
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Current Population Survey: Sample}
+
+More than 75,000 households are sampled
+
+\end{frame}
+
+\begin{frame}{Current Population Survey: Contacting respondents}
+\includegraphics[width = .2\textwidth]{bls}\includegraphics[width = .3\textwidth]{census-logo}
+\begin{enumerate} \vskip .2in \pause
+\item Send a letter \pause
+\item Call or visit in person \pause
+\item Try many times if needed
+\end{enumerate} \pause
+
+Learn about the experience for participants \bref{https://www.bls.gov/respondents/cps/home.htm}{here}
+\end{frame}
+
+\begin{frame}{Current Population Survey: Mode of Data Collection}
+Computer-assisted telephone interview
+\begin{center}
+\includegraphics<1>[width = .8\textwidth]{cps_questionnaire_1}
+\includegraphics<2>[width = .8\textwidth]{cps_questionnaire_2}
+\includegraphics<3>[width = .8\textwidth]{cps_questionnaire_3}
+\end{center}
+\bref{https://www.census.gov/programs-surveys/cps/technical-documentation/questionnaires.html}{census.gov/programs-surveys/cps/technical-documentation/questionnaires.html}
+\end{frame}
+
+\begin{frame}{Current Population Survey}{Annual Social and Economic Supplement}
+
+\begin{itemize}
+\item Extended survey
+\item Conducted each March
+\end{itemize} \vskip .1in
+
+\includegraphics[width = \textwidth]{asec_question} \vskip .3in
+
+\bref{https://www2.census.gov/programs-surveys/cps/techdocs/cpsmar22.pdf}{Questionnaire from 2022}
+
+\end{frame}
+
+\begin{frame}{Rotating panels}
+\resizebox{\textwidth}{!}{
+    \begin{tikzpicture}[x = .32in, y = .5in]
+    \node[font = \footnotesize] at (1,0) {Dec};
+    \node[font = \footnotesize] at (2,0) {Jan};
+    \node[font = \footnotesize] at (3,0) {Feb};
+    \node[font = \footnotesize] at (4,0) {Mar};
+    \node[font = \footnotesize] at (5,0) {Apr};
+    \node[font = \footnotesize] at (6,0) {May};
+    \node[font = \footnotesize] at (7,0) {Jun};
+    \node[font = \footnotesize] at (13,0) {Dec};
+    \node[font = \footnotesize] at (14,0) {Jan};
+    \node[font = \footnotesize] at (15,0) {Feb};
+    \node[font = \footnotesize] at (16,0) {Mar};
+    \node[font = \footnotesize] at (17,0) {Apr};
+    \node[font = \footnotesize] at (18,0) {May};
+    \node[font = \footnotesize] at (19,0) {Jun};
+    \draw[gray] (1,-.25) -- (1,-4.25);
+    \draw[gray] (2,-.25) -- (2,-4.25);
+    \draw[gray] (3,-.25) -- (3,-4.25);
+    \draw[blue, thick] (4,-.25) -- (4,-4.75);
+    \draw[gray] (5,-.25) -- (5,-4.25);
+    \draw[gray] (6,-.25) -- (6,-4.25);
+    \draw[gray] (7,-.25) -- (7,-4.25);
+    \draw[gray] (13,-.25) -- (13,-4.25);
+    \draw[gray] (14,-.25) -- (14,-4.25);
+    \draw[gray] (15,-.25) -- (15,-4.25);
+    \draw[blue, thick] (16,-.25) -- (16,-4.75);
+    \draw[gray] (17,-.25) -- (17,-4.25);
+    \draw[gray] (18,-.25) -- (18,-4.25);
+    \draw[gray] (19,-.25) -- (19,-4.25);
+    % First round
+    \draw[line width = 2pt, line cap = rounded, gray] (1,-1) to node[midway, above, font = \scriptsize, align = center, fill = white] {4 months on} (4,-1);
+    \draw[line width = 2pt, line cap = rounded, gray] (2,-2) -- (5,-2);
+    \draw[line width = 2pt, line cap = rounded, gray] (3,-3) -- (6,-3);
+    \draw[line width = 2pt, line cap = rounded, gray] (4,-4) -- (7,-4);
+    % Period off
+    \draw[line width = 1.2pt, line cap = rounded, gray, dashed] (4,-1) to node[midway, above, font = \scriptsize, align = center, fill = white] {8 months off} (13,-1);
+    \draw[line width = 1.2pt, line cap = rounded, gray, dashed] (5,-2) -- (14,-2);
+    \draw[line width = 1.2pt, line cap = rounded, gray, dashed] (6,-3) -- (15,-3);
+    \draw[line width = 1.2pt, line cap = rounded, gray, dashed] (7,-4) -- (16,-4);
+    % Second round
+    \draw[line width = 2pt, line cap = rounded, gray] (13,-1) to node[midway, above, font = \scriptsize, align = center, fill = white] {4 months on} (16,-1);
+    \draw[line width = 2pt, line cap = rounded, gray] (14,-2) -- (17,-2);
+    \draw[line width = 2pt, line cap = rounded, gray] (15,-3) -- (18,-3);
+    \draw[line width = 2pt, line cap = rounded, gray] (16,-4) -- (19,-4);
+    % Label the groups
+    \node[align = left, anchor = west, font = \scriptsize] at (-1,-1) {Group 1\\enters in\\December};
+    \node[align = left, anchor = west, align = center, font = \scriptsize] at (-1,-2) {Group 2\\enters in\\January};
+    \node[align = left, anchor = west, align = center, font = \scriptsize] at (-1,-3) {Group 3\\enters in\\February};
+    \node[align = left, anchor = west, align = center, font = \scriptsize] at (-1,-4) {Group 4\\enters in\\March};
+    \node[align = center, anchor = north, font = \footnotesize] at (4,-4.75) {March Annual Social\\and Economic Supplement};
+    \node[align = center, anchor = north, font = \footnotesize] at (16,-4.75) {March Annual Social\\and Economic Supplement};
+    \end{tikzpicture}
+}
+\end{frame}
+
+\begin{frame}
+The Current Population Survey (CPS) is only one of many surveys in the federal statistical system
+\end{frame}
+
+\begin{frame}
+\centering
+\includegraphics[width = .6\textwidth]{statistical_system} \vskip .3in
+\begin{footnotesize}
+\bref{https://www.whitehouse.gov/wp-content/uploads/2022/03/ap_15_statistics_fy2023.pdf}{source}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics[width = .3\textwidth]{ipums_cps}
+\end{center}
+The Integrated Public Use Microdata Series (IPUMS) distributes these data and more \vskip .1in
+\begin{itemize}
+\item Easy to access
+\item Harmonized documentation
+\item Select the variables you want
+\item Compare over history
+\end{itemize}
+\begin{center}
+\includegraphics[width = .3\textwidth]{minnesota}
+\end{center} \vskip .1in
+\begin{tiny}
+Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren and Michael Westberry. Integrated Public Use Microdata Series, Current Population Survey: Version 10.0 [dataset]. Minneapolis, MN: IPUMS, 2022. \bref{https://doi.org/10.18128/D030.V10.0}{https://doi.org/10.18128/D030.V10.0} \par
+\end{tiny}
+\end{frame}
+
+\begin{frame}
+\includegraphics[width = .8\textwidth]{ipums_all}
+\end{frame}
+
+\begin{frame}{How to access IPUMS-CPS} \vskip .1in
+\begin{tikzpicture}[x = \textwidth, y = .9\textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node[anchor = south west] at (0,1) {1) Visit \bref{cps.ipums.org}{https://cps.ipums.org/cps/}. Click \bblue{Register}};
+\node[anchor = north west] at (0,1) {\includegraphics[width = .7\textwidth]{ipums_register_1}};
+\draw[->, line width = 2pt, blue] (.6,1.02) -- (.6,.99);
+%\draw[->, line width = 2pt, white] (.6,.9) -- (.6,.95);
+\node[anchor = south west] at (0,.7) {2) Click \bblue{Apply for access}};
+\node[anchor = north west] at (0,.7) {\includegraphics[width = .3\textwidth]{ipums_register_2}};
+\draw[->, line width = 2pt, blue] (.23,.45) -- (.18,.42);
+\node[anchor = south west] at (.5,.7) {3) Complete the form};
+\node[anchor = north west] at (.5,.7) {\includegraphics[width = .3\textwidth]{ipums_register_3}};
+\node[anchor = north west, text width = .5\textwidth, align = left, font = \footnotesize] at (.5,.35) {General research statement: I am in a class using these data to study socioeconomic inequality in America.};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Optional readings}
+
+\begin{itemize}
+\item To review central ideas in survey sampling
+\begin{itemize}
+\item \bref{https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm}{Probability Sampling} from \textit{Statistics: Power from Data!} by Statistics Canada
+\end{itemize}
+\item For a summary of the total survey error framework
+\begin{itemize}
+\item \bref{https://www.bitbybitbook.com/en/1st-ed/asking-questions/}{Salganik 2020} 3.1--3.4
+\end{itemize}
+\item For more information on the Current Population Survey
+\begin{itemize}
+\item \bref{https://cps.ipums.org/cps/about.shtml}{About CPS}
+\item \bref{https://cps.ipums.org/cps/sample_designs.shtml}{CPS Sample Design} which begins about halfway down the page
+\end{itemize}
+\end{itemize}
+
+\end{frame}

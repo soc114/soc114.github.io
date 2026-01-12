@@ -2,7 +2,7 @@
 title: "Population Sampling"
 ---
 
-> Topic for 1/12.
+> Here are [slides](../slides/lec03_sampling/lec03_sampling.pdf)
 
 <!-- Note from W25. In lecture 2, stratified and clustered sampling without them doing any coding followed by future of sample surveys would be enough for a whole class. Replication crisis could be moved to its own class. As it was, future of sample surveys was squeezed into about 10 minutes. -->
 

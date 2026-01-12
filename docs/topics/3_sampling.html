@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Population sampling – Social Data Science</title>
+<title>Population Sampling – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -464,7 +464,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1a_empirical_questions.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../topics/3_sampling.html">Population Sampling</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Population sampling</h1>
+<h1 class="title">Population Sampling</h1>
 </div>
 
 
@@ -482,7 +482,7 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p>Topic for 1/12.</p>
+<p>Here are <a href="../slides/lec03_sampling/lec03_sampling.pdf">slides</a></p>
 </blockquote>
 <!-- Note from W25. In lecture 2, stratified and clustered sampling without them doing any coding followed by future of sample surveys would be enough for a whole class. Replication crisis could be moved to its own class. As it was, future of sample surveys was squeezed into about 10 minutes. -->
 <p>Claims about inequality are often claims about a population. Our data are typically only a sample! This module addresses the link between samples and populations.</p>
@@ -655,18 +655,18 @@ Note
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 60 × 6
-   player              team         position   salary p_sampled sampling_weight
-   &lt;chr&gt;               &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
- 1 Gurriel, Lourdes    Arizona      OF        5400000    0.0636            15.7
- 2 Tarnok, Freddy*     Oakland      RHP        720000    0.0636            15.7
- 3 Bednar, David       Pittsburgh   RHP        745000    0.0636            15.7
- 4 Strzelecki, Peter   Milwaukee    RHP        726400    0.0636            15.7
- 5 Winker, Jesse       Milwaukee    OF        8250000    0.0636            15.7
- 6 Cueto, Johnny       Miami        RHP       6000000    0.0636            15.7
- 7 Schmidt, Clarke     N.Y. Yankees RHP        740475    0.0636            15.7
- 8 Olson, Matt         Atlanta      1B       21000000    0.0636            15.7
- 9 Cleavinger, Garrett Tampa Bay    LHP        725100    0.0636            15.7
-10 Capel, Conner       Oakland      OF         720000    0.0636            15.7
+   player            team              position salary p_sampled sampling_weight
+   &lt;chr&gt;             &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
+ 1 Bird, Jacob       Colorado          RHP      7.22e5    0.0636            15.7
+ 2 Vogelbach, Daniel N.Y. Mets         1B       1.5 e6    0.0636            15.7
+ 3 Realmuto, JT      Philadelphia      C        2.39e7    0.0636            15.7
+ 4 Brown, Seth       Oakland           OF       7.3 e5    0.0636            15.7
+ 5 Walker, Christian Arizona           1B       6.5 e6    0.0636            15.7
+ 6 Choi, Ji-Man      Pittsburgh        1B       4.65e6    0.0636            15.7
+ 7 Buehler, Walker*  L.A. Dodgers      RHP      8.03e6    0.0636            15.7
+ 8 Wentz, Joey       Detroit           LHP      7.24e5    0.0636            15.7
+ 9 Lodolo, Nick      Cincinnati        LHP      7.3 e5    0.0636            15.7
+10 Crochet, Garrett* Chicago White Sox LHP      7.33e5    0.0636            15.7
 # ℹ 50 more rows</code></pre>
 </div>
 </div>
@@ -738,7 +738,7 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_example <span class="ot">&lt;-</span> <span class="fu">simple_sample</span>(<span class="at">population =</span> baseball)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimator</span>(<span class="at">sample =</span> sample_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6522086</code></pre>
+<pre><code>[1] 5501815</code></pre>
 </div>
 </div>
 <p>Try it for yourself! The true mean salary in the league is $4,965,481. How close do you come when you apply the estimator to a sample drawn by each strategy?</p>

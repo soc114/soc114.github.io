@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Simple Random}{5}{0}{1}
+\beamer@sectionintoc {2}{Unequal Probability}{22}{0}{2}
+\beamer@sectionintoc {3}{Stratified and Clustered}{45}{0}{3}
+\beamer@sectionintoc {4}{The Future}{55}{0}{4}
