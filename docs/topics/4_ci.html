@@ -488,10 +488,7 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p>Topic for 1/14.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Here are <a href="../slides/bootstrap/bootstrap.pdf">slides</a>. Notation and ideas on this page loosely draw on <a href="https://hastie.su.domains/CASI/">Efron &amp; Hastie (2016)</a> Ch 10–11.</p>
+<p>Here are slides in <a href="../slides/lec04_bootstrap/lec04_bootstrap.html">website</a> and <a href="../slides/lec04_bootstrap/lec04_bootstrap.pdf">pdf</a> format. This page goes beyond the content of the slides and is more detailed and mathematical than the slides. Slides provide more support for coding. Notation and ideas on this page loosely draw on <a href="https://hastie.su.domains/CASI/">Efron &amp; Hastie (2016)</a> Ch 10–11.</p>
 </blockquote>
 <p>As researchers adopt algorithmic estimation methods for which analytical standard errors do not exist, methods to produce standard errors by resampling become all the more important. We will discuss the bootstrap for simple random samples and extensions to allow resampling-based standard error estimates in complex survey samples.</p>
 <div class="cell">
@@ -790,7 +787,7 @@ s(\texttt{data}) \pm \Phi^{-1}(.975)\text{SD}\big(s(\text{data}^*)\big)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimator</span>(sample) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(bootstrap_estimates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]   77781.86 7580456.54</code></pre>
+<pre><code>[1]   47385.78 7610852.62</code></pre>
 </div>
 </div>
 </section>
@@ -801,7 +798,7 @@ s(\texttt{data}) \pm \Phi^{-1}(.975)\text{SD}\big(s(\text{data}^*)\big)
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(bootstrap_estimates, <span class="at">probs =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2.5%   97.5% 
-1133706 8083426 </code></pre>
+1102388 8088308 </code></pre>
 </div>
 </div>
 <!-- Should add more justification of percentile intervals. In what sense do they guarantee that the probability of the lower limit being above the truth is 2.5%? -->

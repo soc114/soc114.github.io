@@ -1,0 +1,541 @@
+---
+title: "Confidence Intervals"
+subtitle: "UCLA Soc 114"
+format:
+  revealjs: default # For the web slides
+  beamer: default      # To generate the PDF version
+execute:
+  echo: true
+resources: 
+  - lec04_bootstrap.pdf
+---
+
+```{r, echo = F, message = F, warning = F, comment = F}
+library(tidyverse)
+library(scales)
+library(foreach)
+library(doParallel)
+```
+
+## Concepts for today
+
+Statistical concepts
+
+- Sampling distribution
+- Standard error
+- Confidence interval
+- Bootstrap
+
+Coding concepts
+
+- Writing a custom function
+- Writing a for loop
+
+## Example: Mean salary of MLB players
+
+Load data:
+
+```{r}
+baseball <- read_csv("https://soc114.github.io/data/baseball.csv") |>
+  # Keep only a few variables for simplicity
+  select(player, team, salary)
+```
+```{r, echo = F}
+baseball |> print(n = 3)
+```
+
+## Example: Mean salary of MLB players
+
+True mean in population of all players
+
+. . .
+
+```{r}
+baseball |> summarize(population_mean = mean(salary))
+```
+
+## Estimate from a sample
+
+. . .
+
+Draw a sample of 10 players.
+
+. . .
+
+```{r}
+sampled_players <- baseball |> 
+  slice_sample(n = 10) |>
+  print(n = 3)
+```
+
+## Estimate from a sample
+
+Take the mean among sampled players.
+
+. . .
+
+```{r}
+sampled_players <- sampled_players |> 
+  summarize(sample_estimate = mean(salary)) |>
+  print()
+```
+
+## Many times
+
+```{r, echo = F, fig.height = 3}
+many_samples <- foreach(rep = 1:500, .combine = "rbind") %do% {
+  baseball |>
+    slice_sample(n = 10) |>
+    summarize(sample_estimate = mean(salary))
+}
+write_csv(many_samples, file = "../../data/many_samples.csv")
+
+base_plot <- many_samples |>
+  ggplot(aes(x = sample_estimate)) +
+  geom_histogram(bins = 15, fill = "#2774AE", alpha = .8) +
+  scale_x_continuous(labels = label_currency(), name = "Sample Mean Salary") +
+  ylab("Distribution Over\nRepeated Samples")
+
+max_bar_height <- max(layer_data(base_plot)$y)
+p <- base_plot +
+  geom_jitter(
+    aes(y = 1.4 * max_bar_height), 
+    height = .1 * max_bar_height, 
+    width = 0,
+    size = .75,
+    color = "#2774AE",
+    alpha = .8
+  ) +
+  theme_minimal() +
+  scale_y_continuous(breaks = NULL) +
+  labs(subtitle = "Each dot is the mean from one sample of 10 players.") +
+  theme(text = element_text(size = 16))
+p
+```
+
+If you are following, these are in [many_samples.csv](../data/many_samples.csv).
+```{r, eval = F}
+many_samples <- read_csv(many_samples, "https://soc114.github.io/data/many_samples.csv")
+```
+
+
+. . .
+
+Because each sample produces a different estimate, there is a **distribution** of different estimates across repeated samples.
+
+. . .
+
+Can you propose a summary statistic for this distribution?
+
+## Mean of the distribution
+
+Also called the **expected value**.
+
+<!-- $$\text{Mean}(\text{Estimator}) = \frac{1}{\text{Number of Samples}}\sum_{i=1}^n (\text{Estimate from Sample }i)$$ -->
+
+```{r}
+many_samples |>
+  summarize(estimator_mean = mean(sample_estimate))
+```
+
+```{r, echo = F, fig.height = 3}
+p +
+  geom_vline(
+    xintercept = mean(baseball$salary),
+    linetype = "dashed"
+  )
+```
+
+(In practice, the mean of the distribution is unknown)
+
+## Standard Error
+
+A measure of dispersion for the distribution of sample mean estimates.
+
+<!-- $$ -->
+<!-- \text{SE}(\text{Estimator}) = \sqrt{\text{Mean}\Bigg(\bigg[X - \text{Mean}(\text{Estimator})\bigg]^2\Bigg)} -->
+<!-- $$ -->
+
+```{r}
+many_samples |>
+  summarize(standard_error = sd(sample_estimate))
+```
+
+```{r, echo = F, fig.height = 3}
+p +
+  geom_vline(
+    xintercept = mean(baseball$salary),
+    linetype = "dashed"
+  ) +
+  annotate(
+    geom = "segment",
+    x = mean(baseball$salary),
+    xend = c(.5,1.5) * mean(baseball$salary),
+    y = max_bar_height * 1.15,
+    arrow = arrow(length = unit(.1,"in"))
+  )
+```
+
+## As the sample size grows
+
+```{r, echo = F, fig.height = 3}
+make_plot <- function(sample_size) {
+  many_samples <- foreach(rep = 1:500, .combine = "rbind") %do% {
+    baseball |>
+      slice_sample(n = sample_size) |>
+      summarize(sample_estimate = mean(salary))
+  }
+  base_plot <- many_samples |>
+    ggplot(aes(x = sample_estimate)) +
+    geom_histogram(binwidth = 5e5, fill = "#2774AE", alpha = .8) +
+    scale_x_continuous(
+      labels = label_currency(), name = "Sample Mean Salary",
+      limits = c(0,1.5e7)
+    ) +
+    ylab("Distribution Over\nRepeated Samples")
+  
+  max_bar_height <- max(layer_data(base_plot)$y)
+  print(
+    base_plot +
+      geom_jitter(
+        aes(y = 1.4 * max_bar_height), 
+        height = .1 * max_bar_height, 
+        width = 0,
+        size = .75,
+        color = "#2774AE",
+        alpha = .8
+      ) +
+      theme_minimal() +
+      scale_y_continuous(breaks = NULL) +
+      labs(subtitle = paste("Each dot is the mean from one sample of",sample_size,"players.")) +
+      theme(text = element_text(size = 16))
+  )
+}
+make_plot(sample_size = 10)
+```
+
+## As the sample size grows
+
+```{r, echo = F, fig.height = 3}
+make_plot(sample_size = 25)
+```
+
+## As the sample size grows
+
+```{r, echo = F, fig.height = 3}
+make_plot(sample_size = 100)
+```
+
+## Asymptotic Normality
+
+- As the sample size gets large (asymptotic)
+- This becomes a Normal distribution
+
+```{r, echo = F, fig.height = 3}
+sample_size <- 100
+many_samples <- foreach(rep = 1:1000, .combine = "rbind") %do% {
+  baseball |>
+    slice_sample(n = sample_size) |>
+    summarize(sample_estimate = mean(salary))
+}
+base_plot <- many_samples |>
+  ggplot(aes(x = sample_estimate)) +
+  geom_histogram(binwidth = 1e5, fill = "#2774AE", alpha = .8) +
+  scale_x_continuous(
+    labels = label_currency(), name = "Sample Mean Salary"
+  ) +
+  ylab("Distribution Over\nRepeated Samples")
+
+max_bar_height <- max(layer_data(base_plot)$y)
+
+normal_curve <- tibble(p = seq(.01, .99, .01)) |>
+  mutate(
+    mu = mean(baseball$salary),
+    sigma = sd(baseball$salary) / sqrt(100),
+    salary = qnorm(p, mu, sigma),
+    density = dnorm(salary, mu, sigma),
+    density = density * max_bar_height / max(density)
+  )
+
+middle_95 <- quantile(
+  many_samples$sample_estimate,
+  c(.025,.975)
+)
+
+plot <- base_plot +
+  geom_jitter(
+    aes(y = 1.4 * max_bar_height), 
+    height = .1 * max_bar_height, 
+    width = 0,
+    size = .75,
+    color = "#2774AE",
+    alpha = .8
+  ) +
+  theme_minimal() +
+  scale_y_continuous(breaks = NULL) +
+  labs(subtitle = paste("Each dot is the mean from one sample of",sample_size,"players.")) +
+  theme(text = element_text(size = 16))
+plot +
+  geom_line(
+    data = normal_curve,
+    aes(x = salary, y = density)
+  )
+```
+
+## Middle 95\% sampling interval
+
+We might want to summarize:
+
+- The mean of the estimator
+- A range containing the middle 95\% of sample estimates
+
+```{r, echo = F}
+plot +
+  geom_vline(xintercept = middle_95, linetype = "dashed")
+```
+
+**Why is that hard to do with one actual sample?**
+
+## Confidence interval via the bootstrap
+
+What we want:
+
+1. We would want many samples: `sample_1`, `sample_2`, `sample_3`,...
+2. We estimate with each
+3. We summarize the middle 95%
+
+## Confidence interval via the bootstrap
+
+What we can do:
+
+1. We get only one `sample`
+     - So we simulate hypothetical `sample_sim_1`, `sample_sim_2`,...
+2. We estimate with each
+3. We summarize the middle 95%
+
+## How to generate bootstrap samples
+
+Start with your one sample.
+
+```{r}
+sampled_players <- baseball |>
+  slice_sample(n = 100)
+```
+
+. . .
+
+Resample $n$ players with replacement.
+
+```{r}
+sampled_players_bootstrap <- sampled_players |>
+  slice_sample(prop = 1, replace = TRUE)
+```
+
+## How to generate bootstrap samples: Example
+
+Here is a sample of 3 players:
+
+```{r}
+a_small_sample <- baseball |> 
+  slice_sample(n = 3) |>
+  print()
+```
+
+## How to generate bootstrap samples: Example
+
+Here is a bootstrap sample of those 3 players.
+
+```{r}
+a_small_sample |> 
+  slice_sample(prop = 1, replace = TRUE) |>
+  print()
+```
+
+## How to generate bootstrap samples: Example
+
+Here is a bootstrap sample of those 3 players.
+
+```{r}
+a_small_sample |> 
+  slice_sample(prop = 1, replace = TRUE) |>
+  print()
+```
+
+## How to generate bootstrap samples: Example
+
+Here is a bootstrap sample of those 3 players.
+
+```{r}
+a_small_sample |> 
+  slice_sample(prop = 1, replace = TRUE) |>
+  print()
+```
+
+## How to generate bootstrap samples: Example
+
+Here is a bootstrap sample of those 3 players.
+
+```{r}
+a_small_sample |> 
+  slice_sample(prop = 1, replace = TRUE) |>
+  print()
+```
+
+## Coding concepts
+
+We will analyze hundreds of bootstrap samples.
+
+We need two coding concepts.
+
+1. How to write an `estimator` function
+2. How to write a `for` loop
+
+## How to write an `estimator` function
+
+A function (like `mean`) takes an input and returns an output. You can write your own.
+
+```{r}
+estimator <- function(data) {
+  data |>
+    summarize(estimate = mean(salary)) |>
+    pull(estimate)
+}
+```
+
+The function takes `data` and returns an estimate.
+```{r}
+estimator(data = sampled_players)
+```
+
+## How to write a `for` loop
+
+Useful for tasks you will repeat.
+
+. . .
+
+First, initialize a vector to hold results.
+```{r}
+vector_for_results <- rep(NA, 3)
+```
+The `rep` function repeates the value `NA` 3 times.
+
+. . .
+
+Second, loop through and fill your vector.
+```{r}
+for (index in 1:3) {
+  vector_for_results[index] <- index
+}
+```
+
+Square brackets `[]` extract an element of a vector.
+
+## Analyze 500 bootstrap samples
+
+Initialize a vector to hold the result.
+
+```{r}
+bootstrap_estimates <- rep(NA, times = 500)
+```
+
+## Analyze 500 bootstrap samples
+
+Write a `for` loop that will repeat 500 times.
+
+```{r}
+for (index in 1:500) {
+  
+  # Draw a bootstrap sample
+  bootstrap_sample <- sampled_players |>
+    slice_sample(prop = 1, replace = TRUE)
+  
+  # Construct an estimate
+  estimate_this_index <- estimator(bootstrap_sample)
+  
+  # Store that estimate
+  bootstrap_estimates[index] <- estimate_this_index
+}
+```
+
+## Bootstrap results
+
+```{r, echo = F, fig.height = 3}
+base_plot <- tibble(sample_estimate = bootstrap_estimates) |>
+    ggplot(aes(x = sample_estimate)) +
+    geom_histogram(binwidth = 5e5, fill = "#2774AE", alpha = .8) +
+    scale_x_continuous(
+      labels = label_currency(), name = "Sample Mean Salary"
+    ) +
+    ylab("Distribution Over\nBootstrap Samples")
+  
+max_bar_height <- max(layer_data(base_plot)$y)
+print(
+  base_plot +
+    geom_jitter(
+      aes(y = 1.4 * max_bar_height), 
+      height = .1 * max_bar_height, 
+      width = 0,
+      size = .75,
+      color = "#2774AE",
+      alpha = .8
+    ) +
+    theme_minimal() +
+    scale_y_continuous(breaks = NULL) +
+    labs(subtitle = paste("Each dot is the mean from one bootstrap sample of",sample_size,"players.")) +
+    theme(text = element_text(size = 16))
+)
+```
+
+## Bootstrap results: Summary statistics
+
+Bootstrap estimate of the standard error.
+```{r}
+sd(bootstrap_estimates)
+```
+
+Middle 95\% of bootstrap estimates
+```{r}
+quantile(x = bootstrap_estimates, prob = c(.025, .975))
+```
+
+## Confidence interval
+
+An interval from $\text{lower}(\text{sample})$ to $\text{upper}(\text{sample})$ with the property: across repeated samples, 95\% of intervals constructed this way would contain the population parameter.
+
+## Confidence interval: Example
+
+Middle 95\% of bootstrap estimates is a confidence interval.
+
+- The true population mean salary is `r baseball |> summarize(salary = mean(salary)) |> pull(salary) |> label_currency()()`
+- Our sample mean is `r sampled_players |> summarize(salary = mean(salary)) |> pull(salary) |> label_currency()()`
+- Our confidence interval is:
+
+```{r}
+quantile(x = bootstrap_estimates, prob = c(.025, .975))
+```
+
+Across repeated samples, 95\% of intervals constructed this way will contain the population mean salary.
+
+## Recap
+
+* Statistical concepts
+* Coding concepts
+
+## Recap: Statistical concepts
+
+Statistical concepts
+
+- Sampling distribution
+     - Cannot be directly observed. We have one sample.
+- Standard error
+     - Spread of the sampling distribution
+- Confidence interval
+     - Covers truth in 95\% of samples
+- Bootstrap
+     - Method of constructing the CI with one sample
+
+## Recap: Coding concepts
+
+- Writing a custom function ([R4DS Ch 25](https://r4ds.hadley.nz/functions.html))
+- Writing a for loop ([R4DS Ch 27.5](https://r4ds.hadley.nz/base-R.html#for-loops))
+

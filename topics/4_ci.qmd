@@ -2,9 +2,7 @@
 title: "Confidence Intervals"
 ---
 
-> Topic for 1/14.
-
-> Here are [slides](../slides/bootstrap/bootstrap.pdf). Notation and ideas on this page loosely draw on [Efron \& Hastie (2016)](https://hastie.su.domains/CASI/) Ch 10--11.
+> Here are slides in [website](../slides/lec04_bootstrap/lec04_bootstrap.qmd) and [pdf](../slides/lec04_bootstrap/lec04_bootstrap.pdf) format. This page goes beyond the content of the slides and is more detailed and mathematical than the slides. Slides provide more support for coding. Notation and ideas on this page loosely draw on [Efron \& Hastie (2016)](https://hastie.su.domains/CASI/) Ch 10--11.
 
 As researchers adopt algorithmic estimation methods for which analytical standard errors do not exist, methods to produce standard errors by resampling become all the more important. We will discuss the bootstrap for simple random samples and extensions to allow resampling-based standard error estimates in complex survey samples.
 
