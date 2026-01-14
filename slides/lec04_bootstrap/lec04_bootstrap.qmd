@@ -115,7 +115,7 @@ p
 
 If you are following, these are in [many_samples.csv](../data/many_samples.csv).
 ```{r, eval = F}
-many_samples <- read_csv(many_samples, "https://soc114.github.io/data/many_samples.csv")
+many_samples <- read_csv("https://soc114.github.io/data/many_samples.csv")
 ```
 
 

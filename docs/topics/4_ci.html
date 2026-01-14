@@ -787,7 +787,7 @@ s(\texttt{data}) \pm \Phi^{-1}(.975)\text{SD}\big(s(\text{data}^*)\big)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimator</span>(sample) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(bootstrap_estimates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]   47385.78 7610852.62</code></pre>
+<pre><code>[1]  131954.5 7526283.9</code></pre>
 </div>
 </div>
 </section>
@@ -798,7 +798,7 @@ s(\texttt{data}) \pm \Phi^{-1}(.975)\text{SD}\big(s(\text{data}^*)\big)
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(bootstrap_estimates, <span class="at">probs =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2.5%   97.5% 
-1102388 8088308 </code></pre>
+1132531 7892739 </code></pre>
 </div>
 </div>
 <!-- Should add more justification of percentile intervals. In what sense do they guarantee that the probability of the lower limit being above the truth is 2.5%? -->
@@ -1182,6 +1182,7 @@ Answers
 <p>The bootstrap is a powerful tool, but there are notable cases in which it fails.</p>
 <p>First, all frequentist confidence intervals that are based solely on sampling variance may suffer undercoverage if applied to biased estimators. For example, many machine learning algorithms induce bias through regularization. This means that even if we correctly approximate sampling variance, the center of our confidence intervals may be systematically misaligned from the true population parameter, yielding undercoverage.</p>
 <p>Second, the bootstrap can exhibit unexpected performance with statistics such as the maximum or minimum value, since these statistics can be sensitive to a particular data point. Taking the maximum as an example, the value <span class="math inline">\(\text{max}(\vec{y}^*)\)</span> in a bootstrap sample will never be higher than <span class="math inline">\(\text{max}(\vec{y})\)</span> in the sample from which that bootstrap was drawn. The entire bootstrap distribution of <span class="math inline">\(\text{max}(\vec{y}^*)\)</span> will be at or below the original estimate of <span class="math inline">\(\text{max}(\vec{y})\)</span>. Like the max or min, quantiles of <span class="math inline">\(\vec{y}\)</span> can also lead to unexpected bootstrap behavior. Generally the bootstrap will have the best performance for statistics such as the mean for which no particular unit plays an especially determining role.</p>
+<p>Note: In class we will use <a href="../data/many_samples.csv">many_samples.csv</a>. This note is just here so that the data will exist on this page.</p>
 
 
 </section>

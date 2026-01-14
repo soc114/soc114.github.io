@@ -967,5 +967,5 @@ First, all frequentist confidence intervals that are based solely on sampling va
 Second, the bootstrap can exhibit unexpected performance with statistics such as the maximum or minimum value, since these statistics can be sensitive to a particular data point. Taking the maximum as an example, the value $\text{max}(\vec{y}^*)$ in a bootstrap sample will never be higher than $\text{max}(\vec{y})$ in the sample from which that bootstrap was drawn. The entire bootstrap distribution of $\text{max}(\vec{y}^*)$ will be at or below the original estimate of $\text{max}(\vec{y})$. Like the max or min, quantiles of $\vec{y}$ can also lead to unexpected bootstrap behavior. Generally the bootstrap will have the best performance for statistics such as the mean for which no particular unit plays an especially determining role.
 
 
-
+Note: In class we will use [many_samples.csv](../data/many_samples.csv). This note is just here so that the data will exist on this page.
 

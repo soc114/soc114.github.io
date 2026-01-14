@@ -239,7 +239,7 @@
     "href": "topics/4_ci.html#bootstrap-confidence-intervals",
     "title": "Confidence Intervals",
     "section": "Bootstrap confidence intervals",
-    "text": "Bootstrap confidence intervals\nThe discussion above has focused on using the bootstrap to estimate standard errors. There are many methods to construct confidence intervals using bootstrap procedures. Two of the most common are the Normal approximation method and the percentile method.\n\nNormal approximation\nThe beginning of this page reviewed classical statistics in which we routinely rely on the Central Limit Theorem which ensures that sample mean estimators are asymptotically Normal. Likewise with the bootstrap, if we believe that \\(s(\\texttt{data})\\) has a Normal sampling distribution, then we can construct a confidence interval by the Normal approximation with the bootstrap estimate of the standard error.\n\\[\ns(\\texttt{data}) \\pm \\Phi^{-1}(.975)\\text{SD}\\big(s(\\text{data}^*)\\big)\n\\]\n\nestimator(sample) + c(-1,1) * qnorm(.975) * sd(bootstrap_estimates)\n\n[1]   47385.78 7610852.62\n\n\n\n\nPercentile method\nThe bootstrap also offers another way to calculate the confidence interval: the middle 95% of the bootstrap estimates.\n\nquantile(bootstrap_estimates, probs = c(.025, .975))\n\n   2.5%   97.5% \n1102388 8088308 \n\n\n\nThe percentile method can work better than the Normal approximation method in cases where normality does not hold. For example, in the beginning of this page we used analytic intervals that seemed imperfect in part because the Central Limit Theorem had not adequately yielded normality at a sample size of 10.",
+    "text": "Bootstrap confidence intervals\nThe discussion above has focused on using the bootstrap to estimate standard errors. There are many methods to construct confidence intervals using bootstrap procedures. Two of the most common are the Normal approximation method and the percentile method.\n\nNormal approximation\nThe beginning of this page reviewed classical statistics in which we routinely rely on the Central Limit Theorem which ensures that sample mean estimators are asymptotically Normal. Likewise with the bootstrap, if we believe that \\(s(\\texttt{data})\\) has a Normal sampling distribution, then we can construct a confidence interval by the Normal approximation with the bootstrap estimate of the standard error.\n\\[\ns(\\texttt{data}) \\pm \\Phi^{-1}(.975)\\text{SD}\\big(s(\\text{data}^*)\\big)\n\\]\n\nestimator(sample) + c(-1,1) * qnorm(.975) * sd(bootstrap_estimates)\n\n[1]  131954.5 7526283.9\n\n\n\n\nPercentile method\nThe bootstrap also offers another way to calculate the confidence interval: the middle 95% of the bootstrap estimates.\n\nquantile(bootstrap_estimates, probs = c(.025, .975))\n\n   2.5%   97.5% \n1132531 7892739 \n\n\n\nThe percentile method can work better than the Normal approximation method in cases where normality does not hold. For example, in the beginning of this page we used analytic intervals that seemed imperfect in part because the Central Limit Theorem had not adequately yielded normality at a sample size of 10.",
     "crumbs": [
       "Syllabus",
       "Getting Started",
@@ -287,7 +287,7 @@
     "href": "topics/4_ci.html#a-word-of-warning",
     "title": "Confidence Intervals",
     "section": "A word of warning",
-    "text": "A word of warning\nThe bootstrap is a powerful tool, but there are notable cases in which it fails.\nFirst, all frequentist confidence intervals that are based solely on sampling variance may suffer undercoverage if applied to biased estimators. For example, many machine learning algorithms induce bias through regularization. This means that even if we correctly approximate sampling variance, the center of our confidence intervals may be systematically misaligned from the true population parameter, yielding undercoverage.\nSecond, the bootstrap can exhibit unexpected performance with statistics such as the maximum or minimum value, since these statistics can be sensitive to a particular data point. Taking the maximum as an example, the value \\(\\text{max}(\\vec{y}^*)\\) in a bootstrap sample will never be higher than \\(\\text{max}(\\vec{y})\\) in the sample from which that bootstrap was drawn. The entire bootstrap distribution of \\(\\text{max}(\\vec{y}^*)\\) will be at or below the original estimate of \\(\\text{max}(\\vec{y})\\). Like the max or min, quantiles of \\(\\vec{y}\\) can also lead to unexpected bootstrap behavior. Generally the bootstrap will have the best performance for statistics such as the mean for which no particular unit plays an especially determining role.",
+    "text": "A word of warning\nThe bootstrap is a powerful tool, but there are notable cases in which it fails.\nFirst, all frequentist confidence intervals that are based solely on sampling variance may suffer undercoverage if applied to biased estimators. For example, many machine learning algorithms induce bias through regularization. This means that even if we correctly approximate sampling variance, the center of our confidence intervals may be systematically misaligned from the true population parameter, yielding undercoverage.\nSecond, the bootstrap can exhibit unexpected performance with statistics such as the maximum or minimum value, since these statistics can be sensitive to a particular data point. Taking the maximum as an example, the value \\(\\text{max}(\\vec{y}^*)\\) in a bootstrap sample will never be higher than \\(\\text{max}(\\vec{y})\\) in the sample from which that bootstrap was drawn. The entire bootstrap distribution of \\(\\text{max}(\\vec{y}^*)\\) will be at or below the original estimate of \\(\\text{max}(\\vec{y})\\). Like the max or min, quantiles of \\(\\vec{y}\\) can also lead to unexpected bootstrap behavior. Generally the bootstrap will have the best performance for statistics such as the mean for which no particular unit plays an especially determining role.\nNote: In class we will use many_samples.csv. This note is just here so that the data will exist on this page.",
     "crumbs": [
       "Syllabus",
       "Getting Started",
@@ -1471,35 +1471,35 @@
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#estimate-from-a-sample",
     "title": "Confidence Intervals",
     "section": "Estimate from a sample",
-    "text": "Estimate from a sample\n\nDraw a sample of 10 players.\n\n\n\nsampled_players &lt;- baseball |&gt; \n  slice_sample(n = 10) |&gt;\n  print(n = 3)\n\n# A tibble: 10 × 3\n  player             team                salary\n  &lt;chr&gt;              &lt;chr&gt;                &lt;dbl&gt;\n1 Valdez, Framber    Houston            6800000\n2 Brantley, Michael* Houston           12000000\n3 Robert, Luis       Chicago White Sox  9500000\n# ℹ 7 more rows"
+    "text": "Estimate from a sample\n\nDraw a sample of 10 players.\n\n\n\nsampled_players &lt;- baseball |&gt; \n  slice_sample(n = 10) |&gt;\n  print(n = 3)\n\n# A tibble: 10 × 3\n  player          team          salary\n  &lt;chr&gt;           &lt;chr&gt;          &lt;dbl&gt;\n1 Matz, Steven    St. Louis   10500000\n2 Barlow, Scott   Kansas City  5300000\n3 Pomeranz, Drew* San Diego   10000000\n# ℹ 7 more rows"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#estimate-from-a-sample-1",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#estimate-from-a-sample-1",
     "title": "Confidence Intervals",
     "section": "Estimate from a sample",
-    "text": "Estimate from a sample\nTake the mean among sampled players.\n\n\nsampled_players &lt;- sampled_players |&gt; \n  summarize(sample_estimate = mean(salary)) |&gt;\n  print()\n\n# A tibble: 1 × 1\n  sample_estimate\n            &lt;dbl&gt;\n1         5271685"
+    "text": "Estimate from a sample\nTake the mean among sampled players.\n\n\nsampled_players &lt;- sampled_players |&gt; \n  summarize(sample_estimate = mean(salary)) |&gt;\n  print()\n\n# A tibble: 1 × 1\n  sample_estimate\n            &lt;dbl&gt;\n1         8947500"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#many-times",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#many-times",
     "title": "Confidence Intervals",
     "section": "Many times",
-    "text": "Many times\n\nIf you are following, these are in many_samples.csv.\n\nmany_samples &lt;- read_csv(many_samples, \"https://soc114.github.io/data/many_samples.csv\")\n\n\nBecause each sample produces a different estimate, there is a distribution of different estimates across repeated samples.\n\n\nCan you propose a summary statistic for this distribution?"
+    "text": "Many times\n\nIf you are following, these are in many_samples.csv.\n\nmany_samples &lt;- read_csv(\"https://soc114.github.io/data/many_samples.csv\")\n\n\nBecause each sample produces a different estimate, there is a distribution of different estimates across repeated samples.\n\n\nCan you propose a summary statistic for this distribution?"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#mean-of-the-distribution",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#mean-of-the-distribution",
     "title": "Confidence Intervals",
     "section": "Mean of the distribution",
-    "text": "Mean of the distribution\nAlso called the expected value.\n\n\nmany_samples |&gt;\n  summarize(estimator_mean = mean(sample_estimate))\n\n# A tibble: 1 × 1\n  estimator_mean\n           &lt;dbl&gt;\n1       4897719.\n\n\n\n(In practice, the mean of the distribution is unknown)"
+    "text": "Mean of the distribution\nAlso called the expected value.\n\n\nmany_samples |&gt;\n  summarize(estimator_mean = mean(sample_estimate))\n\n# A tibble: 1 × 1\n  estimator_mean\n           &lt;dbl&gt;\n1       5036657.\n\n\n\n(In practice, the mean of the distribution is unknown)"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#standard-error",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#standard-error",
     "title": "Confidence Intervals",
     "section": "Standard Error",
-    "text": "Standard Error\nA measure of dispersion for the distribution of sample mean estimates.\n\n\n\n\nmany_samples |&gt;\n  summarize(standard_error = sd(sample_estimate))\n\n# A tibble: 1 × 1\n  standard_error\n           &lt;dbl&gt;\n1       2188859."
+    "text": "Standard Error\nA measure of dispersion for the distribution of sample mean estimates.\n\n\n\n\nmany_samples |&gt;\n  summarize(standard_error = sd(sample_estimate))\n\n# A tibble: 1 × 1\n  standard_error\n           &lt;dbl&gt;\n1       2210213."
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#as-the-sample-size-grows",
@@ -1562,35 +1562,35 @@
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example",
     "title": "Confidence Intervals",
     "section": "How to generate bootstrap samples: Example",
-    "text": "How to generate bootstrap samples: Example\nHere is a sample of 3 players:\n\na_small_sample &lt;- baseball |&gt; \n  slice_sample(n = 3) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player           team            salary\n  &lt;chr&gt;            &lt;chr&gt;            &lt;dbl&gt;\n1 Perez, Roberto   San Francisco  2500000\n2 Ryu, Hyun-Jin*   Toronto       20000000\n3 Carpenter, Kerry Detroit         723700"
+    "text": "How to generate bootstrap samples: Example\nHere is a sample of 3 players:\n\na_small_sample &lt;- baseball |&gt; \n  slice_sample(n = 3) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player              team       salary\n  &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt;\n1 Houck, Tanner       Boston     740000\n2 Gallegos, Giovanny  St. Louis 4750000\n3 Hernandez, Jonathan Texas      995000"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-1",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-1",
     "title": "Confidence Intervals",
     "section": "How to generate bootstrap samples: Example",
-    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player         team      salary\n  &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;\n1 Ryu, Hyun-Jin* Toronto 20000000\n2 Ryu, Hyun-Jin* Toronto 20000000\n3 Ryu, Hyun-Jin* Toronto 20000000"
+    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player             team       salary\n  &lt;chr&gt;              &lt;chr&gt;       &lt;dbl&gt;\n1 Gallegos, Giovanny St. Louis 4750000\n2 Gallegos, Giovanny St. Louis 4750000\n3 Houck, Tanner      Boston     740000"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-2",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-2",
     "title": "Confidence Intervals",
     "section": "How to generate bootstrap samples: Example",
-    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player         team           salary\n  &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;\n1 Perez, Roberto San Francisco 2500000\n2 Perez, Roberto San Francisco 2500000\n3 Perez, Roberto San Francisco 2500000"
+    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player              team       salary\n  &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt;\n1 Gallegos, Giovanny  St. Louis 4750000\n2 Hernandez, Jonathan Texas      995000\n3 Gallegos, Giovanny  St. Louis 4750000"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-3",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-3",
     "title": "Confidence Intervals",
     "section": "How to generate bootstrap samples: Example",
-    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player         team      salary\n  &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;\n1 Ryu, Hyun-Jin* Toronto 20000000\n2 Ryu, Hyun-Jin* Toronto 20000000\n3 Ryu, Hyun-Jin* Toronto 20000000"
+    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player              team  salary\n  &lt;chr&gt;               &lt;chr&gt;  &lt;dbl&gt;\n1 Hernandez, Jonathan Texas 995000\n2 Hernandez, Jonathan Texas 995000\n3 Hernandez, Jonathan Texas 995000"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-4",
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-generate-bootstrap-samples-example-4",
     "title": "Confidence Intervals",
     "section": "How to generate bootstrap samples: Example",
-    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player         team            salary\n  &lt;chr&gt;          &lt;chr&gt;            &lt;dbl&gt;\n1 Ryu, Hyun-Jin* Toronto       20000000\n2 Perez, Roberto San Francisco  2500000\n3 Perez, Roberto San Francisco  2500000"
+    "text": "How to generate bootstrap samples: Example\nHere is a bootstrap sample of those 3 players.\n\na_small_sample |&gt; \n  slice_sample(prop = 1, replace = TRUE) |&gt;\n  print()\n\n# A tibble: 3 × 3\n  player             team       salary\n  &lt;chr&gt;              &lt;chr&gt;       &lt;dbl&gt;\n1 Houck, Tanner      Boston     740000\n2 Gallegos, Giovanny St. Louis 4750000\n3 Gallegos, Giovanny St. Louis 4750000"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#coding-concepts",
@@ -1604,7 +1604,7 @@
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-write-an-estimator-function",
     "title": "Confidence Intervals",
     "section": "How to write an estimator function",
-    "text": "How to write an estimator function\nA function (like mean) takes an input and returns an output. You can write your own.\n\nestimator &lt;- function(data) {\n  data |&gt;\n    summarize(estimate = mean(salary)) |&gt;\n    pull(estimate)\n}\n\nThe function takes data and returns an estimate.\n\nestimator(data = sampled_players)\n\n[1] 5736834"
+    "text": "How to write an estimator function\nA function (like mean) takes an input and returns an output. You can write your own.\n\nestimator &lt;- function(data) {\n  data |&gt;\n    summarize(estimate = mean(salary)) |&gt;\n    pull(estimate)\n}\n\nThe function takes data and returns an estimate.\n\nestimator(data = sampled_players)\n\n[1] 6254938"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#how-to-write-a-for-loop",
@@ -1639,7 +1639,7 @@
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#bootstrap-results-summary-statistics",
     "title": "Confidence Intervals",
     "section": "Bootstrap results: Summary statistics",
-    "text": "Bootstrap results: Summary statistics\nBootstrap estimate of the standard error.\n\nsd(bootstrap_estimates)\n\n[1] 747050.7\n\n\nMiddle 95% of bootstrap estimates\n\nquantile(x = bootstrap_estimates, prob = c(.025, .975))\n\n   2.5%   97.5% \n4298721 7302812"
+    "text": "Bootstrap results: Summary statistics\nBootstrap estimate of the standard error.\n\nsd(bootstrap_estimates)\n\n[1] 853093.5\n\n\nMiddle 95% of bootstrap estimates\n\nquantile(x = bootstrap_estimates, prob = c(.025, .975))\n\n   2.5%   97.5% \n4691641 8036999"
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#confidence-interval",
@@ -1653,7 +1653,7 @@
     "href": "slides/lec04_bootstrap/lec04_bootstrap.html#confidence-interval-example",
     "title": "Confidence Intervals",
     "section": "Confidence interval: Example",
-    "text": "Confidence interval: Example\nMiddle 95% of bootstrap estimates is a confidence interval.\n\nThe true population mean salary is $4,965,481\nOur sample mean is $5,736,834\nOur confidence interval is:\n\n\nquantile(x = bootstrap_estimates, prob = c(.025, .975))\n\n   2.5%   97.5% \n4298721 7302812 \n\n\nAcross repeated samples, 95% of intervals constructed this way will contain the population mean salary."
+    "text": "Confidence interval: Example\nMiddle 95% of bootstrap estimates is a confidence interval.\n\nThe true population mean salary is $4,965,481\nOur sample mean is $6,254,938\nOur confidence interval is:\n\n\nquantile(x = bootstrap_estimates, prob = c(.025, .975))\n\n   2.5%   97.5% \n4691641 8036999 \n\n\nAcross repeated samples, 95% of intervals constructed this way will contain the population mean salary."
   },
   {
     "objectID": "slides/lec04_bootstrap/lec04_bootstrap.html#recap",

@@ -261,11 +261,11 @@
 <span id="cb5-3"><a></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
-  player             team                salary
-  &lt;chr&gt;              &lt;chr&gt;                &lt;dbl&gt;
-1 Valdez, Framber    Houston            6800000
-2 Brantley, Michael* Houston           12000000
-3 Robert, Luis       Chicago White Sox  9500000
+  player          team          salary
+  &lt;chr&gt;           &lt;chr&gt;          &lt;dbl&gt;
+1 Matz, Steven    St. Louis   10500000
+2 Barlow, Scott   Kansas City  5300000
+3 Pomeranz, Drew* San Diego   10000000
 # ℹ 7 more rows</code></pre>
 </div>
 </div>
@@ -283,7 +283,7 @@
 <pre><code># A tibble: 1 × 1
   sample_estimate
             &lt;dbl&gt;
-1         5271685</code></pre>
+1         8947500</code></pre>
 </div>
 </div>
 </div>
@@ -293,7 +293,7 @@
 
 <img data-src="lec04_bootstrap_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"><p>If you are following, these are in <a href="../data/many_samples.csv">many_samples.csv</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>many_samples <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(many_samples, <span class="st">"https://soc114.github.io/data/many_samples.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>many_samples <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/many_samples.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Because each sample produces a different estimate, there is a <strong>distribution</strong> of different estimates across repeated samples.</p>
@@ -313,7 +313,7 @@
 <pre><code># A tibble: 1 × 1
   estimator_mean
            &lt;dbl&gt;
-1       4897719.</code></pre>
+1       5036657.</code></pre>
 </div>
 </div>
 
@@ -332,7 +332,7 @@
 <pre><code># A tibble: 1 × 1
   standard_error
            &lt;dbl&gt;
-1       2188859.</code></pre>
+1       2210213.</code></pre>
 </div>
 </div>
 
@@ -412,11 +412,11 @@
 <span id="cb16-3"><a></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
-  player           team            salary
-  &lt;chr&gt;            &lt;chr&gt;            &lt;dbl&gt;
-1 Perez, Roberto   San Francisco  2500000
-2 Ryu, Hyun-Jin*   Toronto       20000000
-3 Carpenter, Kerry Detroit         723700</code></pre>
+  player              team       salary
+  &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt;
+1 Houck, Tanner       Boston     740000
+2 Gallegos, Giovanny  St. Louis 4750000
+3 Hernandez, Jonathan Texas      995000</code></pre>
 </div>
 </div>
 </section>
@@ -429,11 +429,11 @@
 <span id="cb18-3"><a></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
-  player         team      salary
-  &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;
-1 Ryu, Hyun-Jin* Toronto 20000000
-2 Ryu, Hyun-Jin* Toronto 20000000
-3 Ryu, Hyun-Jin* Toronto 20000000</code></pre>
+  player             team       salary
+  &lt;chr&gt;              &lt;chr&gt;       &lt;dbl&gt;
+1 Gallegos, Giovanny St. Louis 4750000
+2 Gallegos, Giovanny St. Louis 4750000
+3 Houck, Tanner      Boston     740000</code></pre>
 </div>
 </div>
 </section>
@@ -446,11 +446,11 @@
 <span id="cb20-3"><a></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
-  player         team           salary
-  &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;
-1 Perez, Roberto San Francisco 2500000
-2 Perez, Roberto San Francisco 2500000
-3 Perez, Roberto San Francisco 2500000</code></pre>
+  player              team       salary
+  &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt;
+1 Gallegos, Giovanny  St. Louis 4750000
+2 Hernandez, Jonathan Texas      995000
+3 Gallegos, Giovanny  St. Louis 4750000</code></pre>
 </div>
 </div>
 </section>
@@ -463,11 +463,11 @@
 <span id="cb22-3"><a></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
-  player         team      salary
-  &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;
-1 Ryu, Hyun-Jin* Toronto 20000000
-2 Ryu, Hyun-Jin* Toronto 20000000
-3 Ryu, Hyun-Jin* Toronto 20000000</code></pre>
+  player              team  salary
+  &lt;chr&gt;               &lt;chr&gt;  &lt;dbl&gt;
+1 Hernandez, Jonathan Texas 995000
+2 Hernandez, Jonathan Texas 995000
+3 Hernandez, Jonathan Texas 995000</code></pre>
 </div>
 </div>
 </section>
@@ -480,11 +480,11 @@
 <span id="cb24-3"><a></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
-  player         team            salary
-  &lt;chr&gt;          &lt;chr&gt;            &lt;dbl&gt;
-1 Ryu, Hyun-Jin* Toronto       20000000
-2 Perez, Roberto San Francisco  2500000
-3 Perez, Roberto San Francisco  2500000</code></pre>
+  player             team       salary
+  &lt;chr&gt;              &lt;chr&gt;       &lt;dbl&gt;
+1 Houck, Tanner      Boston     740000
+2 Gallegos, Giovanny St. Louis 4750000
+3 Gallegos, Giovanny St. Louis 4750000</code></pre>
 </div>
 </div>
 </section>
@@ -511,7 +511,7 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">estimator</span>(<span class="at">data =</span> sampled_players)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5736834</code></pre>
+<pre><code>[1] 6254938</code></pre>
 </div>
 </div>
 </section>
@@ -570,7 +570,7 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">sd</span>(bootstrap_estimates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 747050.7</code></pre>
+<pre><code>[1] 853093.5</code></pre>
 </div>
 </div>
 <p>Middle 95% of bootstrap estimates</p>
@@ -578,7 +578,7 @@
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">quantile</span>(<span class="at">x =</span> bootstrap_estimates, <span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2.5%   97.5% 
-4298721 7302812 </code></pre>
+4691641 8036999 </code></pre>
 </div>
 </div>
 </section>
@@ -591,14 +591,14 @@
 <p>Middle 95% of bootstrap estimates is a confidence interval.</p>
 <ul>
 <li>The true population mean salary is $4,965,481</li>
-<li>Our sample mean is $5,736,834</li>
+<li>Our sample mean is $6,254,938</li>
 <li>Our confidence interval is:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">quantile</span>(<span class="at">x =</span> bootstrap_estimates, <span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2.5%   97.5% 
-4298721 7302812 </code></pre>
+4691641 8036999 </code></pre>
 </div>
 </div>
 <p>Across repeated samples, 95% of intervals constructed this way will contain the population mean salary.</p>
