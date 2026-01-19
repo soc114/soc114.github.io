@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression Discontinuity – Social Data Science</title>
+<title>Problem Set 3: Estimator and Bootstrap – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +64,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../topics/17_iv.html" rel="next">
-<link href="../topics/15_did.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -69,6 +102,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -175,7 +237,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/15_did.html">Causal Inference with Unmeasured Confounding</a></li><li class="breadcrumb-item"><a href="../topics/16_rd.html">Regression Discontinuity</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 3: Estimator and Bootstrap</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -353,7 +415,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/16_rd.html" class="sidebar-item-text sidebar-link active">
+  <a href="../topics/16_rd.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regression Discontinuity</span></a>
   </div>
 </li>
@@ -370,15 +432,29 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#info-to-get-you-started" id="toc-info-to-get-you-started" class="nav-link active" data-scroll-target="#info-to-get-you-started">Info to get you started</a></li>
+  <li><a href="#write-an-estimator-function" id="toc-write-an-estimator-function" class="nav-link" data-scroll-target="#write-an-estimator-function">1. Write an estimator function</a></li>
+  <li><a href="#point-estimate" id="toc-point-estimate" class="nav-link" data-scroll-target="#point-estimate">2. Point estimate</a></li>
+  <li><a href="#bootstrap-draws" id="toc-bootstrap-draws" class="nav-link" data-scroll-target="#bootstrap-draws">3. Bootstrap draws</a></li>
+  <li><a href="#confidence-interval" id="toc-confidence-interval" class="nav-link" data-scroll-target="#confidence-interval">4. Confidence interval</a></li>
+  <li><a href="#write-a-ratio-estimator" id="toc-write-a-ratio-estimator" class="nav-link" data-scroll-target="#write-a-ratio-estimator">5. Write a ratio estimator</a></li>
+  <li><a href="#point-estimate-for-the-ratio" id="toc-point-estimate-for-the-ratio" class="nav-link" data-scroll-target="#point-estimate-for-the-ratio">6. Point estimate for the ratio</a></li>
+  <li><a href="#bootstrap-the-ratio-estimator" id="toc-bootstrap-the-ratio-estimator" class="nav-link" data-scroll-target="#bootstrap-the-ratio-estimator">7. Bootstrap the ratio estimator</a></li>
+  <li><a href="#confidence-interval-for-the-ratio" id="toc-confidence-interval-for-the-ratio" class="nav-link" data-scroll-target="#confidence-interval-for-the-ratio">8. Confidence interval for the ratio</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/15_did.html">Causal Inference with Unmeasured Confounding</a></li><li class="breadcrumb-item"><a href="../topics/16_rd.html">Regression Discontinuity</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regression Discontinuity</h1>
+<h1 class="title">Problem Set 3: Estimator and Bootstrap</h1>
 </div>
 
 
@@ -395,11 +471,111 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<blockquote class="blockquote">
-<p>Topic for 3/4.</p>
-</blockquote>
+<p>For this problem set, we will summarize wealth gaps using data from the 2022 Survey of Consumer Finances. We accessed these data via the <a href="https://sda.berkeley.edu/sdaweb/analysis/?dataset=scfcomb2022">Berkeley Survey Documentation and Analysis</a> website and prepared the data file <a href="../data/scf_prepared.csv">scf_prepared.csv</a> that you can load directly with the line of code below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>scf_prepared <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://info3370.github.io/data/scf_prepared.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A row of these data corresponds to a household. These data contain three variables:</p>
+<ul>
+<li><code>race</code> of the household respondent, coded in categories White, Black, Hispanic, Asian, and Other.</li>
+<li><code>wealth</code> is the net worth of the household (assets minus debts), with households below $10,000 recoded to a bottom-code of $10,000</li>
+<li><code>weight</code> is a sample weight (the inverse probability of sample inclusion)</li>
+</ul>
+<p>Below we have info to get you started. The problem set questions start in the section <a href="#write-an-estimator-function">write an estimator function</a>.</p>
+<section id="info-to-get-you-started" class="level2">
+<h2 class="anchored" data-anchor-id="info-to-get-you-started">Info to get you started</h2>
+<p>This problem set will summarize wealth by the <strong>geometric mean</strong>, which is a summary statistic often used for distributions with long right tails. This summary statistic can be understood in steps:</p>
+<ul>
+<li>Transform <span class="math inline">\(X\)</span> to <span class="math inline">\(\text{log}(X)\)</span> to bring in the long right tail</li>
+<li>Summarize the transformed distribution by its mean</li>
+<li>Exponentiate the summary to move back to the scale of <span class="math inline">\(X\)</span> (since <span class="math inline">\(e^{\text{log}(X)} = X\)</span>)</li>
+</ul>
+<p>The figure below visualizes these steps to build intuition.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pset3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The code below applies these steps to the <code>scf_prepared</code> data to estimate the geometric mean of household wealth.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>scf_prepared <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creates a new variable log_wealth</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># which is the log of the wealth variable</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_wealth =</span> <span class="fu">log</span>(wealth)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Summarizes log wealth</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># by its weighted mean</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># (weight is the inverse probability</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># of sample inclusion)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_log_wealth =</span> <span class="fu">weighted.mean</span>(</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> log_wealth, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">w =</span> weight</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a new variable geo_mean which</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># is the exponentiated mean of the log wealth</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">geo_mean =</span> <span class="fu">exp</span>(mean_log_wealth)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pull the result out of the tibble</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># object to return a number</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(geo_mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 161195.7</code></pre>
+</div>
+</div>
+<p>Now it is your turn! The code above will be useful in the problem set parts below.</p>
+</section>
+<section id="write-an-estimator-function" class="level2">
+<h2 class="anchored" data-anchor-id="write-an-estimator-function">1. Write an estimator function</h2>
+<p>We want to use the code above many times, on many different samples. To do this, write a function called <code>geo_mean_estimator</code>. Your function should have one argument named <code>data</code>, which will be a <code>tibble</code> object in the format of <code>scf_prepared</code>. Your function should take <code>data</code> and calculate a summary statistic: the geometric mean.</p>
+<p>You can use the code above within the body of your function. For help, see <a href="https://r4ds.hadley.nz/functions.html">R4DS Ch 25</a>.</p>
+</section>
+<section id="point-estimate" class="level2">
+<h2 class="anchored" data-anchor-id="point-estimate">2. Point estimate</h2>
+<p>Apply your <code>geo_mean_estimator</code> function with <code>data = scf_prepared</code>. Store the result in an object called <code>geo_mean_estimate</code>.</p>
+</section>
+<section id="bootstrap-draws" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-draws">3. Bootstrap draws</h2>
+<p>Bootstrap your estimator 1,000 times. Store your bootstrap draws in an object named <code>bootstrap_draws</code>.</p>
+<p>How you do this is up to you. There are at least two viable options:</p>
+<ol type="a">
+<li>You can initialize a vector <code>bootstrap_draws</code> as in class. Then write a for loop to populate it. See lecture slides on <a href="https://soc114.github.io/slides/lec04_bootstrap/lec04_bootstrap.html#/how-to-write-a-for-loop">for loops</a>.</li>
+<li>You can use the <code>replicate(n, expr)</code> function where the <code>n</code> argument is the number of times to call the expression in the <code>expr</code> argument. See <a href="https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/">this blog</a>.</li>
+</ol>
+<p>Whatever method you use, you should use <code>slice_sample(prop = 1, replace = TRUE)</code> to resample the dataset with replacement for each bootstrap draw. See lecture slides on <a href="https://soc114.github.io/slides/lec04_bootstrap/lec04_bootstrap.html#/how-to-generate-bootstrap-samples">how to generate bootstrap samples</a>.</p>
+</section>
+<section id="confidence-interval" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-interval">4. Confidence interval</h2>
+<p>Construct a 95% confidence interval for the geometric mean by taking the 2.5 and 97.5 percentiles of the bootstrap draws. Store this in an object named <code>confidence_interval</code>.</p>
+</section>
+<section id="write-a-ratio-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="write-a-ratio-estimator">5. Write a ratio estimator</h2>
+<p>Now write a new function named <code>ratio_estimator</code> that estimates a ratio: <span class="math display">\[
+\frac{\text{geometric mean among white respondent households}}{\text{geometric mean among Black respondent households}}
+\]</span> In words, this summary is how many dollars of wealth White households hold per dollar held by Black households, as summarized by the geometric mean.</p>
+<p>You might consider using the <code>geo_mean_estimator()</code> function you already wrote within your <code>ratio_estimator()</code> function.</p>
+</section>
+<section id="point-estimate-for-the-ratio" class="level2">
+<h2 class="anchored" data-anchor-id="point-estimate-for-the-ratio">6. Point estimate for the ratio</h2>
+<p>Apply <code>ratio_estimator</code> with <code>data = scf_prepared</code> to produce a point estimate. Store the result in <code>ratio_estimate</code>.</p>
+</section>
+<section id="bootstrap-the-ratio-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-the-ratio-estimator">7. Bootstrap the ratio estimator</h2>
+<p>Bootstrap the ratio estimator with 1,000 draws. Store the bootstrap estimates in an object called <code>ratio_bootstrap</code>.</p>
+</section>
+<section id="confidence-interval-for-the-ratio" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-interval-for-the-ratio">8. Confidence interval for the ratio</h2>
+<p>Construct a 95% confidence interval for the ratio by taking the 2.5 and 97.5 percentiles of the bootstrap draws. Store this in an object named <code>ratio_confidence_interval</code>.</p>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -801,18 +977,6 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../topics/15_did.html" class="pagination-link" aria-label="Difference in Difference">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Difference in Difference</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../topics/17_iv.html" class="pagination-link" aria-label="Instrumental Variables">
-        <span class="nav-page-text">Instrumental Variables</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
