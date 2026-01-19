@@ -25,7 +25,7 @@ scf_prepared <- read_csv("../data/scf.csv") |>
 ```
 
 ```{r, eval = F}
-scf_prepared <- read_csv("https://info3370.github.io/data/scf_prepared.csv")
+scf_prepared <- read_csv("https://soc114.github.io/data/scf_prepared.csv")
 ```
 
 A row of these data corresponds to a household. These data contain three variables:

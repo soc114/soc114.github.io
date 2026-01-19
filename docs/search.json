@@ -1429,7 +1429,7 @@
     "href": "psets/pset3.html",
     "title": "Problem Set 3: Estimator and Bootstrap",
     "section": "",
-    "text": "For this problem set, we will summarize wealth gaps using data from the 2022 Survey of Consumer Finances. We accessed these data via the Berkeley Survey Documentation and Analysis website and prepared the data file scf_prepared.csv that you can load directly with the line of code below.\nscf_prepared &lt;- read_csv(\"https://info3370.github.io/data/scf_prepared.csv\")\nA row of these data corresponds to a household. These data contain three variables:\nBelow we have info to get you started. The problem set questions start in the section write an estimator function."
+    "text": "For this problem set, we will summarize wealth gaps using data from the 2022 Survey of Consumer Finances. We accessed these data via the Berkeley Survey Documentation and Analysis website and prepared the data file scf_prepared.csv that you can load directly with the line of code below.\nscf_prepared &lt;- read_csv(\"https://soc114.github.io/data/scf_prepared.csv\")\nA row of these data corresponds to a household. These data contain three variables:\nBelow we have info to get you started. The problem set questions start in the section write an estimator function."
   },
   {
     "objectID": "psets/pset3.html#info-to-get-you-started",
