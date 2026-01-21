@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
+
+  <title>Social Data Science – Linear Regression</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Linear Regression</h1>
+  <p class="subtitle">UCLA Soc 114</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="linear-regression-learning-goals" class="slide level2">
+<h2>Linear regression: Learning goals</h2>
+<p>Some things you may know</p>
+<ul>
+<li>How to fit a linear model</li>
+<li>How to make predictions</li>
+</ul>
+<p>Data science ideas</p>
+<ul>
+<li>Why model at all?</li>
+<li>Penalized linear regression</li>
+</ul>
+</section>
+<section id="data-for-illustration" class="slide level2">
+<h2>Data for illustration</h2>
+<p>U.S. adult income by</p>
+<ul>
+<li>sex (male, female)</li>
+<li>age (30–50)</li>
+<li>year (2010–2019)</li>
+</ul>
+<p>among those working 35+ hours per week for 50+ weeks per year. Data are simulated based on the 2010–2019 American Community Survey (ACS).</p>
+</section>
+<section id="data-for-illustration-1" class="slide level2">
+<h2>Data for illustration</h2>
+<p>The function below will simulate data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>simulate <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>) {</span>
+<span id="cb1-2"><a></a>  <span class="fu">read_csv</span>(<span class="st">"https://ilundberg.github.io/description/assets/truth.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a></a>    <span class="fu">slice_sample</span>(<span class="at">n =</span> n, <span class="at">weight_by =</span> weight, <span class="at">replace =</span> T) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a></a>    <span class="fu">mutate</span>(<span class="at">income =</span> <span class="fu">exp</span>(<span class="fu">rnorm</span>(<span class="fu">n</span>(), meanlog, sdlog))) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a></a>    <span class="fu">select</span>(year, age, sex, income)</span>
+<span id="cb1-6"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-for-illustration-2" class="slide level2">
+<h2>Data for illustration</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>simulated <span class="ot">&lt;-</span> <span class="fu">simulate</span>(<span class="at">n =</span> <span class="fl">3e4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30,000 × 4
+   year   age sex    income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1  2011    48 female 93676.
+2  2012    38 female 98805.
+3  2013    38 female 52330.
+# ℹ 29,997 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="conditional-expectation" class="slide level2">
+<h2>Conditional expectation</h2>
+<div class="fragment">
+<p>Mean of an outcome within a population subgroup.</p>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>expectation</strong> refers to taking a mean</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>conditional</strong> refers to within a subgroup</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Example: Mean income among females age 47 in 2019</p>
+</div>
+<div class="fragment">
+<p><strong>Task.</strong> Estimate this in our data.</p>
+</div>
+</section>
+<section id="code-find-the-subgroup" class="slide level2">
+<h2>Code: Find the subgroup</h2>
+<p><code>filter()</code> restricts our data to cases meeting requirements:</p>
+<ul>
+<li>the <code>sex</code> variable equals the value <code>female</code></li>
+<li>the <code>age</code> variable equals the value <code>47</code></li>
+<li>the <code>year</code> variable equals the value <code>2019</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>subgroup <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a></a>  <span class="fu">filter</span>(age <span class="sc">==</span> <span class="dv">47</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="code-estimate-the-mean" class="slide level2">
+<h2>Code: Estimate the mean</h2>
+<p><code>summarize()</code> aggregates to the mean</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>subgroup <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">summarize</span>(<span class="at">conditional_expectation =</span> <span class="fu">mean</span>(income))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  conditional_expectation
+                    &lt;dbl&gt;
+1                  71530.</code></pre>
+</div>
+</div>
+</section>
+<section id="code-mean-in-many-subgroups" class="slide level2">
+<h2>Code: Mean in many subgroups</h2>
+<div class="fragment">
+<p>With <code>group_by</code>, you can <code>summarize</code> many subgroups</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>simulated <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a></a>  <span class="fu">group_by</span>(sex, age, year) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a></a>  <span class="fu">summarize</span>(<span class="at">conditional_expectation =</span> <span class="fu">mean</span>(income))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 420 × 4
+# Groups:   sex, age [42]
+  sex      age  year conditional_expectation
+  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;                   &lt;dbl&gt;
+1 female    30  2010                  45928.
+2 female    30  2011                  43688.
+3 female    30  2012                  42714.
+# ℹ 417 more rows</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="conditional-expectation-math" class="slide level2">
+<h2>Conditional expectation: Math</h2>
+<div class="fragment">
+<p>The <strong>conditional expectation function</strong> is the subgroup mean of <span class="math inline">\(Y\)</span> within a subgroup with the predictor values <span class="math inline">\(\vec{X} = \vec{x}\)</span>.</p>
+<p><span class="math display">\[
+f(\vec{x}) = \text{E}(Y\mid\vec{X} = \vec{x})
+\]</span></p>
+<p>To learn <span class="math inline">\(f(\vec{x})\)</span> from data is a central task in <strong>statistical learning</strong>.</p>
+</div>
+</section>
+<section>
+<section id="statistical-learning-by-pooling-information" class="title-slide slide level1 center">
+<h1>Statistical Learning by Pooling Information</h1>
+
+</section>
+<section id="a-subgroup-is-small" class="slide level2">
+<h2>A subgroup is small</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>simulated <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">filter</span>(age <span class="sc">==</span> <span class="dv">47</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 67 × 4
+   year   age sex    income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1  2019    47 female 15761.
+2  2019    47 female 32995.
+3  2019    47 female 83967.
+# ℹ 64 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Very few cases <span class="math inline">\(\rightarrow\)</span> statistically uncertain</p>
+</div>
+<div class="fragment">
+<p><strong>How to better estimate for 47-year-old females in 2019?</strong></p>
+</div>
+</section>
+<section id="pooling-information-across-subgroups" class="slide level2">
+<h2>Pooling information across subgroups</h2>
+<div class="fragment">
+<p>We have many female respondents in 2019. Few are age 47.</p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>simulated <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,427 × 4
+   year   age sex    income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1  2019    32 female 52130.
+2  2019    46 female 17465.
+3  2019    41 female 66012.
+# ℹ 1,424 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Could we use them to learn about the 47-year-olds?</p>
+</div>
+</section>
+<section id="pooling-information-across-subgroups-1" class="slide level2">
+<h2>Pooling information across subgroups</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="pooling-information-across-subgroups-2" class="slide level2">
+<h2>Pooling information across subgroups</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section id="pooling-information-across-subgroups-3" class="slide level2">
+<h2>Pooling information across subgroups</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section id="practice-question" class="slide level2">
+<h2>Practice question</h2>
+<p><span class="math display">\[
+\text{E}(Y\mid X) = \beta_0 + \beta_1 X
+\]</span></p>
+<p>Suppose <span class="math inline">\(\beta_0 = 5\)</span> and <span class="math inline">\(\beta_1 = 3\)</span></p>
+<ol type="1">
+<li>What is the conditional mean when <span class="math inline">\(X = 0\)</span>?</li>
+<li>What is the conditional mean when <span class="math inline">\(X = 1\)</span>?</li>
+<li>What is the conditional mean when <span class="math inline">\(X = 2\)</span>?</li>
+<li>How much does the conditional mean change for each unit increase in <span class="math inline">\(X\)</span>?</li>
+</ol>
+</section>
+<section id="code" class="slide level2">
+<h2>Code</h2>
+<p>The next slides explain how to code a model in R.</p>
+</section>
+<section id="code-simulate-data" class="slide level2">
+<h2>Code: Simulate data</h2>
+<div class="fragment">
+<p>Generate some data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>simulated <span class="ot">&lt;-</span> <span class="fu">simulate</span>(<span class="at">n =</span> <span class="fl">3e4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Restrict to female respondents in 2019</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>female_2019 <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>(Below is <code>simulate</code> if you did not copy it before)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>simulate <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>) {</span>
+<span id="cb15-2"><a></a>  <span class="fu">read_csv</span>(<span class="st">"https://ilundberg.github.io/description/assets/truth.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a></a>    <span class="fu">slice_sample</span>(<span class="at">n =</span> n, <span class="at">weight_by =</span> weight, <span class="at">replace =</span> T) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a></a>    <span class="fu">mutate</span>(<span class="at">income =</span> <span class="fu">exp</span>(<span class="fu">rnorm</span>(<span class="fu">n</span>(), meanlog, sdlog))) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a></a>    <span class="fu">select</span>(year, age, sex, income)</span>
+<span id="cb15-6"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="code-learn-a-model" class="slide level2">
+<h2>Code: Learn a model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb16-2"><a></a>  <span class="at">formula =</span> income <span class="sc">~</span> age, </span>
+<span id="cb16-3"><a></a>  <span class="at">data =</span> female_2019</span>
+<span id="cb16-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>model</code> is an object of class <code>lm</code> for <strong>l</strong>inear <strong>m</strong>odel</li>
+<li><code>lm()</code> function creates this object</li>
+<li><code>formula</code> argument is a model formula
+<ul>
+<li><code>outcome ~ predictor</code> is the syntax</li>
+</ul></li>
+<li><code>data</code> is a dataset containing <code>outcome</code> and <code>predictor</code></li>
+</ul>
+</section>
+<section id="code-examine-the-learned-model" class="slide level2">
+<h2>Code: Examine the learned model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = income ~ age, data = female_2019)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-52689 -29518 -12682  16013 400507 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  47242.6     7518.3   6.284 4.37e-10 ***
+age            233.7      185.7   1.259    0.208    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 43360 on 1437 degrees of freedom
+Multiple R-squared:  0.001102,  Adjusted R-squared:  0.0004064 
+F-statistic: 1.585 on 1 and 1437 DF,  p-value: 0.2083</code></pre>
+</div>
+</div>
+</section>
+<section id="code-predict-for-a-new-x-value" class="slide level2">
+<h2>Code: Predict for a new X value</h2>
+<div class="fragment">
+<p>Define X value at which to predict</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>to_predict <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">age =</span> <span class="dv">47</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Predict for that subgroup</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+58228.57 </code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Recap: Our model <strong>pooled information</strong>:</p>
+<ul>
+<li>People of all ages contributed to <code>model</code></li>
+<li>Then we predicted at a single age</li>
+</ul>
+</div>
+</section>
+<section id="code-three-steps" class="slide level2">
+<h2>Code: Three steps</h2>
+<ul>
+<li>Estimate a model</li>
+<li>Define <span class="math inline">\(x\)</span> to predict</li>
+<li>Predict <span class="math inline">\(\hat{Y} = \hat{\text{E}}(Y\mid X = x)\)</span></li>
+</ul>
+<p><strong>What if you were going to do this many times on different data?</strong></p>
+</section>
+<section id="code-three-steps-in-a-function" class="slide level2">
+<h2>Code: Three steps in a function</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>estimator <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb22-2"><a></a>  <span class="co"># Learn the model from the data</span></span>
+<span id="cb22-3"><a></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> income <span class="sc">~</span> age, <span class="at">data =</span> data)</span>
+<span id="cb22-4"><a></a>  <span class="co"># Define our target subgroup</span></span>
+<span id="cb22-5"><a></a>  to_predict <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">age =</span> <span class="dv">47</span>)</span>
+<span id="cb22-6"><a></a>  <span class="co"># Predict</span></span>
+<span id="cb22-7"><a></a>  estimate <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict)</span>
+<span id="cb22-8"><a></a>  <span class="co"># Return the estimate</span></span>
+<span id="cb22-9"><a></a>  <span class="fu">return</span>(estimate)</span>
+<span id="cb22-10"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="code-all-together" class="slide level2">
+<h2>Code: All together</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">estimator</span>(<span class="at">data =</span> female_2019)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+58228.57 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>female_2019 <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a></a>  <span class="fu">estimator</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+58228.57 </code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>simulated <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2010</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a></a>  <span class="fu">estimator</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      1 
+54637.9 </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="practice-question-1" class="slide level2">
+<h2>Practice question</h2>
+<p>Below is the line fit to the population data. Suppose we want to learn <span class="math inline">\(\text{E}(\log(Y)\mid X = 30)\)</span>.</p>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"><ol type="1">
+<li>Why might this model make a misleading estimate?</li>
+<li>Why might the model still be useful?</li>
+</ol>
+</section></section>
+<section>
+<section id="additive-vs-interactive" class="title-slide slide level1 center">
+<h1>Additive vs Interactive</h1>
+
+</section>
+<section id="two-models" class="slide level2">
+<h2>Two models</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch"></section>
+<section id="two-models-1" class="slide level2">
+<h2>Two models</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
+<section id="two-models-2" class="slide level2">
+<h2>Two models</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section>
+<section id="two-models-interaction" class="slide level2">
+<h2>Two models: Interaction</h2>
+<p><span class="math display">\[
+\begin{aligned}
+\text{E}(Y\mid X, \text{Female}) &amp;= \beta_0^\text{Female} + \beta_1^\text{Female}\times \text{Age} \\
+\text{E}(Y\mid X, \text{Male}) &amp;= \beta_0^\text{Male} + \beta_1^\text{Male}\times \text{Age} \\
+\end{aligned}
+\]</span></p>
+<div class="fragment">
+<p>Equivalently, <span class="math display">\[\text{E}(Y \mid X, \text{Sex}) = \gamma_0 + \gamma_1(\text{Female}) + \gamma_2(\text{Age}) + \gamma_3 (\text{Age} \times \text{Female})\]</span> . . .</p>
+<p>where <span class="math display">\[\begin{aligned}
+\gamma_0 &amp;= \beta_0^\text{Male}
+&amp;\gamma_1 &amp;= \beta_0^\text{Female} - \beta_0^\text{Male} \\
+\gamma_2 &amp;= \beta_1^\text{Male}
+&amp;\gamma_3 &amp;= \beta_1^\text{Female} - \beta_1^\text{Male}
+\end{aligned}\]</span></p>
+</div>
+</section>
+<section id="two-models-interaction-in-code" class="slide level2">
+<h2>Two models: Interaction in code</h2>
+<p>Generate data in 2019 that vary in both <code>sex</code> and <code>age</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>all_2019 <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,204 × 4
+   year   age sex   income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+1  2019    41 male  50285.
+2  2019    45 male  31057.
+3  2019    34 male  66166.
+# ℹ 3,201 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="two-models-interaction-in-code-1" class="slide level2">
+<h2>Two models: Interaction in code</h2>
+<div class="fragment">
+<p>The <code>*</code> operator allows slopes to differ across groups</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb31-2"><a></a>  <span class="at">formula =</span> income <span class="sc">~</span> sex <span class="sc">*</span> age,</span>
+<span id="cb31-3"><a></a>  <span class="at">data =</span> all_2019</span>
+<span id="cb31-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="two-models-additive-model-in-r" class="slide level2">
+<h2>Two models: Additive model in R</h2>
+<p>The <code>+</code> operator assumes slopes are the same across groups</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb32-2"><a></a>  <span class="at">formula =</span> income <span class="sc">~</span> sex <span class="sc">+</span> age,</span>
+<span id="cb32-3"><a></a>  <span class="at">data =</span> all_2019</span>
+<span id="cb32-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-33-1.png" width="960" class="r-stretch"></section>
+<section id="interactions-make-lots-of-terms" class="slide level2">
+<h2>Interactions make lots of terms</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb33-2"><a></a>  <span class="at">formula =</span> income <span class="sc">~</span> sex <span class="sc">*</span> age <span class="sc">*</span> year,</span>
+<span id="cb33-3"><a></a>  <span class="at">data =</span> simulated</span>
+<span id="cb33-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = income ~ sex * age * year, data = simulated)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-81158 -33849 -14946  15839 972817 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)       1.387e+06  2.343e+06   0.592    0.554
+sexmale          -1.943e+06  3.117e+06  -0.623    0.533
+age              -6.273e+04  5.760e+04  -1.089    0.276
+year             -6.680e+02  1.163e+03  -0.574    0.566
+sexmale:age       6.646e+04  7.675e+04   0.866    0.386
+sexmale:year      9.519e+02  1.547e+03   0.615    0.538
+age:year          3.130e+01  2.859e+01   1.095    0.274
+sexmale:age:year -3.247e+01  3.809e+01  -0.852    0.394
+
+Residual standard error: 57790 on 29992 degrees of freedom
+Multiple R-squared:  0.03332,   Adjusted R-squared:  0.03309 
+F-statistic: 147.7 on 7 and 29992 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="interactions-make-lots-of-terms-1" class="slide level2">
+<h2>Interactions make lots of terms</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="penalized-regression" class="title-slide slide level1 center">
+<h1>Penalized Regression</h1>
+
+</section>
+<section id="penalized-regression-1" class="slide level2">
+<h2>Penalized regression</h2>
+<p>OLS is a linear model</p>
+<p><span class="math display">\[\text{E}(Y\mid\vec{X}) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots\]</span></p>
+<div class="fragment">
+<p>There are many linear models beyond OLS.</p>
+<ul>
+<li>(other ways of estimating the <span class="math inline">\(\beta\)</span> coefficients)</li>
+</ul>
+</div>
+</section>
+<section id="penalized-regression-2" class="slide level2">
+<h2>Penalized regression</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-37-1.png" width="960" class="r-stretch"></section>
+<section id="penalized-regression-3" class="slide level2">
+<h2>Penalized regression</h2>
+
+<img data-src="lec05_linear_regression_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" class="r-stretch"></section>
+<section id="unpenalized-regression-in-math" class="slide level2">
+<h2>Unpenalized regression: In math</h2>
+<p>OLS chose <span class="math inline">\(\alpha, \vec\beta\)</span> to minimize this function: <span class="math display">\[
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error}
+\end{aligned}
+\]</span> where <span class="math inline">\(\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j\)</span></p>
+</section>
+<section id="penalized-regression-in-math" class="slide level2">
+<h2>Penalized regression: In math</h2>
+<p>Penalized (ridge) regression chose <span class="math inline">\(\alpha, \vec\beta\)</span> to minimize this function: <span class="math display">\[
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error} + \underbrace{\lambda \sum_{j} \beta_j^2}_\text{Penalty Term}
+\end{aligned}
+\]</span> where <span class="math inline">\(\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j\)</span></p>
+</section>
+<section id="penalized-regression-code" class="slide level2">
+<h2>Penalized regression: Code</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>simulated <span class="ot">&lt;-</span> <span class="fu">simulate</span>(<span class="at">n =</span> <span class="fl">1e5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="penalized-regression-code-1" class="slide level2">
+<h2>Penalized regression: Code</h2>
+<p>The <code>glmnet</code> package supports penalized regression</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">library</span>(glmnet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="penalized-regression-code-2" class="slide level2">
+<h2>Penalized regression: Code</h2>
+<p>Create a model matrix of predictors</p>
+<ul>
+<li>Each column will correspond to a coefficient</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> age <span class="sc">*</span> sex <span class="sc">*</span> year, <span class="at">data =</span> simulated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>Create a vector of the outcomes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>y <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span> <span class="fu">pull</span>(income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="penalized-regression-code-3" class="slide level2">
+<h2>Penalized regression: Code</h2>
+<p>Use the <code>cv.glmnet</code> function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>penalized <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(</span>
+<span id="cb40-2"><a></a>  <span class="at">x =</span> X,    <span class="co"># model matrix we created</span></span>
+<span id="cb40-3"><a></a>  <span class="at">y =</span> y,    <span class="co"># outcome vector we created</span></span>
+<span id="cb40-4"><a></a>  <span class="at">alpha =</span> <span class="dv">0</span> <span class="co"># penalize sum of beta ^ 2</span></span>
+<span id="cb40-5"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="penalized-regression-code-4" class="slide level2">
+<h2>Penalized regression: Code</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb41-2"><a></a>  penalized,</span>
+<span id="cb41-3"><a></a>  <span class="at">newx =</span> X</span>
+<span id="cb41-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">summary</span>(yhat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lambda.1se   
+ Min.   :60582  
+ 1st Qu.:62568  
+ Median :65476  
+ Mean   :65063  
+ 3rd Qu.:67425  
+ Max.   :69405  </code></pre>
+</div>
+</div>
+</section>
+<section id="when-to-use-penalized-regression" class="slide level2">
+<h2>When to use penalized regression?</h2>
+<div class="fragment">
+<ul>
+<li>Many predictors and few observations
+<ul>
+<li>High-variance estimates</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>When you are willing to accept bias
+<ul>
+<li>Model will be a bit wrong on average</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="linear-regression-learning-goals-1" class="slide level2">
+<h2>Linear regression: Learning goals</h2>
+<p>Some things you may know</p>
+<ul>
+<li>How to fit a linear model</li>
+<li>How to make predictions</li>
+</ul>
+<p>Data science ideas</p>
+<ul>
+<li>Why model at all?</li>
+<li>Penalized linear regression</li>
+</ul>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

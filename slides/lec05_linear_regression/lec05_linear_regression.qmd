@@ -1,0 +1,784 @@
+---
+title: "Linear Regression"
+subtitle: "UCLA Soc 114"
+format:
+  revealjs: default # For the web slides
+  #beamer: default      # To generate the PDF version
+execute:
+  echo: true
+resources: 
+   - lec05_linear_regression.pdf
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(scales)
+library(foreach)
+options(pillar.print_max = 3, pillar.print_min = 3)
+theme_set(theme_classic())
+update_theme(text = element_text(size = 18))
+set.seed(90095)
+```
+
+## Linear regression: Learning goals
+
+Some things you may know
+
+- How to fit a linear model
+- How to make predictions
+
+Data science ideas
+
+- Why model at all?
+- Penalized linear regression
+
+## Data for illustration
+
+U.S. adult income by
+
+- sex (male, female)
+- age (30--50)
+- year (2010--2019)
+
+among those working 35+ hours per week for 50+ weeks per year. Data are simulated based on the 2010–2019 American Community Survey (ACS).
+
+## Data for illustration
+
+The function below will simulate data
+
+```{r}
+simulate <- function(n = 100) {
+  read_csv("https://ilundberg.github.io/description/assets/truth.csv") |>
+    slice_sample(n = n, weight_by = weight, replace = T) |>
+    mutate(income = exp(rnorm(n(), meanlog, sdlog))) |>
+    select(year, age, sex, income)
+}
+```
+
+## Data for illustration
+
+```{r}
+simulated <- simulate(n = 3e4)
+```
+```{r, echo = F}
+simulated
+```
+
+## Conditional expectation
+
+. . .
+
+Mean of an outcome within a population subgroup.
+
+. . .
+
+- **expectation** refers to taking a mean
+
+. . .
+
+- **conditional** refers to within a subgroup
+
+. . .
+
+Example: Mean income among females age 47 in 2019 
+
+. . .
+
+**Task.** Estimate this in our data.
+
+## Code: Find the subgroup
+
+`filter()` restricts our data to cases meeting requirements:
+
+- the `sex` variable equals the value `female`
+- the `age` variable equals the value `47`
+- the `year` variable equals the value `2019`
+
+```{r}
+subgroup <- simulated |>
+  filter(sex == "female") |>
+  filter(age == 47) |>
+  filter(year == 2019)
+```
+
+## Code: Estimate the mean
+
+`summarize()` aggregates to the mean
+
+```{r}
+subgroup |>
+  summarize(conditional_expectation = mean(income))
+```
+
+## Code: Mean in many subgroups
+
+. . .
+
+With `group_by`, you can `summarize` many subgroups
+
+```{r}
+simulated |>
+  group_by(sex, age, year) |>
+  summarize(conditional_expectation = mean(income))
+```
+
+## Conditional expectation: Math
+
+. . .
+
+The **conditional expectation function** is the subgroup mean of $Y$ within a subgroup with the predictor values $\vec{X} = \vec{x}$.
+
+$$
+f(\vec{x}) = \text{E}(Y\mid\vec{X} = \vec{x})
+$$
+
+To learn $f(\vec{x})$ from data is a central task in **statistical learning**.
+
+# Statistical Learning by Pooling Information
+
+## A subgroup is small
+
+. . .
+
+```{r}
+simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019) |>
+  filter(age == 47)
+```
+
+. . .
+
+Very few cases $\rightarrow$ statistically uncertain 
+
+. . .
+
+**How to better estimate for 47-year-old females in 2019?**
+
+## Pooling information across subgroups
+
+. . .
+
+We have many female respondents in 2019. Few are age 47.
+
+. . .
+
+```{r}
+simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019)
+```
+
+. . .
+
+Could we use them to learn about the 47-year-olds?
+
+## Pooling information across subgroups
+
+```{r, echo = FALSE, fig.height = 4}
+female_2019 <- simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019)
+fit <- lm(income ~ age, data = female_2019)
+target_yhat <- predict(fit, newdata = tibble(age = 47))
+p <- female_2019 |>
+  mutate(yhat = predict(fit)) |>
+  group_by(sex, age) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray") +
+  scale_y_continuous(
+    name = "Annual Income Y",
+    labels = label_currency(),
+  ) +
+  labs(x = "Age X")
+p
+```
+
+## Pooling information across subgroups
+
+```{r, echo = F, fig.height = 4}
+p <- p +
+  # Regression line
+  geom_line(aes(y = yhat)) +
+  annotate(
+    geom = "text", x = 37, y = 50e3, 
+    label = "E('Y | X = x') == beta[0] + beta[1] * x",
+    parse = TRUE, size = 10
+  ) 
+p
+```
+
+## Pooling information across subgroups
+
+```{r, echo = F, fig.height = 4}
+p <- p +
+  # Prediction
+  geom_segment(
+    x = 47, xend = 47, y = -Inf, yend = target_yhat, 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  annotate(geom = "text", x = 47.5, y = 45e3, label = "X = 47", color = "#2774AE", hjust = 0, size = 10) +
+  geom_point(
+    x = 47, y = target_yhat, 
+    color = "#2774AE", size = 3
+  ) +
+  geom_segment(
+    x = 47, xend = -Inf, y = target_yhat, yend = target_yhat, 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  annotate(
+    geom = "text", x = 40, y = target_yhat, 
+    label = "hat(Y) == ~hat(E)('Y | X' == 47) == ~hat(beta)[0] + hat(beta)[1]%*%47", 
+    parse = TRUE, size = 10,
+    color = "#2774AE",
+    vjust = -1
+  )
+p
+```
+
+## Practice question
+
+$$
+\text{E}(Y\mid X) = \beta_0 + \beta_1 X
+$$
+
+Suppose $\beta_0 = 5$ and $\beta_1 = 3$
+
+1. What is the conditional mean when $X = 0$?
+2. What is the conditional mean when $X = 1$?
+3. What is the conditional mean when $X = 2$?
+4. How much does the conditional mean change for each unit increase in $X$?
+
+## Code
+
+The next slides explain how to code a model in R.
+
+## Code: Simulate data
+
+. . .
+
+Generate some data
+```{r}
+simulated <- simulate(n = 3e4)
+```
+
+. . .
+
+Restrict to female respondents in 2019
+```{r}
+female_2019 <- simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019)
+```
+
+. . .
+
+(Below is `simulate` if you did not copy it before)
+
+```{r, eval = F}
+simulate <- function(n = 100) {
+  read_csv("https://ilundberg.github.io/description/assets/truth.csv") |>
+    slice_sample(n = n, weight_by = weight, replace = T) |>
+    mutate(income = exp(rnorm(n(), meanlog, sdlog))) |>
+    select(year, age, sex, income)
+}
+```
+
+## Code: Learn a model
+
+```{r}
+model <- lm(
+  formula = income ~ age, 
+  data = female_2019
+)
+```
+
+- `model` is an object of class `lm` for **l**inear **m**odel
+- `lm()` function creates this object
+- `formula` argument is a model formula
+     - `outcome ~ predictor` is the syntax
+- `data` is a dataset containing `outcome` and `predictor`
+
+## Code: Examine the learned model
+
+```{r}
+summary(model)
+```
+
+## Code: Predict for a new X value
+
+. . .
+
+Define X value at which to predict
+```{r}
+to_predict <- tibble(age = 47)
+```
+
+. . .
+
+Predict for that subgroup
+```{r}
+predict(model, newdata = to_predict)
+```
+
+. . .
+
+Recap: Our model **pooled information**:
+
+- People of all ages contributed to `model`
+- Then we predicted at a single age
+
+## Code: Three steps
+
+- Estimate a model
+- Define $x$ to predict
+- Predict $\hat{Y} = \hat{\text{E}}(Y\mid X = x)$
+
+**What if you were going to do this many times on different data?**
+
+## Code: Three steps in a function
+
+. . .
+
+```{r}
+estimator <- function(data) {
+  # Learn the model from the data
+  model <- lm(formula = income ~ age, data = data)
+  # Define our target subgroup
+  to_predict <- tibble(age = 47)
+  # Predict
+  estimate <- predict(model, newdata = to_predict)
+  # Return the estimate
+  return(estimate)
+}
+```
+
+## Code: All together
+
+```{r}
+estimator(data = female_2019)
+```
+
+. . .
+
+```{r}
+female_2019 |>
+  estimator()
+```
+
+. . .
+
+```{r}
+simulated |> 
+  filter(sex == "female") |>
+  filter(year == 2010) |>
+  estimator()
+```
+
+## Practice question
+
+Below is the line fit to the population data. Suppose we want to learn $\text{E}(\log(Y)\mid X = 30)$.
+
+```{r, echo = FALSE, fig.height = 3}
+read_csv("https://ilundberg.github.io/description/assets/truth.csv") |>
+  filter(sex == "female" & year == 2019) |>
+  ggplot(aes(x = age, y = meanlog)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  labs(
+    y = "Mean of log income",
+    x = "Age",
+    caption = "Among female respondents in 2019"
+  )
+```
+
+1. Why might this model make a misleading estimate?
+2. Why might the model still be useful?
+
+# Additive vs Interactive
+
+## Two models
+
+```{r, echo = FALSE, fig.height = 4}
+all_2019 <- simulated |>
+  filter(year == 2019)
+model <- lm(income ~ age*sex, data = all_2019)
+target_subgroup <- tibble(age = 47, sex = c("female","male"))
+target_subgroup$yhat <- predict(model, newdata = target_subgroup)
+
+p <- all_2019 |>
+  mutate(yhat = predict(model)) |>
+  group_by(sex, age) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray", size = 1) +
+  scale_y_continuous(
+    name = "Annual Income Y",
+    labels = label_currency(),
+  ) +
+  labs(x = "Age X") +
+  facet_wrap(~sex)
+p
+```
+
+## Two models
+
+```{r, echo = F, fig.height = 4}
+p2 <- p +
+  # Regression line
+  geom_line(aes(y = yhat)) +
+  geom_text(
+    data = tibble(
+      sex = c("female","male"),
+      age = 30, income = 51e3,
+      label = c(
+        "E('Y | X = x, Sex = Female') == {beta[0]}^'Female' + {beta[1]}^'Female' * x",
+        "E('Y | X = x, Sex = Male') == {beta[0]}^'Male' + {beta[1]}^'Male' * x"
+      )
+    ),
+    aes(label = label),
+    parse = T, size = 5, hjust = 0
+  )
+p2
+```
+
+## Two models
+
+```{r, echo = F, fig.height = 4}
+p3 <- p2 +
+  # Prediction
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = 47, y = -Inf, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = -Inf, y = yhat, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_point(
+    data = target_subgroup,
+    aes(x = age, y = yhat), 
+    color = "#2774AE", size = 3
+  )
+p3
+```
+
+## Two models: Interaction
+
+$$
+\begin{aligned}
+\text{E}(Y\mid X, \text{Female}) &= \beta_0^\text{Female} + \beta_1^\text{Female}\times \text{Age} \\
+\text{E}(Y\mid X, \text{Male}) &= \beta_0^\text{Male} + \beta_1^\text{Male}\times \text{Age} \\
+\end{aligned}
+$$
+
+. . .
+
+Equivalently,
+$$\text{E}(Y \mid X, \text{Sex}) = \gamma_0 + \gamma_1(\text{Female}) + \gamma_2(\text{Age}) + \gamma_3 (\text{Age} \times \text{Female})$$
+. . .
+
+where
+$$\begin{aligned}
+\gamma_0 &= \beta_0^\text{Male} 
+&\gamma_1 &= \beta_0^\text{Female} - \beta_0^\text{Male} \\
+\gamma_2 &= \beta_1^\text{Male} 
+&\gamma_3 &= \beta_1^\text{Female} - \beta_1^\text{Male}
+\end{aligned}$$
+
+## Two models: Interaction in code
+
+Generate data in 2019 that vary in both `sex` and `age`
+
+```{r}
+all_2019 <- simulated |>
+  filter(year == 2019)
+```
+```{r, echo = F}
+all_2019
+```
+
+## Two models: Interaction in code
+
+. . .
+
+The `*` operator allows slopes to differ across groups
+
+```{r}
+model <- lm(
+  formula = income ~ sex * age,
+  data = all_2019
+)
+```
+
+```{r, echo = F, fig.height = 4}
+p3
+```
+
+## Two models: Additive model in R
+
+The `+` operator assumes slopes are the same across groups
+
+```{r}
+model <- lm(
+  formula = income ~ sex + age,
+  data = all_2019
+)
+```
+
+```{r, echo = F, fig.height = 4}
+target_subgroup <- tibble(age = 47, sex = c("female","male"))
+target_subgroup$yhat <- predict(model, newdata = target_subgroup)
+
+all_2019 |>
+  mutate(yhat = predict(model)) |>
+  group_by(sex, age) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray", size = 1) +
+  scale_y_continuous(
+    name = "Annual Income Y",
+    labels = label_currency(),
+  ) +
+  labs(x = "Age X") +
+  facet_wrap(~sex) +
+  # Regression line
+  geom_line(aes(y = yhat)) +
+  # Prediction
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = 47, y = -Inf, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = -Inf, y = yhat, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_point(
+    data = target_subgroup,
+    aes(x = age, y = yhat), 
+    color = "#2774AE", size = 3
+  )
+```
+
+## Interactions make lots of terms
+
+```{r}
+model <- lm(
+  formula = income ~ sex * age * year,
+  data = simulated
+)
+```
+
+. . .
+
+```{r}
+summary(model)
+```
+
+## Interactions make lots of terms
+
+```{r, echo = FALSE, fig.height = 4}
+simulated |>
+  mutate(yhat = predict(model)) |>
+  group_by(sex, age, year) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray", size = .7) +
+  facet_grid(sex ~ year) +
+  geom_line(aes(y = yhat)) +
+  scale_y_continuous(
+    name = "Income Y",
+    labels = label_currency()
+  ) +
+  scale_x_continuous(breaks = c(35,45), name = "Age X")
+```
+
+# Penalized Regression
+
+## Penalized regression
+
+OLS is a linear model
+
+$$\text{E}(Y\mid\vec{X}) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots$$
+
+. . .
+
+There are many linear models beyond OLS.
+
+- (other ways of estimating the $\beta$ coefficients)
+
+## Penalized regression
+
+```{r, echo = FALSE}
+simulate_female_2019 <- function(n) {
+  read_csv("https://ilundberg.github.io/description/assets/truth.csv") |>
+  filter(year == 2019 & sex == "female") |>
+  slice_sample(n = n, weight_by = weight, replace = T) |>
+  mutate(income = exp(rnorm(n(), meanlog, sdlog))) |>
+  select(year, age, sex, income)
+}
+simulated <- simulate_female_2019(n = 100)
+
+fit_models <- function(data, lambda = 5e3) {
+  # Mean-center X and y
+  # For simplicity, X is centered at 39.89634
+  # which is its population mean in this simulation.
+  X <- data$age - 39.89634
+  y <- data$income - mean(data$income)
+  ridge <- solve(t(X) %*% X + lambda, t(X) %*% y)
+  ols <- coef(lm(y ~ -1 + X))
+  newX <- 47 - 39.89634
+  return(
+    tibble(
+      model = c("ols","ridge"),
+      # Return intercept with X centered at 0
+      intercept = mean(data$income) - 39.89634 * c(ols, ridge),
+      slope = c(ols, ridge),
+      yhat = c(
+        mean(data$income) + newX * ols,
+        mean(data$income) + newX * ridge
+      )
+    )
+  )
+}
+results <- foreach(rep = 1:50, .combine = "rbind") %do% {
+  simulate_female_2019(n = 100) |>
+    fit_models(lambda = 1e4) |>
+    mutate(rep = rep)
+}
+results |>
+  mutate(model = ifelse(model == "ols", "Unpenalized","Penalized")) |>
+  ggplot() +
+  geom_segment(
+    aes(x = 30, xend = 50,
+        y = intercept + 30 * slope,
+        yend = intercept + 50 * slope,
+        group = rep),
+    alpha = .8, color = "gray"
+  ) +
+  facet_wrap(~model) +
+  scale_y_continuous(
+    labels = label_currency()
+  ) +
+  labs(
+    x = "Age", y = "Income", caption = "Among female respondents in 2019"
+  )
+
+```
+
+## Penalized regression
+
+```{r, echo = FALSE}
+results |>
+  mutate(model = ifelse(model == "ols", "Unpenalized","Penalized")) |>
+  ggplot(aes(x = model, y = yhat)) +
+  geom_jitter(width = .1, height = 0) +
+  scale_y_continuous(labels = label_currency()) +
+  labs(
+    y = "Predicted mean income\namong 47-year-olds",
+    x = "Model",
+    caption = "Each dot is an estimate on a different\nsample from the population"
+  )
+```
+
+## Unpenalized regression: In math
+
+OLS chose $\alpha, \vec\beta$ to minimize this function:
+$$
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error}
+\end{aligned}
+$$
+where $\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j$
+
+## Penalized regression: In math
+
+Penalized (ridge) regression chose $\alpha, \vec\beta$ to minimize this function:
+$$
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error} + \underbrace{\lambda \sum_{j} \beta_j^2}_\text{Penalty Term}
+\end{aligned}
+$$
+where $\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j$
+
+## Penalized regression: Code
+
+```{r}
+simulated <- simulate(n = 1e5)
+```
+
+## Penalized regression: Code
+
+The `glmnet` package supports penalized regression
+```{r}
+library(glmnet)
+```
+
+## Penalized regression: Code
+
+Create a model matrix of predictors
+
+- Each column will correspond to a coefficient
+
+```{r}
+X <- model.matrix(~ age * sex * year, data = simulated)
+```
+
+. . .
+
+Create a vector of the outcomes
+```{r}
+y <- simulated |> pull(income)
+```
+
+## Penalized regression: Code
+
+Use the `cv.glmnet` function
+```{r}
+penalized <- cv.glmnet(
+  x = X,    # model matrix we created
+  y = y,    # outcome vector we created
+  alpha = 0 # penalize sum of beta ^ 2
+)
+```
+
+## Penalized regression: Code
+
+```{r}
+yhat <- predict(
+  penalized,
+  newx = X
+)
+```
+```{r}
+summary(yhat)
+```
+
+## When to use penalized regression?
+
+. . .
+
+- Many predictors and few observations
+     - High-variance estimates
+     
+. . .
+     
+- When you are willing to accept bias
+     - Model will be a bit wrong on average
+
+## Linear regression: Learning goals
+
+Some things you may know
+
+- How to fit a linear model
+- How to make predictions
+
+Data science ideas
+
+- Why model at all?
+- Penalized linear regression

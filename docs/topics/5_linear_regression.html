@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -370,8 +434,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#conditional-expectation" id="toc-conditional-expectation" class="nav-link active" data-scroll-target="#conditional-expectation">Conditional expectation</a>
+  <ul class="collapse">
+  <li><a href="#practice-question" id="toc-practice-question" class="nav-link" data-scroll-target="#practice-question">Practice question</a></li>
+  </ul></li>
+  <li><a href="#coding-a-linear-model" id="toc-coding-a-linear-model" class="nav-link" data-scroll-target="#coding-a-linear-model">Coding a linear model</a>
+  <ul class="collapse">
+  <li><a href="#practice-question-1" id="toc-practice-question-1" class="nav-link" data-scroll-target="#practice-question-1">Practice question</a></li>
+  </ul></li>
+  <li><a href="#additive-vs-interactive-models" id="toc-additive-vs-interactive-models" class="nav-link" data-scroll-target="#additive-vs-interactive-models">Additive vs interactive models</a></li>
+  <li><a href="#two-models-additive-model-in-r" id="toc-two-models-additive-model-in-r" class="nav-link" data-scroll-target="#two-models-additive-model-in-r">Two models: Additive model in R</a></li>
+  <li><a href="#penalized-regression" id="toc-penalized-regression" class="nav-link" data-scroll-target="#penalized-regression">Penalized Regression</a>
+  <ul class="collapse">
+  <li><a href="#penalized-regression-in-code" id="toc-penalized-regression-in-code" class="nav-link" data-scroll-target="#penalized-regression-in-code">Penalized regression in code</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -395,238 +478,482 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>To be written.</p>
-<!-- Could use same example for all modeling, potentially (linear, logistic, forest). -->
-<!-- > This is the second part of lecture for Feb 11. Slides are [here](../slides/lec11b_what_is_a_model/lec11b_what_is_a_model.pdf) -->
-<p>&lt;!– <!-- > The reading with this class is [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play." --> –&gt;</p>
-<!-- What is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression.  -->
-<!-- <!-- Then, we discuss why we would use a model. -->
-<p>–&gt;</p>
-<!-- At a high level, a model is a tool to share information across units with different $\vec{X}$ values when estimating subgroup summaries, such as the conditional mean $\text{E}(Y\mid\vec{X} = \vec{x})$ within the subgroup taking predictor value $\vec{X} = \vec{x}$. By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren't very many units observed in each subgroup. -->
-<!-- Later in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics. -->
-<!-- <!-- ::: columns -->
-<p>–&gt;</p>
-<!-- <!-- ::: {.column width="30%"} -->
-<p>–&gt; <!-- <!--  --> –&gt; <!-- <!-- ::: --> –&gt;</p>
-<!-- <!-- ::: {.column width="30%"} -->
-<p>–&gt; <!-- <!--  --> –&gt; <!-- <!-- ::: --> –&gt;</p>
-<!-- <!-- ::: {.column width="30%"} -->
-<p>–&gt; <!-- <!--  --> –&gt; <!-- <!-- ::: --> –&gt;</p>
-<!-- <!-- ::: -->
-<p>–&gt;</p>
-<!-- ## A simple example -->
-<!-- As an example, we continue to use the data on baseball salaries, with a small twist. The file [`baseball_population.csv`](../data/baseball_population.csv) contains the following variables -->
-<!-- ```{r, echo = F, message = F, warning = F} -->
-<!-- library(tidyverse) -->
-<!-- library(scales) -->
-<!-- ``` -->
-<!-- ```{r, eval = F} -->
-<!-- population <- read_csv("https://soc114.github.io/data/baseball_population.csv") -->
-<!-- ``` -->
-<!-- ```{r, message = F, warning = F, echo = F} -->
-<!-- population <- read_csv("../data/baseball_population.csv") -->
-<!-- set.seed(14853) -->
-<!-- ``` -->
-<!-- - `player` is the player name -->
-<!-- - `team` is the team name -->
-<!-- - `salary` is the 2023 salary -->
-<!-- - `team_past_record` is the 2022 proportion of games won by that team -->
-<!-- - `team_past_salary` is the 2022 mean salary in that team -->
-<!-- ```{r, echo = F} -->
-<!-- truth <- population |> filter(team == "L.A. Dodgers") |> summarize(salary = mean(salary)) |> mutate(salary = label_dollar(scale = 1e-6, suffix = "m")(salary)) |> pull(salary) -->
-<!-- ``` -->
-<!-- Our goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is `r truth`. We will imagine that we don't know this number. Instead of having the full population, we will imagine we have -->
-<!-- * information on predictors for all players: position, team, team past record -->
-<!-- * information on salary for a random sample of 5 players per team -->
-<!-- Our estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams' players to help us make a better estimate of the Dodger mean salary. -->
-<!-- Our predictor will be the `team_past_salary` from the previous year. We assume that a team's past salary in 2022 tells us something about their mean salary in 2023. -->
-<!-- For illustration, draw a sample of 5 players per team -->
-<!-- ```{r} -->
-<!-- sample <- population |> -->
-<!--   group_by(team) |> -->
-<!--   sample_n(5) |> -->
-<!--   ungroup() -->
-<!-- ``` -->
-<!-- Construct a tibble with the observations to be predicted: the Dodgers. -->
-<!-- ```{r} -->
-<!-- to_predict <- population |> -->
-<!--   filter(team == "L.A. Dodgers") -->
-<!-- ``` -->
-<!-- ## Ordinary Least Squares -->
-<!-- We could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction -->
-<!-- $$\hat{Y}_i = \hat\alpha + \hat\beta X_i$$  -->
-<!-- with $\hat\alpha$ and $\hat\beta$ chosen to minimize the sum of squared errors, $\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2$. Visually, it minimizes all the line segments below. -->
-<!-- ```{r, echo = F, fig.height = 2} -->
-<!-- fit <- lm(salary ~ team_past_salary, data = sample) -->
-<!-- sample |> -->
-<!--   mutate(fitted = predict(fit)) |> -->
-<!--   arrange(team == "L.A. Dodgers") |> -->
-<!--   ggplot(aes(x = team_past_salary, y = salary)) + -->
-<!--   geom_point( -->
-<!--     aes(color = team == "L.A. Dodgers"), -->
-<!--     size = 1 -->
-<!--   ) + -->
-<!--   geom_line(aes(y = fitted)) + -->
-<!--   scale_y_continuous( -->
-<!--     name = "Mean Salary on Team in 2023", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   scale_x_continuous( -->
-<!--     name = "Mean Salary on Team in 2022", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   theme_minimal() + -->
-<!--   scale_color_manual( -->
-<!--     values = c("gray","dodgerblue"), -->
-<!--     name = element_blank(), -->
-<!--     labels = c("Other Teams","L.A. Dodgers") -->
-<!--   ) + -->
-<!--   ggtitle("Ordinary Least Squares") -->
-<!-- ``` -->
-<!-- Here is how to estimate an OLS model using R. -->
-<!-- ```{r} -->
-<!-- model <- lm(salary ~ team_past_salary, data = sample) -->
-<!-- ``` -->
-<!-- Then we could predict the mean salary for the Dodgers. -->
-<!-- ```{r} -->
-<!-- predicted <- to_predict |> -->
-<!--   mutate(predicted = predict(model, newdata = to_predict)) -->
-<!-- ``` -->
-<!-- We would report the mean predicted salary for the Dodgers. -->
-<!-- ```{r} -->
-<!-- predicted |> -->
-<!--   summarize(estimated_Dodger_mean = mean(predicted)) -->
-<!-- ``` -->
-<!-- Our model-based estimate compares to the true population mean of `r truth`. -->
-<!-- ## Logistic regression -->
-<!-- Sometimes the outcome is binary (taking the values `{0,1}` or `{FALSE,TRUE}`). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (`position == "DH"`) as a linear function of player salary. For illustration, we do this on the full population. -->
-<!-- ```{r} -->
-<!-- ols_binary_outcome <- lm( -->
-<!--   position == "C" ~ salary, -->
-<!--   data = population -->
-<!-- ) -->
-<!-- ``` -->
-<!-- Catchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making \$40 million is `r label_percent()(predict(ols_binary_outcome, newdata = tibble(salary = 40e6)))`! This prediction doesn't make a lot of sense. -->
-<!-- ```{r} -->
-<!-- #| code-fold: true -->
-<!-- population |> -->
-<!--   mutate(yhat = predict(ols_binary_outcome)) |> -->
-<!--   ggplot(aes(x = salary, y = yhat)) + -->
-<!--   geom_line() + -->
-<!--   geom_hline(yintercept = 0, linetype = "dashed") + -->
-<!--   scale_x_continuous( -->
-<!--     name = "Player Salary", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   scale_y_continuous( -->
-<!--     name = "Predicted Probability\nof Being a Catcher" -->
-<!--   ) + -->
-<!--   theme_minimal() + -->
-<!--   ggtitle("Modeling a binary outcome with a line") -->
-<!-- ``` -->
-<!-- Logistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval. -->
-<!-- ```{r, echo = F} -->
-<!-- tibble(p = seq(.01,.99,.001)) |> -->
-<!--   mutate(x = qlogis(p)) |> -->
-<!--   ggplot(aes(x = x, y = p)) + -->
-<!--   geom_line() + -->
-<!--   scale_x_continuous(name = expression(atop("Logistic Function of Probability","e.g."~hat(alpha)+X*hat(beta)))) + -->
-<!--   scale_y_continuous(name = "Probability\nP(Y = 1 | X)") + -->
-<!--   theme_minimal() + -->
-<!--   geom_hline(yintercept = c(0,1), linetype = "dashed", color = "gray") -->
-<!-- ``` -->
-<!-- Mathematically, logistic regression replaces $\text{E}(Y\mid\vec{X})$ on the left side of the equation with the logistic function. -->
-<!-- $$ -->
-<!-- \underbrace{\log\left(\frac{\text{P}(Y\mid\vec{X})}{1 - \text{P}(Y\mid\vec{X})}\right)}_\text{Logistic Function} = \alpha + \vec{X}'\vec\beta -->
-<!-- $$ -->
-<!-- In our example with the catchers, we can use logistic regression to model the probability of being a catcher using the `glm()` function. The `family = "binomial"` line tells the function that we want to estimate logistic regression (since "binomial" is a distribution for outcomes drawn at random with a given probability). -->
-<!-- ```{r} -->
-<!-- logistic_regression <- glm( -->
-<!--   position == "C" ~ salary, -->
-<!--   data = population, -->
-<!--   family = "binomial" -->
-<!-- ) -->
-<!-- ``` -->
-<!-- We can predict exactly as with OLS, except that we need to add the `type = "response"` argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined ($-\inf,\inf$). -->
-<!-- ```{r} -->
-<!-- #| code-fold: true -->
-<!-- population |> -->
-<!--   mutate(yhat = predict(logistic_regression, type = "response")) |> -->
-<!--   distinct(salary, yhat) |> -->
-<!--   ggplot(aes(x = salary, y = yhat)) + -->
-<!--   geom_line() + -->
-<!--   geom_hline(yintercept = 0, linetype = "dashed") + -->
-<!--   scale_x_continuous( -->
-<!--     name = "Player Salary", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   scale_y_continuous( -->
-<!--     name = "Predicted Probability\nof Being a Catcher" -->
-<!--   ) + -->
-<!--   theme_minimal() + -->
-<!--   ggtitle("Modeling a binary outcome with logistic regression") -->
-<!-- ``` -->
-<!-- Below is code to make a prediction for the L.A. Dodgers. -->
-<!-- ```{r} -->
-<!-- predicted_logistic <- predict( -->
-<!--   logistic_regression, -->
-<!--   newdata = to_predict, -->
-<!--   type = "response" -->
-<!-- ) -->
-<!-- ``` -->
-<!-- To summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of $\vec{X}$ when estimating $\text{E}(Y\mid \vec{X})$ or $\text{P}(Y = 1\mid\vec{X})$. This is especially useful any time when we do not get to observe many units at each value of $\vec{X}$. -->
-<!-- <!-- ## Why model? -->
-<p>–&gt;</p>
-<!-- <!-- Why would we use a model? One case where the need for a model is especiall -->
-<p>–&gt;</p>
-<!-- <!-- ## Penalized regression -->
-<p>–&gt;</p>
-<!-- <!-- Penalized regression is just like OLS, except that it prefers coefficient estimates that are closer to 0. This can reduce sampling variability. One penalized regression is ridge regression, which penalizes the sum of squared coefficients. In our example, it estimates the parameters to minimize -->
-<p>–&gt;</p>
-<!-- <!-- $$\underbrace{\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2}_\text{Squared Error} + \underbrace{\lambda\beta^2}_\text{Penalty}$$ -->
-<p>–&gt;</p>
-<!-- <!-- where the positive scalar penalty $\lambda$ encodes our preference for coefficients to be near zero. Otherwise, penalized regression is just like OLS! -->
-<p>–&gt;</p>
-<!-- <!-- The `gam()` function in the `mgcv` package will allow you to fit a ridge regression as follows. -->
-<p>–&gt;</p>
-<!-- <!-- ```{r, message = F, warning = F} -->
-<p>–&gt; <!-- <!-- library(mgcv) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- ```{r} -->
-<p>–&gt; <!-- <!-- model <- gam( --> –&gt; <!-- <!--   salary ~ s(record, bs = "re"), --> –&gt; <!-- <!--   data = sample --> –&gt; <!-- <!-- ) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- Predict the Dodger mean salary just as before, -->
-<p>–&gt;</p>
-<!-- <!-- ```{r} -->
-<p>–&gt; <!-- <!-- to_predict |> --> –&gt; <!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- ## Splines -->
-<p>–&gt;</p>
-<!-- <!-- We may want to allow a nonlinear relationship between the predictor and the outcome. One way to do that is with splines, which estimate part of the model locally within regions of the predictor space separated by **knots**. The code below uses a linear spline with knots at 0.4 and 0.6. -->
-<p>–&gt;</p>
-<!-- <!-- ```{r} -->
-<p>–&gt; <!-- <!-- library(splines) --> –&gt; <!-- <!-- model <- lm( --> –&gt; <!-- <!--   salary ~ bs(record, degree = 1, knots = c(.4,.6)), --> –&gt; <!-- <!--   data = sample --> –&gt; <!-- <!-- ) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- ```{r, echo = F, fig.height = 2} -->
-<p>–&gt; <!-- <!-- to_predict_all <- population |> --> –&gt; <!-- <!--   distinct(team, record, target_subgroup) --> –&gt; <!-- <!-- to_predict_all |> --> –&gt; <!-- <!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> --> –&gt; <!-- <!--   ggplot(aes(x = record, y = fitted)) + --> –&gt; <!-- <!--   geom_line() + --> –&gt; <!-- <!--   geom_point(aes(color = target_subgroup), size = 2) + --> –&gt; <!-- <!--   scale_color_manual(values = c("black","dodgerblue")) + --> –&gt; <!-- <!--   theme_classic() + --> –&gt; <!-- <!--   theme(legend.position = "none") + --> –&gt; <!-- <!--   scale_y_continuous( --> –&gt; <!-- <!--     name = "Team Mean Salary", --> –&gt; <!-- <!--     labels = label_dollar(scale = 1e-6, suffix = "m"), --> –&gt; <!-- <!--     limits = c(0,10e6) --> –&gt; <!-- <!--   ) + --> –&gt; <!-- <!--   scale_x_continuous(name = "Past Team Win-Loss Record") --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- We can predict the Dodger mean salary just as before! -->
-<p>–&gt;</p>
-<!-- <!-- ```{r} -->
-<p>–&gt; <!-- <!-- to_predict |> --> –&gt; <!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- ## Trees -->
-<p>–&gt;</p>
-<!-- <!-- Perhaps our response surface is bumpy, and poorly approximated by a smooth function. Decision trees search the predictor space for discrete places where the outcome changes, and assume that the response is flat within those regions. -->
-<p>–&gt;</p>
-<!-- <!-- ```{r} -->
-<p>–&gt; <!-- <!-- library(rpart) --> –&gt; <!-- <!-- model <- rpart(salary ~ record, data = sample) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- ```{r, echo = F, fig.height = 2} -->
-<p>–&gt; <!-- <!-- to_predict_all |> --> –&gt; <!-- <!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> --> –&gt; <!-- <!--   ggplot(aes(x = record, y = fitted)) + --> –&gt; <!-- <!--   geom_step() + --> –&gt; <!-- <!--   geom_point(aes(color = target_subgroup), size = 2) + --> –&gt; <!-- <!--   scale_color_manual(values = c("black","dodgerblue")) + --> –&gt; <!-- <!--   theme_classic() + --> –&gt; <!-- <!--   theme(legend.position = "none") + --> –&gt; <!-- <!--   scale_y_continuous( --> –&gt; <!-- <!--     name = "Team Mean Salary", --> –&gt; <!-- <!--     labels = label_dollar(scale = 1e-6, suffix = "m"), --> –&gt; <!-- <!--     limits = c(0,10e6) --> –&gt; <!-- <!--   ) + --> –&gt; <!-- <!--   scale_x_continuous(name = "Past Team Win-Loss Record") --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- Predict as in the other strategies. -->
-<p>–&gt; <!-- <!-- ```{r} --> –&gt; <!-- <!-- to_predict |> --> –&gt; <!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- ## Conclusion -->
-<p>–&gt;</p>
-<!-- <!-- Statistical learning in this framing is all about -->
-<p>–&gt;</p>
-<!-- <!-- - we have a subgroup with few sampled units (the Dodgers) -->
-<p>–&gt; <!-- <!-- - we want to use other units to help us learn --> –&gt; <!-- <!-- - our goal is to predict the population mean in the subgroup --> –&gt;</p>
+<blockquote class="blockquote">
+<p>Here are slides in <a href="../slides/lec05_linear_regression/lec05_linear_regression.html">website</a> and <a href="../slides/lec05_linear_regression/lec05_linear_regression.pdf">pdf</a> format.</p>
+</blockquote>
+<p>As an example, we will work with U.S. adult income by sex (male, female), age (30–50), and year (2010–2019). We will focus on the target population of those working 35+ hours per week for 50+ weeks per year. Data are simulated based on the 2010–2019 American Community Survey (ACS).</p>
+<p>The function below will simulate data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>simulate <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">"https://ilundberg.github.io/description/assets/truth.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_sample</span>(<span class="at">n =</span> n, <span class="at">weight_by =</span> weight, <span class="at">replace =</span> T) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">income =</span> <span class="fu">exp</span>(<span class="fu">rnorm</span>(<span class="fu">n</span>(), meanlog, sdlog))) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(year, age, sex, income)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Below you can see this function in action.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>simulated <span class="ot">&lt;-</span> <span class="fu">simulate</span>(<span class="at">n =</span> <span class="fl">3e4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 420 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): sex
+dbl (5): year, age, meanlog, sdlog, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30,000 × 4
+   year   age sex    income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1  2011    48 female 93676.
+2  2012    38 female 98805.
+3  2013    38 female 52330.
+# ℹ 29,997 more rows</code></pre>
+</div>
+</div>
+<section id="conditional-expectation" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-expectation">Conditional expectation</h2>
+<p>A key goal with linear regression is the conditional expectation: the mean of an outcome within a population subgroup.</p>
+<ul>
+<li><strong>expectation</strong> refers to taking a mean</li>
+<li><strong>conditional</strong> refers to within a subgroup</li>
+</ul>
+<p>Example: Mean income among females age 47 in 2019</p>
+<p>Suppose we want to estimate that conditional mean in our data. One way is to first create the subgroup and take the mean among people in that subgroup in our sample.</p>
+<p><code>filter()</code> restricts our data to cases meeting requirements:</p>
+<ul>
+<li>the <code>sex</code> variable equals the value <code>female</code></li>
+<li>the <code>age</code> variable equals the value <code>47</code></li>
+<li>the <code>year</code> variable equals the value <code>2019</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>subgroup <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">==</span> <span class="dv">47</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>summarize()</code> aggregates to the mean</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>subgroup <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">conditional_expectation =</span> <span class="fu">mean</span>(income))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  conditional_expectation
+                    &lt;dbl&gt;
+1                  71530.</code></pre>
+</div>
+</div>
+<p>Often, we want to study many conditional expectations: the mean outcome in many subgroups. In previous homework, we have seen how <code>group_by</code> and <code>summarize</code> can yield the mean in many subgroups.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>simulated <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, age, year) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">conditional_expectation =</span> <span class="fu">mean</span>(income))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'sex', 'age'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 420 × 4
+# Groups:   sex, age [42]
+  sex      age  year conditional_expectation
+  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;                   &lt;dbl&gt;
+1 female    30  2010                  45928.
+2 female    30  2011                  43688.
+3 female    30  2012                  42714.
+# ℹ 417 more rows</code></pre>
+</div>
+</div>
+<p>In math, the <strong>conditional expectation function</strong> is the subgroup mean of <span class="math inline">\(Y\)</span> within a subgroup with the predictor values <span class="math inline">\(\vec{X} = \vec{x}\)</span>. We use <span class="math inline">\(\text{E}\)</span> to denote the expectation operator. For simplicity, we will let <span class="math inline">\(f()\)</span> refer to the conditional expectation function, which has input <span class="math inline">\(\vec{x}\)</span> and outputs a conditional mean among those with <span class="math inline">\(\vec{X} = \vec{x}\)</span>.</p>
+<p><span class="math display">\[
+f(\vec{x}) = \text{E}(Y\mid\vec{X} = \vec{x})
+\]</span></p>
+<p>To learn <span class="math inline">\(f(\vec{x})\)</span> from data is a central task in statistical learning.</p>
+<p>#$ Statistical learning by pooling information</p>
+<p>A common problem of statistical inference is that we want to study a subgroup, but there are few cases within the subgroup. For example, female respondents age 47 in 2019 in our simulated data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>simulated <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">==</span> <span class="dv">47</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 67 × 4
+   year   age sex    income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1  2019    47 female 15761.
+2  2019    47 female 32995.
+3  2019    47 female 83967.
+# ℹ 64 more rows</code></pre>
+</div>
+</div>
+<p>Few cases in a subgroup leads to statistical uncertainty about the mean in the subgroup. How can we better estimate this conditional mean?</p>
+<p>One strategy is to <strong>pool information</strong> using a model. We have many female respondents in 2019. The only problem is that few are age 47.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>simulated <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,427 × 4
+   year   age sex    income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1  2019    32 female 52130.
+2  2019    46 female 17465.
+3  2019    41 female 66012.
+# ℹ 1,424 more rows</code></pre>
+</div>
+</div>
+<p>We might think that these other respondents (e.g., those age 46 and 48) are informative about the outcomes of 47-year-olds. There are many ways to pool information. A linear regression model is one strategy that pools information across people of all ages, to estimate a conditional mean at any particular age.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The model assumes that all of the conditional means fall along a line. Then, it estimates the intercept <span class="math inline">\(\beta_0\)</span> and slope <span class="math inline">\(\beta_1\)</span> of this line to best fit those conditional means. Finally, one can use the model to make a prediction at any particular <span class="math inline">\(X\)</span> value.</p>
+<section id="practice-question" class="level3">
+<h3 class="anchored" data-anchor-id="practice-question">Practice question</h3>
+<p><span class="math display">\[
+\text{E}(Y\mid X) = \beta_0 + \beta_1 X
+\]</span></p>
+<p>Suppose <span class="math inline">\(\beta_0 = 5\)</span> and <span class="math inline">\(\beta_1 = 3\)</span></p>
+<ol type="1">
+<li>What is the conditional mean when <span class="math inline">\(X = 0\)</span>?</li>
+<li>What is the conditional mean when <span class="math inline">\(X = 1\)</span>?</li>
+<li>What is the conditional mean when <span class="math inline">\(X = 2\)</span>?</li>
+<li>How much does the conditional mean change for each unit increase in <span class="math inline">\(X\)</span>?</li>
+</ol>
+</section>
+</section>
+<section id="coding-a-linear-model" class="level2">
+<h2 class="anchored" data-anchor-id="coding-a-linear-model">Coding a linear model</h2>
+<p>Coding a linear model in R is easy. First, generate some data (get the <code>simulate()</code> function from futher up this page).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>simulated <span class="ot">&lt;-</span> <span class="fu">simulate</span>(<span class="at">n =</span> <span class="fl">3e4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 420 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): sex
+dbl (5): year, age, meanlog, sdlog, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>For our example, restrict to female respondents in 2019.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>female_2019 <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then learn a model from the data with the <code>lm()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> income <span class="sc">~</span> age, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> female_2019</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is how that code worked:</p>
+<ul>
+<li><code>model</code> is an object of class <code>lm</code> for <strong>l</strong>inear <strong>m</strong>odel</li>
+<li><code>lm()</code> function creates this object</li>
+<li><code>formula</code> argument is a model formula
+<ul>
+<li><code>outcome ~ predictor</code> is the syntax</li>
+</ul></li>
+<li><code>data</code> is a dataset containing <code>outcome</code> and <code>predictor</code></li>
+</ul>
+<p>We can look at the learned model with the <code>summary()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = income ~ age, data = female_2019)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-52689 -29518 -12682  16013 400507 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  47242.6     7518.3   6.284 4.37e-10 ***
+age            233.7      185.7   1.259    0.208    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 43360 on 1437 degrees of freedom
+Multiple R-squared:  0.001102,  Adjusted R-squared:  0.0004064 
+F-statistic: 1.585 on 1 and 1437 DF,  p-value: 0.2083</code></pre>
+</div>
+</div>
+<p>Finally, we might predict at a new X value. First, define the data at which to make the prediction: a person age 47.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>to_predict <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">age =</span> <span class="dv">47</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Predict for that subgroup</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> to_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+58228.57 </code></pre>
+</div>
+</div>
+<p>To review, our model <strong>pooled information</strong>:</p>
+<ul>
+<li>People of all ages contributed to <code>model</code></li>
+<li>Then we predicted at a single age</li>
+</ul>
+<section id="practice-question-1" class="level3">
+<h3 class="anchored" data-anchor-id="practice-question-1">Practice question</h3>
+<p>Below is the line fit to the population data. Suppose we want to learn <span class="math inline">\(\text{E}(\log(Y)\mid X = 30)\)</span>.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 420 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): sex
+dbl (5): year, age, meanlog, sdlog, weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li>Why might this model make a misleading estimate?</li>
+<li>Why might the model still be useful?</li>
+</ol>
+</section>
+</section>
+<section id="additive-vs-interactive-models" class="level2">
+<h2 class="anchored" data-anchor-id="additive-vs-interactive-models">Additive vs interactive models</h2>
+<p>Below, we visualize two models: one for male and one for female respondents.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are two equivalent ways to describe these two models. The first is by thinking of them as separate linear regressions.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{E}(Y\mid X, \text{Female}) &amp;= \beta_0^\text{Female} + \beta_1^\text{Female}\times \text{Age} \\
+\text{E}(Y\mid X, \text{Male}) &amp;= \beta_0^\text{Male} + \beta_1^\text{Male}\times \text{Age} \\
+\end{aligned}
+\]</span></p>
+<p>The second way is to think of them as one pooled linear regression that <strong>interacts</strong> age and sex to allow the slope on age to differ by sex.</p>
+<p><span class="math display">\[\text{E}(Y \mid X, \text{Sex}) = \gamma_0 + \gamma_1(\text{Female}) + \gamma_2(\text{Age}) + \gamma_3 (\text{Age} \times \text{Female})\]</span></p>
+<p>Note that both approaches summarize the conditional mean function with 4 parameters. The two approaches are actually equivalent, as you can show with some algebra.</p>
+<p><span class="math display">\[\begin{aligned}
+\gamma_0 &amp;= \beta_0^\text{Male}
+&amp;\gamma_1 &amp;= \beta_0^\text{Female} - \beta_0^\text{Male} \\
+\gamma_2 &amp;= \beta_1^\text{Male}
+&amp;\gamma_3 &amp;= \beta_1^\text{Female} - \beta_1^\text{Male}
+\end{aligned}\]</span></p>
+<p>Below, we practice writing an interaction in code. First generate data in 2019 that vary in both <code>sex</code> and <code>age</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>all_2019 <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,204 × 4
+   year   age sex   income
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+1  2019    41 male  50285.
+2  2019    45 male  31057.
+3  2019    34 male  66166.
+# ℹ 3,201 more rows</code></pre>
+</div>
+</div>
+<p>The <code>*</code> operator allows slopes to differ across groups</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> income <span class="sc">~</span> sex <span class="sc">*</span> age,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> all_2019</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="two-models-additive-model-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="two-models-additive-model-in-r">Two models: Additive model in R</h2>
+<p>The <code>+</code> operator assumes slopes are the same across groups</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> income <span class="sc">~</span> sex <span class="sc">+</span> age,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> all_2019</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When you have many interactions, the model starts to have lots of terms! This can make interpretation hard. But, you can always use the model to predict any conditional mean you want, even if there are many interactions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> income <span class="sc">~</span> sex <span class="sc">*</span> age <span class="sc">*</span> year,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> simulated</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = income ~ sex * age * year, data = simulated)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-81158 -33849 -14946  15839 972817 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)       1.387e+06  2.343e+06   0.592    0.554
+sexmale          -1.943e+06  3.117e+06  -0.623    0.533
+age              -6.273e+04  5.760e+04  -1.089    0.276
+year             -6.680e+02  1.163e+03  -0.574    0.566
+sexmale:age       6.646e+04  7.675e+04   0.866    0.386
+sexmale:year      9.519e+02  1.547e+03   0.615    0.538
+age:year          3.130e+01  2.859e+01   1.095    0.274
+sexmale:age:year -3.247e+01  3.809e+01  -0.852    0.394
+
+Residual standard error: 57790 on 29992 degrees of freedom
+Multiple R-squared:  0.03332,   Adjusted R-squared:  0.03309 
+F-statistic: 147.7 on 7 and 29992 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The many terms of the model correspond to many slopes in subgroups, as visualized below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="penalized-regression" class="level2">
+<h2 class="anchored" data-anchor-id="penalized-regression">Penalized Regression</h2>
+<p>We close with a more advanced data science topic: penalized regression. We will discuss a method known as ridge regression or L2 penalized regression. This data science approach is a linear model just like OLS, but estimates the coefficients slightly differently.</p>
+<p>Before defining this type of penalized regression, below we show what happens when we use it. Each line is a regression estimated on a different sample from the population. What similarities and differences do you notice between the penalized and unpenalized regressions?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We could use each approach to predict the mean income among 47-year-olds. Below are those predictions, with one dot from each simulated sample. How do the patterns below align with what you noticed in the graph above?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5_linear_regression_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The reason one uses penalized regression is to reduce the sampling variance of estimates, at the cost of some bias (estimates are generally drawn in toward the overall sample mean). To understand how, it is useful to see some math.</p>
+<p>OLS chose <span class="math inline">\(\alpha, \vec\beta\)</span> to minimize this function: <span class="math display">\[
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error}
+\end{aligned}
+\]</span> where <span class="math inline">\(\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j\)</span></p>
+<p>Penalized (ridge) regression chose <span class="math inline">\(\alpha, \vec\beta\)</span> to minimize this function: <span class="math display">\[
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error} + \underbrace{\lambda \sum_{j} \beta_j^2}_\text{Penalty Term}
+\end{aligned}
+\]</span> where <span class="math inline">\(\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j\)</span></p>
+<p>The only difference between the two is that penalized regression seeks to avoid having a large value of <span class="math inline">\(\sum_j \beta_j^2\)</span>. Thus, it prefers to estimate models with coefficients near zero. In practice, researchers often mean-center covariates and outcomes for penalized regression so that this pulls all estimates toward the overall mean.</p>
+<section id="penalized-regression-in-code" class="level3">
+<h3 class="anchored" data-anchor-id="penalized-regression-in-code">Penalized regression in code</h3>
+<p>Penalized regression is available through many R packages. Here we illustrate with the <code>glmnet</code> package. First, simulate a large sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>simulated <span class="ot">&lt;-</span> <span class="fu">simulate</span>(<span class="at">n =</span> <span class="fl">1e5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load the package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a model matrix of predictors</p>
+<ul>
+<li>This converts the predictor data into matrix form</li>
+<li>Each column will correspond to a coefficient</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> age <span class="sc">*</span> sex <span class="sc">*</span> year, <span class="at">data =</span> simulated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a vector of the outcomes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> simulated <span class="sc">|&gt;</span> <span class="fu">pull</span>(income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use the <code>cv.glmnet</code> function to call the package. For now, we will leave as a black box how it chooses the penalty parameter <span class="math inline">\(\lambda\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>penalized <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> X,    <span class="co"># model matrix we created</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y,    <span class="co"># outcome vector we created</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="dv">0</span> <span class="co"># penalize sum of beta ^ 2</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, make predictions from the model at each observed data point.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  penalized,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newx =</span> X</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(yhat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lambda.1se   
+ Min.   :60582  
+ 1st Qu.:62568  
+ Median :65476  
+ Mean   :65063  
+ 3rd Qu.:67425  
+ Max.   :69405  </code></pre>
+</div>
+</div>
+<p>When should you use penalized regression? The key reasons are motivated by the original illustration figures above. You should use penalized regression to reduce the variance of your estimates. This may occur in settings where you have many predictors and few observations, for example. However, there is a cost: penalized regression generally yields biased estimates of conditional means, so the model will be wrong on average.</p>
+<p>In future classes, we will discuss data-driven ways to choose among the many statistical and machine-learning approaches to estimate conditional mean functions.</p>
 
 
+</section>
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

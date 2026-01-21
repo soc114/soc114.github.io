@@ -5,343 +5,585 @@ format:
     fig-height: 3
 ---
 
-To be written.
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(scales)
+library(foreach)
+options(pillar.print_max = 3, pillar.print_min = 3)
+theme_set(theme_classic())
+#update_theme(text = element_text(size = 18))
+set.seed(90095)
+```
 
-<!-- Could use same example for all modeling, potentially (linear, logistic, forest). -->
+> Here are slides in [website](../slides/lec05_linear_regression/lec05_linear_regression.qmd) and [pdf](../slides/lec05_linear_regression/lec05_linear_regression.pdf) format.
 
-<!-- > This is the second part of lecture for Feb 11. Slides are [here](../slides/lec11b_what_is_a_model/lec11b_what_is_a_model.pdf) -->
+As an example, we will work with U.S. adult income by sex (male, female), age (30--50), and year (2010--2019). We will focus on the target population of those working 35+ hours per week for 50+ weeks per year. Data are simulated based on the 2010–2019 American Community Survey (ACS).
 
-<!-- <!-- > The reading with this class is [Berk 2020 Ch 1](https://link.springer.com/book/10.1007/978-3-030-40189-4) p. 1--5, stopping at paragraph ending "...is nonlinear." Then p. 14--17 "Model misspecification..." through "...will always be in play." --> -->
+The function below will simulate data
 
-<!-- What is a model, and why would we use one? This page introduces ideas with two models: Ordinary Least Squares and logistic regression.  -->
-<!-- <!-- Then, we discuss why we would use a model. --> -->
-
-<!-- At a high level, a model is a tool to share information across units with different $\vec{X}$ values when estimating subgroup summaries, such as the conditional mean $\text{E}(Y\mid\vec{X} = \vec{x})$ within the subgroup taking predictor value $\vec{X} = \vec{x}$. By assuming that this conditional mean follows a particular shape defined by a small number of parameters, models can yield better predictions than the sample subgroup means. The advantages of models are particularly apparent when there aren't very many units observed in each subgroup. -->
-
-<!-- Later in the course, we will expand our conception of models to include flexible statistical learning procedures. For now, we will focus on two models from classical statistics. -->
-
-<!-- <!-- ::: columns --> -->
-
-<!-- <!-- ::: {.column width="30%"} --> -->
-<!-- <!-- {{< video https://www.youtube.com/embed/srf9eZ5lq68 >}} --> -->
-<!-- <!-- ::: --> -->
-
-<!-- <!-- ::: {.column width="30%"} --> -->
-<!-- <!-- {{< video https://www.youtube.com/embed/3sHWUN-3pZE >}} --> -->
-<!-- <!-- ::: --> -->
-
-<!-- <!-- ::: {.column width="30%"} --> -->
-<!-- <!-- {{< video https://www.youtube.com/embed/Pk6uNM74cKE >}} --> -->
-<!-- <!-- ::: --> -->
-
-<!-- <!-- ::: --> -->
-
-<!-- ## A simple example -->
-
-<!-- As an example, we continue to use the data on baseball salaries, with a small twist. The file [`baseball_population.csv`](../data/baseball_population.csv) contains the following variables -->
-
-<!-- ```{r, echo = F, message = F, warning = F} -->
-<!-- library(tidyverse) -->
-<!-- library(scales) -->
-<!-- ``` -->
-
-<!-- ```{r, eval = F} -->
-<!-- population <- read_csv("https://soc114.github.io/data/baseball_population.csv") -->
-<!-- ``` -->
-<!-- ```{r, message = F, warning = F, echo = F} -->
-<!-- population <- read_csv("../data/baseball_population.csv") -->
-<!-- set.seed(14853) -->
-<!-- ``` -->
-
-<!-- - `player` is the player name -->
-<!-- - `team` is the team name -->
-<!-- - `salary` is the 2023 salary -->
-<!-- - `team_past_record` is the 2022 proportion of games won by that team -->
-<!-- - `team_past_salary` is the 2022 mean salary in that team -->
-
-<!-- ```{r, echo = F} -->
-<!-- truth <- population |> filter(team == "L.A. Dodgers") |> summarize(salary = mean(salary)) |> mutate(salary = label_dollar(scale = 1e-6, suffix = "m")(salary)) |> pull(salary) -->
-<!-- ``` -->
-
-<!-- Our goal: using a sample, estimate the mean salary of all Dodger players in 2023. Because we have the population, we know the true mean is `r truth`. We will imagine that we don't know this number. Instead of having the full population, we will imagine we have -->
-
-<!-- * information on predictors for all players: position, team, team past record -->
-<!-- * information on salary for a random sample of 5 players per team -->
-
-<!-- Our estimation task will be made difficult by a lack of data: we will work with a sample containing many teams (30), and few players per team (5). We will use statistical learning strategies to pool information from those other teams' players to help us make a better estimate of the Dodger mean salary. -->
-
-<!-- Our predictor will be the `team_past_salary` from the previous year. We assume that a team's past salary in 2022 tells us something about their mean salary in 2023. -->
-
-<!-- For illustration, draw a sample of 5 players per team -->
-
-<!-- ```{r} -->
-<!-- sample <- population |> -->
-<!--   group_by(team) |> -->
-<!--   sample_n(5) |> -->
-<!--   ungroup() -->
-<!-- ``` -->
-
-<!-- Construct a tibble with the observations to be predicted: the Dodgers. -->
-
-<!-- ```{r} -->
-<!-- to_predict <- population |> -->
-<!--   filter(team == "L.A. Dodgers") -->
-<!-- ``` -->
-
-<!-- ## Ordinary Least Squares -->
-
-<!-- We could model salary next year as a linear function of team past salary by Ordinary Least Squares. In math, OLS produces a prediction -->
-<!-- $$\hat{Y}_i = \hat\alpha + \hat\beta X_i$$  -->
-<!-- with $\hat\alpha$ and $\hat\beta$ chosen to minimize the sum of squared errors, $\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2$. Visually, it minimizes all the line segments below. -->
-
-<!-- ```{r, echo = F, fig.height = 2} -->
-<!-- fit <- lm(salary ~ team_past_salary, data = sample) -->
-<!-- sample |> -->
-<!--   mutate(fitted = predict(fit)) |> -->
-<!--   arrange(team == "L.A. Dodgers") |> -->
-<!--   ggplot(aes(x = team_past_salary, y = salary)) + -->
-<!--   geom_point( -->
-<!--     aes(color = team == "L.A. Dodgers"), -->
-<!--     size = 1 -->
-<!--   ) + -->
-<!--   geom_line(aes(y = fitted)) + -->
-<!--   scale_y_continuous( -->
-<!--     name = "Mean Salary on Team in 2023", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   scale_x_continuous( -->
-<!--     name = "Mean Salary on Team in 2022", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   theme_minimal() + -->
-<!--   scale_color_manual( -->
-<!--     values = c("gray","dodgerblue"), -->
-<!--     name = element_blank(), -->
-<!--     labels = c("Other Teams","L.A. Dodgers") -->
-<!--   ) + -->
-<!--   ggtitle("Ordinary Least Squares") -->
-<!-- ``` -->
-
-<!-- Here is how to estimate an OLS model using R. -->
-
-<!-- ```{r} -->
-<!-- model <- lm(salary ~ team_past_salary, data = sample) -->
-<!-- ``` -->
-
-<!-- Then we could predict the mean salary for the Dodgers. -->
-<!-- ```{r} -->
-<!-- predicted <- to_predict |> -->
-<!--   mutate(predicted = predict(model, newdata = to_predict)) -->
-<!-- ``` -->
-
-<!-- We would report the mean predicted salary for the Dodgers. -->
-
-<!-- ```{r} -->
-<!-- predicted |> -->
-<!--   summarize(estimated_Dodger_mean = mean(predicted)) -->
-<!-- ``` -->
-
-<!-- Our model-based estimate compares to the true population mean of `r truth`. -->
-
-<!-- ## Logistic regression -->
-
-<!-- Sometimes the outcome is binary (taking the values `{0,1}` or `{FALSE,TRUE}`). One can model binary outcomes with linear regression, but sometimes the predicted values are negative or greater than 1. As an example, suppose we model the probability that a player is a Designated Hitter (`position == "DH"`) as a linear function of player salary. For illustration, we do this on the full population. -->
-
-<!-- ```{r} -->
-<!-- ols_binary_outcome <- lm( -->
-<!--   position == "C" ~ salary, -->
-<!--   data = population -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- Catchers tend to have low salaries, so the probability of being a catcher declines as player salary rises. But the linear model carries this trend perhaps further than it ought to: the estimated probability of being a catcher for a player making \$40 million is `r label_percent()(predict(ols_binary_outcome, newdata = tibble(salary = 40e6)))`! This prediction doesn't make a lot of sense. -->
-
-<!-- ```{r} -->
-<!-- #| code-fold: true -->
-<!-- population |> -->
-<!--   mutate(yhat = predict(ols_binary_outcome)) |> -->
-<!--   ggplot(aes(x = salary, y = yhat)) + -->
-<!--   geom_line() + -->
-<!--   geom_hline(yintercept = 0, linetype = "dashed") + -->
-<!--   scale_x_continuous( -->
-<!--     name = "Player Salary", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   scale_y_continuous( -->
-<!--     name = "Predicted Probability\nof Being a Catcher" -->
-<!--   ) + -->
-<!--   theme_minimal() + -->
-<!--   ggtitle("Modeling a binary outcome with a line") -->
-<!-- ``` -->
-
-<!-- Logistic regression is simialr to OLS, except that it uses a nonlinear function (the logistic function) to convert between coefficients that can take any negative or positive values and predictions that always fall in the [0,1] interval. -->
-
-<!-- ```{r, echo = F} -->
-<!-- tibble(p = seq(.01,.99,.001)) |> -->
-<!--   mutate(x = qlogis(p)) |> -->
-<!--   ggplot(aes(x = x, y = p)) + -->
-<!--   geom_line() + -->
-<!--   scale_x_continuous(name = expression(atop("Logistic Function of Probability","e.g."~hat(alpha)+X*hat(beta)))) + -->
-<!--   scale_y_continuous(name = "Probability\nP(Y = 1 | X)") + -->
-<!--   theme_minimal() + -->
-<!--   geom_hline(yintercept = c(0,1), linetype = "dashed", color = "gray") -->
-<!-- ``` -->
-
-<!-- Mathematically, logistic regression replaces $\text{E}(Y\mid\vec{X})$ on the left side of the equation with the logistic function. -->
-
-<!-- $$ -->
-<!-- \underbrace{\log\left(\frac{\text{P}(Y\mid\vec{X})}{1 - \text{P}(Y\mid\vec{X})}\right)}_\text{Logistic Function} = \alpha + \vec{X}'\vec\beta -->
-<!-- $$ -->
-
-<!-- In our example with the catchers, we can use logistic regression to model the probability of being a catcher using the `glm()` function. The `family = "binomial"` line tells the function that we want to estimate logistic regression (since "binomial" is a distribution for outcomes drawn at random with a given probability). -->
-
-<!-- ```{r} -->
-<!-- logistic_regression <- glm( -->
-<!--   position == "C" ~ salary, -->
-<!--   data = population, -->
-<!--   family = "binomial" -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- We can predict exactly as with OLS, except that we need to add the `type = "response"` argument to ensure that R transforms the predicted values into the space of predicted probabilities [0,1] instead of the space in which the coefficients are defined ($-\inf,\inf$). -->
-
-<!-- ```{r} -->
-<!-- #| code-fold: true -->
-<!-- population |> -->
-<!--   mutate(yhat = predict(logistic_regression, type = "response")) |> -->
-<!--   distinct(salary, yhat) |> -->
-<!--   ggplot(aes(x = salary, y = yhat)) + -->
-<!--   geom_line() + -->
-<!--   geom_hline(yintercept = 0, linetype = "dashed") + -->
-<!--   scale_x_continuous( -->
-<!--     name = "Player Salary", -->
-<!--     labels = label_currency(scale = 1e-6, suffix = "m") -->
-<!--   ) + -->
-<!--   scale_y_continuous( -->
-<!--     name = "Predicted Probability\nof Being a Catcher" -->
-<!--   ) + -->
-<!--   theme_minimal() + -->
-<!--   ggtitle("Modeling a binary outcome with logistic regression") -->
-<!-- ``` -->
-
-<!-- Below is code to make a prediction for the L.A. Dodgers. -->
-
-<!-- ```{r} -->
-<!-- predicted_logistic <- predict( -->
-<!--   logistic_regression, -->
-<!--   newdata = to_predict, -->
-<!--   type = "response" -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- To summarize, linear regression and logistic regression both use an assumed model to share information across units with different values of $\vec{X}$ when estimating $\text{E}(Y\mid \vec{X})$ or $\text{P}(Y = 1\mid\vec{X})$. This is especially useful any time when we do not get to observe many units at each value of $\vec{X}$. -->
-
-<!-- <!-- ## Why model? --> -->
-
-<!-- <!-- Why would we use a model? One case where the need for a model is especiall --> -->
-
-<!-- <!-- ## Penalized regression --> -->
-
-<!-- <!-- Penalized regression is just like OLS, except that it prefers coefficient estimates that are closer to 0. This can reduce sampling variability. One penalized regression is ridge regression, which penalizes the sum of squared coefficients. In our example, it estimates the parameters to minimize --> -->
-
-<!-- <!-- $$\underbrace{\sum_{i=1}^n \left(Y_i - \hat{Y}_i\right)^2}_\text{Squared Error} + \underbrace{\lambda\beta^2}_\text{Penalty}$$ --> -->
-
-<!-- <!-- where the positive scalar penalty $\lambda$ encodes our preference for coefficients to be near zero. Otherwise, penalized regression is just like OLS! --> -->
-
-<!-- <!-- The `gam()` function in the `mgcv` package will allow you to fit a ridge regression as follows. --> -->
-
-<!-- <!-- ```{r, message = F, warning = F} --> -->
-<!-- <!-- library(mgcv) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- ```{r} --> -->
-<!-- <!-- model <- gam( --> -->
-<!-- <!--   salary ~ s(record, bs = "re"), --> -->
-<!-- <!--   data = sample --> -->
-<!-- <!-- ) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- Predict the Dodger mean salary just as before, --> -->
-
-<!-- <!-- ```{r} --> -->
-<!-- <!-- to_predict |> --> -->
-<!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- ## Splines --> -->
-
-<!-- <!-- We may want to allow a nonlinear relationship between the predictor and the outcome. One way to do that is with splines, which estimate part of the model locally within regions of the predictor space separated by **knots**. The code below uses a linear spline with knots at 0.4 and 0.6. --> -->
-
-<!-- <!-- ```{r} --> -->
-<!-- <!-- library(splines) --> -->
-<!-- <!-- model <- lm( --> -->
-<!-- <!--   salary ~ bs(record, degree = 1, knots = c(.4,.6)), --> -->
-<!-- <!--   data = sample --> -->
-<!-- <!-- ) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- ```{r, echo = F, fig.height = 2} --> -->
-<!-- <!-- to_predict_all <- population |> --> -->
-<!-- <!--   distinct(team, record, target_subgroup) --> -->
-<!-- <!-- to_predict_all |> --> -->
-<!-- <!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> --> -->
-<!-- <!--   ggplot(aes(x = record, y = fitted)) + --> -->
-<!-- <!--   geom_line() + --> -->
-<!-- <!--   geom_point(aes(color = target_subgroup), size = 2) + --> -->
-<!-- <!--   scale_color_manual(values = c("black","dodgerblue")) + --> -->
-<!-- <!--   theme_classic() + --> -->
-<!-- <!--   theme(legend.position = "none") + --> -->
-<!-- <!--   scale_y_continuous( --> -->
-<!-- <!--     name = "Team Mean Salary", --> -->
-<!-- <!--     labels = label_dollar(scale = 1e-6, suffix = "m"), --> -->
-<!-- <!--     limits = c(0,10e6) --> -->
-<!-- <!--   ) + --> -->
-<!-- <!--   scale_x_continuous(name = "Past Team Win-Loss Record") --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- We can predict the Dodger mean salary just as before! --> -->
-
-<!-- <!-- ```{r} --> -->
-<!-- <!-- to_predict |> --> -->
-<!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- ## Trees --> -->
-
-<!-- <!-- Perhaps our response surface is bumpy, and poorly approximated by a smooth function. Decision trees search the predictor space for discrete places where the outcome changes, and assume that the response is flat within those regions. --> -->
-
-<!-- <!-- ```{r} --> -->
-<!-- <!-- library(rpart) --> -->
-<!-- <!-- model <- rpart(salary ~ record, data = sample) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- ```{r, echo = F, fig.height = 2} --> -->
-<!-- <!-- to_predict_all |> --> -->
-<!-- <!--   mutate(fitted = predict(model, newdata = to_predict_all)) |> --> -->
-<!-- <!--   ggplot(aes(x = record, y = fitted)) + --> -->
-<!-- <!--   geom_step() + --> -->
-<!-- <!--   geom_point(aes(color = target_subgroup), size = 2) + --> -->
-<!-- <!--   scale_color_manual(values = c("black","dodgerblue")) + --> -->
-<!-- <!--   theme_classic() + --> -->
-<!-- <!--   theme(legend.position = "none") + --> -->
-<!-- <!--   scale_y_continuous( --> -->
-<!-- <!--     name = "Team Mean Salary", --> -->
-<!-- <!--     labels = label_dollar(scale = 1e-6, suffix = "m"), --> -->
-<!-- <!--     limits = c(0,10e6) --> -->
-<!-- <!--   ) + --> -->
-<!-- <!--   scale_x_continuous(name = "Past Team Win-Loss Record") --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- Predict as in the other strategies. --> -->
-<!-- <!-- ```{r} --> -->
-<!-- <!-- to_predict |> --> -->
-<!-- <!--   mutate(predicted = predict(model, newdata = to_predict)) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- <!-- ## Conclusion --> -->
-
-<!-- <!-- Statistical learning in this framing is all about --> -->
-
-<!-- <!-- - we have a subgroup with few sampled units (the Dodgers) --> -->
-<!-- <!-- - we want to use other units to help us learn --> -->
-<!-- <!-- - our goal is to predict the population mean in the subgroup --> -->
+```{r}
+simulate <- function(n = 100) {
+  read_csv("https://ilundberg.github.io/description/assets/truth.csv") |>
+    slice_sample(n = n, weight_by = weight, replace = T) |>
+    mutate(income = exp(rnorm(n(), meanlog, sdlog))) |>
+    select(year, age, sex, income)
+}
+```
+
+Below you can see this function in action.
+
+```{r}
+simulated <- simulate(n = 3e4)
+```
+```{r, echo = F}
+simulated
+```
+
+## Conditional expectation
+
+A key goal with linear regression is the conditional expectation: the mean of an outcome within a population subgroup.
+
+- **expectation** refers to taking a mean
+- **conditional** refers to within a subgroup
+
+Example: Mean income among females age 47 in 2019 
+
+Suppose we want to estimate that conditional mean in our data. One way is to first create the subgroup and take the mean among people in that subgroup in our sample.
+
+`filter()` restricts our data to cases meeting requirements:
+
+- the `sex` variable equals the value `female`
+- the `age` variable equals the value `47`
+- the `year` variable equals the value `2019`
+
+```{r}
+subgroup <- simulated |>
+  filter(sex == "female") |>
+  filter(age == 47) |>
+  filter(year == 2019)
+```
+
+`summarize()` aggregates to the mean
+
+```{r}
+subgroup |>
+  summarize(conditional_expectation = mean(income))
+```
+
+Often, we want to study many conditional expectations: the mean outcome in many subgroups. In previous homework, we have seen how `group_by` and `summarize` can yield the mean in many subgroups.
+
+```{r}
+simulated |>
+  group_by(sex, age, year) |>
+  summarize(conditional_expectation = mean(income))
+```
+
+In math, the **conditional expectation function** is the subgroup mean of $Y$ within a subgroup with the predictor values $\vec{X} = \vec{x}$. We use $\text{E}$ to denote the expectation operator. For simplicity, we will let $f()$ refer to the conditional expectation function, which has input $\vec{x}$ and outputs a conditional mean among those with $\vec{X} = \vec{x}$.
+
+$$
+f(\vec{x}) = \text{E}(Y\mid\vec{X} = \vec{x})
+$$
+
+To learn $f(\vec{x})$ from data is a central task in statistical learning.
+
+#$ Statistical learning by pooling information
+
+A common problem of statistical inference is that we want to study a subgroup, but there are few cases within the subgroup. For example, female respondents age 47 in 2019 in our simulated data.
+
+```{r}
+simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019) |>
+  filter(age == 47)
+```
+
+Few cases in a subgroup leads to statistical uncertainty about the mean in the subgroup. How can we better estimate this conditional mean?
+
+One strategy is to **pool information** using a model. We have many female respondents in 2019. The only problem is that few are age 47.
+
+```{r}
+simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019)
+```
+
+We might think that these other respondents (e.g., those age 46 and 48) are informative about the outcomes of 47-year-olds. There are many ways to pool information. A linear regression model is one strategy that pools information across people of all ages, to estimate a conditional mean at any particular age.
+
+```{r, echo = FALSE, fig.height = 4}
+female_2019 <- simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019)
+fit <- lm(income ~ age, data = female_2019)
+target_yhat <- predict(fit, newdata = tibble(age = 47))
+p <- female_2019 |>
+  mutate(yhat = predict(fit)) |>
+  group_by(sex, age) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray") +
+  scale_y_continuous(
+    name = "Annual Income Y",
+    labels = label_currency(),
+  ) +
+  labs(x = "Age X")
+```
+
+```{r, echo = F, fig.height = 4}
+p <- p +
+  # Regression line
+  geom_line(aes(y = yhat)) +
+  annotate(
+    geom = "text", x = 37, y = 50e3, 
+    label = "E('Y | X = x') == beta[0] + beta[1] * x",
+    parse = TRUE, size = 5
+  ) 
+```
+
+```{r, echo = F, fig.height = 4}
+p <- p +
+  # Prediction
+  geom_segment(
+    x = 47, xend = 47, y = -Inf, yend = target_yhat, 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  annotate(geom = "text", x = 47.5, y = 45e3, label = "X = 47", color = "#2774AE", hjust = 0, size = 5) +
+  geom_point(
+    x = 47, y = target_yhat, 
+    color = "#2774AE", size = 3
+  ) +
+  geom_segment(
+    x = 47, xend = -Inf, y = target_yhat, yend = target_yhat, 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  annotate(
+    geom = "text", x = 40, y = target_yhat, 
+    label = "hat(Y) == ~hat(E)('Y | X' == 47) == ~hat(beta)[0] + hat(beta)[1]%*%47", 
+    parse = TRUE, size = 5,
+    color = "#2774AE",
+    vjust = -1
+  )
+p
+```
+
+The model assumes that all of the conditional means fall along a line. Then, it estimates the intercept $\beta_0$ and slope $\beta_1$ of this line to best fit those conditional means. Finally, one can use the model to make a prediction at any particular $X$ value.
+
+### Practice question
+
+$$
+\text{E}(Y\mid X) = \beta_0 + \beta_1 X
+$$
+
+Suppose $\beta_0 = 5$ and $\beta_1 = 3$
+
+1. What is the conditional mean when $X = 0$?
+2. What is the conditional mean when $X = 1$?
+3. What is the conditional mean when $X = 2$?
+4. How much does the conditional mean change for each unit increase in $X$?
+
+## Coding a linear model
+
+Coding a linear model in R is easy. First, generate some data (get the `simulate()` function from futher up this page).
+```{r}
+simulated <- simulate(n = 3e4)
+```
+
+For our example, restrict to female respondents in 2019.
+```{r}
+female_2019 <- simulated |>
+  filter(sex == "female") |>
+  filter(year == 2019)
+```
+
+Then learn a model from the data with the `lm()` function.
+
+```{r}
+model <- lm(
+  formula = income ~ age, 
+  data = female_2019
+)
+```
+
+Here is how that code worked:
+
+- `model` is an object of class `lm` for **l**inear **m**odel
+- `lm()` function creates this object
+- `formula` argument is a model formula
+     - `outcome ~ predictor` is the syntax
+- `data` is a dataset containing `outcome` and `predictor`
+
+We can look at the learned model with the `summary()` function.
+
+```{r}
+summary(model)
+```
+
+Finally, we might predict at a new X value. First, define the data at which to make the prediction: a person age 47.
+```{r}
+to_predict <- tibble(age = 47)
+```
+
+Predict for that subgroup
+```{r}
+predict(model, newdata = to_predict)
+```
+
+To review, our model **pooled information**:
+
+- People of all ages contributed to `model`
+- Then we predicted at a single age
+
+### Practice question
+
+Below is the line fit to the population data. Suppose we want to learn $\text{E}(\log(Y)\mid X = 30)$.
+
+```{r, echo = FALSE, fig.height = 3}
+read_csv("https://ilundberg.github.io/description/assets/truth.csv") |>
+  filter(sex == "female" & year == 2019) |>
+  ggplot(aes(x = age, y = meanlog)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  labs(
+    y = "Mean of log income",
+    x = "Age",
+    caption = "Among female respondents in 2019"
+  )
+```
+
+1. Why might this model make a misleading estimate?
+2. Why might the model still be useful?
+
+## Additive vs interactive models
+
+Below, we visualize two models: one for male and one for female respondents.
+
+```{r, echo = FALSE, fig.height = 4}
+all_2019 <- simulated |>
+  filter(year == 2019)
+model <- lm(income ~ age*sex, data = all_2019)
+target_subgroup <- tibble(age = 47, sex = c("female","male"))
+target_subgroup$yhat <- predict(model, newdata = target_subgroup)
+
+p <- all_2019 |>
+  mutate(yhat = predict(model)) |>
+  group_by(sex, age) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray", size = 1) +
+  scale_y_continuous(
+    name = "Annual Income Y",
+    labels = label_currency(),
+  ) +
+  labs(x = "Age X") +
+  facet_wrap(~sex)
+```
+```{r, echo = F, fig.height = 4}
+p2 <- p +
+  # Regression line
+  geom_line(aes(y = yhat)) +
+  geom_text(
+    data = tibble(
+      sex = c("female","male"),
+      age = 30, income = 51e3,
+      label = c(
+        "E('Y | X = x, Sex = Female') == {beta[0]}^'Female' + {beta[1]}^'Female' * x",
+        "E('Y | X = x, Sex = Male') == {beta[0]}^'Male' + {beta[1]}^'Male' * x"
+      )
+    ),
+    aes(label = label),
+    parse = T, size = 2, hjust = 0
+  )
+```
+```{r, echo = F, fig.height = 4}
+p3 <- p2 +
+  # Prediction
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = 47, y = -Inf, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = -Inf, y = yhat, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_point(
+    data = target_subgroup,
+    aes(x = age, y = yhat), 
+    color = "#2774AE", size = 3
+  )
+p3
+```
+
+There are two equivalent ways to describe these two models. The first is by thinking of them as separate linear regressions.
+
+$$
+\begin{aligned}
+\text{E}(Y\mid X, \text{Female}) &= \beta_0^\text{Female} + \beta_1^\text{Female}\times \text{Age} \\
+\text{E}(Y\mid X, \text{Male}) &= \beta_0^\text{Male} + \beta_1^\text{Male}\times \text{Age} \\
+\end{aligned}
+$$
+
+The second way is to think of them as one pooled linear regression that **interacts** age and sex to allow the slope on age to differ by sex.
+
+$$\text{E}(Y \mid X, \text{Sex}) = \gamma_0 + \gamma_1(\text{Female}) + \gamma_2(\text{Age}) + \gamma_3 (\text{Age} \times \text{Female})$$
+
+Note that both approaches summarize the conditional mean function with 4 parameters. The two approaches are actually equivalent, as you can show with some algebra.
+
+$$\begin{aligned}
+\gamma_0 &= \beta_0^\text{Male} 
+&\gamma_1 &= \beta_0^\text{Female} - \beta_0^\text{Male} \\
+\gamma_2 &= \beta_1^\text{Male} 
+&\gamma_3 &= \beta_1^\text{Female} - \beta_1^\text{Male}
+\end{aligned}$$
+
+Below, we practice writing an interaction in code. First generate data in 2019 that vary in both `sex` and `age`.
+
+```{r}
+all_2019 <- simulated |>
+  filter(year == 2019)
+```
+```{r, echo = F}
+all_2019
+```
+
+The `*` operator allows slopes to differ across groups
+
+```{r}
+model <- lm(
+  formula = income ~ sex * age,
+  data = all_2019
+)
+```
+
+```{r, echo = F, fig.height = 4}
+p3
+```
+
+## Two models: Additive model in R
+
+The `+` operator assumes slopes are the same across groups
+
+```{r}
+model <- lm(
+  formula = income ~ sex + age,
+  data = all_2019
+)
+```
+
+```{r, echo = F, fig.height = 4}
+target_subgroup <- tibble(age = 47, sex = c("female","male"))
+target_subgroup$yhat <- predict(model, newdata = target_subgroup)
+
+all_2019 |>
+  mutate(yhat = predict(model)) |>
+  group_by(sex, age) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray", size = 1) +
+  scale_y_continuous(
+    name = "Annual Income Y",
+    labels = label_currency(),
+  ) +
+  labs(x = "Age X") +
+  facet_wrap(~sex) +
+  # Regression line
+  geom_line(aes(y = yhat)) +
+  # Prediction
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = 47, y = -Inf, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_segment(
+    data = target_subgroup,
+    aes(x = 47, xend = -Inf, y = yhat, yend = yhat), 
+    color = "#2774AE", linetype = "dashed"
+  ) +
+  geom_point(
+    data = target_subgroup,
+    aes(x = age, y = yhat), 
+    color = "#2774AE", size = 3
+  )
+```
+
+When you have many interactions, the model starts to have lots of terms! This can make interpretation hard. But, you can always use the model to predict any conditional mean you want, even if there are many interactions.
+
+```{r}
+model <- lm(
+  formula = income ~ sex * age * year,
+  data = simulated
+)
+```
+
+```{r}
+summary(model)
+```
+
+The many terms of the model correspond to many slopes in subgroups, as visualized below.
+
+```{r, echo = FALSE, fig.height = 4}
+simulated |>
+  mutate(yhat = predict(model)) |>
+  group_by(sex, age, year) |>
+  summarize_all(mean) |>
+  ggplot(aes(x = age, y = income)) +
+  geom_point(color = "gray", size = .7) +
+  facet_grid(sex ~ year) +
+  geom_line(aes(y = yhat)) +
+  scale_y_continuous(
+    name = "Income Y",
+    labels = label_currency()
+  ) +
+  scale_x_continuous(breaks = c(35,45), name = "Age X")
+```
+
+## Penalized Regression
+
+We close with a more advanced data science topic: penalized regression. We will discuss a method known as ridge regression or L2 penalized regression. This data science approach is a linear model just like OLS, but estimates the coefficients slightly differently.
+
+Before defining this type of penalized regression, below we show what happens when we use it. Each line is a regression estimated on a different sample from the population. What similarities and differences do you notice between the penalized and unpenalized regressions?
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+simulate_female_2019 <- function(n) {
+  read_csv("https://ilundberg.github.io/description/assets/truth.csv") |>
+  filter(year == 2019 & sex == "female") |>
+  slice_sample(n = n, weight_by = weight, replace = T) |>
+  mutate(income = exp(rnorm(n(), meanlog, sdlog))) |>
+  select(year, age, sex, income)
+}
+simulated <- simulate_female_2019(n = 100)
+
+fit_models <- function(data, lambda = 5e3) {
+  # Mean-center X and y
+  # For simplicity, X is centered at 39.89634
+  # which is its population mean in this simulation.
+  X <- data$age - 39.89634
+  y <- data$income - mean(data$income)
+  ridge <- solve(t(X) %*% X + lambda, t(X) %*% y)
+  ols <- coef(lm(y ~ -1 + X))
+  newX <- 47 - 39.89634
+  return(
+    tibble(
+      model = c("ols","ridge"),
+      # Return intercept with X centered at 0
+      intercept = mean(data$income) - 39.89634 * c(ols, ridge),
+      slope = c(ols, ridge),
+      yhat = c(
+        mean(data$income) + newX * ols,
+        mean(data$income) + newX * ridge
+      )
+    )
+  )
+}
+results <- foreach(rep = 1:50, .combine = "rbind") %do% {
+  simulate_female_2019(n = 100) |>
+    fit_models(lambda = 1e4) |>
+    mutate(rep = rep)
+}
+results |>
+  mutate(model = ifelse(model == "ols", "Unpenalized","Penalized")) |>
+  ggplot() +
+  geom_segment(
+    aes(x = 30, xend = 50,
+        y = intercept + 30 * slope,
+        yend = intercept + 50 * slope,
+        group = rep),
+    alpha = .8, color = "gray"
+  ) +
+  facet_wrap(~model) +
+  scale_y_continuous(
+    labels = label_currency()
+  ) +
+  labs(
+    x = "Age", y = "Income", caption = "Among female respondents in 2019"
+  )
+
+```
+
+We could use each approach to predict the mean income among 47-year-olds. Below are those predictions, with one dot from each simulated sample. How do the patterns below align with what you noticed in the graph above?
+
+```{r, echo = FALSE}
+results |>
+  mutate(model = ifelse(model == "ols", "Unpenalized","Penalized")) |>
+  ggplot(aes(x = model, y = yhat)) +
+  geom_jitter(width = .1, height = 0) +
+  scale_y_continuous(labels = label_currency()) +
+  labs(
+    y = "Predicted mean income\namong 47-year-olds",
+    x = "Model",
+    caption = "Each dot is an estimate on a different\nsample from the population"
+  )
+```
+
+The reason one uses penalized regression is to reduce the sampling variance of estimates, at the cost of some bias (estimates are generally drawn in toward the overall sample mean). To understand how, it is useful to see some math.
+
+OLS chose $\alpha, \vec\beta$ to minimize this function:
+$$
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error}
+\end{aligned}
+$$
+where $\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j$
+
+Penalized (ridge) regression chose $\alpha, \vec\beta$ to minimize this function:
+$$
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error} + \underbrace{\lambda \sum_{j} \beta_j^2}_\text{Penalty Term}
+\end{aligned}
+$$
+where $\hat{Y}_i = \hat\alpha + \sum_j X_j \hat\beta_j$
+
+The only difference between the two is that penalized regression seeks to avoid having a large value of $\sum_j \beta_j^2$. Thus, it prefers to estimate models with coefficients near zero. In practice, researchers often mean-center covariates and outcomes for penalized regression so that this pulls all estimates toward the overall mean.
+
+### Penalized regression in code
+
+Penalized regression is available through many R packages. Here we illustrate with the `glmnet` package. First, simulate a large sample.
+
+```{r, message = FALSE, warning = FALSE}
+simulated <- simulate(n = 1e5)
+```
+
+Load the package.
+```{r, message = FALSE, warning = FALSE}
+library(glmnet)
+```
+
+Create a model matrix of predictors
+
+- This converts the predictor data into matrix form
+- Each column will correspond to a coefficient
+
+```{r}
+X <- model.matrix(~ age * sex * year, data = simulated)
+```
+
+Create a vector of the outcomes
+```{r}
+y <- simulated |> pull(income)
+```
+
+Use the `cv.glmnet` function to call the package. For now, we will leave as a black box how it chooses the penalty parameter $\lambda$.
+
+```{r}
+penalized <- cv.glmnet(
+  x = X,    # model matrix we created
+  y = y,    # outcome vector we created
+  alpha = 0 # penalize sum of beta ^ 2
+)
+```
+
+Finally, make predictions from the model at each observed data point.
+
+```{r}
+yhat <- predict(
+  penalized,
+  newx = X
+)
+```
+```{r}
+summary(yhat)
+```
+
+When should you use penalized regression? The key reasons are motivated by the original illustration figures above. You should use penalized regression to reduce the variance of your estimates. This may occur in settings where you have many predictors and few observations, for example. However, there is a cost: penalized regression generally yields biased estimates of conditional means, so the model will be wrong on average.
+
+In future classes, we will discuss data-driven ways to choose among the many statistical and machine-learning approaches to estimate conditional mean functions.
