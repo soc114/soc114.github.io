@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Basics of R – Social Data Science</title>
+<title>Problem Set 4: Statistical Learning – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../topics/2a_visualization.html" rel="next">
-<link href="../topics/1b_software.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -104,6 +102,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -214,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1a_empirical_questions.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../topics/1c_r_basics.html">Basics of R</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 4: Statistical Learning</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -263,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/1c_r_basics.html" class="sidebar-item-text sidebar-link active">
+  <a href="../topics/1c_r_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Basics of R</span></a>
   </div>
 </li>
@@ -414,17 +441,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#using-a-data-frame" id="toc-using-a-data-frame" class="nav-link active" data-scroll-target="#using-a-data-frame">Using a data frame</a></li>
-  <li><a href="#data-frames-and-empirical-questions" id="toc-data-frames-and-empirical-questions" class="nav-link" data-scroll-target="#data-frames-and-empirical-questions">Data frames and empirical questions</a></li>
+  <li><a href="#synthetic-data" id="toc-synthetic-data" class="nav-link active" data-scroll-target="#synthetic-data">Synthetic data</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear regression</a></li>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
+  <li><a href="#your-approach" id="toc-your-approach" class="nav-link" data-scroll-target="#your-approach">Your approach</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1a_empirical_questions.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../topics/1c_r_basics.html">Basics of R</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Basics of R</h1>
+<h1 class="title">Problem Set 4: Statistical Learning</h1>
 </div>
 
 
@@ -441,59 +471,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Now that you have installed R, it is time to try using R for the first time. Because there already exist many excellent resources on this topic, we will walk together in class through the material in <a href="https://r4ds.hadley.nz/workflow-basics.html">R4DS Ch 2</a>. This material will prepare you to complete Problem Set 1.</p>
-<p>After the basics in <a href="https://r4ds.hadley.nz/workflow-basics.html">R4DS Ch 2</a>, return to this page and continue below to learn about an object we will often use in this course: a data frame.</p>
-<section id="using-a-data-frame" class="level2">
-<h2 class="anchored" data-anchor-id="using-a-data-frame">Using a data frame</h2>
-<p>The class of object we will use in this course most often is a <code>data.frame</code> or <code>tibble</code>, which is a particular type of data frame. A data frame is an object like the rectangular spreadsheet below.</p>
-<table class="caption-top table">
-<caption>A hypothetical data table with three households</caption>
-<thead>
-<tr class="header">
-<th>Address</th>
-<th>Income</th>
-<th>Number of People</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>5462 Park St</td>
-<td>54,896</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td>4596 Ocean Ave Apt B</td>
-<td>22,465</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>6831 River Dr</td>
-<td>134,297</td>
-<td>4</td>
-</tr>
-</tbody>
-</table>
-<p>The code below will load <a href="../data/basicData.csv">basicData.csv</a> into an object in R.</p>
+<p>Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> with a 1-year-old child at home. Our data include those with at least one child age 0–18.</p>
+<section id="synthetic-data" class="level2">
+<h2 class="anchored" data-anchor-id="synthetic-data">Synthetic data</h2>
+<p>To speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010–2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated <strong>synthetic data</strong>: we created a new dataset for you to use with simulated people using these known probabilities.</p>
+<p>Synthetic data is good in our setting for two reasons</p>
+<ol type="1">
+<li>we know the answer</li>
+<li>you can download the synthetic data right from this website</li>
+</ol>
+<p>For transparency, here is the <a href="../code/synthetic_parents.R">code</a> with which we created the synthetic data. The line below will load the <a href="../data/parents.csv">synthetic data</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>basicData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/basicData.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>parents <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/parents.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If you type <code>basicData</code> in your R console, you will see a printout of the data.</p>
+<p>Your synthetic data intentionally omits any parents with child age 1. Here is a graph showing the averages in your data, grouped by child age and sex.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pset4_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="data-frames-and-empirical-questions" class="level2">
-<h2 class="anchored" data-anchor-id="data-frames-and-empirical-questions">Data frames and empirical questions</h2>
-<p>The structure of these data correspond to elements of empirical questions we study.</p>
-<ul>
-<li>The <strong>outcome</strong> is a variable to be summarized. It appears as a column in the data. Here, the outcome might be <code>income</code>.</li>
-<li>The <strong>unit of analysis</strong> is the unit for which the outcome is defined. Each unit corresponds to a row of the data. Here, the unit of analysis is a household.</li>
-</ul>
-<p>The data may also contain other columns, such as the address of the household in this example. The other columns may represent <strong>predictor variables</strong> or variables that define <strong>population subgroups</strong>.</p>
-<p>Now that you understand a data frame object, we will next use one to produce a visualization.</p>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Predict the proportion employed among female respondents whose youngest child is 1 year old.</p>
+<p>This subgroup at which to make a prediction is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>target_population <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">sex =</span> <span class="st">"female"</span>, <span class="at">child_age =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You will estimate several models to predict <code>at_work</code> as a function of <code>sex</code> and <code>child_age</code>.</p>
+</section>
+<section id="linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression">Linear regression</h2>
+<ol type="1">
+<li>Estimate an additive OLS model for <code>at_work</code> as an additive function of <code>sex</code> and <code>child_age</code>. Store it in <code>ols_additive</code>.</li>
+<li>Visualize the additive model. Create a <code>ggplot()</code> in which the <span class="math inline">\(x\)</span>-axis is <code>child_age</code>, the color is <code>sex</code>, and the <span class="math inline">\(y\)</span>-axis has predictions from <code>ols_additive</code>. Store this plot in <code>ols_additive_plot</code>.</li>
+<li>Estimate an interactive OLS model for <code>at_work</code> as a interactive function of <code>sex</code> and <code>child_age</code>. Store it in an object <code>ols_interactive</code>.</li>
+<li>Visualize the interactive model. Create a <code>ggplot()</code> in which the <span class="math inline">\(x\)</span>-axis is <code>child_age</code>, the color is <code>sex</code>, and the <span class="math inline">\(y\)</span>-axis has predictions from <code>ols_interactive</code>. Store this plot in <code>ols_interactive_plot</code>.</li>
+<li>Use either OLS model to predict the outcome in the target population. Store your predicted value (a number) in an object <code>ols_prediction</code>.</li>
+</ol>
+</section>
+<section id="logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h2>
+<ol start="6" type="1">
+<li>Estimate a logistic regression model to predict <code>at_work</code> as a function of <code>sex</code> and <code>age</code>. You can use any functional form you want. Store it in an object <code>logistic_regression</code>.</li>
+<li>Visualize the logistic regression model. Create a <code>ggplot()</code> in which the <span class="math inline">\(x\)</span>-axis is <code>child_age</code>, the color is <code>sex</code>, and the <span class="math inline">\(y\)</span>-axis has predictions from <code>logistic_regression</code>. Store this plot in <code>logistic_plot</code>.</li>
+<li>Use your logistic regression model to predict the probability of being <code>at_work</code> in the target population. Store your predicted value (a number) in an object <code>logistic_prediction</code>.</li>
+</ol>
+</section>
+<section id="your-approach" class="level2">
+<h2 class="anchored" data-anchor-id="your-approach">Your approach</h2>
+<p>Ultimately, this problem set is a challenge: who can best predict the outcome in <code>target_population</code>?</p>
+<p>You can use any approach. A model from above, one of them learned on data from a subgroup (e.g., those with <code>child_age</code> under 5), or one with a different functional form (e.g., you can use nonlinear terms for <code>child_age</code>). You can also estimate model-free by taking some subsample mean. You can use any method. If your approach will use a package we have not used in class, let us know on Piazza so that we can ensure the autograder has installed this package.</p>
+<ol start="9" type="1">
+<li>Store your predicted probability (a number) for <code>target_population</code> in an object called <code>my_prediction</code>.</li>
+</ol>
+<p>We will extract <code>my_prediction</code> from your submitted problem sets, see who is closest, and announce a winner in class!</p>
 
 
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Each married pair need not be of different sex. The data include same-sex couples.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -893,18 +940,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../topics/1b_software.html" class="pagination-link" aria-label="Software Prerequisites">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Software Prerequisites</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../topics/2a_visualization.html" class="pagination-link" aria-label="Visualizing a Distribution">
-        <span class="nav-page-text">Visualizing a Distribution</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

@@ -1,0 +1,81 @@
+---
+title: "Problem Set 4: Statistical Learning"
+---
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(scales)
+library(haven)
+```
+
+Gender inequality in employment is much greater among new parents than among non-parents. This exercise seeks to estimate the proportion employed among married men and women^[Each married pair need not be of different sex. The data include same-sex couples.] with a 1-year-old child at home. Our data include those with at least one child age 0--18.
+
+## Synthetic data
+
+To speed data access, we downloaded data from the basic monthly Current Population Survey for all months from 2010--2019. We processed these data, grouped by sex and age of the youngest child, and estimated the proportion employed. We then generated **synthetic data**: we created a new dataset for you to use with simulated people using these known probabilities.
+
+Synthetic data is good in our setting for two reasons
+
+1) we know the answer
+2) you can download the synthetic data right from this website
+
+For transparency, here is the [code](../code/synthetic_parents.R) with which we created the synthetic data. The line below will load the [synthetic data](../data/parents.csv).
+
+```{r, eval = F}
+parents <- read_csv("https://soc114.github.io/data/parents.csv")
+```
+```{r, echo = F, message = F, warning = F}
+parents <- read_csv("../data/parents.csv")
+```
+
+Your synthetic data intentionally omits any parents with child age 1. Here is a graph showing the averages in your data, grouped by child age and sex.
+
+```{r, echo = F, fig.height = 2.5, message = F, warning = F}
+parents |>
+  group_by(sex, child_age) |>
+  summarize(at_work = mean(at_work)) |>
+  ggplot(aes(x = child_age, y = at_work, color = sex)) +
+  geom_point() +
+  annotate(geom = "rect", xmin = .5, xmax = 1.5, ymin = -Inf, ymax = Inf, fill = "gray") +
+  annotate(geom = "text", x = 1, y = .7, label = "?", color = "white", fontface = "bold", size = 10) +
+  theme_classic() +
+  ylab("Proportion At Work Last Week") +
+  xlab("Age of Youngest Child") +
+  scale_color_discrete(name = "Sex", labels = str_to_title)
+```
+
+## Your task
+
+Predict the proportion employed among female respondents whose youngest child is 1 year old.
+
+This subgroup at which to make a prediction is:
+```{r}
+target_population <- tibble(sex = "female", child_age = 1)
+```
+
+You will estimate several models to predict `at_work` as a function of `sex` and `child_age`.
+
+## Linear regression
+
+1. Estimate an additive OLS model for `at_work` as an additive function of `sex` and `child_age`. Store it in `ols_additive`.
+2. Visualize the additive model. Create a `ggplot()` in which the $x$-axis is `child_age`, the color is `sex`, and the $y$-axis has predictions from `ols_additive`. Store this plot in `ols_additive_plot`.
+3. Estimate an interactive OLS model for `at_work` as a interactive function of `sex` and `child_age`. Store it in an object `ols_interactive`.
+4. Visualize the interactive model. Create a `ggplot()` in which the $x$-axis is `child_age`, the color is `sex`, and the $y$-axis has predictions from `ols_interactive`. Store this plot in `ols_interactive_plot`.
+5. Use either OLS model to predict the outcome in the target population. Store your predicted value (a number) in an object `ols_prediction`.
+
+## Logistic regression
+
+6. Estimate a logistic regression model to predict `at_work` as a function of `sex` and `age`. You can use any functional form you want. Store it in an object `logistic_regression`.
+7. Visualize the logistic regression model. Create a `ggplot()` in which the $x$-axis is `child_age`, the color is `sex`, and the $y$-axis has predictions from `logistic_regression`. Store this plot in `logistic_plot`.
+8. Use your logistic regression model to predict the probability of being `at_work` in the target population. Store your predicted value (a number) in an object `logistic_prediction`.
+
+## Your approach
+
+Ultimately, this problem set is a challenge: who can best predict the outcome in `target_population`?
+
+You can use any approach. A model from above, one of them learned on data from a subgroup (e.g., those with `child_age` under 5), or one with a different functional form (e.g., you can use nonlinear terms for `child_age`). You can also estimate model-free by taking some subsample mean. You can use any method. If your approach will use a package we have not used in class, let us know on Piazza so that we can ensure the autograder has installed this package.
+
+9. Store your predicted probability (a number) for `target_population` in an object called `my_prediction`.
+
+We will extract `my_prediction` from your submitted problem sets, see who is closest, and announce a winner in class!
+
