@@ -1,0 +1,262 @@
+---
+title: "Logistic Regression"
+subtitle: "UCLA Soc 114"
+format:
+  revealjs: default # For the web slides
+  #beamer: default      # To generate the PDF version
+execute:
+  echo: true
+resources: 
+   - lec06_logistic_regression.pdf
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(scales)
+library(foreach)
+options(pillar.print_max = 3, pillar.print_min = 3)
+theme_set(theme_minimal())
+update_theme(text = element_text(size = 20))
+set.seed(90095)
+```
+
+## Logistic regression: Learning goals
+
+Some things you may know
+
+- Logistic regression is good for binary outcomes
+- Coefficients are hard to interpret
+
+Data science ideas
+
+- Predicted values make logistic regression easy to use
+
+## Logistic regression
+
+- A type of model for a binary outcome
+     * $Y$ taking the values `{0,1}` or `{FALSE,TRUE}`
+- Modeled as a function of predictor variables $\vec{X}$
+
+## A data example
+
+[`baseball_population.csv`](../../data/baseball_population.csv)
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(scales)
+```
+
+```{r, eval = F}
+population <- read_csv("https://soc114.github.io/data/baseball_population.csv")
+```
+```{r, message = F, warning = F, echo = F}
+population <- read_csv("../../data/baseball_population.csv")
+population |> print(n = 5)
+```
+
+## A data example
+
+- `player` is the player name
+- `salary` is the 2023 salary
+- `position` is the position played (e.g., `LHP` for left-handed pitcher)
+- `team` is the team name
+- `team_past_record` was the team's win percentage in the previous season
+- `team_past_salary` was the team's average salary in the previous season
+
+## A binary outcome
+
+- You see a player's `salary`
+- Are they a catcher?
+     - `position == "C"`
+     
+## Linear probability model
+
+We can model with `lm()` for a linear fit.
+
+```{r}
+ols_binary_outcome <- lm(
+  position == "C" ~ salary,
+  data = population
+)
+```
+
+```{r, fig.height = 4}
+#| code-fold: true
+population |>
+  mutate(yhat = predict(ols_binary_outcome)) |>
+  ggplot(aes(x = salary, y = yhat)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_x_continuous(
+    name = "Player Salary",
+    labels = label_currency(scale = 1e-6, suffix = "m")
+  ) +
+  scale_y_continuous(
+    name = "Predicted Probability\nof Being a Catcher"
+  ) +
+  ggtitle("Modeling a binary outcome with a line")
+```
+
+## Goal: Avoid illogical predictions
+
+In OLS, there is a linear predictor
+$$
+\mu = \beta_0 + X_1\beta_1 + X_2\beta_2 + \cdots
+$$
+that can take any numeric value. Possibly $\mu <0$ or $\mu > 1$.
+
+## From $\mu$ to $\pi$
+
+Logistic regression passes the linear predictor 
+$$\mu = \beta_0 + X_1\beta_1 + X_2\beta_2 + \cdots$$
+through a nonlinear function to force it between 0 and 1.
+
+$$
+\pi = \text{logit}^{-1}\left(\beta_0 + X\beta_1\right) = \frac{e^{\beta_0 + X\beta_1}}{1 + e^{\beta_0 + X\beta_1}}
+$$
+
+## From $\mu$ to $\pi$
+
+```{r, echo = F, fig.height = 4}
+tibble(p = seq(.01,.99,.001)) |>
+  mutate(x = qlogis(p)) |>
+  ggplot(aes(x = x, y = p)) +
+  geom_line() +
+  scale_x_continuous(name = expression(atop("Linear Predictor",hat(beta)[0]+X[1]*hat(beta)[1]))) +
+  scale_y_continuous(name = "Probability that Y = 1") +
+  geom_hline(yintercept = c(0,1), linetype = "dashed", color = "gray")
+```
+
+. . .
+
+- At linear predictor 0, what is the predicted probability?
+- At linear predictor 2.5, what is the predicted probability?
+- At linear predictor $\infty$, what is the predicted probability?
+
+## From $\pi$ to $\mu$
+
+You can also think from $\pi$ to $\mu$.
+
+$$
+\begin{aligned}
+\text{logit}(\pi) &= \mu = \beta_0 + X\beta_1 \\
+\log\left(\frac{\pi}{1-\pi}\right) &= \mu = \beta_0 + X\beta_1
+\end{aligned}
+$$
+
+## From $\pi$ to $\mu$
+
+```{r, echo = F, fig.height = 4.5}
+tibble(p = seq(.01,.99,.001)) |>
+  mutate(x = qlogis(p)) |>
+  ggplot(aes(x = p, y = x)) +
+  geom_line() +
+  scale_y_continuous(name = "Logistic Function of Probability") +
+  scale_x_continuous(name = "Probability")
+```
+
+## Logistic regression in R
+
+The `glm()` function (for logistic regression) works exactly like the `lm()` function (for linear regression)
+
+## Logistic regression in R
+
+```{r}
+logistic_regression <- glm(
+  position == "C" ~ salary,
+  data = population,
+  family = "binomial"
+)
+```
+
+- `position == "C"` is our outcome: the binary indicator that the `position` variable takes the value `"C"`
+- `salary` is a predictor variable
+- `family = "binomial"` specifies logistic regression (since "binomial" is a distribution for binary outcomes)
+
+## Coefficients: A word of warning
+
+Hard to interpret. Not probabilities. Use predicted values instead.
+
+```{r}
+summary(logistic_regression)
+```
+
+## Predicted values
+
+Be sure to use `type = "response"` predict probabilities (between 0 and 1) instead of log odds
+
+```{r, eval = FALSE}
+predict(
+  logistic_regression,
+  type = "response"
+)
+```
+
+## Predicted values
+
+```{r, fig.height = 4}
+#| code-fold: true
+population |>
+  mutate(yhat = predict(logistic_regression, type = "response")) |>
+  distinct(salary, yhat) |>
+  ggplot(aes(x = salary, y = yhat)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_x_continuous(
+    name = "Player Salary",
+    labels = label_currency(scale = 1e-6, suffix = "m")
+  ) +
+  scale_y_continuous(
+    name = "Predicted Probability\nof Being a Catcher"
+  ) +
+  ggtitle("Modeling a binary outcome with logistic regression")
+```
+
+## Predicted values with `newdata`
+
+- New player: salary is \$5 million.
+- What is the probability that this player is a catcher?
+
+```{r}
+to_predict <- tibble(salary = 5e6)
+```
+
+. . .
+
+Make the predicted value.
+
+```{r}
+predict(
+  logistic_regression,
+  newdata = to_predict,
+  type = "response"
+)
+```
+
+## Linear and logistic regression
+
+What is the same? What is different?
+
+. . .
+
+* Same
+     * Takes $X$ and predicts $Y$
+     * Involves $\beta_0 + \beta_1 X$
+* Different
+     * Logistic regression predicts a probability $0\leq\pi\leq 1$
+
+$$
+\log\left(\frac{\pi}{1-\pi}\right) = \beta_0 + X_1\beta_1
+$$
+
+## Logistic regression: Learning goals
+
+Some things you may know
+
+- Logistic regression is good for binary outcomes
+- Coefficients are hard to interpret
+
+Data science ideas
+
+- Predicted values make logistic regression easy to use
+
