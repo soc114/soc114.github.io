@@ -131,7 +131,7 @@
     "href": "topics/6_logistic_regression.html",
     "title": "Logistic Regression",
     "section": "",
-    "text": "Logistic regression is an approach to predict binary outcomes (\\(Y\\) taking the values {0,1} or {FALSE,TRUE}) as a function of one or more predictor variables (a vector \\(\\vec{X}\\)). This page introduces logistic regression using an example from the baseball data.",
+    "text": "Here are slides in website and pdf format.\nLogistic regression is an approach to predict binary outcomes (\\(Y\\) taking the values {0,1} or {FALSE,TRUE}) as a function of one or more predictor variables (a vector \\(\\vec{X}\\)). This page introduces logistic regression using an example from the baseball data.",
     "crumbs": [
       "Syllabus",
       "Models for Subgroup Summaries",
