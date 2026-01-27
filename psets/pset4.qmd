@@ -65,7 +65,7 @@ You will estimate several models to predict `at_work` as a function of `sex` and
 
 ## Logistic regression
 
-6. Estimate a logistic regression model to predict `at_work` as a function of `sex` and `age`. You can use any functional form you want. Store it in an object `logistic_regression`.
+6. Estimate a logistic regression model to predict `at_work` as a function of `sex` and `child_age`. You can use any functional form you want. Store it in an object `logistic_regression`.
 7. Visualize the logistic regression model. Create a `ggplot()` in which the $x$-axis is `child_age`, the color is `sex`, and the $y$-axis has predictions from `logistic_regression`. Store this plot in `logistic_plot`.
 8. Use your logistic regression model to predict the probability of being `at_work` in the target population. Store your predicted value (a number) in an object `logistic_prediction`.
 

@@ -1318,7 +1318,7 @@
     "href": "psets/pset4.html#logistic-regression",
     "title": "Problem Set 4: Statistical Learning",
     "section": "Logistic regression",
-    "text": "Logistic regression\n\nEstimate a logistic regression model to predict at_work as a function of sex and age. You can use any functional form you want. Store it in an object logistic_regression.\nVisualize the logistic regression model. Create a ggplot() in which the \\(x\\)-axis is child_age, the color is sex, and the \\(y\\)-axis has predictions from logistic_regression. Store this plot in logistic_plot.\nUse your logistic regression model to predict the probability of being at_work in the target population. Store your predicted value (a number) in an object logistic_prediction."
+    "text": "Logistic regression\n\nEstimate a logistic regression model to predict at_work as a function of sex and child_age. You can use any functional form you want. Store it in an object logistic_regression.\nVisualize the logistic regression model. Create a ggplot() in which the \\(x\\)-axis is child_age, the color is sex, and the \\(y\\)-axis has predictions from logistic_regression. Store this plot in logistic_plot.\nUse your logistic regression model to predict the probability of being at_work in the target population. Store your predicted value (a number) in an object logistic_prediction."
   },
   {
     "objectID": "psets/pset4.html#your-approach",
