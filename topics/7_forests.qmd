@@ -3,15 +3,13 @@ title: "Forests"
 format: html
 ---
 
-> Topic for 1/28.
+> Here are [slides](../slides/lec07_forests/lec07_forests.pdf).
 
 ```{r, echo = F, message = F, warning = F}
 library(tidyverse)
 library(foreach)
 library(rpart)
 ```
-
-> Here are [slides](../slides/trees/trees.pdf).
 
 ```{r, echo = F, message = F, warning = F}
 library(tidyverse)
@@ -20,7 +18,78 @@ library(foreach)
 
 Regression models perform well when the the response surface $E(Y\mid\vec{X})$ follows a line (or some other assumed shape). In some settings, however, the response surface may be more complex. There may be nonlinearities and interaction terms that the researcher may not know about in advance. In these settings, one might desire an estimator that adaptively learns the functional form from the data. Trees are one such approach.
 
+## Things we will use in class
+
+> This is a big topic! This page has lots of material. This section provides the code you can copy to follow along with things we do in class. The later sections are more pedagogical if you are reading the material.
+
+We will use several packages today that you may not have installed. You can install them all with
+
+```{r, eval = F}
+install.packages(c("palmerpenguins","rpart","rpart.plot","grf","DiagrammeR"))
+```
+
+```{r, warning = F, message = F}
+library(palmerpenguins)
+library(rpart)
+library(rpart.plot)
+library(grf)
+```
+
+Here is example code we will use to illustrate learning a tree to whether a penguin is found on the island of Biscoe.
+
+```{r}
+rpart.out <- rpart(island == "Biscoe" ~ ., data = penguins)
+```
+
+We will visualize this tree.
+
+```{r, eval = FALSE}
+rpart.plot(rpart.out)
+```
+
+We will estimate a regression forest.
+
+```{r}
+penguins_nonmissing <- penguins |> na.omit()
+X <- model.matrix(island == "Biscoe" ~ ., data = penguins_nonmissing)
+y <- penguins_nonmissing |> 
+  mutate(biscoe = island == "Biscoe") |> 
+  pull(biscoe)
+forest <- grf.out <- regression_forest(
+  X = X,
+  Y = y,
+  tune.parameters = "all"
+)
+```
+
+We can extract a tree from the forest.
+
+```{r, eval = FALSE}
+first_tree <- get_tree(forest, index = 1)
+plot(first_tree)
+```
+
+We can extract predicted values.
+```{r}
+yhat <- forest$predictions[,1]
+```
+
+We can visualize those predicted values.
+```{r}
+penguins_nonmissing |>
+  mutate(yhat = yhat) |>
+  ggplot(aes(x = bill_length_mm, y = yhat, color = species)) +
+  geom_point() +
+  labs(
+    y = "Probability of Living on Biscoe",
+    x = "Bill Length",
+    color = "Species"
+  )
+```
+
 ## A simulation to illustrate trees
+
+> From here on, the material is intended to be read rather than walked through together in class.
 
 As an example, the figure below presents some hypothetical data with a binary predictor $Z$, a numeric predictor $X$, and a numeric outcome $Y$.
 
