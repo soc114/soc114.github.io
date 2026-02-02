@@ -1,0 +1,45 @@
+---
+title: "Problem Set 5: Income Prediction Challenge"
+---
+
+**Due: 5pm on Friday, Feb 6.**
+
+This problem set is connected to the [PSID Income Prediction Challenge](../topics/8_prediction.qmd). Look at that page for [data access](../topics/8_prediction.qmd#accessing-data) instructions. Before you start, you should prepare your working directory. This folder on your computer will contain
+
+- your R script
+- the file `learning.csv` (see instructions linked above)
+- the file `holdout.csv` (see instructions linked above)
+
+The two `.csv` files will already exist in the autograder working directory on Gradescope; it is not necessary to upload them. You will upload your R script.
+
+There will be **two submissions** for this problem set.
+
+- Problem Set 5: Code
+- Problem Set 5: Written Answers
+
+## Code part 1: Guided
+
+Your code submission should:
+
+- Read `learning.csv` from your working directory.
+- Create `splitted`, a sample split object created by the `initial_split` function in the `rsample` package. You can use any proportion split that you want.
+- Estimate a linear regression `linear_regression` using `training(splitted)`. This model will predict `g3_log_income` as a function of any predictors you want.
+- Create an object `predicted` that contains the data `testing(splitted)` and a new column named `yhat` containing predictions from `linear_regression` using the data `testing(splitted)`.
+- Create an object `mse` that summarizes the mean squared error in the testing data. This object can be a `tibble` with one value or a single numeric value.
+
+## Code part 2: Creative
+
+Now use any set of predictors you want, and any prediction function you want. It can be linear regression with any set of predictors, penalized linear regression, a tree or a forest.
+
+Estimate your model on the full `learning.csv` data. Then make predictions for the cases in `holdout.csv`. Store your predicted values in the `holdout.csv` column `g3_log_income`.
+
+The leaderboard on Gradescope will show real-time MSE scores for the holdout set.
+
+## Written answers
+
+This Gradescope written portion assignment asks the following questions:
+
+1. How did you choose the predictor variables you used? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.
+
+2. How did you choose your learning algorithm? Correct answers might be entirely conceptual, entirely data-driven, or a mixture of both.
+

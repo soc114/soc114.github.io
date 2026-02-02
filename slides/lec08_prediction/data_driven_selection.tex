@@ -1,0 +1,215 @@
+
+% MIGHT MOVE ALL SLIDES TO QMD FOR CODE PURPOSER
+
+\documentclass{beamer}
+
+\usetheme{default}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes.arrows,positioning,shapes}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\newcommand\red[1]{{\color{red}#1}}
+\newcommand\bred[1]{{\color{red}\textbf{#1}}}
+\newcommand\blue[1]{{\color{blue}#1}}
+\newcommand\bblue[1]{{\color{blue}\textbf{#1}}}
+\newcommand\green[1]{{\color{olive}#1}}
+\newcommand\bgreen[1]{{\color{olive}\textbf{#1}}}
+\newcommand\black[1]{{\color{black}#1}}
+\newcommand\white[1]{{\color{white}#1}}
+\newcommand\E{\text{E}}
+\newcommand\V{\text{V}}
+\renewcommand\P{\text{P}}
+\definecolor{seagreen4}{RGB}{46, 139, 87}
+
+
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{footline}[text line]{%
+%\parbox{\linewidth}{\vspace*{-8pt}Ian Lundberg (UCLA)}}
+\addtobeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+     \insertsectionnavigationhorizontal{\paperwidth}{}{}
+  \end{beamercolorbox}}%
+
+}
+
+\newcommand{\indep}{{\bot\negthickspace\negthickspace\bot}}
+
+\newcommand{\goalsframe}{\begin{frame}{Learning goals for today}
+By the end of class, you will be able to
+\begin{itemize}
+    \item understand sample splitting: a common data science procedure for choosing among many candidate estimators
+ \end{itemize} 
+  \vskip .2in
+\end{frame}}
+
+\title{}
+
+\author{}
+
+%\pgfdeclareimage[height=1cm]{university-logo}{ff_logo.jpg}
+%\logo{\pgfuseimage{university-logo}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{frame}
+\begin{tikzpicture}[x = \textwidth, y = \textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node[anchor = north west, align = left, font = \huge] at (0,.9) {Social\\Data\\Science};
+\node[anchor = north east, align = right] (number) at (1,.9) {Soc 114\\Winter 2026};
+\node[anchor = north, font = \Large, align = center] at (.5,.5) {Data-Driven Estimator Selection};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Learning goals}
+\begin{itemize}
+\item k-nearest-neighbors estimator
+\item bias-variance tradeoff
+\item sample splitting
+\item cross validation
+\end{itemize}
+\end{frame}
+
+\section{Example}
+
+\begin{frame}{A running example}
+
+% Should define data at team level
+\begin{itemize}
+\item Sample 10 players from each MLB team
+\item Estimate sample average salary on each team
+\item Produces data where
+\begin{itemize}
+\item Unit of analysis $i$ is a team
+\item Outcome $y_i$ is average salary
+\item Predictor $x_i$ is prior year average salary
+\end{itemize}
+\end{itemize} \vskip .1in
+
+Goal: Predict mean salary of all Dodgers (sampled and unsampled)
+
+\end{frame}
+
+\begin{frame}{To do: Code so they can generate team estimates}
+%\texttt{source("sample_team_estimates.R")}
+%\texttt{sample <- sample\_team\_estimates(n = 10)}
+\end{frame}
+
+\section{Nearest Neighbors}
+
+\begin{frame}{Task}
+
+
+
+\end{frame}
+
+\begin{frame}{Estimator: k-nearest neighbors}
+
+10 sampled players per team
+\begin{itemize}
+\item Dodger sample mean might be noisy
+\item Could pool with similar teams defined by past mean salary
+\begin{itemize}
+\item Dodgers: 8.39m
+\item 1st-nearest neighbor. NY Mets: 8.34m
+\item 2nd-nearest neighbor. NY Yankees: 7.60m
+\item 3rd-nearest neighbor. Philadelphia: 6.50m
+\end{itemize}
+\item How does performance change with the number of neighbors included?
+\begin{itemize}
+\item measured by mean squared prediction error
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\includegraphics<1>[width = \textwidth]{figures/knn_0}
+\includegraphics<2>[width = \textwidth]{figures/knn_1}
+\includegraphics<3>[width = \textwidth]{figures/knn_2}
+\includegraphics<4>[width = \textwidth]{figures/knn_3}
+\includegraphics<5>[width = \textwidth]{figures/knn_4}
+\includegraphics<6>[width = \textwidth]{figures/knn_5}
+\includegraphics<7>[width = \textwidth]{figures/knn_10}
+\includegraphics<8>[width = \textwidth]{figures/knn_15}
+\includegraphics<9>[width = \textwidth]{figures/knn_20}
+\includegraphics<10>[width = \textwidth]{figures/knn_25}
+\end{frame}
+
+\begin{frame}
+\includegraphics[width = \textwidth]{figures/knn_29}
+\end{frame}
+
+\section{Sample Splitting}
+
+\begin{frame}
+You have one sample.\\
+How do you estimate out-of-sample performance?
+\end{frame}
+
+\begin{frame}
+\includegraphics[width = \textwidth]{figures/randomize_split}
+\end{frame}
+
+\begin{frame}
+\includegraphics[width = \textwidth]{figures/train_test}
+\end{frame}
+
+\begin{frame}{Exercise: Conduct a sample split in code}
+
+\begin{enumerate}
+\item Sample 10 players per team
+\item Take a 50-50 sample split stratified by team
+\item Fit a linear regression in the train set
+\item Predict in the test set
+\item Report mean squared error
+\end{enumerate}
+
+\end{frame}
+
+\section{Cross Validation}
+
+
+\begin{frame}{Cross Validation}
+
+A train test split loses lots of data to testing. \vskip .2in
+Is there a way to bring it back?
+
+\end{frame}
+
+\begin{frame}{Cross Validation}
+\begin{tikzpicture}[x = \textwidth, y = .8\textheight]
+\node at (0,0) {};
+\node at (1,1) {};
+\node[anchor = north west, align = center] at (0,1) {Randomize\\to 5 folds};
+\node[anchor = north west] at (0,.9) {\includegraphics[scale = .8]{figures/five_folds}};
+\node<2->[anchor = north, align = center] at (.55,1) {Iteratively use each as the test set};
+\node<3->[anchor = north west] at (.2,.9) {\includegraphics[scale = .8]{figures/five_folds_1}};
+\node<4->[anchor = north west] at (.35,.9) {\includegraphics[scale = .8]{figures/five_folds_2}};
+\node<5->[anchor = north west] at (.5,.9) {\includegraphics[scale = .8]{figures/five_folds_3}};
+\node<6->[anchor = north west] at (.65,.9) {\includegraphics[scale = .8]{figures/five_folds_4}};
+\node<7->[anchor = north west] at (.8,.9) {\includegraphics[scale = .8]{figures/five_folds_5}};
+\node<8->[anchor = north, align = center] at (.55,.1) {Average prediction error over folds};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+Out-of-sample predictive performance is not just for tuning parameters. \vskip .2in
+It can help you choose your algorithm.
+\end{frame}
+
+\begin{frame}
+\includegraphics[width = \textwidth]{figures/many_algorithm_predictions}
+\end{frame}
+
+\begin{frame}
+\includegraphics[width = \textwidth]{figures/many_algorithm_mse}
+\end{frame}
+
+\goalsframe
+
+\end{document}
+

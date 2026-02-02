@@ -32,8 +32,10 @@ Below is a tentative plan for the dates each topic will be covered. If you are a
 | 1/21 | [Linear Regression](topics/5_linear_regression.qmd) |
 | 1/26 | [Logistic Regression](topics/6_logistic_regression.qmd) |
 | 1/28 | [Forests](topics/7_forests.qmd) |
-| 2/2  | [Data-Driven Estimator Selection](topics/8_data_driven_selection.qmd) |
-| 2/4  | [Are Complex Models Better?](topics/9_are_complex_better.qmd) |
+| 2/2  | [Economic Opportunity Measured by Predictability](topics/8_prediction.qmd) |
+|      | [Sample Splitting](topics/8b_sample_splitting.qmd) |
+| 2/4  | [Data-Driven Estimator Selection](topics/9a_data_driven_selection.qmd) |
+|      | [Are Complex Models Better?](topics/9_are_complex_better.qmd) |
 |      | **Causal Inference under Measured Confounding** |
 | 2/9  | [Defining Causal Effects](topics/10_define_causal.qmd) |
 | 2/11 | [Exchangeability](topics/11_exchangeability.qmd) |

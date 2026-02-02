@@ -24,6 +24,7 @@ website:
           - psets/pset2.qmd
           - psets/pset3.qmd
           - psets/pset4.qmd
+          - psets/pset5.qmd
       - href: "https://piazza.com/class/miyskvk64nv4y1"
         text: Piazza
       - text: Honors Section
@@ -61,7 +62,9 @@ website:
           - topics/5_linear_regression.qmd
           - topics/6_logistic_regression.qmd
           - topics/7_forests.qmd
-          - topics/8_data_driven_selection.qmd
+          - topics/8_prediction.qmd
+          - topics/8b_sample_splitting.qmd
+          - topics/9a_data_driven_selection.qmd
           - topics/9_are_complex_better.qmd
       - section: "Causal Inference with Measured Confounding"
         contents:

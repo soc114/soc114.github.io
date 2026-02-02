@@ -1,0 +1,19 @@
+{
+  "hash": "4b64fedd83c56b15e2e9729f79cc55b9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Data-Driven Selection\"\nsubtitle: \"UCLA Soc 114\"\nformat:\n  revealjs: default # For the web slides\n  #beamer: default      # To generate the PDF version\nexecute:\n  echo: true\nresources: \n   - lec08_data_driven_selection.pdf\n---\n\n\n::: {.cell}\n\n:::\n\n\n## Learning goals\n\nUse data to choose among several estimators\n\nConcepts:\n\n- k-nearest-neighbors estimator\n- bias-variance tradeoff\n- sample splitting\n- cross validation\n\n## Running example\n\nFor every MLB baseball team `i`, you see\n\n- `x` average salary of all players in 2022 season\n- `y` average salary of 10 players in 2023 season\n\n$$\n\\text{E}(Y\\mid \\text{Team} = i)\n$$\n\nTask: Use these data to estimate Dodger mean salary\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

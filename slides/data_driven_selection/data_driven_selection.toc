@@ -1,2 +1,0 @@
-\beamer@sectionintoc {1}{Sample Splitting}{82}{0}{1}
-\beamer@sectionintoc {2}{Cross Validation}{86}{0}{2}

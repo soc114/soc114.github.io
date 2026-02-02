@@ -1,0 +1,117 @@
+---
+title: "Sample Splitting"
+---
+
+A predictive model $\hat{f}()$ is an input-output function:
+
+- the input is a set of features $\vec{x}$
+- the output is a predicted outcome $\hat{y} = \hat{f}(\vec{x})$
+
+Ideally, a prediction function works well on **new cases**: cases that were not used to learn the model. Sample splitting is a strategy to test a prediction function on out-of-sample cases.
+
+We will use the `tidyverse` package as usual. In addition, we will use the `rsample` package to create a sample split. You may need to install `rsample` by running `install.packages("rsample")` in your console.
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(rsample)
+```
+
+## Simulated data example
+
+To practice the mechanics of sample splitting, the data [for_sample_split.csv](../assets/for_sample_split.csv) contain simulated data with 100 predictors `x1`,$\dots$,`x100` observed for $n = 300$ cases.
+
+```{r, echo = F}
+set.seed(90095)
+generate_data <- function(sample_size = 300, num_features = 100) {
+  # Predictors are independent Normal
+  X <- replicate(num_features, rnorm(sample_size))
+  colnames(X) <- paste0("x",1:num_features)
+  
+  as_tibble(X) |>
+    # Outcome is an independent Normal
+    mutate(y = rnorm(n(), mean = .1 * apply(X,1,sum)))
+}
+for_sample_split <- generate_data(sample_size = 300, num_features = 100)
+write_csv(for_sample_split, file = "../assets/for_sample_split.csv")
+```
+before applying that function to generate one sample.
+```{r, eval = F}
+for_sample_split <- read_csv("https://soc114.github.io/assets/for_sample_split.csv")
+```
+
+We will consider modeling `y` by linear regression with various subset of the `x` variables.
+
+## How to sample split
+
+To create a sample split, use the `initial_split` function.
+
+```{r}
+splitted <- initial_split(data = for_sample_split, prop = .5)
+```
+
+This randomly splits the data into two equally-sized subgroups, `training(splitted)` and `testing(splitted)`.
+
+## Evaluate predictive performance
+
+We can fit a model on the training data.
+
+```{r}
+model <- lm(y ~ x1, data = training(splitted))
+```
+
+We can then make out-of-sample predictions in the testing set.
+
+```{r}
+predicted <- testing(splitted) |>
+  mutate(yhat = predict(model, newdata = testing(splitted)))
+```
+
+Finally, we can evaluate mean squared error in the testing set.
+```{r}
+predicted |>
+  mutate(
+    error = y - yhat
+  ) |>
+  summarize(
+    mean_squared_error = mean(error ^ 2)
+  )
+```
+
+## Comparing several models
+
+We can do the above for several candidate models. For example, are predictions more accurate using only `x1` as a predictor, or using all available columns as predictors?
+
+```{r}
+model_simple <- lm(y ~ x1, data = training(splitted))
+model_complex <- lm(y ~ ., data = training(splitted))
+```
+
+We can then make out-of-sample predictions in the testing set.
+
+```{r}
+predicted <- testing(splitted) |>
+  mutate(
+    yhat_simple = predict(model_simple, newdata = testing(splitted)),
+    yhat_complex = predict(model_complex, newdata = testing(splitted))
+  )
+```
+
+Finally, we can evaluate mean squared error in the testing set.
+```{r}
+predicted |>
+  mutate(
+    error_simple = y - yhat_simple,
+    error_complex = y - yhat_complex
+  ) |>
+  summarize(
+    mse_simple = mean(error_simple ^ 2),
+    mse_complex = mean(error_complex ^ 2),
+  )
+```
+
+By the gold standard of out-of-sample prediction, the simple model is better than the complex model! This may be surprising, because in fact these data were generated such that the complex model is the true model. But, there are so few cases that the complex model does not perform well at this sample size.
+
+## Closing thoughts
+
+Sample splitting is an art as much as a science. In particular applications, the gain from sample splitting is not always clear and must be balanced against the reduction in cases available for training. It is important to remember that out-of-sample prediction remains the gold standard, and sample splitting is one way to approximate that when only one sample is available.
+
