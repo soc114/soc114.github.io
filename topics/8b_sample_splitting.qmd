@@ -2,6 +2,8 @@
 title: "Sample Splitting"
 ---
 
+> Here are slides in [website](../slides/lec08_prediction/lec08b_mse.qmd) and [pdf](../slides/lec08_prediction/lec08b_mse.pdf) format.
+
 A predictive model $\hat{f}()$ is an input-output function:
 
 - the input is a set of features $\vec{x}$

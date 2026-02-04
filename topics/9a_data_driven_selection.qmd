@@ -5,7 +5,7 @@ format:
     fig-height: 3
 ---
 
-> Here are [slides](../slides/data_driven_selection/data_driven_selection.pdf).
+<!-- > Here are [slides](../slides/data_driven_selection/data_driven_selection.pdf). -->
 
 <!-- > If you are taking notes, here is a PDF of the [slides](slides/lec4/data_driven_selection_slides_handout.pdf) and a PDF of [this page](assets/pdf_chapters/data_driven_selection.pdf). If you are a Stata user, most of this page is R code. The one most important exercise is sample splitting, for which you can use [sample_split.do](assets/stata_code/sample_split.do). -->
 

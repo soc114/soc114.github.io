@@ -3,6 +3,6 @@ title: "Are Complex Models Better?"
 format: html
 ---
 
-> Topic for 2/4.
+> Here are [slides](../slides/lec09_ffc/lec09_ffc.pdf).
 
 Many data science coursess emphasize complex statistical learners, like forests. But are these models actually much better than classic statistical models such as OLS? They are superior in some settings, but the gains may be smaller in other settings. This course meeting will discuss the relative performance of simple and complex models and the reasons researchers may prefer one over the other. We will use [Salganik et al. (2020)](https://www.pnas.org/doi/10.1073/pnas.1915006117) as an example illustration that compares simple and complex models in one setting.

@@ -1,0 +1,429 @@
+---
+title: "Mean Squared Error: In and Out of Sample"
+format:
+  revealjs: default # For the web slides
+  #beamer: default      # To generate the PDF version
+execute:
+  echo: false
+resources: 
+  - lec08b_mse.pdf
+---
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+theme_set(theme_classic())
+library(foreach)
+```
+
+## 
+
+Review of key concepts
+
+## 
+
+Use data to learn a model. What does that mean?
+
+##
+
+Begin with some data. Assume a linear model.
+
+```{r, echo = F}
+set.seed(90095)
+draw_sim <- function() {
+  tibble(id = 1:20) |>
+  mutate(
+    x = runif(n(), 0, 5),
+    y = rnorm(n(), .25 + .1 * x, sd = .1)
+  )
+}
+simulated <- draw_sim()
+to_predict <- tibble(x = seq(0,5,1))
+p0 <- simulated |>
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  ylim(c(0,1)) +
+  xlim(c(0,5)) +
+  theme(text = element_text(size = 24))
+p0
+```
+
+## 
+
+Estimate a linear model
+
+```{r}
+fit <- lm(y ~ x, data = simulated)
+summary(fit)
+```
+
+##
+
+Estimate a linear model
+
+```{r}
+predicted <- to_predict |>
+  mutate(y = predict(fit, newdata = to_predict))
+p1 <- p0 +
+  geom_line(data = predicted)
+yhat0 <- predicted |> filter(x == 0) |> pull(y)
+yhat1 <- predicted |> filter(x == 1) |> pull(y)
+yhat2 <- predicted |> filter(x == 2) |> pull(y)
+p1
+```
+
+## 
+
+The model **learned** coefficient values from the data.
+
+```{r, echo = F}
+p1 +
+  # Beta 0
+  annotate(
+    geom = "segment", x = 0, xend = 0, y = 0, yend = yhat0,
+    linetype = "dashed"
+  ) +
+  annotate(geom = "text", x = .25, y = .5 * yhat0,
+           label = "hat(beta)[0]", parse = TRUE, size = 8, hjust = 0) +
+  # Beta 1
+  annotate(
+    geom = "segment", x = 1, xend = 2, y = yhat1, yend = yhat1,
+    linetype = "dashed"
+  ) +
+  annotate(geom = "text", x = 1.5, y = .9 * yhat1,
+           label = "Delta*x  == 1", parse = TRUE, size = 8, vjust = 1) +
+  annotate(
+    geom = "segment", x = 2, xend = 2, y = yhat1, yend = yhat2,
+    linetype = "dashed"
+  ) +
+  annotate(geom = "text", x = 2.25, y = .5 * (yhat1 + yhat2),
+           label = "Delta*y == hat(beta)[1]", parse = TRUE, hjust = 0, size = 8)
+```
+
+##
+
+How? It learned by minimizing the **sum of squared errors**
+
+```{r, echo = F}
+p2 <- p1 +
+  geom_segment(aes(xend = x, yend = predict(fit)),
+               linetype = "dashed") +
+  annotate(geom = "segment", x = 3, xend = 3, y = .1, yend = .2,
+           linetype = "dashed") +
+  annotate(geom = "text", x = 3.25, y = .15, label = "Prediction Errors\nin Learning Data", hjust = 0)
+p2
+```
+
+##
+
+How? It learned by minimizing the **sum of squared errors**
+
+$$
+\begin{aligned}
+\text{Sum of squared error:}\qquad &\sum_{i\in\text{learning}} \left(y_i - \hat{y}_i\right) ^ 2 \\
+\text{Mean squared error:}\qquad &\frac{1}{n_\text{Learning}}\sum_{i\in\text{learning}} \left(y_i - \hat{y}_i\right)
+\end{aligned}
+$$
+
+## 
+
+* We estimated the line in `learning` data
+* Now we evaluate the estimated line in `testing` data
+
+##
+
+**Learning** data (used to estimate the line)
+
+```{r}
+p2
+```
+
+##
+
+**Testing** data (used to evaluate the already-learned line)
+
+```{r}
+testing <- draw_sim()
+testing |>
+  ggplot(aes(x = x, y = y)) +
+  xlim(c(0,5)) +
+  ylim(c(0,1)) +
+  geom_point() +
+  geom_line(data = predicted) +
+  geom_point(data = testing) +
+  geom_segment(
+    data = testing |> mutate(yhat = predict(fit, newdata = testing)),
+    aes(xend = x, yend = yhat),
+    linetype = "dashed"
+  ) +
+  annotate(geom = "segment", x = 3, xend = 3, y = .1, yend = .2,
+           linetype = "dashed") +
+  annotate(geom = "text", x = 3.25, y = .15, label = "Prediction Errors\nin Testing Data", hjust = 0) +
+  theme(text = element_text(size = 24))
+```
+
+## 
+
+When will prediction errors in learning and testing data differ?
+
+##
+
+True model:
+
+$$
+\text{E}\left(Y\mid\vec{X}\right) = X_1\beta_1 + X_2\beta_2 + ... + X_{10}\beta_{10}
+$$
+with $\beta_1 = .9$, $\beta_2 = 0.8$, \dots, $\beta_9 = 0.1$, $\beta_{10} = 0$.
+
+We observe $n = 300$ cases.
+
+## 
+
+```{r}
+set.seed(90095)
+generate_data <- function(sample_size = 300, num_features = 100) {
+  # Predictors are independent Normal
+  X <- replicate(num_features, rnorm(sample_size))
+  colnames(X) <- paste0("x",1:num_features)
+  
+  as_tibble(X) |>
+    mutate(
+      mu = (1 / ncol(X)) * apply(X,1,sum),
+      y = rnorm(n(), mean = mu)
+    )
+}
+simulate <- function(sample_size = 200, num_features = 10, beta = rep(1, num_features), noise = 1, num_reps = 1) {
+  aggregated <- foreach(rep = 1:num_reps, .combine = "rbind") %do% {
+    X <- replicate(num_features, rnorm(sample_size))
+    colnames(X) <- paste0("x",1:num_features)
+    
+    sim_data <- as_tibble(X) |>
+      mutate(
+        mu = X %*% beta,
+        y = rnorm(n(), mean = mu, sd = noise)
+      )
+    
+    mse_estimates <- foreach(num_predictors = 1:10, .combine = "rbind") %do% {
+      this_formula <- formula(
+        paste0("y ~ ",paste0("x",1:num_predictors, collapse = " + "))
+      )
+      fit <- lm(this_formula, data = sim_data)
+      tibble(
+        num_predictors = num_predictors,
+        in_sample = mean(fit$residuals ^ 2),
+        out_of_sample = mean((fit$fitted.values - sim_data$mu) ^ 2) + noise ^ 2
+      )
+    } |>
+      pivot_longer(cols = c("in_sample","out_of_sample"),
+                   names_to = "metric", values_to = "mse")
+    return(mse_estimates)
+  } |>
+    group_by(num_predictors, metric) |>
+    summarize(mse = mean(mse), .groups = "drop") |>
+    mutate(
+      metric = factor(
+        ifelse(metric == "out_of_sample", 1, 2),
+        labels = c("New Cases","Cases Used\nto Learn\nthe Model")
+      )
+    )
+}
+
+simulated <- simulate(sample_size = 100, num_features = 10, beta = seq(.9,0,-.1), noise = 4, num_reps = 30)
+
+make_plot <- function(data, alpha_values = c(1,1)) {
+  data |>
+    ggplot(aes(x = num_predictors, y = mse, color = metric, alpha = metric)) +
+    geom_point(size = 2) +
+    geom_line() +
+    scale_x_continuous(
+      name = "Number of Predictors in Model",
+      limits = c(1,10),
+      breaks = 1:10
+    ) +
+    scale_y_continuous(name = "Mean Squared\nPrediction Error", breaks = NULL,
+                       limits = range(simulated$mse)) +
+    scale_color_manual(
+      name = "Evaluated In",
+      values = c("#F8766D","#00BFC4")
+    ) +
+    scale_alpha_manual(
+      name = "Evaluated In",
+      values = alpha_values
+    ) +
+    theme(legend.key.height = unit(64,"pt"),
+          text = element_text(size = 24))
+}
+```
+
+```{r, message = F, warning = F}
+simulated |>
+  filter(num_predictors <= 1) |>
+  make_plot(alpha_values = c(0,1))
+```
+
+##
+
+```{r}
+simulated |>
+  filter(num_predictors <= 2) |>
+  make_plot(alpha_values = c(0,1))
+```
+
+##
+
+```{r}
+simulated |>
+  filter(num_predictors <= 3) |>
+  make_plot(alpha_values = c(0,1))
+```
+
+##
+
+```{r}
+simulated |>
+  filter(num_predictors <= 5) |>
+  make_plot(alpha_values = c(0,1))
+```
+
+##
+
+```{r}
+simulated |>
+  filter(num_predictors <= 7) |>
+  make_plot(alpha_values = c(0,1))
+```
+
+##
+
+```{r}
+simulated |>
+  filter(num_predictors <= 9) |>
+  make_plot(alpha_values = c(0,1))
+```
+
+##
+
+```{r}
+simulated |>
+  make_plot(alpha_values = c(0,1))
+```
+
+##
+
+```{r}
+simulated |>
+  filter(metric == "Cases Used\nto Learn\nthe Model" | num_predictors <= 1) |>
+  make_plot()
+```
+
+##
+
+```{r}
+simulated |>
+  filter(metric == "Cases Used\nto Learn\nthe Model" | num_predictors <= 2) |>
+  make_plot()
+```
+
+##
+
+```{r}
+simulated |>
+  filter(metric == "Cases Used\nto Learn\nthe Model" | num_predictors <= 3) |>
+  make_plot()
+```
+
+##
+
+```{r}
+simulated |>
+  filter(metric == "Cases Used\nto Learn\nthe Model" | num_predictors <= 4) |>
+  make_plot()
+```
+
+##
+
+```{r}
+simulated |>
+  filter(metric == "Cases Used\nto Learn\nthe Model" | num_predictors <= 5) |>
+  make_plot()
+```
+
+##
+
+```{r}
+simulated |>
+  filter(metric == "Cases Used\nto Learn\nthe Model" | num_predictors <= 6) |>
+  make_plot()
+```
+
+##
+
+```{r}
+simulated |>
+  make_plot()
+```
+
+## Recap: Surprising facts
+
+* An estimated model picks up both
+     * **Signal.** True patterns linking $\vec{X}$ to $Y$
+     * **Noise.** Random patterns particular to the learning data.
+     
+## Recap: Surprising facts
+
+* As you add predictors to the model
+     * error in learning data goes down
+     * error in testing data may go up
+
+**Why?** With many predictors, the noise may dominate the signal.
+
+## A use case for train and test: **Tuning parameters**
+
+. . .
+
+```{r, echo = TRUE}
+for_sample_split <- read_csv("https://soc114.github.io/assets/for_sample_split.csv")
+```
+
+. . .
+
+* Predictors `x1` through `x100`
+* Outcome `y`
+* $n$ = 300 cases
+
+## A use case for train and test: **Tuning parameters**
+
+Recall penalized (ridge) regression. Chooses $\vec\beta$ to minimize
+
+$$
+\begin{aligned}
+\underbrace{\sum_i\left(Y_i - \hat{Y}_i\right)^2}_\text{Sum of Squared Error} + \underbrace{\lambda \sum_{j} \beta_j^2}_\text{Penalty Term}
+\end{aligned}
+$$
+
+But how to choose $\lambda$?
+
+## A use case for train and test: **Tuning parameters**
+
+```{r, warning = F, message = F, comment = F, echo = T}
+library(glmnet)
+X <- model.matrix(y ~ ., data = for_sample_split)
+y <- for_sample_split |> pull(y)
+penalized_regression <- cv.glmnet(x = X, y = y, alpha = 0)
+```
+
+`cv.glmnet` chooses $\lambda$ for you. How?
+
+## A use case for train and test: **Tuning parameters**
+
+```{r, echo = T}
+plot(penalized_regression)
+```
+
+It chooses $\lambda$ to minimize out-of-sample prediction error.
+
+## Recap: Data-driven model selection
+
+When there are many candidate models, you can choose the one with the lowest out-of-sample mean squared error.
+
+
+

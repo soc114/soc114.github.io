@@ -34,7 +34,8 @@ Below is a tentative plan for the dates each topic will be covered. If you are a
 | 1/28 | [Forests](topics/7_forests.qmd) |
 | 2/2  | [Economic Opportunity Measured by Predictability](topics/8_prediction.qmd) |
 |      | [Sample Splitting](topics/8b_sample_splitting.qmd) |
-| 2/4  | [Data-Driven Estimator Selection](topics/9a_data_driven_selection.qmd) |
+| 2/4  | [Sample Splitting](topics/8b_sample_splitting.qmd) (revisiting) |
+|      | [Data-Driven Estimator Selection](topics/9a_data_driven_selection.qmd) (page for reference only) |
 |      | [Are Complex Models Better?](topics/9_are_complex_better.qmd) |
 |      | **Causal Inference under Measured Confounding** |
 | 2/9  | [Defining Causal Effects](topics/10_define_causal.qmd) |
