@@ -1,0 +1,47 @@
+---
+title: "Problem Set 6: Potential Outcomes"
+---
+
+Because this week's topics are conceptual, this homework is a multiple-choice and free-response problem set that you will complete online in Gradescope where you will enter each answer, similar to our lecture quizzes.
+
+## 1. Practice with potential outcomes
+
+Jose says that coming to UCLA caused him to discover sociology, and it became his major! He says that if he had gone to Berkeley, he would have stuck with biology.
+
+1.1 In Jose's claim, what is the treatment?
+
+a. Attending UCLA (vs attending Berkeley)
+b. Majoring in sociology (vs biology)
+
+1.2. Using the mathematical notation we discussed in class, which statement says "Jose would have majored in biology if he had gone to Berkeley."
+
+a. $\text{Major}_\text{Berkeley}^\text{Jose} = \text{Biology}$
+b. $\text{Major}_\text{Jose}^\text{Berkeley} = \text{Biology}$
+c. $(\text{Major}_\text{Jose}\mid \text{Berkeley}) = \text{Biology}$
+
+1.3. What outcome is **counterfactual** in Jose's claim?
+
+a. In a world where he went to UCLA, he would major in sociology
+b. In a world where he went to Berkeley, he would major in biology
+
+1.4. In a sentence, what is the fundamental problem of causal inference that makes Jose's claim not verifiable with data?
+
+### 2. A sailing class
+
+You are looking into a sailing class through UCLA Recreation! For each claim below, tell us whether the claim is causal or descriptive.
+
+2.1. Last year, there was a survey of students who did and did not take the class. Students completed the survey on randomly assigned days after the class ended. The proportion reporting that they felt prepared to sail in Marina del Rey was higher among those who took the class than among those who did not take the class.
+
+a. This claim is causal
+b. This claim is descriptive (not causal)
+
+2.2. Last year, students were randomly assigned to take a sailing class or not. Students who took the class completed a survey before and after the class. The proportion reporting that they felt prepared to sail in Marina del Rey was higher in the survey taken after the class.
+
+a. This claim is causal
+b. This claim is descriptive (not causal)
+
+2.3. There was no randomization. But on average, the students in this class emerged more prepared to sail than those same students would have been without the class.
+
+a. This claim is causal
+b. This claim is descriptive (not causal)
+

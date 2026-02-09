@@ -2,8 +2,6 @@
 title: "Problem Set 5: Income Prediction Challenge"
 ---
 
-**Due: 5pm on Friday, Feb 6.**
-
 This problem set is connected to the [PSID Income Prediction Challenge](../topics/8_prediction.qmd). Look at that page for [data access](../topics/8_prediction.qmd#accessing-data) instructions. Before you start, you should prepare your working directory. This folder on your computer will contain
 
 - your R script

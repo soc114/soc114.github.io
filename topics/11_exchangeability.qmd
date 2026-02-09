@@ -2,7 +2,7 @@
 title: "Exchangeability"
 ---
 
-> Topic for 2/11.
+> There are separate slides on [exchangeability](../slides/lec11a_exchangeability/lec11a_exchangeability.pdf) and [conditional exchangeability](../slides/lec11b_conditional_exchangeability/lec11b_conditional_exchangeability.pdf).
 
 Causal effects involve both factual and counterfactual outcomes, yet data that we can observe involve only factual outcomes. To learn about causal effects from data that can be observed requires assumptions about the data that are not observed. This page introduces exchangeability, which is an assumption that can identify causal effects.
 

@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Nodes and Edges}{4}{0}{1}
+\beamer@sectionintoc {2}{Causal Paths}{8}{0}{2}
+\beamer@sectionintoc {3}{Forks}{20}{0}{3}
+\beamer@sectionintoc {4}{Colliders}{28}{0}{4}
+\beamer@sectionintoc {5}{Blocked Paths}{37}{0}{5}
+\beamer@sectionintoc {6}{Statistical Dependence}{51}{0}{6}
+\beamer@sectionintoc {7}{Conditional Exchangeability}{82}{0}{7}

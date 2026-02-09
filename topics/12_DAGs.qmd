@@ -2,7 +2,7 @@
 title: "Directed Acyclic Graphs"
 ---
 
-> Topic for 2/18. Here are [slides](../slides/lec10_dags/lec10_dags.pdf).
+> Here are [slides](../slides/lec12_dags/lec12_dags.pdf).
 
 ```{r, echo = F, comment = F, warning = F, output = F}
 library(tidyverse)

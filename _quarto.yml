@@ -25,6 +25,7 @@ website:
           - psets/pset3.qmd
           - psets/pset4.qmd
           - psets/pset5.qmd
+          - psets/pset6.qmd
       - href: "https://piazza.com/class/miyskvk64nv4y1"
         text: Piazza
       - text: Honors Section
