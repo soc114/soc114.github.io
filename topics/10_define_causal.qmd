@@ -4,7 +4,7 @@ title: "Defining Causal Effects"
 
 > Topic for 2/9.
 
-[slides](../slides/lec07_define_causal/lec07.pdf)
+[slides](../slides/lec10_define_causal/lec10_define_causal.pdf)
 
 The course so far has focused on descriptive claims. For example, we have estimated the average value of an outcome in the population, or among population subgroups. This lecture pivots to causal claims: what would happen if a population were exposed to a hypothetical intervention.
 

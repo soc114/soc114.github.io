@@ -1,17 +1,5 @@
 
 
-page <- read_lines("https://www.ibsf.org/en/result/504954/?cHash=fee0d2f086d9199ad2f5be907dde6ce0", destfile = "result.pdf")
-
-
-
-library(pdftools)
-pdf_text("https://www.ibsf.org/en/result?document=8a026e45-d865-4721-844d-7343d382c2cb&eID=GetDocument&fileName=Result_505159.pdf&cHash=20b80ee8bf834b6bfb5f62cdee61fcd1")
-results <- download.file(
-  "https://www.ibsf.org/en/result?document=8a026e45-d865-4721-844d-7343d382c2cb&eID=GetDocument&fileName=Result_505159.pdf",
-  destfile = "result.pdf"
-)
-
-
 to_scrape <- list.files("monobob_files")
 
 monobob_data <- foreach(i = 1:length(to_scrape), .combine = "rbind") %do% {
