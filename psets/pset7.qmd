@@ -1,0 +1,51 @@
+---
+title: "Problem Set 7: Experiments"
+---
+
+This week's homework involves both a conceptual part and a coding part. The homework is based on the following paper:
+
+> Gerber, Alan S., Donald P. Green, and Christopher W. Larimer. 2008. ["Social Pressure and Voter Turnout: Evidence from a Large-scale Field Experiment."](https://www.cambridge.org/core/journals/american-political-science-review/article/social-pressure-and-voter-turnout-evidence-from-a-largescale-field-experiment/11E84AF4C0B7FBD1D20C855972C2C3EB#) American Political Science Review 102(1):33-48.
+
+## Conceptual questions (Part 1 of 2)
+
+
+1. What is the unit of analysis in this study (the unit for which the outcome is measured)?
+     a. A voter
+     b. A household
+     c. An election
+
+2. What is the unit that was randomized to an experimental condition?
+     a. A voter
+     b. A household
+     c. An election
+
+3. In this study, how many potential outcomes does each person have? Include the outcome under control as one of the potential outcomes.
+
+4. Which of the following is the clearest example of exchangeability as it applies in this study?
+     a. Whether a person received the "Neighbors" treatment is independent of whether they would vote if given the "Neighbors" treatment
+     b. Whether a person received the "Neighbors" treatment is independent of whether their neighbor received the "Neighbors" treatment
+     c. Whether a person received the "Neighbors" treatment is independent of their past history of voting in elections
+     d. Whether a person received the "Neighbors" treatment is independent of the potential outcome of the election
+
+## Coding question (Part 2 of 2)
+
+The following code will load the [data](../assets/data/social_pressure.dta) from the study.
+
+```{r, eval = F}
+library(tidyverse)
+social_pressure <- read_dta("https://soc114.github.io/assets/data/social_pressure.dta")
+```
+
+The relevant variables are:
+
+* `treatment` is the randomized treatment
+* `voted` is the outcome variable
+
+Write an R script that uses these data to reproduce the point estimates from Table 2 of the paper.
+
+* Your result should be a data frame or tibble named `results`.
+* There should be two columns: `treatment` and a column `voted`, where `voted` is a proportion between 0 and 1 for the mean outcome under each treatment value.
+* You do not need to produce the number of individuals. Just the proportion.
+
+You might use `group_by` and `summarize`. It is possible to write this code in 4 or fewer lines (though longer is also fine).
+
