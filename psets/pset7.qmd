@@ -33,6 +33,7 @@ The following code will load the [data](../assets/data/social_pressure.dta) from
 
 ```{r, eval = F}
 library(tidyverse)
+library(haven)
 social_pressure <- read_dta("https://soc114.github.io/assets/data/social_pressure.dta")
 ```
 
