@@ -1,0 +1,53 @@
+---
+title: "Problem Set 4: DAGs and Statistical Learning"
+---
+
+### Prepare your data
+
+Filter to create two data objects: one with mothers who have `treated == TRUE` and one with non-mothers who have `treated == FALSE`.
+
+```{r}
+# your code here
+```
+
+### Estimate by linear model predictions
+
+Among non-mothers, model the probability of employment with a linear model. As predictors, use an additive function of the sufficient adjustment set.
+
+Hints:
+
+* Use the `lm()` function.
+* use this model formula: `y ~ race + pre_age + pre_educ + pre_marital + pre_employed + pre_fulltime + pre_tenure + pre_experience`
+* for the `data` argument, use your data containing non-mothers.
+* you will need the argument `weights = sampling_weight` to specify to weight the model by the `sampling_weight` variable
+
+```{r}
+# your code here
+```
+
+### 2.1. (10 points) Report a predicted value
+
+Using your model estimated among non-mothers, make predictions of $\hat{Y}^0$ among mothers. Report the predicted value for the first mother in the data.
+
+Hints:
+
+* Use `predict()` to make predictions.
+* We suggest your store the variables in a new variable in your dataset using `mutate()`.
+* To see the first predicted value in your predicted data, one strategy is to use `select()` to keep only the variable you've created that contains your predicted value.
+
+```{r}
+# your code here
+```
+
+### 2.2. (10 points) Report an ATT estimate
+
+Across mothers, estimate the Average Treatment Effect on the Treated (ATT) by the weighted mean difference between $Y$ (observed) and $\hat{Y}^0$ (predicted from linear regression), weighted by sampling weights.
+
+* For each mother, take the difference between the observed outcome `y` and the probability of employment that you predict for her in the absence of motherhood.
+* Then take the weighted mean across mothers weighted by the sampling weight.
+* Report this weighted mean.
+
+```{r}
+# your code here
+```
+

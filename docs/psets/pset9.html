@@ -193,6 +193,10 @@ window.Quarto = {
     <a class="dropdown-item" href="../psets/pset7.html">
  <span class="dropdown-text">Problem Set 7: Experiments</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../psets/pset8.html">
+ <span class="dropdown-text">Problem Set 8: Matching</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -414,6 +418,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../topics/12b_data_example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../topics/13_matching.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Matching</span></a>
   </div>
@@ -465,14 +475,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#points-dags" id="toc-points-dags" class="nav-link active" data-scroll-target="#points-dags">1. (30 points) DAGs</a></li>
-  <li><a href="#causal-inference-with-statistical-modeling" id="toc-causal-inference-with-statistical-modeling" class="nav-link" data-scroll-target="#causal-inference-with-statistical-modeling">2. Causal inference with statistical modeling</a>
-  <ul class="collapse">
-  <li><a href="#prepare-your-data" id="toc-prepare-your-data" class="nav-link" data-scroll-target="#prepare-your-data">Prepare your data</a></li>
+  <li><a href="#prepare-your-data" id="toc-prepare-your-data" class="nav-link active" data-scroll-target="#prepare-your-data">Prepare your data</a></li>
   <li><a href="#estimate-by-linear-model-predictions" id="toc-estimate-by-linear-model-predictions" class="nav-link" data-scroll-target="#estimate-by-linear-model-predictions">Estimate by linear model predictions</a></li>
   <li><a href="#points-report-a-predicted-value" id="toc-points-report-a-predicted-value" class="nav-link" data-scroll-target="#points-report-a-predicted-value">2.1. (10 points) Report a predicted value</a></li>
   <li><a href="#points-report-an-att-estimate" id="toc-points-report-an-att-estimate" class="nav-link" data-scroll-target="#points-report-an-att-estimate">2.2. (10 points) Report an ATT estimate</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -498,76 +504,11 @@ window.Quarto = {
 </header>
 
 
-<p><strong>Due: 5pm on Friday, Feb 28.</strong></p>
-<p>Student identifier: [type your anonymous identifier here]</p>
-<p>The format of this problem set is different from the others.</p>
-<ul>
-<li>the assignment is a quiz in BruinLearn</li>
-<li>you will upload your PDF in that quiz</li>
-<li>you will also enter answer values in that quiz</li>
-</ul>
-<p>The reason for this is that we are all busy with the final project! So you can have time for the project, there will be no peer review on this problem set. So the TAs can focus on helping with the project, some grading will be done automatically via the BruinLearn quiz.</p>
-<p>Here is how to do this problem set:</p>
-<ul>
-<li>Use this <a href="../assets/pset4/pset4.qmd" download="">pset4.qmd</a> to complete the problem set.</li>
-<li>When you are finished, complete the quiz on BruinLearn
-<ul>
-<li>you will upload your PDF there</li>
-<li>you will type some answers from your PDF there</li>
-</ul></li>
-</ul>
-<section id="points-dags" class="level2">
-<h2 class="anchored" data-anchor-id="points-dags">1. (30 points) DAGs</h2>
-<p>For 1.1–1.5, answer True or False: <span class="math inline">\(X\)</span> is a sufficient adjustment set to identify the causal effect of <span class="math inline">\(A\)</span> on <span class="math inline">\(Y\)</span>. Recall that as you work on these problems, a good strategy is to first list all non-causal paths between <span class="math inline">\(A\)</span> and <span class="math inline">\(Y\)</span> and then cross out any that are blocked when conditioning on <span class="math inline">\(X\)</span>.</p>
-<p><img src="dags_tf.png" class="img-fluid"></p>
-<p><strong>1.1.</strong> [answer here]</p>
-<p><strong>1.2.</strong> [answer here]</p>
-<p><strong>1.3.</strong> [answer here]</p>
-<p><strong>1.4.</strong> [answer here]</p>
-<p><strong>1.5.</strong> [answer here]</p>
-</section>
-<section id="causal-inference-with-statistical-modeling" class="level2">
-<h2 class="anchored" data-anchor-id="causal-inference-with-statistical-modeling">2. Causal inference with statistical modeling</h2>
-<blockquote class="blockquote">
-<p>The paragraphs below introduce this part of the problem set. Your work begins at “Prepare your data.”</p>
-</blockquote>
-<p>How does parenthood affect labor market outcomes? For an outcome <span class="math inline">\(Y\)</span> such as employment, we can imagine that each person <span class="math inline">\(i\)</span> has a potential outcome as a parent <span class="math inline">\(Y_i^1\)</span> and a potential outcome as a non-parent, <span class="math inline">\(Y_i^0\)</span>. Parenthood casually shapes an outcome like employment to the degree that these differ.</p>
-<p>The effect of parenthood on labor market outcomes has been the subject of extensive social science research which has revealed a consistent finding: parenthood may improve men’s labor market outcomes while harming women’s labor market outcomes (e.g., <a href="https://pubs.aeaweb.org/doi/pdf/10.1257/jep.12.1.137">Waldfogel 1998</a>, <a href="https://doi.org/10.1177/000312240106600203">Budig &amp; England 2001</a>, <a href="https://doi.org/10.1086/511799">Correll et al.&nbsp;2007</a>). The disparate effects of parenthood for men and women are thus one source of gender disparities in labor market outcomes.</p>
-<p>This problem set estimates the causal effect of motherhood on mothers’ employment, using data simulated to approximate data that exist in the National Longitudinal Survey of Youth 1997 cohort. The NLSY97 interviews people repeatedly across years. We manipulated these data so that each row contains information from a pre- and a post-observation, separated by 21+ months. In the pre-observation, we measure confounding variables. In the post-observation, we measure the outcome (<code>y</code>, employment). Between the pre- and post-observation, some women experience a first birth (<code>treated == TRUE</code>) and others do not (<code>treated == FALSE</code>).</p>
-<p><img src="motherhood_data_structure.png" class="img-fluid"></p>
-<p>The dataset <a href="../data/motherhood_simulated.csv"><code>motherhood_simulated.csv</code></a> contains the following variables.</p>
-<ul>
-<li><code>observation_id</code> is an index for each observation</li>
-<li><code>sampling_weight</code> is the weight due to unequal probability sampling</li>
-<li><code>treated</code> indicates a first birth (<code>TRUE</code> or <code>FALSE</code>)
-<ul>
-<li>This occurred between the pre- and post-periods.</li>
-</ul></li>
-<li><code>y</code> is the outcome, coded <code>TRUE</code> if employed or <code>FALSE</code> if not employed.
-<ul>
-<li>This was measured in the post-period.</li>
-</ul></li>
-</ul>
-<p>The data include a set of variables measured in the pre-period. We will consider these to be a sufficient adjustment set. These were measured in the pre-period.</p>
-<ul>
-<li><code>race</code> is a categorical variable coded <code>Hispanic</code>, <code>Non-Hispanic Black</code>, and <code>Non-Hispanic Non-Black</code></li>
-<li><code>pre_age</code> is age in years</li>
-<li><code>pre_educ</code> is an ordinal variable for educational attainment, coded <code>Less than high school</code>, <code>High school</code>, <code>2-year degree</code>, and <code>4-year degree</code> with those with higher levels of education also coded in this last category</li>
-<li><code>pre_marital</code> is a categorical variable of marital status, coded <code>no_partner</code>, <code>cohabiting</code>, or <code>married</code></li>
-<li><code>pre_employed</code> is a lag measure of employment in the prior survey wave, coded <code>TRUE</code> and <code>FALSE</code></li>
-<li><code>pre_fulltime</code> indicates full-time employment in the prior survey wave, coded <code>TRUE</code> and <code>FALSE</code></li>
-<li><code>pre_tenure</code> is years of experience with a current employer, as of the prior survey wave</li>
-<li><code>pre_experience</code> is total years of full-time work experience, as of the prior survey wave</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>motherhood_simulated <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/motherhood_simulated.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <section id="prepare-your-data" class="level3">
 <h3 class="anchored" data-anchor-id="prepare-your-data">Prepare your data</h3>
 <p>Filter to create two data objects: one with mothers who have <code>treated == TRUE</code> and one with non-mothers who have <code>treated == FALSE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="estimate-by-linear-model-predictions" class="level3">
@@ -581,7 +522,7 @@ window.Quarto = {
 <li>you will need the argument <code>weights = sampling_weight</code> to specify to weight the model by the <code>sampling_weight</code> variable</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="points-report-a-predicted-value" class="level3">
@@ -594,7 +535,7 @@ window.Quarto = {
 <li>To see the first predicted value in your predicted data, one strategy is to use <code>select()</code> to keep only the variable you’ve created that contains your predicted value.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="points-report-an-att-estimate" class="level3">
@@ -606,11 +547,10 @@ window.Quarto = {
 <li>Report this weighted mean.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->

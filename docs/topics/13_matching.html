@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../topics/14_models_for_causal.html" rel="next">
-<link href="../topics/12_DAGs.html" rel="prev">
+<link href="../topics/12b_data_example.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -194,6 +194,10 @@ window.Quarto = {
         <li>
     <a class="dropdown-item" href="../psets/pset7.html">
  <span class="dropdown-text">Problem Set 7: Experiments</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../psets/pset8.html">
+ <span class="dropdown-text">Problem Set 8: Matching</span></a>
   </li>  
     </ul>
   </li>
@@ -416,6 +420,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../topics/12b_data_example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../topics/13_matching.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Matching</span></a>
   </div>
@@ -510,7 +520,7 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p>Here are <a href="../slides/matching/matching.pdf">slides</a> on matching.</p>
+<p>Here are <a href="../slides/lec13_matching/lec13_matching.pdf">slides</a> on matching.</p>
 </blockquote>
 <p>Matching is a method for causal inference that is analogous to model-based estimation, but is often easier to explain. Suppose we have a set of 5 units, of whom 2 are treated.</p>
 <p><img src="../assets/illustrations/matching_visual.png" class="img-fluid" style="width:50.0%"></p>
@@ -623,8 +633,7 @@ window.Quarto = {
 </section>
 <section id="matching-in-code" class="level2">
 <h2 class="anchored" data-anchor-id="matching-in-code">Matching in code</h2>
-<p>The <code>MatchIt</code> package in R carries out all kinds of matching applications. You can do all of the above using <code>MatchIt</code>.</p>
-<p>Here is one example, using our data from the model-based inference page.</p>
+<p>The <code>MatchIt</code> package in R carries out all kinds of matching applications. You can do all of the above using <code>MatchIt</code>. Here we illustrate using our <a href="../topics/12b_data_example.html">data example</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MatchIt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1139,8 +1148,8 @@ F-statistic: 34.11 on 15 and 2942 DF,  p-value: &lt; 2.2e-16</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../topics/12_DAGs.html" class="pagination-link" aria-label="Directed Acyclic Graphs">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Directed Acyclic Graphs</span>
+      <a href="../topics/12b_data_example.html" class="pagination-link" aria-label="Data Example">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Data Example</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

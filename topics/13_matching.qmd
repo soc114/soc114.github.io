@@ -5,7 +5,7 @@ format:
     fig-height: 3
 ---
 
-> Here are [slides](../slides/matching/matching.pdf) on matching.
+> Here are [slides](../slides/lec13_matching/lec13_matching.pdf) on matching.
 
 Matching is a method for causal inference that is analogous to model-based estimation, but is often easier to explain. Suppose we have a set of 5 units, of whom 2 are treated.
 
@@ -148,9 +148,7 @@ Estimator (2) is preferable in the sense that the regression model can correct f
 
 ## Matching in code
 
-The `MatchIt` package in R carries out all kinds of matching applications. You can do all of the above using `MatchIt`.
-
-Here is one example, using our data from the model-based inference page.
+The `MatchIt` package in R carries out all kinds of matching applications. You can do all of the above using `MatchIt`. Here we illustrate using our [data example](12b_data_example.qmd).
 
 ```{r, message = F, warning = F}
 library(tidyverse)

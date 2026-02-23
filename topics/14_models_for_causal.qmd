@@ -5,8 +5,6 @@ format: html
 
 > Topic for 2/23.
 
-<!-- notes: this was tricky to teach because most of the class has never used OLS with interaction terms before. In the future, need to explain OLS with interactions with a simple example, similar to how I might explain trees with a simple example. Updated: I changed from one model with a * x interactions to two models, one with a = 0 and one with a = 1. Replaced content on website and moved old content to outtakes. Will try teaching this without slides and see how it goes. -->
-
 > Here are slides on [outcome modeling](../slides/lec12_causal_outcome_model/lec12_causal_outcome_model.pdf) and [treatment modeling](../slides/ipw/ipw.pdf).
 
 Models are useful when we need subgroup summaries but we do not observe very many units in each subgroup. This situation is common in causal inference: we assume that $\vec{X}$ is a sufficient adjustment set so that conditional exchangeability holds, and this allows us to identify the causal quantity $\text{E}(Y^a\mid \vec{X} = \vec{x})$ by the statistical quantity $\text{E}(Y\mid A = a, \vec{X} = \vec{x})$. But that empirical quantity---the subgroup mean among those with treatment value $a$ and adjustment set value $\vec{x}$---may be the mean of a subgroup that is unpopulated. This is especially true in practice because the adjustment set $\vec{X}$ is often most plausible when it includes many variables, leading to a curse of dimensionality and small subgroup sample sizes. For this reason, causal inference approaches that adjust for measured variables often require us to estimate the means in many subgroups that are sparsely populated.

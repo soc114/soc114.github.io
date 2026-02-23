@@ -1,0 +1,15 @@
+{
+  "hash": "505dfca4d252e0395e6fb1e9842cf2b8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Problem Set 4: DAGs and Statistical Learning\"\n---\n\n### Prepare your data\n\nFilter to create two data objects: one with mothers who have `treated == TRUE` and one with non-mothers who have `treated == FALSE`.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# your code here\n```\n:::\n\n\n### Estimate by linear model predictions\n\nAmong non-mothers, model the probability of employment with a linear model. As predictors, use an additive function of the sufficient adjustment set.\n\nHints:\n\n* Use the `lm()` function.\n* use this model formula: `y ~ race + pre_age + pre_educ + pre_marital + pre_employed + pre_fulltime + pre_tenure + pre_experience`\n* for the `data` argument, use your data containing non-mothers.\n* you will need the argument `weights = sampling_weight` to specify to weight the model by the `sampling_weight` variable\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# your code here\n```\n:::\n\n\n### 2.1. (10 points) Report a predicted value\n\nUsing your model estimated among non-mothers, make predictions of $\\hat{Y}^0$ among mothers. Report the predicted value for the first mother in the data.\n\nHints:\n\n* Use `predict()` to make predictions.\n* We suggest your store the variables in a new variable in your dataset using `mutate()`.\n* To see the first predicted value in your predicted data, one strategy is to use `select()` to keep only the variable you've created that contains your predicted value.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# your code here\n```\n:::\n\n\n### 2.2. (10 points) Report an ATT estimate\n\nAcross mothers, estimate the Average Treatment Effect on the Treated (ATT) by the weighted mean difference between $Y$ (observed) and $\\hat{Y}^0$ (predicted from linear regression), weighted by sampling weights.\n\n* For each mother, take the difference between the observed outcome `y` and the probability of employment that you predict for her in the absence of motherhood.\n* Then take the weighted mean across mothers weighted by the sampling weight.\n* Report this weighted mean.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# your code here\n```\n:::\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

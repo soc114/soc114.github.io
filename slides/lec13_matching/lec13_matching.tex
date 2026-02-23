@@ -74,7 +74,7 @@ At the end of class, you will be able to:
 
 \title{Matching}
 \author{Ian Lundberg\\Soc 114}
-\date{Winter 2025}
+\date{}
 
 \begin{document}
 
@@ -86,9 +86,9 @@ At the end of class, you will be able to:
 \bgray{Goal:} Sample Average Treatment Effect on the Treated
 $$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - Y_i^0\right)$$ \pause
 \bgray{Problem:} We don't see $Y_i^0$ \vskip .1in \pause
-\bgray{Solution:} DAG + the g-formula \pause
-$$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{L} = \vec\ell_i\right)\right)$$ \pause
-\bgray{Matching:} Estimate $\E(Y\mid A = 0, \vec{L} = \vec\ell_i)$ from one or more\\\hspace{52pt} untreated units with $\vec{L}$ ``near'' $\vec\ell_i$ \pause \vskip .1in
+\bgray{Solution:} DAG + estimation \pause
+$$\frac{1}{n_1}\sum_{i:A_i=1}\left(Y_i^1 - \E\left(Y\mid A = 0, \vec{X} = \vec{x}_i\right)\right)$$ \pause
+\bgray{Matching:} Estimate $\E(Y\mid A = 0, \vec{X} = \vec{x}_i)$ from one or more\\\hspace{52pt} untreated units with $\vec{X}$ ``near'' $\vec{x}_i$ \pause \vskip .1in
 \bgray{Debates:} What does it mean to be ``near''?
 \end{frame}
 
@@ -177,7 +177,7 @@ data(``lalonde'', package = ``MatchIt'')
 \node[blue, opacity = .1] (p2) at (.8,1) {$\bullet$};
 \node[gray, opacity = .1] (p4) at (.3,0) {$\bullet$};
 }
-\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{L}$} (1,-1);
+\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{X}$} (1,-1);
 \draw<2->[dashed] (p1) -- (p3);
 \draw<3-5>[dashed] (p2) -- (p4);
 \draw<6->[dashed, opacity = .1] (p2) -- (p4);
@@ -213,7 +213,7 @@ data(``lalonde'', package = ``MatchIt'')
 \node[blue] (p4) at (.8,1) {$\bullet$};
 \node[gray] (p5) at (.76,0) {$\bullet$};
 \node[gray] (p6) at (.81,0) {$\bullet$};
-\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{L}$} (1,-1);
+\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{X}$} (1,-1);
 \draw<2->[dashed] (p1) -- (p2);
 \draw<2->[dashed] (p4) -- (p6);
 \draw<3->[dashed] (p1) -- (p3);
@@ -256,7 +256,7 @@ data(``lalonde'', package = ``MatchIt'')
 \node[gray] (p2) at (.25,0) {$\bullet$};
 \node[blue] (p3) at (.3,1) {$\bullet$};
 \node[gray] (p4) at (.8,0) {$\bullet$};
-\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{L}$} (1,-1);
+\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{X}$} (1,-1);
 \draw<2->[dashed] (p1) -- (p2);
 \draw<3->[dashed] (p3) -- node[midway, above] {?} (p4);
 \draw<4->[dashed] (p3) -- node[midway, right] {?} (p2);
@@ -299,7 +299,7 @@ Both sides: Who is left as the match for the other treated unit?
 \node[blue] (p3) at (.45,1) {$\bullet$};
 \node[gray] (p4) at (.2,0) {$\bullet$};
 \node[gray] (p5) at (.8,0) {$\bullet$};
-\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{L}$} (1,-1);
+\draw[->, thick] (0,-1) -- node[midway, below] {Confounder $\vec{X}$} (1,-1);
 \node<2-4>[anchor = north west, align = left] at (0,2.5) {Greedy Matching:\\Match sequentially};
 \draw<3-4>[dashed] (p1) -- (p2);
 \draw<4-4>[dashed] (p3) -- (p4);
@@ -329,7 +329,7 @@ Both sides: Who is left as the match for the other treated unit?
 
 \tcframe
 
-\begin{frame}{What if $\vec{L}$ is multivariate?}
+\begin{frame}{What if $\vec{X}$ is multivariate?}
 
 \includegraphics[width = \textwidth]{figures/lalonde_multivariate}
 
@@ -464,10 +464,10 @@ Which match do you pick? \onslide<2->{Untreated 2! Perfect match.} \\
 \end{frame}
 
 \begin{frame}{A common distance metric: Propensity scores}
-Propensity score: $\pi_i = \P(A = 1\mid \vec{L} = \vec\ell_i)$ \pause
+Propensity score: $\pi_i = \P(A = 1\mid \vec{X} = \vec{x}_i)$ \pause
 \begin{itemize}
 \item Univariate summary of all confounders \pause
-\item In expectation, a sample balanced on $\pi$ is balanced on $\vec{L}$
+\item In expectation, a sample balanced on $\pi$ is balanced on $\vec{X}$
 \begin{itemize}
 \item Rosenbaum \& Rubin theorem\footnote{Rosenbaum, P. R., \& Rubin, D. B. (1983). \bref{https://doi.org/10.1093/biomet/70.1.41}{The central role of the propensity score in observational studies for causal effects.} Biometrika, 70(1), 41-55.}
 \end{itemize}
@@ -478,13 +478,13 @@ Propensity score: $\pi_i = \P(A = 1\mid \vec{L} = \vec\ell_i)$ \pause
 
 Propensity scores can be nonparametric or parametric.
 \begin{itemize} \pause
-\item Nonparametric: $\hat\pi_i$ is the proportion treated in the sample stratum $\vec{L} = \vec\ell_i$. \pause
+\item Nonparametric: $\hat\pi_i$ is the proportion treated in the sample stratum $\vec{X} = \vec{x}_i$. \pause
 \item Parametric: Often estimated as
 \begin{itemize}
 \item Fit logistic regression
-$$\text{logit}\left(\P(A = 1\mid \vec{L})\right) = \alpha + \vec{L}\vec\beta$$ \pause
+$$\text{logit}\left(\P(A = 1\mid \vec{X})\right) = \alpha + \vec{X}\vec\beta$$ \pause
 \item Predict the probability of treatment
-$$\hat\pi_i = \text{logit}^{-1}\left(\hat\alpha + \vec\ell_i\hat{\vec\beta}\right)$$ \vspace{-.2in}
+$$\hat\pi_i = \text{logit}^{-1}\left(\hat\alpha + \vec{x}_i\hat{\vec\beta}\right)$$ \vspace{-.2in}
 \end{itemize}
 \end{itemize} \pause
 Propensity score distance for matching:
@@ -519,7 +519,7 @@ Discuss: Why regression? Why matching?
 \begin{frame}{Why propensity scores are nice} \pause
 
 \begin{itemize}
-\item Multivariate $\vec{L}_i$ to univariate $\pi_i$ \pause
+\item Multivariate $\vec{X}_i$ to univariate $\pi_i$ \pause
 \begin{itemize}
 \item Easy to reason about \pause
 \item Can directly visualize the univariate matches
@@ -535,14 +535,14 @@ Discuss: Why regression? Why matching?
 \tcframe
 
 \begin{frame}{Evaluate the matched sets}
-Why we match: So $\vec{L}$ follows a similar distribution
+Why we match: So $\vec{X}$ follows a similar distribution
 \begin{itemize}
 \item in the treated sample
 \item in the untreated sample
 \end{itemize}
 Whatever method, you should check that.
 \begin{itemize}
-\item Compare means of $\vec{L}$ across groups
+\item Compare means of $\vec{X}$ across groups
 \item Possibly compare interactive cells
 \item Ideally, before looking at $Y$!
 \end{itemize}
@@ -566,8 +566,8 @@ Motivated by two principles \pause
 \item We should care about a correlation-corrected distance
 \end{itemize}
 \end{itemize} \pause \vskip .1in
-$$d(i,j) = \sqrt{\left(\vec{L}_i - \vec{L}_j\right)^T\Sigma^{-1}\left(\vec{L}_i - \vec{L}_j\right)}$$
-where $\Sigma = \V(\vec{L})$, the variance-covariance matrix
+$$d(i,j) = \sqrt{\left(\vec{X}_i - \vec{X}_j\right)^T\Sigma^{-1}\left(\vec{X}_i - \vec{X}_j\right)}$$
+where $\Sigma = \V(\vec{X})$, the variance-covariance matrix
 \end{frame}
 
 \begin{frame}{A common distance metric: Exact matching}
@@ -579,8 +579,8 @@ where $\Sigma = \V(\vec{L})$, the variance-covariance matrix
 \end{itemize} \vskip .1in
 $$
 d(i,j) = \begin{cases}
-0 &\text{if }\vec{L}_i = \vec{L}_j \\
-\infty &\text{if }\vec{L}_i \neq \vec{L}_j \\
+0 &\text{if }\vec{X}_i = \vec{X}_j \\
+\infty &\text{if }\vec{X}_i \neq \vec{X}_j \\
 \end{cases}
 $$
 Often leads to \bblue{no matches at all}
@@ -590,21 +590,21 @@ Often leads to \bblue{no matches at all}
 
 \pause
 \begin{itemize}
-\item Define $\tilde{\vec{L}}$ to be a coarsened version of $\vec{L}$ \pause
+\item Define $\tilde{\vec{X}}$ to be a coarsened version of $\vec{X}$ \pause
 \begin{itemize}
 \item Example: Convert all continuous values to decile categories
 \end{itemize} \pause
-\item Match exactly on $\tilde{\vec{L}}$
+\item Match exactly on $\tilde{\vec{X}}$
 \end{itemize} \pause \vskip .1in
 $$
 d(i,j) = \begin{cases}
-0 &\text{if }\tilde{\vec{L}}_i = \tilde{\vec{L}}_j \\
-\infty &\text{if }\tilde{\vec{L}}_i \neq \tilde{\vec{L}}_j \\
+0 &\text{if }\tilde{\vec{X}}_i = \tilde{\vec{X}}_j \\
+\infty &\text{if }\tilde{\vec{X}}_i \neq \tilde{\vec{X}}_j \\
 \end{cases}
 $$
 \begin{itemize} \pause
 \item Benefit: Very transparent \pause
-\item Drawback: Ignores $\vec{L}$ within $\tilde{\vec{L}}$ \pause
+\item Drawback: Ignores $\vec{X}$ within $\tilde{\vec{X}}$ \pause
 \item Best used as preprocessing for regression \pause
 \begin{itemize}
 \item Conduct coarsened exact matching \pause
@@ -618,7 +618,7 @@ $$
 
 \begin{frame}{Multivariate distances: Recap}
 
-When matching on multivariate $\vec{L}$, you have to define the distance between each pair of confounder values $\vec\ell$ and $\vec\ell'$
+When matching on multivariate $\vec{X}$, you have to define the distance between each pair of confounder values $\vec{x}$ and $\vec{x}'$
 \begin{itemize}
 \item Manhattan distance
 \item Euclidean distanace
@@ -638,20 +638,20 @@ Motivated by two designs for randomized experiments \pause
 \begin{itemize}
 \item Experimental ideal 1: Fully blocked \pause
 \begin{itemize}
-\item First, stratify units on $\vec{L}$ \pause
+\item First, stratify units on $\vec{X}$ \pause
 \item Then, randomize $A$ within blocks by a coin flip \pause
-\item Imbalance on $\vec{L}$ is zero in every sample \pause
+\item Imbalance on $\vec{X}$ is zero in every sample \pause
 \end{itemize}
 \item Experimental ideal 2: Completely randomized experiment \pause
 \begin{itemize}
-\item Assign each unit a known $\pi_i = \P(A = 1\mid \vec{L} = \vec\ell_i)$ \pause
+\item Assign each unit a known $\pi_i = \P(A = 1\mid \vec{X} = \vec{x}_i)$ \pause
 \item Randomize treatment weighted by $\pi_i$ \pause
-\item Imbalance on $\vec{L}$ is zero in expectation,\\but not in any particular sample \pause
+\item Imbalance on $\vec{X}$ is zero in expectation,\\but not in any particular sample \pause
 \end{itemize}
 \end{itemize}
 In a randomized experiment, we would always choose (1). \pause \vskip .1in
 But propensity score matching approximates (2). \pause \vskip .1in
-King \& Nielsen claim: Better to match on $\vec{L}$ directly
+King \& Nielsen claim: Better to match on $\vec{X}$ directly
 
 \end{frame}
 
