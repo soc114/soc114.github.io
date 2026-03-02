@@ -44,9 +44,10 @@ Below is a tentative plan for the dates each topic will be covered. If you are a
 | 2/18 | [Directed Acyclic Graphs](topics/12_DAGs.qmd) |
 | 2/23 | [Matching](topics/13_matching.qmd) |
 | 2/25 | [Models for Causal Inference](topics/14_models_for_causal.qmd) |
+| 3/2 | [Models for Causal Inference](topics/14_models_for_causal.qmd) |
 |      | **Causal Inference with Unmeasured Confounding** |
-| 3/2  | [Difference in Difference](topics/15_did.qmd) |
-| 3/4  | [Regression Discontinuity](topics/16_rd.qmd) |
+| 3/4  | [Difference in Difference](topics/15_did.qmd) |
+|      | [Regression Discontinuity](topics/16_rd.qmd) |
 | 3/9  | [Instrumental Variables](topics/17_iv.qmd) |
 | 3/11 | Course Recap |
 

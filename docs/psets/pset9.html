@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Problem Set 4: DAGs and Statistical Learning – Social Data Science</title>
+<title>Problem Set 9: Outcome Models for Causal Inference – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,35 +102,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -197,6 +168,10 @@ window.Quarto = {
     <a class="dropdown-item" href="../psets/pset8.html">
  <span class="dropdown-text">Problem Set 8: Matching</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../psets/pset9.html">
+ <span class="dropdown-text">Problem Set 9: Outcome Models for Causal Inference</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -257,7 +232,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 4: DAGs and Statistical Learning</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 9: Outcome Models for Causal Inference</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -470,24 +445,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#prepare-your-data" id="toc-prepare-your-data" class="nav-link active" data-scroll-target="#prepare-your-data">Prepare your data</a></li>
-  <li><a href="#estimate-by-linear-model-predictions" id="toc-estimate-by-linear-model-predictions" class="nav-link" data-scroll-target="#estimate-by-linear-model-predictions">Estimate by linear model predictions</a></li>
-  <li><a href="#points-report-a-predicted-value" id="toc-points-report-a-predicted-value" class="nav-link" data-scroll-target="#points-report-a-predicted-value">2.1. (10 points) Report a predicted value</a></li>
-  <li><a href="#points-report-an-att-estimate" id="toc-points-report-an-att-estimate" class="nav-link" data-scroll-target="#points-report-an-att-estimate">2.2. (10 points) Report an ATT estimate</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Problem Set 4: DAGs and Statistical Learning</h1>
+<h1 class="title">Problem Set 9: Outcome Models for Causal Inference</h1>
 </div>
 
 
@@ -504,54 +470,33 @@ window.Quarto = {
 </header>
 
 
-<section id="prepare-your-data" class="level3">
-<h3 class="anchored" data-anchor-id="prepare-your-data">Prepare your data</h3>
-<p>Filter to create two data objects: one with mothers who have <code>treated == TRUE</code> and one with non-mothers who have <code>treated == FALSE</code>.</p>
+<p>This problem set uses the same data as Problem Set 8. To learn about the data, see that page.</p>
+<p>This problem set is entirely coding. You will submit an .R script to a programming assignment in Gradescope. You should start by loading the data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>motherhood_simulated <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/motherhood_simulated.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="estimate-by-linear-model-predictions" class="level3">
-<h3 class="anchored" data-anchor-id="estimate-by-linear-model-predictions">Estimate by linear model predictions</h3>
-<p>Among non-mothers, model the probability of employment with a linear model. As predictors, use an additive function of the sufficient adjustment set.</p>
-<p>Hints:</p>
+<ol type="1">
+<li><p><strong>Create factual and counterfactual datasets.</strong> Use the <code>filter()</code> function to create two data objects: one named <code>mothers</code> which contains all observations with <code>treated == TRUE</code> and one named <code>nonmothers</code> which contains all observations with <code>treated == FALSE</code>. If you need help with <code>filter()</code>, see <a href="https://r4ds.hadley.nz/data-transform.html#filter">R4DS 3.2.1</a>.</p></li>
+<li><p><strong>Estimate a model.</strong> Use the <code>lm()</code> function to create an model for the probability of employment among non-mothers. Store your model in an object named <code>model_among_nonmothers</code>.</p></li>
+</ol>
+<p>This model should:</p>
 <ul>
-<li>Use the <code>lm()</code> function.</li>
+<li>be estimated using the <code>lm()</code> function.</li>
 <li>use this model formula: <code>y ~ race + pre_age + pre_educ + pre_marital + pre_employed + pre_fulltime + pre_tenure + pre_experience</code></li>
 <li>for the <code>data</code> argument, use your data containing non-mothers.</li>
 <li>you will need the argument <code>weights = sampling_weight</code> to specify to weight the model by the <code>sampling_weight</code> variable</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="points-report-a-predicted-value" class="level3">
-<h3 class="anchored" data-anchor-id="points-report-a-predicted-value">2.1. (10 points) Report a predicted value</h3>
-<p>Using your model estimated among non-mothers, make predictions of <span class="math inline">\(\hat{Y}^0\)</span> among mothers. Report the predicted value for the first mother in the data.</p>
-<p>Hints:</p>
+<ol start="3" type="1">
+<li><p><strong>Predict counterfactuals.</strong> Now take the <code>mothers</code> data. Create a new column <code>y_as_nonmother</code> containing the predicted value of employment if this mother were counterfactually a non-mother. You might use <a href="https://r4ds.hadley.nz/data-transform.html#sec-mutate"><code>mutate()</code></a> and <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/predict.lm"><code>predict()</code></a> in this step. Store your new dataset (with this one additional column) in an object called <code>mothers_predicted</code>.</p></li>
+<li><p><strong>Summarize by a weighted mean.</strong> Estimate the factual employment of mothers and their counterfactual employment that would be realized if they were non-mothers. Store your result in an object called <code>estimates</code> which will be a <code>tibble</code> with with 1 row and 2 columns named <code>y</code> and <code>y_as_nonmother</code>. To create this result,</p></li>
+</ol>
 <ul>
-<li>Use <code>predict()</code> to make predictions.</li>
-<li>We suggest your store the variables in a new variable in your dataset using <code>mutate()</code>.</li>
-<li>To see the first predicted value in your predicted data, one strategy is to use <code>select()</code> to keep only the variable you’ve created that contains your predicted value.</li>
+<li>use <code>summarize()</code> to take the mean of the factual outcome <code>y</code> and the predicted counterfactual <code>y_as_nonmother</code> in your <code>mothers_predicted</code> data</li>
+<li>make sure to use <code>sampling_weight</code> to account for the fact that mothers are sampled from the population with unequal probabilities</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="points-report-an-att-estimate" class="level3">
-<h3 class="anchored" data-anchor-id="points-report-an-att-estimate">2.2. (10 points) Report an ATT estimate</h3>
-<p>Across mothers, estimate the Average Treatment Effect on the Treated (ATT) by the weighted mean difference between <span class="math inline">\(Y\)</span> (observed) and <span class="math inline">\(\hat{Y}^0\)</span> (predicted from linear regression), weighted by sampling weights.</p>
-<ul>
-<li>For each mother, take the difference between the observed outcome <code>y</code> and the probability of employment that you predict for her in the absence of motherhood.</li>
-<li>Then take the weighted mean across mothers weighted by the sampling weight.</li>
-<li>Report this weighted mean.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

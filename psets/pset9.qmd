@@ -1,53 +1,31 @@
 ---
-title: "Problem Set 4: DAGs and Statistical Learning"
+title: "Problem Set 9: Outcome Models for Causal Inference"
 ---
 
-### Prepare your data
+This problem set uses the same data as Problem Set 8. To learn about the data, see that page.
 
-Filter to create two data objects: one with mothers who have `treated == TRUE` and one with non-mothers who have `treated == FALSE`.
+This problem set is entirely coding. You will submit an .R script to a programming assignment in Gradescope. You should start by loading the data.
 
-```{r}
-# your code here
+```{r, eval = F}
+library(tidyverse)
+motherhood_simulated <- read_csv("https://soc114.github.io/data/motherhood_simulated.csv")
 ```
 
-### Estimate by linear model predictions
+1. **Create factual and counterfactual datasets.** Use the `filter()` function to create two data objects: one named `mothers` which contains all observations with `treated == TRUE` and one named `nonmothers` which contains all observations with `treated == FALSE`. If you need help with `filter()`, see [R4DS 3.2.1](https://r4ds.hadley.nz/data-transform.html#filter).
 
-Among non-mothers, model the probability of employment with a linear model. As predictors, use an additive function of the sufficient adjustment set.
+2. **Estimate a model.** Use the `lm()` function to create an model for the probability of employment among non-mothers. Store your model in an object named `model_among_nonmothers`.
 
-Hints:
+This model should:
 
-* Use the `lm()` function.
+* be estimated using the `lm()` function.
 * use this model formula: `y ~ race + pre_age + pre_educ + pre_marital + pre_employed + pre_fulltime + pre_tenure + pre_experience`
 * for the `data` argument, use your data containing non-mothers.
 * you will need the argument `weights = sampling_weight` to specify to weight the model by the `sampling_weight` variable
 
-```{r}
-# your code here
-```
+3. **Predict counterfactuals.** Now take the `mothers` data. Create a new column `y_as_nonmother` containing the predicted value of employment if this mother were counterfactually a non-mother. You might use [`mutate()`](https://r4ds.hadley.nz/data-transform.html#sec-mutate) and [`predict()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/predict.lm) in this step. Store your new dataset (with this one additional column) in an object called `mothers_predicted`.
 
-### 2.1. (10 points) Report a predicted value
+4. **Summarize by a weighted mean.** Estimate the factual employment of mothers and their counterfactual employment that would be realized if they were non-mothers. Store your result in an object called `estimates` which will be a `tibble` with with 1 row and 2 columns named `y` and `y_as_nonmother`. To create this result,
 
-Using your model estimated among non-mothers, make predictions of $\hat{Y}^0$ among mothers. Report the predicted value for the first mother in the data.
-
-Hints:
-
-* Use `predict()` to make predictions.
-* We suggest your store the variables in a new variable in your dataset using `mutate()`.
-* To see the first predicted value in your predicted data, one strategy is to use `select()` to keep only the variable you've created that contains your predicted value.
-
-```{r}
-# your code here
-```
-
-### 2.2. (10 points) Report an ATT estimate
-
-Across mothers, estimate the Average Treatment Effect on the Treated (ATT) by the weighted mean difference between $Y$ (observed) and $\hat{Y}^0$ (predicted from linear regression), weighted by sampling weights.
-
-* For each mother, take the difference between the observed outcome `y` and the probability of employment that you predict for her in the absence of motherhood.
-* Then take the weighted mean across mothers weighted by the sampling weight.
-* Report this weighted mean.
-
-```{r}
-# your code here
-```
+* use `summarize()` to take the mean of the factual outcome `y` and the predicted counterfactual `y_as_nonmother` in your `mothers_predicted` data
+* make sure to use `sampling_weight` to account for the fact that mothers are sampled from the population with unequal probabilities
 
