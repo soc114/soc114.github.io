@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -412,8 +476,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-requirements" id="toc-data-requirements" class="nav-link active" data-scroll-target="#data-requirements">Data requirements</a></li>
+  <li><a href="#causal-estimand" id="toc-causal-estimand" class="nav-link" data-scroll-target="#causal-estimand">Causal estimand</a></li>
+  <li><a href="#the-parallel-trends-assumption" id="toc-the-parallel-trends-assumption" class="nav-link" data-scroll-target="#the-parallel-trends-assumption">The parallel trends assumption</a></li>
+  <li><a href="#worked-example-recentralization-in-vietnam" id="toc-worked-example-recentralization-in-vietnam" class="nav-link" data-scroll-target="#worked-example-recentralization-in-vietnam">Worked example: Recentralization in Vietnam</a>
+  <ul class="collapse">
+  <li><a href="#variables-in-the-data" id="toc-variables-in-the-data" class="nav-link" data-scroll-target="#variables-in-the-data">Variables in the data</a></li>
+  <li><a href="#estimate-means-within-group-times-time" id="toc-estimate-means-within-group-times-time" class="nav-link" data-scroll-target="#estimate-means-within-group-times-time">Estimate means within group <span class="math inline">\(\times\)</span> time</a></li>
+  <li><a href="#visualize-the-trends" id="toc-visualize-the-trends" class="nav-link" data-scroll-target="#visualize-the-trends">Visualize the trends</a></li>
+  <li><a href="#produce-a-difference-in-difference-estimate" id="toc-produce-a-difference-in-difference-estimate" class="nav-link" data-scroll-target="#produce-a-difference-in-difference-estimate">Produce a difference in difference estimate</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -438,11 +517,131 @@ ul.task-list li input[type="checkbox"] {
 
 
 <blockquote class="blockquote">
-<p>Topic for 3/2.</p>
+<p>Here are <a href="../slides/lec16_did/lec16_did.pdf">slides</a></p>
 </blockquote>
-<p>Page to be written.</p>
+<p>Today we study the effect of a policy change in New Jersey, drawing on evidence from the neighboring state of Pennsylvania.</p>
+<p>Difference in difference is an identification strategy to be used when one or more units become treated at some time point while others do not. If we believe an assumption of parallel trends, then we can use the change over time for the never-treated units to estimate the change over time that would have been experienced by the units who become treated, in a counterfactual world where they had not become treated.</p>
+<section id="data-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="data-requirements">Data requirements</h2>
+<p>To carry out difference in difference, you need</p>
+<ul>
+<li>One or more units become treated at an intervention time
+<ul>
+<li>Example: NJ adopts a higher minimum wage</li>
+</ul></li>
+<li>One or more units remain untreated
+<ul>
+<li>Example: PA does not change the minimum wage</li>
+</ul></li>
+<li>Data on all the units before and after the intervention time
+<ul>
+<li>Example: Data on NJ and PA before and after the change</li>
+</ul></li>
+</ul>
+</section>
+<section id="causal-estimand" class="level2">
+<h2 class="anchored" data-anchor-id="causal-estimand">Causal estimand</h2>
+<p>The causal estimand in DID is typically the average treatment effect on the treated in the post-treatment period. Let <span class="math inline">\(Y_{it}^a\)</span> be the outcome of unit <span class="math inline">\(i\)</span> in period <span class="math inline">\(t\)</span> under treatment value <span class="math inline">\(a\)</span>. The causal estimand is</p>
+<p><span class="math display">\[
+\tau_\text{ATT} = \frac{1}{\text{Number Treated}}\sum_{i:A_{it}=1}\left(Y_{it}^{1} - Y_{it}^0\right)
+\]</span></p>
+<p>The fundamental problem of causal inference is that the outcome under control <span class="math inline">\(Y_{it}^0\)</span> is not observed for unit <span class="math inline">\(i\)</span> who at time <span class="math inline">\(t\)</span> has become treated. We do not know NJ’s employment rate after the minimum wage policy, which would have persisted if NJ had not adopted a new minimum wage.</p>
+</section>
+<section id="the-parallel-trends-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="the-parallel-trends-assumption">The parallel trends assumption</h2>
+<p>We assume parallel trends: the treated unit would have had the same trend in the outcome over time as the control unit, in the absence of treatment.</p>
+<p><img src="../slides/lec15_did/figures/ck_slide5.png" class="img-fluid"></p>
+<p>In math, this assumption is that the potential outcome under control trends the same in both groups over time,</p>
+<p><span class="math display">\[
+\text{Parallel Trends Assumption:}\qquad \frac{1}{n_\text{Treated}}\sum_{i:A_{it}=1}\left(Y_{it}^0 - Y_{i,t-1}^0\right) = \frac{1}{n_\text{Untreated}}\sum_{i:A_{it}=0}\left(Y_{it}^0 - Y_{i,t-1}^0\right)
+\]</span> where <span class="math inline">\(t\)</span> is the post-intervention time point.</p>
+<p>You can’t directly test the parallel trends assumption because <span class="math inline">\(Y_{it}^0\)</span> is not observed for the treated units in the post-treatment period. But you can assess the credibility of the assumption by examining whether trends are parallel in the pre-treatment period.</p>
+<p>In class, we will discuss the credibility of the parallel trends assumption using an empirical example from <a href="https://doi.org/10.1017/S0003055413000580">Malesky, Nguyen, &amp; Tran 2014</a> as re-analyzed by <a href="https://doi.org/10.1017/pan.2022.8">Egami &amp; Yamauchi 2023</a>.</p>
+</section>
+<section id="worked-example-recentralization-in-vietnam" class="level2">
+<h2 class="anchored" data-anchor-id="worked-example-recentralization-in-vietnam">Worked example: Recentralization in Vietnam</h2>
+<p>This example uses the <a href="../data/malesky2014.csv">malesky2014.csv</a> data from <a href="https://doi.org/10.1017/S0003055413000580">Malesky, Nguyen, &amp; Tran 2014</a> as re-analyzed by <a href="https://doi.org/10.1017/pan.2022.8">Egami &amp; Yamauchi 2023</a>.</p>
+<section id="variables-in-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="variables-in-the-data">Variables in the data</h3>
+<p>Variables in the data set:</p>
+<ul>
+<li><code>treatment</code>: binary variable indicating if the record is from the treatment group (<span class="math inline">\(1\)</span>) or the control group (<span class="math inline">\(0\)</span>)</li>
+<li><code>pro4</code>: educational and cultural program number 4 outcome variable (binary: <span class="math inline">\(1\)</span> if they participated in the program, <span class="math inline">\(0\)</span> if not)</li>
+<li><code>tapwater</code>: tap water outcome variable (binary: <span class="math inline">\(1\)</span> if they drink tap water, <span class="math inline">\(0\)</span> if not)</li>
+<li><code>agrext</code>: agricultural center outcome variable (binary: <span class="math inline">\(1\)</span> if they use the center, <span class="math inline">\(0\)</span> if not)</li>
+<li><code>year</code>: the year the record is from</li>
+<li><code>post_treat</code>: binary variable indicating if the record is from the pre-treatment period (<span class="math inline">\(0\)</span>) or the post-treatment period (<span class="math inline">\(0\)</span>)</li>
+</ul>
+<p>The code below loads the data and selects and renames a few variables we will use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/malesky2014.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(treatment, year, <span class="at">education_culture =</span> pro4) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>,<span class="st">"Treatment"</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimate-means-within-group-times-time" class="level3">
+<h3 class="anchored" data-anchor-id="estimate-means-within-group-times-time">Estimate means within group <span class="math inline">\(\times\)</span> time</h3>
+<p>We will first estimate the mean value of the outcome (<code>education_culture</code>) within subgroups defined by <code>treatment</code> and <code>year</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>summary_statistics <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment, year) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">education_culture =</span> <span class="fu">mean</span>(education_culture))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'treatment'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+</div>
+</section>
+<section id="visualize-the-trends" class="level3">
+<h3 class="anchored" data-anchor-id="visualize-the-trends">Visualize the trends</h3>
+<p>We can visualize those summaries using <code>ggplot</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>summary_statistics <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> education_culture, <span class="at">color =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Education and</span><span class="sc">\n</span><span class="st">Culture Outcome"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Treatment</span><span class="sc">\n</span><span class="st">Group"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="15_did_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="produce-a-difference-in-difference-estimate" class="level3">
+<h3 class="anchored" data-anchor-id="produce-a-difference-in-difference-estimate">Produce a difference in difference estimate</h3>
+<p>We can also estimate the difference in difference.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>summary_statistics <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="fu">c</span>(<span class="st">"treatment"</span>,<span class="st">"year"</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="st">"education_culture"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> (Treatment_2010 <span class="sc">-</span> Treatment_2008) <span class="sc">-</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      (Control_2010 <span class="sc">-</span> Control_2008)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  estimate
+     &lt;dbl&gt;
+1   0.0809</code></pre>
+</div>
+</div>
 
 
+</section>
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

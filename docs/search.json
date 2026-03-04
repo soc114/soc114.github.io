@@ -2736,7 +2736,55 @@
     "href": "topics/15_did.html",
     "title": "Difference in Difference",
     "section": "",
-    "text": "Topic for 3/2.\n\nPage to be written.\n\n\n\n Back to top",
+    "text": "Here are slides\nToday we study the effect of a policy change in New Jersey, drawing on evidence from the neighboring state of Pennsylvania.\nDifference in difference is an identification strategy to be used when one or more units become treated at some time point while others do not. If we believe an assumption of parallel trends, then we can use the change over time for the never-treated units to estimate the change over time that would have been experienced by the units who become treated, in a counterfactual world where they had not become treated.",
+    "crumbs": [
+      "Syllabus",
+      "Causal Inference with Unmeasured Confounding",
+      "Difference in Difference"
+    ]
+  },
+  {
+    "objectID": "topics/15_did.html#data-requirements",
+    "href": "topics/15_did.html#data-requirements",
+    "title": "Difference in Difference",
+    "section": "Data requirements",
+    "text": "Data requirements\nTo carry out difference in difference, you need\n\nOne or more units become treated at an intervention time\n\nExample: NJ adopts a higher minimum wage\n\nOne or more units remain untreated\n\nExample: PA does not change the minimum wage\n\nData on all the units before and after the intervention time\n\nExample: Data on NJ and PA before and after the change",
+    "crumbs": [
+      "Syllabus",
+      "Causal Inference with Unmeasured Confounding",
+      "Difference in Difference"
+    ]
+  },
+  {
+    "objectID": "topics/15_did.html#causal-estimand",
+    "href": "topics/15_did.html#causal-estimand",
+    "title": "Difference in Difference",
+    "section": "Causal estimand",
+    "text": "Causal estimand\nThe causal estimand in DID is typically the average treatment effect on the treated in the post-treatment period. Let \\(Y_{it}^a\\) be the outcome of unit \\(i\\) in period \\(t\\) under treatment value \\(a\\). The causal estimand is\n\\[\n\\tau_\\text{ATT} = \\frac{1}{\\text{Number Treated}}\\sum_{i:A_{it}=1}\\left(Y_{it}^{1} - Y_{it}^0\\right)\n\\]\nThe fundamental problem of causal inference is that the outcome under control \\(Y_{it}^0\\) is not observed for unit \\(i\\) who at time \\(t\\) has become treated. We do not know NJ’s employment rate after the minimum wage policy, which would have persisted if NJ had not adopted a new minimum wage.",
+    "crumbs": [
+      "Syllabus",
+      "Causal Inference with Unmeasured Confounding",
+      "Difference in Difference"
+    ]
+  },
+  {
+    "objectID": "topics/15_did.html#the-parallel-trends-assumption",
+    "href": "topics/15_did.html#the-parallel-trends-assumption",
+    "title": "Difference in Difference",
+    "section": "The parallel trends assumption",
+    "text": "The parallel trends assumption\nWe assume parallel trends: the treated unit would have had the same trend in the outcome over time as the control unit, in the absence of treatment.\n\nIn math, this assumption is that the potential outcome under control trends the same in both groups over time,\n\\[\n\\text{Parallel Trends Assumption:}\\qquad \\frac{1}{n_\\text{Treated}}\\sum_{i:A_{it}=1}\\left(Y_{it}^0 - Y_{i,t-1}^0\\right) = \\frac{1}{n_\\text{Untreated}}\\sum_{i:A_{it}=0}\\left(Y_{it}^0 - Y_{i,t-1}^0\\right)\n\\] where \\(t\\) is the post-intervention time point.\nYou can’t directly test the parallel trends assumption because \\(Y_{it}^0\\) is not observed for the treated units in the post-treatment period. But you can assess the credibility of the assumption by examining whether trends are parallel in the pre-treatment period.\nIn class, we will discuss the credibility of the parallel trends assumption using an empirical example from Malesky, Nguyen, & Tran 2014 as re-analyzed by Egami & Yamauchi 2023.",
+    "crumbs": [
+      "Syllabus",
+      "Causal Inference with Unmeasured Confounding",
+      "Difference in Difference"
+    ]
+  },
+  {
+    "objectID": "topics/15_did.html#worked-example-recentralization-in-vietnam",
+    "href": "topics/15_did.html#worked-example-recentralization-in-vietnam",
+    "title": "Difference in Difference",
+    "section": "Worked example: Recentralization in Vietnam",
+    "text": "Worked example: Recentralization in Vietnam\nThis example uses the malesky2014.csv data from Malesky, Nguyen, & Tran 2014 as re-analyzed by Egami & Yamauchi 2023.\n\nVariables in the data\nVariables in the data set:\n\ntreatment: binary variable indicating if the record is from the treatment group (\\(1\\)) or the control group (\\(0\\))\npro4: educational and cultural program number 4 outcome variable (binary: \\(1\\) if they participated in the program, \\(0\\) if not)\ntapwater: tap water outcome variable (binary: \\(1\\) if they drink tap water, \\(0\\) if not)\nagrext: agricultural center outcome variable (binary: \\(1\\) if they use the center, \\(0\\) if not)\nyear: the year the record is from\npost_treat: binary variable indicating if the record is from the pre-treatment period (\\(0\\)) or the post-treatment period (\\(0\\))\n\nThe code below loads the data and selects and renames a few variables we will use.\n\nlibrary(tidyverse)\ndata &lt;- read_csv(\"https://soc114.github.io/data/malesky2014.csv\") |&gt;\n  select(treatment, year, education_culture = pro4) |&gt;\n  mutate(\n    treatment = factor(treatment, labels = c(\"Control\",\"Treatment\"))\n  )\n\n\n\nEstimate means within group \\(\\times\\) time\nWe will first estimate the mean value of the outcome (education_culture) within subgroups defined by treatment and year.\n\nsummary_statistics &lt;- data |&gt;\n  group_by(treatment, year) |&gt;\n  summarize(education_culture = mean(education_culture))\n\n`summarise()` has grouped output by 'treatment'. You can override using the\n`.groups` argument.\n\n\n\n\nVisualize the trends\nWe can visualize those summaries using ggplot.\n\nsummary_statistics |&gt;\n  ggplot(aes(x = year, y = education_culture, color = treatment)) +\n  geom_point() +\n  geom_line() +\n  labs(\n    x = \"Year\",\n    y = \"Education and\\nCulture Outcome\",\n    color = \"Treatment\\nGroup\"\n  )\n\n\n\n\n\n\n\n\n\n\nProduce a difference in difference estimate\nWe can also estimate the difference in difference.\n\nsummary_statistics |&gt;\n  pivot_wider(\n    names_from = c(\"treatment\",\"year\"), \n    values_from = \"education_culture\"\n  ) |&gt;\n  mutate(\n    estimate = (Treatment_2010 - Treatment_2008) - \n      (Control_2010 - Control_2008)\n  ) |&gt;\n  select(estimate)\n\n# A tibble: 1 × 1\n  estimate\n     &lt;dbl&gt;\n1   0.0809",
     "crumbs": [
       "Syllabus",
       "Causal Inference with Unmeasured Confounding",

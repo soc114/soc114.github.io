@@ -1,4 +1,6 @@
-
+library(tidyverse)
+library(foreach)
+library(pdftools)
 
 to_scrape <- list.files("monobob_files")
 
@@ -57,7 +59,6 @@ monobob_data <- foreach(i = 1:length(to_scrape), .combine = "rbind") %do% {
 
   return(result)
 }
-
 
 monobob_data |>
   filter(rank == 1) |>
@@ -152,6 +153,16 @@ monobob_data |>
 
 bobsleigh_center_data <- read_csv("bobsleigh_center_data.csv")
 cortina <- bobsleigh_center_data |> filter(place == "Cortina (ITA)")
+
+monobob_data |>
+  left_join(bobsleigh_center_data, by = join_by(place)) |>
+  mutate(speed = competition_length / time_seconds) |>
+  filter(country == "USA") |>
+  ggplot(aes(x = curves, y = speed, color = place == "Cortina (ITA)")) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_color_manual(values = c("gray","blue")) +
+  theme_minimal()
 
 ## Predict who will win
 
