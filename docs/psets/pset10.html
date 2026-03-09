@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression Discontinuity – Social Data Science</title>
+<title>Problem Set 10: Difference in Difference – Social Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +64,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../topics/17_iv.html" rel="next">
-<link href="../topics/15_did.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -69,6 +102,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -139,6 +201,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="../psets/pset9.html">
  <span class="dropdown-text">Problem Set 9: Outcome Models for Causal Inference</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../psets/pset10.html">
+ <span class="dropdown-text">Problem Set 10: Difference in Difference</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -199,7 +265,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/15_did.html">Causal Inference with Unmeasured Confounding</a></li><li class="breadcrumb-item"><a href="../topics/16_rd.html">Regression Discontinuity</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Problem Set 10: Difference in Difference</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -395,13 +461,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/16_rd.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Regression Discontinuity</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/17_iv.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/16_iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Instrumental Variables</span></a>
   </div>
 </li>
@@ -412,15 +472,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#conceptual-questions" id="toc-conceptual-questions" class="nav-link active" data-scroll-target="#conceptual-questions">Conceptual questions</a></li>
+  <li><a href="#coding-portion" id="toc-coding-portion" class="nav-link" data-scroll-target="#coding-portion">Coding portion</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/15_did.html">Causal Inference with Unmeasured Confounding</a></li><li class="breadcrumb-item"><a href="../topics/16_rd.html">Regression Discontinuity</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regression Discontinuity</h1>
+<h1 class="title">Problem Set 10: Difference in Difference</h1>
 </div>
 
 
@@ -437,11 +504,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<blockquote class="blockquote">
-<p>Topic for 3/4.</p>
-</blockquote>
+<p>This problem set involves a conceptual portion and a coding portion, with separate Gradescope submissions. The coding portion which is very similar to an example from class.</p>
+<section id="conceptual-questions" class="level2">
+<h2 class="anchored" data-anchor-id="conceptual-questions">Conceptual questions</h2>
+<p>In the figures below, the treated group becomes treated between time 1 and time 2. The control group never becomes treated. Figures are hypothetical scenarios that depict true potential outcomes even if those outcomes would not be observed in an actual study.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pset10_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="614"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li>In which setting does the parallel trends assumption hold: A, B, neither, or both?
+<ol type="a">
+<li>Setting A</li>
+<li>Setting B</li>
+<li>Neither setting</li>
+<li>Both settings</li>
+</ol></li>
+<li>In actual data analysis, can we ever know for certain whether we are in Setting A or Setting B? If the answer is no, then tell us which outcome cannot be observed.
+<ol type="a">
+<li>We can know for certain</li>
+<li>We cannot know because <span class="math inline">\(Y^1_\text{Treated,2}\)</span> is unobserved.</li>
+<li>We cannot know because <span class="math inline">\(Y^0_\text{Treated,2}\)</span> is unobserved.</li>
+<li>We cannot know because <span class="math inline">\(Y^0_\text{Control,2}\)</span> is unobserved.</li>
+</ol></li>
+<li>A researcher comes to you with the data below, which depict only observed outcomes. That researcher wants to run a difference in difference analysis. Here, we have not depicted the counterfactual outcome because the researcher would not know it.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pset10_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Which of the following makes the parallel trends assumption doubtful in this setting?</p>
+<ol type="a">
+<li>Within the treated group, the trend from period <span class="math inline">\(t = 1\)</span> to <span class="math inline">\(t = 2\)</span> is not the same as the trend from <span class="math inline">\(t = 0\)</span> to <span class="math inline">\(t = 1\)</span>.</li>
+<li>Within the control group, the trend from period <span class="math inline">\(t = 1\)</span> to <span class="math inline">\(t = 2\)</span> is not the same as the trend from <span class="math inline">\(t = 0\)</span> to <span class="math inline">\(t = 1\)</span>.</li>
+<li>In the period <span class="math inline">\(t = 0\)</span> to <span class="math inline">\(t = 1\)</span>, the treated and control groups have different trends.</li>
+<li>In the period <span class="math inline">\(t = 1\)</span> to <span class="math inline">\(t = 2\)</span>, the treated and control groups have different trends.</li>
+</ol>
+</section>
+<section id="coding-portion" class="level2">
+<h2 class="anchored" data-anchor-id="coding-portion">Coding portion</h2>
+<p>You will submit an .R script to a programming assignment in Gradescope for this portion of the assignment. You should start by loading the data. The assignment uses the <a href="../data/malesky2014.csv">malesky2014.csv</a> data from the <a href="https://doi.org/10.1017/S0003055413000580">Malesky, Nguyen, &amp; Tran (2014)</a> study of government recentralization in Vietnam, which we used in class as an example of difference in difference.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://soc114.github.io/data/malesky2014.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>,<span class="st">"Treatment"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In class, we studied the education and cultural center outcome. Use the same strategy to carry out analysis for the tap water outcome (<code>tapwater</code>).</p>
+<p>One way to carry out difference in difference is by a linear regression model. Another way is by taking means within subgroups. You should use the strategy we learned in class.</p>
+<ol start="4" type="1">
+<li><p>Create an object <code>summary_statistics</code> containing the mean value of the <code>tapwater</code> outcome under each treatment condition at each time period.</p></li>
+<li><p>Create an object <code>estimate</code> containing the difference in difference estimate.</p></li>
+</ol>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -843,18 +971,6 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../topics/15_did.html" class="pagination-link" aria-label="Difference in Difference">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Difference in Difference</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../topics/17_iv.html" class="pagination-link" aria-label="Instrumental Variables">
-        <span class="nav-page-text">Instrumental Variables</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

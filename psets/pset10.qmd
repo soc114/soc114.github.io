@@ -1,0 +1,115 @@
+---
+title: "Problem Set 10: Difference in Difference"
+---
+
+This problem set involves a conceptual portion and a coding portion, with separate Gradescope submissions. The coding portion which is very similar to an example from class.
+
+## Conceptual questions
+
+In the figures below, the treated group becomes treated between time 1 and time 2. The control group never becomes treated. Figures are hypothetical scenarios that depict true potential outcomes even if those outcomes would not be observed in an actual study.
+
+```{r, echo = F, fig.width = 6.4, fig.height = 3, message = F, warning = F}
+library(tidyverse)
+make_plot <- function(
+    yT = c(4,3,3),
+    yC = 2:0,
+    counterfactual = 2,
+    show_counterfactual = T
+) {
+  p <- data.frame(t = rep(0:2,2),
+                  a = rep(c(F,T), each = 3),
+                  y = c(yC,yT)) %>%
+    ggplot(aes(x = t, y = y, group = a)) +
+    annotate(geom = "rect", xmin = 1.5, xmax = Inf, ymin = -Inf, ymax = Inf,
+             fill = "gray", alpha = .3) +
+    annotate(geom = "text", x = .5, y = 5.5, label = "Pre-Treatment\nPeriods") +
+    annotate(geom = "text", x = 2.5, y = 5.5, label = "Treatment\nPeriod") +
+    geom_point() +
+    geom_line() +
+    annotate(geom = "text", x = -.2, y = c(yT[1],yC[1]),
+             label = c("Treated\nGroup", "Control\nGroup"),
+             hjust = 1) +
+    annotate(geom = "text", x = 2.2, y = c(yT[3],yC[3]), 
+             label = c("{Y^1}['Treated,2']","{Y^0}['Control,2']"),
+             hjust = 0, parse = T) +
+    theme_classic() +
+    scale_y_continuous(limits = c(-1,6), breaks = NULL, name = "Outcome") +
+    scale_x_continuous(limits = c(-1.2,3.5), breaks = 0:2,labels = function(x) paste("t =",x), name = "Time") +
+    theme(panel.grid = element_blank())
+  if (show_counterfactual) {
+    p <- p +
+    annotate(geom = "segment", linetype = "dashed",
+             x = 1, xend = 2, y = yT[2], yend = counterfactual) +
+    annotate(geom = "point",
+             x = 2, y = counterfactual) +
+    annotate(geom = "text", x = 2.2, y = counterfactual, 
+             label = "{Y^0}['Treated,2']",
+             hjust = 0, parse = T)
+  }
+  return(p)
+}
+
+gridExtra::grid.arrange(
+  make_plot(yT = c(4,3,3),
+            yC = 2:0,
+            counterfactual = 2) +
+    ggtitle("Setting A"),
+  make_plot(yT = c(4,3,3),
+            yC = 2:0,
+            counterfactual = 1) +
+    ggtitle("Setting B"),
+  nrow = 1
+)
+```
+
+1. In which setting does the parallel trends assumption hold: A, B, neither, or both?
+     a) Setting A
+     b) Setting B
+     c) Neither setting
+     d) Both settings
+
+2. In actual data analysis, can we ever know for certain whether we are in Setting A or Setting B? If the answer is no, then tell us which outcome cannot be observed.
+     a) We can know for certain
+     b) We cannot know because $Y^1_\text{Treated,2}$ is unobserved.
+     c) We cannot know because $Y^0_\text{Treated,2}$ is unobserved.
+     d) We cannot know because $Y^0_\text{Control,2}$ is unobserved.
+
+3. A researcher comes to you with the data below, which depict only observed outcomes. That researcher wants to run a difference in difference analysis. Here, we have not depicted the counterfactual outcome because the researcher would not know it.
+
+```{r, echo = F, fig.width = 3.2, fig.height = 3}
+make_plot(yT = c(4,3,3),
+          yC = c(0,.25,1),
+          counterfactual = NA,
+          show_counterfactual = F) +
+  ggtitle("Setting C")
+```
+
+Which of the following makes the parallel trends assumption doubtful in this setting?
+
+a) Within the treated group, the trend from period $t = 1$ to $t = 2$ is not the same as the trend from $t = 0$ to $t = 1$.
+b) Within the control group, the trend from period $t = 1$ to $t = 2$ is not the same as the trend from $t = 0$ to $t = 1$.
+c) In the period $t = 0$ to $t = 1$, the treated and control groups have different trends.
+d) In the period $t = 1$ to $t = 2$, the treated and control groups have different trends.
+
+## Coding portion
+
+You will submit an .R script to a programming assignment in Gradescope for this portion of the assignment. You should start by loading the data. The assignment uses the [malesky2014.csv](../data/malesky2014.csv) data from the [Malesky, Nguyen, & Tran (2014)](https://doi.org/10.1017/S0003055413000580) study of government recentralization in Vietnam, which we used in class as an example of difference in difference.
+
+```{r, eval = F}
+library(tidyverse)
+data <- read_csv("https://soc114.github.io/data/malesky2014.csv") |>
+  mutate(
+    treatment = factor(treatment, labels = c("Control","Treatment"))
+  )
+```
+
+In class, we studied the education and cultural center outcome. Use the same strategy to carry out analysis for the tap water outcome (`tapwater`).
+
+One way to carry out difference in difference is by a linear regression model. Another way is by taking means within subgroups. You should use the strategy we learned in class.
+
+4. Create an object `summary_statistics` containing the mean value of the `tapwater` outcome under each treatment condition at each time period.
+
+5. Create an object `estimate` containing the difference in difference estimate.
+
+
+

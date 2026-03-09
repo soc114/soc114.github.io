@@ -29,6 +29,7 @@ website:
           - psets/pset7.qmd
           - psets/pset8.qmd
           - psets/pset9.qmd
+          - psets/pset10.qmd
       - href: "https://piazza.com/class/miyskvk64nv4y1"
         text: Piazza
       - text: Honors Section
@@ -81,8 +82,7 @@ website:
       - section: "Causal Inference with Unmeasured Confounding"
         contents:
          - topics/15_did.qmd
-         - topics/16_rd.qmd
-         - topics/17_iv.qmd
+         - topics/16_iv.qmd
 
   back-to-top-navigation: true
 

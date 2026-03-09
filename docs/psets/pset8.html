@@ -201,6 +201,10 @@ window.Quarto = {
     <a class="dropdown-item" href="../psets/pset9.html">
  <span class="dropdown-text">Problem Set 9: Outcome Models for Causal Inference</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../psets/pset10.html">
+ <span class="dropdown-text">Problem Set 10: Difference in Difference</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -457,13 +461,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/16_rd.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Regression Discontinuity</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../topics/17_iv.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/16_iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Instrumental Variables</span></a>
   </div>
 </li>
@@ -576,7 +574,7 @@ window.Quarto = {
 <li>What is the mean age of non-mothers in the matched data?</li>
 <li>The mean age of non-mothers is more similar to the mean age of mothers in (a) the full data or (b) the matched data?</li>
 </ol>
-<p>Use <code>matches()</code> to extract the matches from the output of your call to <code>matchit()</code>. Among the matches, summarize the unweighted mean value of <code>y</code> within groups defined by <code>treated</code>. If you need help with this look back at where you estimated subgroup means in <a href="../psets/pset2.html#summarize-the-data">Problem Set 2</a>.</p>
+<p>Use <code>match_data()</code> to extract the matches from the output of your call to <code>matchit()</code>. Among the matches, summarize the unweighted mean value of <code>y</code> within groups defined by <code>treated</code>. If you need help with this look back at where you estimated subgroup means in <a href="../psets/pset2.html#summarize-the-data">Problem Set 2</a>.</p>
 <ol start="11" type="1">
 <li>Based on your estimate, what proportion of mothers would be employed if they were counterfactually not parents?</li>
 <li>Based on your estimate, what is the average causal effect of motherhood on employment, among mothers in this sample?</li>

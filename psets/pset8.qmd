@@ -77,7 +77,7 @@ Use the `summary()` function on the object you created with `matchit()` to see t
 9. What is the mean age of non-mothers in the matched data?
 10. The mean age of non-mothers is more similar to the mean age of mothers in (a) the full data or (b) the matched data?
 
-Use `matches()` to extract the matches from the output of your call to `matchit()`. Among the matches, summarize the unweighted mean value of `y` within groups defined by `treated`. If you need help with this look back at where you estimated subgroup means in [Problem Set 2](pset2.qmd#summarize-the-data).
+Use `match_data()` to extract the matches from the output of your call to `matchit()`. Among the matches, summarize the unweighted mean value of `y` within groups defined by `treated`. If you need help with this look back at where you estimated subgroup means in [Problem Set 2](pset2.qmd#summarize-the-data).
 
 11. Based on your estimate, what proportion of mothers would be employed if they were counterfactually not parents?
 12. Based on your estimate, what is the average causal effect of motherhood on employment, among mothers in this sample?
