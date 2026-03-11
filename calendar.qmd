@@ -48,7 +48,7 @@ Below is a tentative plan for the dates each topic will be covered. If you are a
 |      | **Causal Inference with Unmeasured Confounding** |
 | 3/4  | [Difference in Difference](topics/15_did.qmd) |
 | 3/9  | [Instrumental Variables](topics/16_iv.qmd) |
-| 3/11 | Course Recap |
+| 3/11 | Course Recap (here are [slides](slides/lec18_recap/lec18_recap.pdf)) |
 
 : Schedule of topics
 
